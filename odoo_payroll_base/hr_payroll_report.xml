@@ -6,16 +6,16 @@
             model="hr.payslip" 
             string="Payslip"
             report_type="qweb-pdf"
-            name="hr_payroll.report_payslip" 
-            file="hr_payroll.report_payslip"
+            name="report_payslip" 
+            file="report_payslip"
         />
         <report
             id="payslip_details_report"
             model="hr.payslip"
             string="PaySlip Details"
             report_type="qweb-pdf"
-            name="hr_payroll.report_payslipdetails" 
-            file="hr_payroll.report_payslipdetails"
+            name="report_payslipdetails" 
+            file="report_payslipdetails"
         />
     </data>
 </openerp>

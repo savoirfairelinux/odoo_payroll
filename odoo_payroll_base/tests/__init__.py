@@ -1,13 +1,12 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>)
 #    Copyright (C) 2015 Savoir-faire Linux
 #
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
+#    it under the terms of the GNU Affero General Public License as published
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -20,9 +19,5 @@
 #
 ##############################################################################
 
-from . import models
-import hr_payroll
-import report
-import wizard
-
-import res_config
+from . import test_hr_structure
+from . import test_hr_contract

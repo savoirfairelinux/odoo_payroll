@@ -20,39 +20,35 @@
 #
 ##############################################################################
 
-from openerp import fields, models, api, _
+from openerp import fields, models
 
 
-class HrContract(models.Model):
-    _inherit = 'hr.contract'
-
-    struct_id = fields.Many2one(
-        'hr.payroll.structure',
-        'Salary Structure',
+class hr_salary_rule_category(models.Model):
+    _name = 'hr.salary.rule.category'
+    _description = 'Salary Rule Category'
+    name = fields.Char(
+        'Name',
+        required=True,
     )
-    schedule_pay = fields.Selection(
-        lambda self: self.get_schedule_selection(),
-        'Scheduled Pay',
-        select=True,
-        default='monthly',
+    code = fields.Char(
+        'Code',
+        required=True,
     )
-
-    @api.model
-    def get_schedule_selection(self):
-        return [
-            ('monthly', _('Monthly')),
-            ('quarterly', _('Quarterly')),
-            ('semi-annually', _('Semi-annually')),
-            ('annually', _('Annually')),
-            ('weekly', _('Weekly')),
-            ('bi-weekly', _('Bi-weekly')),
-            ('bi-monthly', _('Bi-monthly')),
-        ]
-
-    @api.multi
-    def get_all_structures(self):
-        """
-        :return: record set of hr.payroll.structure
-        """
-        structures = self.mapped('struct_id')
-        return structures.get_parent_structures()
+    parent_id = fields.Many2one(
+        'hr.salary.rule.category',
+        'Parent',
+        help="Linking a salary category to its parent is used "
+        "only for the reporting purpose.",
+    )
+    children_ids = fields.One2many(
+        'hr.salary.rule.category',
+        'parent_id',
+        'Children',
+    )
+    note = fields.Text(
+        'Description',
+    )
+    company_id = fields.Many2one(
+        'res.company', 'Company',
+        default=lambda self: self.env.user.company_id.id,
+    )

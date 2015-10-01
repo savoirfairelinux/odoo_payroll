@@ -20,8 +20,6 @@
 #
 ##############################################################################
 
-from itertools import chain
-
 from openerp import fields, models, api, _
 from openerp.osv import osv
 
@@ -38,7 +36,6 @@ class HrPayrollPeriod(models.Model):
     code = fields.Char(
         'Reference',
         size=64,
-        required=True,
     )
     company_id = fields.Many2one(
         'res.company',
@@ -53,8 +50,6 @@ class HrPayrollPeriod(models.Model):
     parent_id = fields.Many2one(
         'hr.payroll.structure',
         'Parent',
-        default=lambda self:
-        self.env.ref('odoo_payroll_base.structure_base').id,
     )
     children_ids = fields.One2many(
         'hr.payroll.structure',
@@ -89,7 +84,8 @@ class HrPayrollPeriod(models.Model):
         """
         :return: record set of hr.salary.rule
         """
-        parent_rules = list(chain(*self.mapped('rule_ids')))
+        structures = self.get_parent_structures()
+        parent_rules = structures.mapped('rule_ids')
         return self.env['hr.salary.rule'].search([
             ('parent_rule_id', 'child_of', parent_rules.ids)
         ])
@@ -106,7 +102,7 @@ class HrPayrollPeriod(models.Model):
             parent = child.parent_id
 
             while parent:
-                res.add(parent)
+                res += parent
                 child = parent
                 parent = child.parent_id
 

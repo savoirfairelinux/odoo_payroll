@@ -9,7 +9,7 @@
             <field eval="40.0" name="amount_percentage"/>
             <field name="amount_percentage_base">contract.wage</field>
             <field name="code">HRA</field>
-            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="category_id" ref="ALW"/>
             <field name="name">House Rent Allowance</field>
             <field name="sequence" eval="5"/>
         </record>
@@ -18,7 +18,7 @@
             <field name="amount_select">fix</field>
             <field eval="800.0" name="amount_fix"/>
             <field name="code">CA</field>
-            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="category_id" ref="ALW"/>
             <field name="name">Conveyance Allowance</field>
             <field name="sequence" eval="10"/>
         </record>
@@ -28,7 +28,7 @@
             <field eval="150" name="sequence"/>
             <field eval="-200.0" name="amount_fix"/>
             <field name="code">PT</field>
-            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="category_id" ref="DED"/>
             <field name="name">Professional Tax</field>
         </record>
 
@@ -38,7 +38,7 @@
             <field eval="-12.5" name="amount_percentage"/>
             <field name="amount_percentage_base">contract.wage</field>
             <field name="code">PF</field>
-            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="category_id" ref="DED"/>
             <field name="name">Provident Fund</field>
         </record>
 
@@ -46,7 +46,7 @@
             <field name="amount_select">fix</field>
             <field eval="600.0" name="amount_fix"/>
             <field name="code">CAGG</field>
-            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="category_id" ref="ALW"/>
             <field name="name">Conveyance Allowance For Gravie</field>
             <field name="sequence" eval="15"/>
         </record>
@@ -56,7 +56,7 @@
             <field eval="10" name="amount_fix"/>
             <field name="quantity">worked_days.WORK100 and worked_days.WORK100.number_of_days</field>
             <field name="code">MA</field>
-            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="category_id" ref="ALW"/>
             <field name="name">Meal Voucher</field>
             <field name="sequence" eval="16"/>
          </record>
@@ -64,7 +64,7 @@
         <record id="hr_salary_rule_sales_commission" model="hr.salary.rule">
             <field name="amount_select">code</field>
             <field name="code">SALE</field>
-            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="category_id" ref="ALW"/>
             <field name="name">Get 1% of sales</field>
             <field name="sequence" eval="17"/>
             <field name="amount_python_compute">result = ((inputs.SALEURO and inputs.SALEURO.amount) + (inputs.SALASIA and inputs.SALASIA.amount)) * 0.01</field>
@@ -123,7 +123,7 @@
             <field name="type_id" ref="hr_contract.hr_contract_type_emp"/>
             <field name="date_start" eval="time.strftime('%Y-%m')+'-1'"/>
             <field name="date_end" eval="time.strftime('%Y')+'-12-31'"/>
-            <field name="struct_id" ref="hr_payroll.structure_001"/>
+            <field name="struct_id" ref="structure_001"/>
             <field name="employee_id" ref="hr_employee_payroll"/>
             <field name="notes">Default contract for marketing executives</field>
             <field eval="4000.0" name="wage"/>
@@ -135,7 +135,7 @@
             <field name="type_id" ref="hr_contract.hr_contract_type_emp"/>
             <field name="date_start" eval="time.strftime('%Y-%m')+'-1'"/>
             <field name="date_end" eval="time.strftime('%Y')+'-12-31'"/>
-            <field name="struct_id" ref="hr_payroll.structure_002"/>
+            <field name="struct_id" ref="structure_002"/>
             <field name="employee_id" ref="hr.employee_qdp"/>
             <field name="notes">This is Gilles Gravie's contract</field>
             <field eval="5000.0" name="wage"/>

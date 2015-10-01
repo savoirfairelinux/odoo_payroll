@@ -87,7 +87,7 @@ class payslip_details_report(report_sxw.rml_parse):
 
 
 class wrapped_report_payslipdetails(osv.AbstractModel):
-    _name = 'report.hr_payroll.report_payslipdetails'
+    _name = 'report.odoo_payroll_base.report_payslipdetails'
     _inherit = 'report.abstract_report'
-    _template = 'hr_payroll.report_payslipdetails'
+    _template = 'odoo_payroll_base.report_payslipdetails'
     _wrapped_report_class = payslip_details_report
