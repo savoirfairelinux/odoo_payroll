@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -6,8 +6,8 @@
 #    Copyright (C) 2015 Savoir-faire Linux
 #
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
+#    it under the terms of the GNU Affero General Public License as published
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -20,8 +20,25 @@
 #
 ##############################################################################
 
-from . import models
-from . import report
-from . import wizard
+from openerp import api, fields, models
 
-from . import res_config
+
+class HrEmployee(models.Model):
+
+    _inherit = 'hr.employee'
+
+    @api.one
+    def _payslip_count(self):
+        self.payslip_count = len(self.slip_ids)
+
+    slip_ids = fields.One2many(
+        'hr.payslip',
+        'employee_id',
+        'Payslips',
+        required=False,
+        readonly=True
+    )
+    payslip_count = fields.Integer(
+        compute='_payslip_count',
+        string='Payslips',
+    )

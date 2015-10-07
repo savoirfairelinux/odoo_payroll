@@ -75,7 +75,7 @@
                     </group>
                     <notebook colspan="4">
                          <page string="Salary Rules">
-                           <field name="rule_ids" domain="[('parent_rule_id','=',False)]">
+                           <field name="rule_ids">
                              <tree>
                                 <field name="name"/>
                                 <field name="code"/>
@@ -128,11 +128,7 @@
                     <field name="sequence"/>
                     <field name="name"/>
                     <field name="code"/>
-                    <field name="quantity"/>
-                    <field name="rate"/>
                     <field name="amount"/>
-                    <field name="total"/>
-                    <field name="amount_select" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -150,9 +146,6 @@
                     </group>
                     <group string="Calculations">
                         <field name="category_id"/>
-                        <field name="amount_select"/>
-                        <field name="amount_fix"  attrs="{'readonly':[('amount_select','&lt;&gt;','fix')]}"/>
-                        <field name="amount_percentage"  attrs="{'readonly':[('amount_select','&lt;&gt;','percentage')]}"/>
                         <field name="sequence"/>
                     </group>
                     <field name="note"/>
@@ -167,11 +160,9 @@
             <field name="arch" type="xml">
                 <search string="Search Payslip Lines">
                     <field name="name" string="Payslip Lines" filter_domain="['|',('name','ilike',self),('code','ilike',self)]"/>
-                    <field name="amount_select"/>
                     <field name="slip_id"/>
                     <group col="8" colspan="4" expand="0" string="Group By">
                         <filter string="Salary Rule Category" icon="terp-camera_test" name="category_id" context="{'group_by':'category_id'}"/>
-                        <filter string="Amount Type" name="amount_select" icon="terp-stock_symbol-selection" context="{'group_by':'amount_select'}"/>
                         <filter string="Employees" name="employee_id" icon="terp-personal" context="{'group_by':'employee_id'}"/>
                     </group>
                 </search>
@@ -223,19 +214,19 @@
                             class="oe_stat_button" 
                             icon="fa-money" 
                             type="action">
-                            <field name="payslip_count" widget="statinfo" string="Payslip" help="Payslip Computation Details"/>
+                            <field name="payslip_line_count" widget="statinfo" string="Payslip" help="Payslip Computation Details"/>
                         </button>
                     </div>
                     <div class="oe_title">
                         <label for="employee_id" class="oe_edit_only"/>
-                        <h1><field name="employee_id" on_change="onchange_employee_id(date_from, date_to, employee_id, contract_id)"/></h1>
+                        <h1><field name="employee_id"/></h1>
                     </div>
                     <group col="4">
                         <label for="date_from" string="Period"/>
                         <div>
                             <field name="date_from" on_change="onchange_employee_id(date_from, date_to, employee_id, contract_id)" class="oe_inline"/> - <field name="date_to" class="oe_inline"/>
                         </div>
-                        <field name="contract_id" domain="[('employee_id','=',employee_id),('date_start','&lt;=',date_to),'|',('date_end','&gt;=',date_from),('date_end','=',False)]" on_change="onchange_contract_id(date_from, date_to, employee_id, contract_id)" context="{'default_employee_id': employee_id}"/>
+                        <field name="contract_id" domain="[('employee_id','=',employee_id),('date_start','&lt;=',date_to),'|',('date_end','&gt;=',date_from),('date_end','=',False)]" context="{'default_employee_id': employee_id}"/>
                         <field name="number"/>
                         <field name="struct_id" attrs="{'required':[('contract_id','&lt;&gt;',False)]}"/>
                         <field name="name"/>
@@ -247,21 +238,15 @@
                             <field name="worked_days_line_ids">
                                 <tree string="Worked Days" editable="bottom">
                                     <field name="name"/>
-                                    <field name="code"/>
                                     <field name="number_of_days" sum="Total Working Days"/>
                                     <field name="number_of_hours"/>
-                                    <field name="contract_id"/>
-                                    <field name="sequence" invisible="True"/>
                                 </tree>
                                 <form string="Worked Day">
                                     <group col="4">
                                         <field name="name"/>
-                                        <field name="code"/>
                                         <field name="payslip_id"/>
-                                        <field name="sequence"/>
                                         <field name="number_of_days"/>
                                         <field name="number_of_hours"/>
-                                        <field name="contract_id"/>
                                     </group>
                                 </form>
                             </field>
@@ -269,19 +254,13 @@
                             <field name="input_line_ids" colspan="4" nolabel="1">
                                 <tree string="Input Data" editable="bottom">
                                     <field name="name"/>
-                                    <field name="code"/>
                                     <field name="amount"/>
-                                    <field name="contract_id"/>
-                                    <field name="sequence" invisible="True"/>
                                 </tree>
                                 <form string="Payslip Line">
                                     <group col="4">
                                         <field name="name"/>
-                                        <field name="code"/>
                                         <field name="payslip_id"/>
-                                        <field name="sequence"/>
                                         <field name="amount"/>
-                                        <field name="contract_id"/>
                                     </group>
                                 </form>
                             </field>
@@ -293,21 +272,14 @@
                                     <field name="code"/>
                                     <field name="category_id"/>
                                     <field name="sequence" invisible="1"/>
-                                    <field name="quantity"/>
-                                    <field name="rate"/>
                                     <field name="amount"/>
-                                    <field name="total"/>
                                 </tree>
                                 <form string="Payslip Line">
                                     <group col="4">
                                         <field name="name"/>
-                                        <field name="code"/>
                                         <field name="category_id"/>
                                         <field name="sequence"/>
-                                        <field name="quantity"/>
-                                        <field name="rate"/>
                                         <field name="amount"/>
-                                        <field name="total"/>
                                         <field name="salary_rule_id"/>
                                     </group>
                                 </form>
@@ -409,7 +381,6 @@
                     <group col="4">
                         <field name="name"/>
                         <field name="code"/>
-                        <field name="parent_id"/>
                         <separator string="Notes"/>
                         <field name="note"/>
                     </group>
@@ -424,7 +395,6 @@
                 <tree string="Salary Rule Categories">
                     <field name="name"/>
                     <field name="code"/>
-                    <field name="parent_id" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -436,7 +406,6 @@
                 <tree string="Salary Rule Categories">
                     <field name="name"/>
                     <field name="code"/>
-                    <field name="parent_id" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -463,21 +432,6 @@
             action="action_hr_salary_rule_category"
             parent="payroll_configure"
             sequence="11"
-            groups="base.group_no_one"
-        />
-        <record id="action_hr_salary_rule_category_tree_view" model="ir.actions.act_window">
-            <field name="name">Salary Rule Categories Hierarchy</field>
-            <field name="res_model">hr.salary.rule.category</field>
-            <field name="view_type">tree</field>
-            <field name="domain">[('parent_id','=',False)]</field>
-            <field name="view_id" ref="hr_salary_rule_category_tree_view"/>
-        </record>
-        <menuitem
-            id="menu_hr_salary_rule_category_tree_view"
-            action="action_hr_salary_rule_category_tree_view"
-            parent="payroll_configure"
-            sequence="12"
-            icon="STOCK_INDENT"
             groups="base.group_no_one"
         />
 
@@ -533,32 +487,10 @@
                                 <separator colspan="4" string="Conditions"/>
                                 <field name="condition_select"/><newline/>
                                 <field name="condition_python" attrs="{'invisible':[('condition_select','&lt;&gt;','python')], 'required': [('condition_select','=','python')]}" colspan="4"/> <newline/>
-                                <field name="condition_range" attrs="{'invisible':[('condition_select','&lt;&gt;','range')], 'required':[('condition_select','=','range')]}"/><newline/>
-                                <field name="condition_range_min" colspan="2" attrs="{'invisible':[('condition_select','&lt;&gt;','range')], 'required':[('condition_select','=','range')]}"/><newline/>
-                                <field name="condition_range_max" colspan="2" attrs="{'invisible':[('condition_select','&lt;&gt;','range')], 'required':[('condition_select','=','range')]}"/><newline/>
                                 <separator colspan="4" string="Computation"/>
-                                <field name="amount_select"/><newline/>
-                                <field name="amount_percentage_base" attrs="{'invisible':[('amount_select','&lt;&gt;','percentage')], 'required': [('amount_select','=','percentage')]}"/><newline/>
-                                <field name="quantity" attrs="{'invisible':[('amount_select','=','code')], 'required':[('amount_select','!=','code')]}"/><newline/>
-                                <field name="amount_fix"  attrs="{'invisible':[('amount_select','&lt;&gt;','fix')], 'required':[('amount_select','=','fix')]}"/><newline/>
-                                <field colspan="4" name="amount_python_compute" attrs="{'invisible':[('amount_select','&lt;&gt;','code')], 'required':[('amount_select','=','code')]}"/>
-                                <field name="amount_percentage" attrs="{'invisible':[('amount_select','&lt;&gt;','percentage')], 'required':[('amount_select','=','percentage')]}"/>
-                                <separator colspan="4" string="Company Contribution"/>
+                                <field colspan="4" name="amount_python_compute"/>
                             </group>
                         </page>
-                        <page string="Child Rules">
-                           <field name="parent_rule_id"/>
-                           <separator string="Children Definition"/>
-                           <field name="child_ids"/>
-                        </page>
-                           <page string="Inputs">
-                                <field name="input_ids" mode="tree">
-                                    <tree string="Input Data" editable="bottom">
-                                        <field name="name"/>
-                                        <field name="code"/>
-                                    </tree>
-                                </field>
-                           </page>
                         <page string="Description">
                             <field name="note"/>
                         </page>
@@ -574,7 +506,6 @@
                 <search string="Search Salary Rule">
                     <field name="name" string="Salary Rules" filter_domain="['|',('name','ilike',self),('code','ilike',self)]"/>
                     <field name="category_id"/>
-                    <field name="condition_range_min"/>
                     <group col="8" colspan="4" expand="0" string="Group By">
                         <filter string="Category" icon="terp-folder-yellow" name="head" context="{'group_by':'category_id'}"/>
                     </group>
@@ -587,19 +518,10 @@
             <field name="res_model">hr.salary.rule</field>
             <field name="view_type">form</field>
             <field name="view_id" ref="hr_salary_rule_list"/>
-            <field name="domain">[('parent_rule_id','=',False)]</field>
             <field name="search_view_id" ref="view_hr_rule_filter"/>
         </record>
 
         <menuitem id="menu_action_hr_salary_rule_form" action="action_salary_rule_form" parent="payroll_configure" sequence="12"/>
-
-
-        <act_window name="All Children Rules"
-            domain="[('parent_rule_id', '=', active_id)]"
-            res_model="hr.salary.rule"
-            src_model="hr.salary.rule"
-            view_id="hr_salary_rule_list"
-            id="act_children_salary_rules"/>
 
         <!-- payslip runs -->
 

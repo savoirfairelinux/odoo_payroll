@@ -2,7 +2,6 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>)
 #    Copyright (C) 2015 Savoir-faire Linux
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -21,7 +20,12 @@
 ##############################################################################
 
 from . import hr_contract
+from . import hr_employee
 from . import hr_payroll_structure
 from . import hr_salary_rule
 from . import hr_salary_rule_category
 from . import hr_payslip_run
+from . import hr_payslip
+from . import hr_payslip_line
+from . import hr_payslip_worked_days
+from . import hr_payslip_input

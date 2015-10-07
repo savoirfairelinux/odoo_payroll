@@ -25,9 +25,10 @@ from openerp.osv import osv
 
 
 class HrPayrollPeriod(models.Model):
+    """Salary Structure"""
 
     _name = 'hr.payroll.structure'
-    _description = 'Salary Structure'
+    _description = _(__doc__)
 
     name = fields.Char(
         'Name',
@@ -85,10 +86,7 @@ class HrPayrollPeriod(models.Model):
         :return: record set of hr.salary.rule
         """
         structures = self.get_parent_structures()
-        parent_rules = structures.mapped('rule_ids')
-        return self.env['hr.salary.rule'].search([
-            ('parent_rule_id', 'child_of', parent_rules.ids)
-        ])
+        return structures.mapped('rule_ids')
 
     @api.multi
     def get_parent_structures(self):

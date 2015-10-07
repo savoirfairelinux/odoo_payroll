@@ -22,12 +22,14 @@
 
 from openerp import fields, models, api, _
 from openerp.exceptions import ValidationError
-import openerp.addons.decimal_precision as dp
 
 
-class hr_salary_rule(models.Model):
+class HrSalaryRule(models.Model):
+    """Salary Rule"""
 
     _name = 'hr.salary.rule'
+    _description = _(__doc__)
+
     name = fields.Char(
         'Name', required=True, readonly=False
     )
@@ -45,14 +47,6 @@ class hr_salary_rule(models.Model):
         select=True,
         default=5,
     )
-    quantity = fields.Char(
-        'Quantity',
-        help="It is used in computation for percentage and fixed "
-        "amount.For e.g. A rule for Meal Voucher having fixed "
-        "amount of 1€ per worked day can have its quantity defined "
-        "in expression like worked_days.WORK100.number_of_days.",
-        default=1,
-    )
     category_id = fields.Many2one(
         'hr.salary.rule.category',
         'Category',
@@ -69,9 +63,6 @@ class hr_salary_rule(models.Model):
         help="Used to display the salary rule on payslip.",
         default=True,
     )
-    parent_rule_id = fields.Many2one(
-        'hr.salary.rule', 'Parent Salary Rule', select=True
-    )
     company_id = fields.Many2one(
         'res.company',
         'Company',
@@ -81,19 +72,11 @@ class hr_salary_rule(models.Model):
     condition_select = fields.Selection(
         [
             ('none', 'Always True'),
-            ('range', 'Range'),
-            ('python', 'Python Expression')
+            ('python', 'Python Expression'),
         ],
         "Condition Based on",
         required=True,
         default='none',
-    )
-    condition_range = fields.Char(
-        'Range Based on', readonly=False,
-        help="This will be used to compute "
-        "the % fields values; in general it is on basic, "
-        "but you can also use categories code fields in lowercase "
-        "as a variable names (hra, ma, lta, etc.) and the variable basic."
     )
     condition_python = fields.Text(
         'Python Condition',
@@ -103,74 +86,14 @@ class hr_salary_rule(models.Model):
         "You can specify condition like basic > 1000.",
         default=' ',
     )
-    condition_range_min = fields.Float(
-        'Minimum Range',
-        required=False,
-        help="The minimum amount, applied for this rule.",
-    )
-    condition_range_max = fields.Float(
-        'Maximum Range',
-        required=False,
-        help="The maximum amount, applied for this rule.",
-    )
-    amount_select = fields.Selection(
-        [
-            ('percentage', 'Percentage (%)'),
-            ('fix', 'Fixed Amount'),
-            ('code', 'Python Code'),
-        ],
-        'Amount Type',
-        select=True,
-        required=True,
-        help="The computation method for the rule amount.",
-        default='fix',
-    )
-    amount_fix = fields.Float(
-        'Fixed Amount',
-        digits_compute=dp.get_precision('Payroll'),
-        default=0,
-    )
-
-    amount_percentage = fields.Float(
-        'Percentage (%)',
-        digits_compute=dp.get_precision('Payroll Rate'),
-        help='For example, enter 50.0 to apply a percentage of 50%',
-        default=0.0,
-    )
     amount_python_compute = fields.Text(
         'Python Code',
+        required=True,
         default=' ',
-    )
-    amount_percentage_base = fields.Char(
-        'Percentage based on',
-        required=False,
-        readonly=False,
-        help='result will be affected to a variable'
-    )
-    child_ids = fields.One2many(
-        'hr.salary.rule',
-        'parent_rule_id',
-        'Child Salary Rule',
-        copy=True,
-    )
-    input_ids = fields.One2many(
-        'hr.rule.input',
-        'input_id',
-        'Inputs',
-        copy=True,
     )
     note = fields.Text(
         'Description',
     )
-
-    @api.multi
-    def _recursive_search_of_rules(self):
-        """
-        :return: record set of hr.salary.rule containing the rule's children
-        """
-        return self.search([
-            ('parent_rule_id', 'child_of', self.ids),
-        ])
 
     @api.multi
     def compute_rule(self, localdict):
@@ -183,48 +106,22 @@ class hr_salary_rule(models.Model):
         """
         self.ensure_one()
 
-        if self.amount_select == 'fix':
-            try:
-                return (
-                    self.amount_fix,
-                    float(eval(self.quantity, localdict)),
-                    100.0
-                )
-            except:
-                raise ValidationError(
-                    _('Wrong quantity defined for salary rule %s (%s).') % (
-                        self.name, self.code
-                    ))
-
-        elif self.amount_select == 'percentage':
-            try:
-                return (
-                    float(eval(self.amount_percentage_base, localdict)),
-                    float(eval(self.quantity, localdict)),
-                    self.amount_percentage
-                )
-            except:
-                raise ValidationError(
-                    _('Wrong percentage base or quantity defined for '
-                      'salary rule %s (%s).') % (self.name, self.code))
-
-        else:
-            try:
-                eval(
-                    self.amount_python_compute,
-                    localdict, mode='exec', nocopy=True
-                )
-                return (
-                    float(localdict['result']),
-                    'result_qty' in localdict and
-                    localdict['result_qty'] or 1.0,
-                    'result_rate' in localdict and
-                    localdict['result_rate'] or 100.0
-                )
-            except:
-                raise ValidationError(
-                    _('Wrong python code defined for salary rule %s (%s).') %
-                    (self.name, self.code))
+        try:
+            eval(
+                self.amount_python_compute,
+                localdict, mode='exec', nocopy=True
+            )
+            return (
+                float(localdict['result']),
+                'result_qty' in localdict and
+                localdict['result_qty'] or 1.0,
+                'result_rate' in localdict and
+                localdict['result_rate'] or 100.0
+            )
+        except:
+            raise ValidationError(
+                _('Wrong python code defined for salary rule %s (%s).') %
+                (self.name, self.code))
 
     @api.multi
     def satisfy_condition(self, localdict):
@@ -237,25 +134,13 @@ class hr_salary_rule(models.Model):
         if self.condition_select == 'none':
             return True
 
-        elif self.condition_select == 'range':
-            try:
-                result = eval(self.condition_range, localdict)
-                return (
-                    self.condition_range_min <= result and
-                    result <= self.condition_range_max or False
-                )
-            except:
-                raise ValidationError(
-                    _('Wrong range condition defined for salary '
-                      'rule %s (%s).') %
-                    (self.name, self.code))
         else:
             try:
                 eval(
                     self.condition_python,
                     localdict, mode='exec', nocopy=True
                 )
-                return 'result' in localdict and localdict['result'] or False
+                return localdict.get('result', False)
             except:
                 raise ValidationError(
                     _('Wrong python condition defined for salary '

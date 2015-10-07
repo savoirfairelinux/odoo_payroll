@@ -38,7 +38,6 @@
             <field name="code">BASIC</field>
             <field name="category_id" ref="BASIC"/>
             <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
             <field name="amount_python_compute">result = contract.wage</field>
         </record>
 
@@ -48,7 +47,6 @@
             <field name="code">GROSS</field>
             <field name="category_id" ref="GROSS"/>
             <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
             <field name="amount_python_compute">result = categories.BASIC + categories.ALW</field>
         </record>
 
@@ -58,7 +56,6 @@
             <field name="code">NET</field>
             <field name="category_id" ref="NET"/>
             <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
             <field name="amount_python_compute">result = categories.BASIC + categories.ALW + categories.DED</field>
         </record>
 

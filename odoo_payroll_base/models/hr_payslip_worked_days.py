@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -6,8 +6,8 @@
 #    Copyright (C) 2015 Savoir-faire Linux
 #
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
+#    it under the terms of the GNU Affero General Public License as published
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -20,8 +20,27 @@
 #
 ##############################################################################
 
-from . import models
-from . import report
-from . import wizard
+from openerp import fields, models, _
 
-from . import res_config
+
+class HrPayslipWorkedDays(models.Model):
+    """Payslip Worked Days"""
+
+    _name = 'hr.payslip.worked_days'
+    _description = _(__doc__)
+
+    name = fields.Char(
+        'Description', required=True
+    )
+    payslip_id = fields.Many2one(
+        'hr.payslip', 'Pay Slip',
+        required=True,
+        ondelete='cascade',
+        index=True
+    )
+    number_of_hours = fields.Float(
+        'Number of Hours'
+    )
+    number_of_days = fields.Float(
+        'Number of Days'
+    )

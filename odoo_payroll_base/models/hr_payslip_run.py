@@ -22,12 +22,14 @@
 
 from dateutil.relativedelta import relativedelta
 
-from openerp import fields, models, api
+from openerp import api, fields, models, _
 
 
-class hr_payslip_run(models.Model):
+class HrPayslipRun(models.Model):
+    """Payslip Batches"""
+
     _name = 'hr.payslip.run'
-    _description = 'Payslip Batches'
+    _description = _(__doc__)
 
     name = fields.Char(
         'Name',

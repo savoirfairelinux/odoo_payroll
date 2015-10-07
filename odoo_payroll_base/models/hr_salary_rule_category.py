@@ -20,12 +20,15 @@
 #
 ##############################################################################
 
-from openerp import fields, models
+from openerp import fields, models, _
 
 
-class hr_salary_rule_category(models.Model):
+class HrSalaryRuleCategory(models.Model):
+    """Salary Rule Category"""
+
     _name = 'hr.salary.rule.category'
-    _description = 'Salary Rule Category'
+    _description = _(__doc__)
+
     name = fields.Char(
         'Name',
         required=True,
@@ -33,17 +36,6 @@ class hr_salary_rule_category(models.Model):
     code = fields.Char(
         'Code',
         required=True,
-    )
-    parent_id = fields.Many2one(
-        'hr.salary.rule.category',
-        'Parent',
-        help="Linking a salary category to its parent is used "
-        "only for the reporting purpose.",
-    )
-    children_ids = fields.One2many(
-        'hr.salary.rule.category',
-        'parent_id',
-        'Children',
     )
     note = fields.Text(
         'Description',
