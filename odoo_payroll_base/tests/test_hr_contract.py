@@ -26,15 +26,25 @@ class TestHrContractBase(TestHrStructureBase):
     def setUp(self):
         super(TestHrContractBase, self).setUp()
 
+        self.contract_model = self.env['hr.contract']
+
         self.user_1 = self.env['res.users'].create({
-            'login': 'payroll_user_test',
-            'name': 'Payroll User',
+            'login': 'payroll_user_test_1',
+            'name': 'Payroll User 1',
+        })
+        self.user_2 = self.env['res.users'].create({
+            'login': 'payroll_user_test_2',
+            'name': 'Payroll User 2',
         })
         self.employee_1 = self.env['hr.employee'].create({
             'user_id': self.user_1.id,
             'name': 'Employee 1',
         })
-        self.contract_1 = self.env['hr.contract'].create({
+        self.employee_2 = self.env['hr.employee'].create({
+            'user_id': self.user_2.id,
+            'name': 'Employee 2',
+        })
+        self.contract_1 = self.contract_model.create({
             'name': 'Contract for Employee 1',
             'employee_id': self.employee_1.id,
             'struct_id': self.structure_4.id,

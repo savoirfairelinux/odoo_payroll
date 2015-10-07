@@ -42,7 +42,7 @@ class TestHrStructureBase(common.TransactionCase):
         self.rule_1 = self.rule_model.create({
             'name': 'Rule 1',
             'code': 'RULE_1',
-            'amount_select': 'fix',
+            'amount_python_compute': "result = 500",
             'amount_fix': 1000,
             'sequence': 10,
             'category_id': self.rule_category_1.id,
@@ -51,7 +51,6 @@ class TestHrStructureBase(common.TransactionCase):
         self.rule_2 = self.rule_model.create({
             'name': 'Rule 2',
             'code': 'RULE_2',
-            'amount_select': 'code',
             'amount_python_compute': "result = RULE_1 - 400",
             'sequence': 20,
             'category_id': self.rule_category_1.id,
@@ -60,7 +59,6 @@ class TestHrStructureBase(common.TransactionCase):
         self.rule_3 = self.rule_model.create({
             'name': 'Rule 3',
             'code': 'RULE_3',
-            'amount_select': 'code',
             'amount_python_compute': "result = RULE_1 - 200",
             'sequence': 20,
             'category_id': self.rule_category_1.id,
@@ -69,7 +67,6 @@ class TestHrStructureBase(common.TransactionCase):
         self.rule_4_1 = self.rule_model.create({
             'name': 'Rule 4.1',
             'code': 'RULE_4_1',
-            'amount_select': 'code',
             'amount_python_compute': "result = RULE_1 + 1000",
             'sequence': 15,
             'category_id': self.rule_category_1.id,
@@ -78,7 +75,6 @@ class TestHrStructureBase(common.TransactionCase):
         self.rule_4_2 = self.rule_model.create({
             'name': 'Rule 4.2',
             'code': 'RULE_4_2',
-            'amount_select': 'code',
             'amount_python_compute': "result = RULE_4_1 - 500",
             'sequence': 25,
             'category_id': self.rule_category_1.id,

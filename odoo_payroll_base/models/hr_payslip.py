@@ -171,7 +171,7 @@ class HrPayslip(models.Model):
 
     @api.one
     @api.constrains('date_from', 'date_to')
-    def _check_dates(self, cr, uid, ids, context=None):
+    def _check_dates(self):
         if self.date_from > self.date_to:
             raise ValidationError(_(
                 "Payslip 'Date From' must be before 'Date To'."

@@ -19,5 +19,6 @@
 #
 ##############################################################################
 
-from . import test_hr_structure
-from . import test_hr_contract
+# from . import test_hr_structure
+# from . import test_hr_contract
+from . import test_hr_payslip
