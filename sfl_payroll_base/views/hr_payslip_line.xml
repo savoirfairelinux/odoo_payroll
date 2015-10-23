@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_hr_payslip_line_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.line.tree</field>
+            <field name="model">hr.payslip.line</field>
+            <field name="arch" type="xml">
+                <tree string="Salary Structure" editable="bottom" colors="blue:amount == 0">
+                    <field name="category_id"/>
+                    <field name="employee_id" invisible="1"/>
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_hr_payslip_line_form" model="ir.ui.view">
+            <field name="name">hr.payslip.line.form</field>
+            <field name="model">hr.payslip.line</field>
+            <field name="arch" type="xml">
+                <form string="Payslip Line">
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="slip_id"/>
+                        <field name="employee_id"/>
+                        <field name="contract_id"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    <group string="Calculations">
+                        <field name="category_id"/>
+                        <field name="sequence"/>
+                    </group>
+                </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_payslip_line_filter" model="ir.ui.view">
+            <field name="name">hr.payslip.line.select</field>
+            <field name="model">hr.payslip.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Payslip Lines">
+                    <field name="name" string="Payslip Lines" filter_domain="['|',('name','ilike',self),('code','ilike',self)]"/>
+                    <field name="slip_id"/>
+                    <group col="8" colspan="4" expand="0" string="Group By">
+                        <filter string="Salary Rule Category" icon="terp-camera_test" name="category_id" context="{'group_by':'category_id'}"/>
+                        <filter string="Employees" name="employee_id" icon="terp-personal" context="{'group_by':'employee_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</openerp>
