@@ -1,9 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2015 Savoif-faire Linux
+#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -21,40 +19,19 @@
 ##############################################################################
 
 {
-    'name': 'Advanced Payroll',
+    'name': 'Worked Days From Timesheet',
     'version': '8.0.1.0.0',
+    'license': 'AGPL-3',
     'category': 'Human Resources',
-    'author': 'OpenERP SA,Savoir-faire Linux',
+    'author': "Savoir-faire Linux",
     'website': 'https://www.savoirfairelinux.com',
     'depends': [
-        'hr',
-        'hr_contract',
-        'hr_holidays',
-        'decimal_precision',
-        'report',
+        'sfl_payroll_base',
+        'hr_timesheet_sheet',
     ],
     'data': [
-        'security/ir_rule.xml',
-        'security/ir.model.access.csv',
-        'wizard/hr_payslip_employees.xml',
-        'views/menu.xml',
-        'views/hr_contract.xml',
-        'views/hr_salary_rule.xml',
-        'views/hr_salary_rule_category.xml',
         'views/hr_payslip.xml',
-        'views/hr_employee.xml',
-        'views/hr_payslip_run.xml',
-        'views/hr_payroll_structure.xml',
-        'views/hr_payslip_line.xml',
-        'views/res_config_view.xml',
-        'workflow/hr_payslip.xml',
-        'data/hr_payroll_sequence.xml',
-        'data/hr_payroll_data.xml',
-        'report/hr_payroll_report.xml',
-        'report/report_payslip.xml',
-        'report/report_payslip_details.xml',
+        'wizard/hr_payslip_employees.xml',
     ],
     'installable': True,
-    'auto_install': False,
-    'application': False,
 }

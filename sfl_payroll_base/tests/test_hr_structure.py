@@ -43,7 +43,6 @@ class TestHrStructureBase(common.TransactionCase):
             'name': 'Rule 1',
             'code': 'RULE_1',
             'amount_python_compute': "result = 500",
-            'amount_fix': 1000,
             'sequence': 10,
             'category_id': self.rule_category_1.id,
         })

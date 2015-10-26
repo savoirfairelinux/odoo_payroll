@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2015 Savoir-faire Linux
+#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
-#    by the Free Software Foundation, either version 3 of the License, or
+#    by
+#    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -19,7 +19,4 @@
 #
 ##############################################################################
 
-from . import test_hr_structure
-from . import test_hr_contract
-from . import test_hr_payslip
-from . import test_hr_payslip_run
+from . import test_hr_timesheet

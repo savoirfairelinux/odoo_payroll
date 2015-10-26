@@ -10,16 +10,18 @@
             ]
             </field>
             <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+            <field name="perm_read" eval="True"/>
         </record>
 
         <record id="rule_officer_leave_accrual"  model="ir.rule">
             <field name="name">Access Subordinates Leave Accruals</field>
             <field name="model_id" ref="model_hr_leave_accrual"/>
             <field name="domain_force">[
-                ('employee_id', 'in', user.employee_ids.mapped('child_ids').ids + user.employee_ids.ids),
+                ('employee_id', 'in', user.employee_ids.mapped('child_ids').ids),
             ]
             </field>
             <field name="groups" eval="[(4,ref('base.group_hr_user'))]"/>
+            <field name="perm_read" eval="True"/>
         </record>
 
         <record id="rule_manager_leave_accrual"  model="ir.rule">
@@ -27,6 +29,7 @@
             <field name="model_id" ref="model_hr_leave_accrual"/>
             <field name="domain_force">[]</field>
             <field name="groups" eval="[(4,ref('base.group_hr_manager'))]"/>
+            <field name="perm_read" eval="True"/>
         </record>
 
         <record id="rule_employee_own_leave_accrual_line"  model="ir.rule">
@@ -37,16 +40,18 @@
             ]
             </field>
             <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+            <field name="perm_read" eval="True"/>
         </record>
 
         <record id="rule_officer_leave_accrual_line"  model="ir.rule">
             <field name="name">Access Subordinates Leave Accrual Lines</field>
             <field name="model_id" ref="model_hr_leave_accrual_line"/>
             <field name="domain_force">[
-                ('accrual_id.employee_id', 'in', user.employee_ids.mapped('child_ids').ids + user.employee_ids.ids),
+                ('accrual_id.employee_id', 'in', user.employee_ids.mapped('child_ids').ids),
             ]
             </field>
             <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+            <field name="perm_read" eval="True"/>
         </record>
 
         <record id="rule_manager_leave_accrual_line"  model="ir.rule">
@@ -54,6 +59,7 @@
             <field name="model_id" ref="model_hr_leave_accrual_line"/>
             <field name="domain_force">[]</field>
             <field name="groups" eval="[(4,ref('base.group_hr_manager'))]"/>
+            <field name="perm_read" eval="True"/>
         </record>
 
     </data>

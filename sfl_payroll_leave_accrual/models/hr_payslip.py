@@ -64,8 +64,10 @@ class HrPayslip(models.Model):
         Update an employee's leave accruals with the amounts computed in the
         payslip.
         """
-        leave_accrual_lines = self.details_by_salary_rule_category.mapped(
-            'salary_rule_id.accrual_line_ids')
+        salary_rules = self.details_by_salary_rule_category.mapped(
+            'salary_rule_id')
+
+        leave_accrual_lines = salary_rules.mapped('accrual_line_ids')
 
         required_rules = leave_accrual_lines.mapped('salary_rule_id')
 
@@ -81,13 +83,14 @@ class HrPayslip(models.Model):
         # Create a dict to access the required payslip lines by rule id.
         # This is a matter of performance because we iterate
         # only one time over each payslip line
+
         payslip_line_dict = {
             line.salary_rule_id.id: line
             for line in self.details_by_salary_rule_category
             if line.salary_rule_id in required_rules
         }
 
-        accrual_lines = []
+        accrual_line_obj = self.env['hr.leave.accrual.line']
         for accrual in accruals:
             for line in accrual.leave_type_id.accrual_line_ids:
                 salary_rule_id = line.salary_rule_id.id
@@ -101,14 +104,14 @@ class HrPayslip(models.Model):
                     )
 
                     if payslip_line.amount:
-                        accrual_lines.append((0, 0, {
+                        accrual_line_obj.create({
+                            'accrual_id': accrual.id,
                             'name': payslip_line.name,
                             'source': 'payslip',
+                            'payslip_id': self.id,
                             'payslip_line_id': payslip_line.id,
                             'amount': amount,
                             'accrual_id': accrual.id,
                             'amount_type': line.amount_type,
                             'date': self.date_from,
-                        }))
-
-        self.write({'leave_accrual_line_ids': accrual_lines})
+                        })

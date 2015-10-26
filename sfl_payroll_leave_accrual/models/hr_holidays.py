@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from openerp import api, fields, models
+from openerp import api, fields, models, _
 
 
 class HrHolidays(models.Model):
@@ -39,8 +39,14 @@ class HrHolidays(models.Model):
         add hours to the related leave accrual of the employee
         """
         res = super(HrHolidays, self).holidays_validate()
-        self.cancel_leave_accrual_lines()
-        self.compute_leave_accrual_lines()
+
+        self = self.with_context({'disable_leave_accrual_update': True})
+        self.sudo().cancel_leave_accrual_lines()
+        self.sudo().compute_leave_accrual_lines()
+        self = self.with_context({'disable_leave_accrual_update': False})
+
+        self.sudo().mapped('accrual_line_id.accrual_id').update_totals()
+
         return res
 
     @api.multi
@@ -56,8 +62,7 @@ class HrHolidays(models.Model):
             employee = self.employee_id
             leave_type = self.holiday_status_id
 
-            accrual = self.employee.get_leave_accrual_id(
-                leave_type_id=leave_type.id)
+            accrual = self.employee_id.get_leave_accrual(leave_type.id)
 
             number_of_hours = (
                 self.number_of_days_temp *
@@ -65,7 +70,7 @@ class HrHolidays(models.Model):
 
             self.write({
                 'accrual_line_id': [(0, 0, {
-                    'name': self.name,
+                    'name': self.name or _('Leave Allocation'),
                     'source': 'allocation',
                     'amount': number_of_hours,
                     'accrual_id': accrual.id,

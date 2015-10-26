@@ -30,7 +30,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
-        'security/ir_rule_data.xml',
+        'security/ir_rule.xml',
         'views/hr_employee.xml',
         'views/hr_leave_accrual.xml',
         'views/hr_holidays_status.xml',

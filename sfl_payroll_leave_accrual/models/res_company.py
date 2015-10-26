@@ -22,13 +22,13 @@
 from openerp.osv import fields, orm
 
 
-class res_company(orm.Model):
+class ResCompany(orm.Model):
     _inherit = 'res.company'
     _columns = {
         'holidays_hours_per_day': fields.float(
             'Number of Hours per Leave Day',
             digits=(2, 2),
-            required=True,
+            required=False,
         ),
     }
 

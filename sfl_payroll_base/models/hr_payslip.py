@@ -43,13 +43,11 @@ class HrPayslip(models.Model):
     )
     name = fields.Char(
         'Payslip Name',
-        required=False,
         readonly=True,
         states={'draft': [('readonly', False)]},
     )
     number = fields.Char(
         'Reference',
-        required=False,
         readonly=True,
         states={'draft': [('readonly', False)]},
         copy=False,
@@ -103,7 +101,6 @@ class HrPayslip(models.Model):
     company_id = fields.Many2one(
         'res.company',
         'Company',
-        required=False,
         readonly=True,
         states={'draft': [('readonly', False)]},
         copy=False,
@@ -114,7 +111,6 @@ class HrPayslip(models.Model):
         'payslip_id',
         'Payslip Worked Days',
         copy=True,
-        required=False,
         readonly=True,
         states={'draft': [('readonly', False)]}
     )
@@ -122,13 +118,11 @@ class HrPayslip(models.Model):
         'hr.payslip.input',
         'payslip_id',
         'Payslip Inputs',
-        required=False,
         readonly=True,
         states={'draft': [('readonly', False)]},
     )
     paid = fields.Boolean(
         'Made Payment Order ? ',
-        required=False,
         readonly=True,
         states={'draft': [('readonly', False)]},
         copy=False,
@@ -141,7 +135,6 @@ class HrPayslip(models.Model):
     contract_id = fields.Many2one(
         'hr.contract',
         'Contract',
-        required=False,
         readonly=True,
         states={'draft': [('readonly', False)]},
     )
@@ -381,3 +374,15 @@ class HrPayslip(models.Model):
     def onchange_contract_id(self):
         self.details_by_salary_rule_category = [(5, 0)]
         self.line_ids = [(5, 0)]
+
+    @api.onchange('payslip_run_id')
+    def onchange_payslip_run_id(self):
+        payslip_run = self.payslip_run_id
+
+        if not payslip_run:
+            return
+
+        self.onchange_employee_id()
+
+        self.date_from = payslip_run.date_start
+        self.date_to = payslip_run.date_end

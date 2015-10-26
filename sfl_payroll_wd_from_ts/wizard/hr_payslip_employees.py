@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2015 Savoir-faire Linux
+#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
-#    by the Free Software Foundation, either version 3 of the License, or
+#    by
+#    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -19,7 +19,24 @@
 #
 ##############################################################################
 
-from . import test_hr_structure
-from . import test_hr_contract
-from . import test_hr_payslip
-from . import test_hr_payslip_run
+from openerp import api, fields, models
+
+
+class HrPayslipEmployees(models.TransientModel):
+
+    _inherit = 'hr.payslip.employees'
+
+    import_from_timesheet = fields.boolean(
+        'Import Worked Days From Timesheet',
+        default=True,
+    )
+
+    @api.multi
+    def action_before_computing_sheets(self):
+        self.ensure_one()
+        res = super(HrPayslipEmployees, self).action_before_computing_sheets()
+
+        if self.import_from_timesheet:
+            self.payslip_ids.import_worked_days()
+
+        return res

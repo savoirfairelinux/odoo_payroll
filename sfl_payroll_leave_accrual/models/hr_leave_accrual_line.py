@@ -104,13 +104,17 @@ class HrLeaveAccrualLine(models.Model):
     @api.model
     def create(self, vals):
         res = super(HrLeaveAccrualLine, self).create(vals)
-        res.accrual_id.update_totals()
+
+        if not self.env.context.get('disable_leave_accrual_update'):
+            res.accrual_id.update_totals()
+
         return res
 
     @api.multi
     def write(self, vals):
         res = super(HrLeaveAccrualLine, self).write(vals)
-        self.mapped('accrual_id').update_totals()
+        if not self.env.context.get('disable_leave_accrual_update'):
+            self.mapped('accrual_id').update_totals()
         return res
 
     @api.multi
