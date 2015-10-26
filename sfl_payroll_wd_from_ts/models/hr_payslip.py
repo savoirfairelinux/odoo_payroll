@@ -39,7 +39,7 @@ class HrPayslip(models.Model):
         # The reason to delete these records is that the user may make
         # corrections to his timesheets and then reimport these.
         old_worked_days = self.worked_days_line_ids.filtered(
-            lambda wd: wd.imported_from_timesheet)
+            lambda wd: wd.imported_from_timesheets)
 
         old_worked_days.unlink()
 
@@ -66,7 +66,7 @@ class HrPayslip(models.Model):
                 _("There is no approved Timesheets for "
                   "the entire Payslip period"))
 
-        timesheets = sheets.timesheet_ids.filtered(
+        timesheets = sheets.mapped('timesheet_ids').filtered(
             lambda t: date_from <= t.date <= date_to)
 
         timesheets.export_to_worked_days(self.id)

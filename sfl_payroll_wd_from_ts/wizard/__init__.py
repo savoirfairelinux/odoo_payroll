@@ -19,5 +19,4 @@
 #
 ##############################################################################
 
-from . import models
-from . import wizard
+from . import hr_payslip_employees

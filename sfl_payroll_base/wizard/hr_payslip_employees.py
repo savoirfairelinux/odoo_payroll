@@ -76,7 +76,7 @@ class HrPayslipEmployee(models.TransientModel):
 
         self.payslip_ids = [(6, 0, payslips.ids)]
 
-        self.action_before_computing()
+        self.action_before_computing_sheets()
         payslips.compute_sheet()
 
         return {'type': 'ir.actions.act_window_close'}

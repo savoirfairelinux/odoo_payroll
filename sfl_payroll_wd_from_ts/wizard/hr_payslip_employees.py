@@ -26,7 +26,7 @@ class HrPayslipEmployees(models.TransientModel):
 
     _inherit = 'hr.payslip.employees'
 
-    import_from_timesheet = fields.boolean(
+    import_from_timesheet = fields.Boolean(
         'Import Worked Days From Timesheet',
         default=True,
     )

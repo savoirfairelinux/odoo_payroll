@@ -52,7 +52,7 @@ class HrTimesheet(models.Model):
         mapped_timesheets = []
 
         for ts in self:
-            worked_days_vals = list(self.worked_days_mapping().iteritems())
+            worked_days_vals = list(ts.worked_days_mapping().iteritems())
             worked_days_vals.sort()
             mapped_timesheets.append((
                 ts.id, ts.unit_amount, worked_days_vals))
@@ -66,6 +66,7 @@ class HrTimesheet(models.Model):
             timesheet_ids = tuple(t[0] for t in timesheet_list)
             worked_days_vals = dict(key)
             worked_days_vals['payslip_id'] = payslip_id
+            worked_days_vals['imported_from_timesheets'] = True
             worked_days_vals['number_of_hours'] = sum(
                 t[1] for t in timesheet_list)
             new_worked_days = self.env['hr.payslip.worked_days'].create(

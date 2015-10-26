@@ -33,6 +33,8 @@ class TestHrTimesheet(common.TransactionCase):
         self.timesheet_model = self.env['hr_timesheet_sheet.sheet']
         self.account_model = self.env['account.analytic.account']
         self.journal_model = self.env['account.analytic.journal']
+        self.wizard_model = self.env['hr.payslip.employees']
+        self.run_model = self.env['hr.payslip.run']
 
         self.user_1 = self.user_model.create({
             'name': 'User 1',
@@ -61,27 +63,87 @@ class TestHrTimesheet(common.TransactionCase):
             'employee_id': self.employee.id,
             'date_from': '2015-02-15',
             'date_to': '2015-02-28',
-            'timesheet_ids': [(0, 0, {
-                'user_id': self.user_1.id,
-                'unit_amount': 8,
-                'date': '2015-02-15',
-                'account_id': self.account.id,
-                'journal_id': self.journal.id,
-                'name': 'Test',
-            })],
+            'timesheet_ids': [
+                (0, 0, {
+                    'user_id': self.user_1.id,
+                    'unit_amount': 8,
+                    'date': '2015-02-15',
+                    'account_id': self.account.id,
+                    'journal_id': self.journal.id,
+                    'name': 'Test',
+                }),
+                (0, 0, {
+                    'user_id': self.user_1.id,
+                    'unit_amount': 5,
+                    'date': '2015-02-15',
+                    'account_id': self.account.id,
+                    'journal_id': self.journal.id,
+                    'name': 'Test',
+                }),
+                (0, 0, {
+                    'user_id': self.user_1.id,
+                    'unit_amount': 7,
+                    'date': '2015-02-28',
+                    'account_id': self.account.id,
+                    'journal_id': self.journal.id,
+                    'name': 'Test',
+                }),
+            ],
+        })
+
+        self.timesheet_2 = self.timesheet_model.create({
+            'employee_id': self.employee.id,
+            'date_from': '2015-02-01',
+            'date_to': '2015-02-14',
+            'timesheet_ids': [
+                (0, 0, {
+                    'user_id': self.user_1.id,
+                    'unit_amount': 8,
+                    'date': '2015-02-01',
+                    'account_id': self.account.id,
+                    'journal_id': self.journal.id,
+                    'name': 'Test',
+                }),
+            ],
         })
 
         self.timesheet_1.write({'state': 'done'})
+        self.timesheet_2.write({'state': 'done'})
 
+    def test_worked_hours_total(self):
         self.payslip = self.payslip_model.create({
             'employee_id': self.employee.id,
             'contract_id': self.contract.id,
             'date_from': '2015-02-01',
             'date_to': '2015-02-28',
         })
-
-    def test_total(self):
         self.payslip.import_worked_days()
         total_hours = sum(
             wd.number_of_hours for wd in self.payslip.worked_days_line_ids)
-        self.assertEqual(total_hours, 8)
+        self.assertEqual(total_hours, 28)
+        self.payslip.import_worked_days()
+        total_hours = sum(
+            wd.number_of_hours for wd in self.payslip.worked_days_line_ids)
+        self.assertEqual(total_hours, 28)
+
+    def test_payslip_run_wizard(self):
+        self.run_1 = self.run_model.create({
+            'name': 'Test',
+            'date_start': '2015-02-01',
+            'date_end': '2015-02-28',
+        })
+
+        self.wizard_model = self.wizard_model.with_context({
+            'active_id': self.run_1.id,
+        })
+        wizard = self.wizard_model.create({
+            'employee_ids': [(4, self.employee.id)],
+        })
+        wizard.compute_sheet()
+
+        self.assertEqual(len(self.run_1.slip_ids), 1)
+        payslip = self.run_1.slip_ids[0]
+
+        total_hours = sum(
+            wd.number_of_hours for wd in payslip.worked_days_line_ids)
+        self.assertEqual(total_hours, 28)

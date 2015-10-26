@@ -31,3 +31,7 @@ class HrPayslipWorkedDays(models.Model):
         'worked_days_id',
         'Origin Timesheets',
     )
+
+    imported_from_timesheets = fields.Boolean(
+        'Imported From Timesheets',
+    )
