@@ -20,7 +20,8 @@
 #
 ##############################################################################
 
-from openerp import fields, models, _
+from openerp import api, fields, models, _
+import openerp.addons.decimal_precision as dp
 
 
 class HrPayslipWorkedDays(models.Model):
@@ -29,18 +30,41 @@ class HrPayslipWorkedDays(models.Model):
     _name = 'hr.payslip.worked_days'
     _description = _(__doc__)
 
-    name = fields.Char(
-        'Description', required=True
-    )
     payslip_id = fields.Many2one(
         'hr.payslip', 'Pay Slip',
         required=True,
         ondelete='cascade',
         index=True
     )
+    date = fields.Date(
+        'Date',
+        default=fields.Date.today,
+    )
     number_of_hours = fields.Float(
-        'Number of Hours'
+        'Number of Hours',
     )
-    number_of_days = fields.Float(
-        'Number of Days'
+    hourly_rate = fields.Float(
+        'Hourly Rate',
+        help="The employee's standard hourly rate for one hour of work. "
+        "Example, 25 Euros per hour.",
+        default=0,
+        digits_compute=dp.get_precision('Payroll'),
     )
+    rate = fields.Float(
+        'Rate (%)',
+        help="The rate by which to multiply the standard hourly rate. "
+        "Example, an overtime hour could be paid the standard rate "
+        "multiplied by 150%.",
+        default=100,
+    )
+    total = fields.Float(
+        'Total',
+        compute='_compute_total',
+        store=True,
+        digits_compute=dp.get_precision('Payroll'),
+    )
+
+    @api.depends('hourly_rate', 'number_of_hours', 'rate')
+    def _compute_total(self):
+        self.total = (
+            self.hourly_rate * self.number_of_hours * self.rate) / 100

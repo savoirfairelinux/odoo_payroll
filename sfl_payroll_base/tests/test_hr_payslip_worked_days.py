@@ -22,9 +22,9 @@
 from openerp.tests import common
 
 
-class TestHrWorkedDays(common.TransactionCase):
+class TestHrPayslipWorkedDays(common.TransactionCase):
     def setUp(self):
-        super(TestHrWorkedDays, self).setUp()
+        super(TestHrPayslipWorkedDays, self).setUp()
         self.employee_model = self.env['hr.employee']
         self.user_model = self.env["res.users"]
         self.payslip_model = self.env["hr.payslip"]
@@ -50,20 +50,16 @@ class TestHrWorkedDays(common.TransactionCase):
 
     def test_total(self):
         worked_days = self.worked_days_model.create({
-            'date_from': '2014-01-01',
-            'date_to': '2014-01-05',
-            'number_of_hours': 40,
+            'date': '2014-01-01',
+            'number_of_hours': 8,
             'hourly_rate': 25,
             'rate': 150,
             'payslip_id': self.payslip.id,
-            'code': 'test',
-            'name': 'test',
-            'contract_id': self.contract.id,
         })
 
-        self.assertEqual(worked_days.total, 40 * 25 * 1.5)
+        self.assertEqual(worked_days.total, 8 * 25 * 1.5)
 
         worked_days.write({'rate': 200})
         worked_days.refresh()
 
-        self.assertEqual(worked_days.total, 40 * 25 * 2.0)
+        self.assertEqual(worked_days.total, 8 * 25 * 2.0)

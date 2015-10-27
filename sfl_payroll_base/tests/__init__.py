@@ -23,3 +23,4 @@ from . import test_hr_structure
 from . import test_hr_contract
 from . import test_hr_payslip
 from . import test_hr_payslip_run
+from . import test_hr_payslip_worked_days

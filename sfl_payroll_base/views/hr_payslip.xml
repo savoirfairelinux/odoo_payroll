@@ -69,18 +69,12 @@
                             <separator string="Worked Days"/>
                             <field name="worked_days_line_ids">
                                 <tree string="Worked Days" editable="bottom">
-                                    <field name="name"/>
-                                    <field name="number_of_days" sum="Total Working Days"/>
+                                    <field name="date"/>
                                     <field name="number_of_hours"/>
+                                    <field name="hourly_rate"/>
+                                    <field name="rate"/>
+                                    <field name="total"/>
                                 </tree>
-                                <form string="Worked Day">
-                                    <group col="4">
-                                        <field name="name"/>
-                                        <field name="payslip_id"/>
-                                        <field name="number_of_days"/>
-                                        <field name="number_of_hours"/>
-                                    </group>
-                                </form>
                             </field>
                             <separator string="Other Inputs"/>
                             <field name="input_line_ids" colspan="4" nolabel="1">

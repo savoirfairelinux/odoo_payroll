@@ -48,6 +48,7 @@ class HrContract(models.Model):
             ('weekly', _('Weekly')),
             ('bi-weekly', _('Bi-weekly')),
             ('bi-monthly', _('Bi-monthly')),
+            ('semi-monthly', _('Semi-monthly')),
         ]
 
     @api.multi
