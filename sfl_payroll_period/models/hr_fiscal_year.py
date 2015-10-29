@@ -21,7 +21,7 @@ from datetime import datetime
 strftime = datetime.strptime
 from dateutil.relativedelta import relativedelta
 
-from openerp import models, fields, api,  _
+from openerp import models, fields, api, _
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from openerp.exceptions import Warning as UserError
 
@@ -68,8 +68,10 @@ def get_payment_days(self):
 
 
 class HrFiscalYear(models.Model):
+    """HR Fiscal Year"""
+
     _name = 'hr.fiscalyear'
-    _description = 'HR Fiscal Year'
+    _description = _(__doc__)
 
     @api.model
     def _default_date_start(self):
@@ -209,7 +211,7 @@ class HrFiscalYear(models.Model):
                 delta_2 = relativedelta(months=1)
 
                 i = 1
-                while not period_start + delta_2 > next_year_start:
+                while not (period_start + delta_2 > next_year_start):
                     # create periods for one month
                     half_month = period_start + delta_1
                     fy._create_single_period(period_start, half_month, i)
@@ -223,7 +225,7 @@ class HrFiscalYear(models.Model):
                 delta, nb_periods = INTERVALS[fy.schedule_pay]
 
                 i = 1
-                while not period_start + delta > next_year_start:
+                while not (period_start + delta > next_year_start):
                     fy._create_single_period(
                         period_start, period_start + delta, i)
                     period_start += delta

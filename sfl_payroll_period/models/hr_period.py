@@ -24,8 +24,10 @@ from .hr_fiscal_year import get_schedules
 
 
 class HrPeriod(models.Model):
+    """HR Payroll Period"""
+
     _name = 'hr.period'
-    _description = 'HR Payroll Period'
+    _description = _(__doc__)
     _order = 'date_start'
 
     name = fields.Char(

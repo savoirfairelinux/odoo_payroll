@@ -46,14 +46,18 @@
                     <table class="table table-condensed">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th style="text-align:right">Amount</th>
+                                <th class="payslip_line_header_name">Name</th>
+                                <th class="payslip_line_header_amount" style="text-align:right">Amount</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr t-foreach="get_payslip_lines(o.line_ids)" t-as="p">
-                                <td><span t-field="p.name"/></td>
-                                <td style="text-align:right"><span t-esc="formatLang(p.amount, currency_obj=o.company_id.currency_id)"/></td>
+                                <td class="payslip_line_name">
+                                    <span t-field="p.name"/>
+                                </td>
+                                <td class="payslip_line_amount" style="text-align:right">
+                                    <span t-esc="formatLang(p.amount, currency_obj=o.company_id.currency_id)"/>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

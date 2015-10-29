@@ -19,7 +19,7 @@
 ##############################################################################
 from openerp import models, fields
 
-from .hr_fiscal_year import get_schedules
+from ..models.hr_fiscal_year import get_schedules
 
 
 class HrPayslipEmployees(models.TransientModel):

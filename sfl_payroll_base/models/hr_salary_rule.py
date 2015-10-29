@@ -113,8 +113,7 @@ class HrSalaryRule(models.Model):
                 localdict, mode='exec', nocopy=True
             )
             return float(localdict['result'])
-        except Exception as err:
-            print err
+        except Exception:
             raise ValidationError(
                 _('Wrong python code defined for salary rule %s (%s).') %
                 (self.name, self.code))
