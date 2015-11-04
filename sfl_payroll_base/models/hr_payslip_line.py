@@ -58,6 +58,19 @@ class HrPayslipLine(models.Model):
         'Amount',
         digits_compute=dp.get_precision('Payroll'),
     )
+    amount_precise = fields.Float(
+        'Amount',
+        digits_compute=dp.get_precision('Payslip Line'),
+    )
+    amount_type = fields.Selection(
+        [
+            ('monetary', 'Monetary'),
+            ('number', 'Number'),
+        ],
+        type='char',
+        string='Amount Type',
+        help="Used to compute the decimal precision on the amount."
+    )
     category_id = fields.Many2one(
         'hr.salary.rule.category',
         'Category',

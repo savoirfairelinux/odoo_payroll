@@ -30,6 +30,7 @@ class HrPayslip(models.Model):
         'hr.payslip.worked_days',
         'payslip_id',
         domain=[('activity_type', '=', 'leave')],
+        string="Leaves",
     )
 
     worked_days_line_ids = fields.One2many(

@@ -75,11 +75,11 @@ class TestLeaveAccrual(common.TransactionCase):
             'accrual_line_ids': [
                 (0, 0, {
                     'salary_rule_id': self.rule.id,
-                    'amount_type': 'cash',
+                    'amount_type': 'monetary',
                 }),
                 (0, 0, {
                     'salary_rule_id': self.rule_3.id,
-                    'amount_type': 'cash',
+                    'amount_type': 'monetary',
                     'substract': True,
                 }),
             ]
@@ -90,7 +90,7 @@ class TestLeaveAccrual(common.TransactionCase):
             'accrual_line_ids': [
                 (0, 0, {
                     'salary_rule_id': self.rule_4.id,
-                    'amount_type': 'cash',
+                    'amount_type': 'monetary',
                 }),
             ]
         })
@@ -136,17 +136,17 @@ class TestLeaveAccrual(common.TransactionCase):
 
         accrual_1 = self.employee.get_leave_accrual(self.leave_type.id)
         accrual_2 = self.employee.get_leave_accrual(self.leave_type_2.id)
-        self.assertEqual(accrual_1.total_cash, 0)
-        self.assertEqual(accrual_2.total_cash, 0)
+        self.assertEqual(accrual_1.total_monetary, 0)
+        self.assertEqual(accrual_2.total_monetary, 0)
 
         self.payslip.process_sheet()
         accrual_1.refresh()
         accrual_2.refresh()
-        self.assertEqual(accrual_1.total_cash, -400)
-        self.assertEqual(accrual_2.total_cash, 900)
+        self.assertEqual(accrual_1.total_monetary, -400)
+        self.assertEqual(accrual_2.total_monetary, 900)
 
         self.payslip.cancel_sheet()
         accrual_1.refresh()
         accrual_2.refresh()
-        self.assertEqual(accrual_1.total_cash, 0)
-        self.assertEqual(accrual_2.total_cash, 0)
+        self.assertEqual(accrual_1.total_monetary, 0)
+        self.assertEqual(accrual_2.total_monetary, 0)

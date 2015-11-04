@@ -19,9 +19,4 @@
 #
 ##############################################################################
 
-from . import (
-    hr_activity,
-    hr_payslip_worked_days,
-    hr_holiday_status,
-    hr_job,
-)
+from . import models

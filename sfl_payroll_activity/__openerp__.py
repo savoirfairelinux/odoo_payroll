@@ -19,22 +19,14 @@
 ##############################################################################
 
 {
-    'name': 'Worked Days Activity',
+    'name': 'Payroll Activity',
     'version': '8.0.1.0.0',
     'license': 'AGPL-3',
     'category': 'Human Resources',
-    'description': """
-
-
-Contributors
-------------
-* David Dufresne <david.dufresne@savoirfairelinux.com>
-* Pierre Lamarche <pierre.lamarche@savoirfairelinux.com>
-""",
     'author': "Savoir-faire Linux",
     'website': 'https://www.savoirfairelinux.com/',
     'depends': [
-        'hr_payroll',
+        'sfl_payroll_base',
     ],
     'data': [
         'data/hr_holiday_status.xml',
@@ -44,7 +36,7 @@ Contributors
         'views/hr_activity.xml',
         'security/ir.model.access.csv',
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
-    'application': True,
+    'application': False,
 }

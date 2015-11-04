@@ -44,8 +44,8 @@ class HrLeaveAccrual(models.Model):
         'accrual_id',
         string='Accrual Lines',
     )
-    total_cash = fields.Float(
-        'Cash Accruded',
+    total_monetary = fields.Float(
+        'monetary Accruded',
         readonly=True,
     )
     total_hours = fields.Float(
@@ -77,7 +77,7 @@ class HrLeaveAccrual(models.Model):
             return
 
         total_hours = 0
-        total_cash = 0
+        total_monetary = 0
 
         query = (
             """SELECT l.amount_type, l.is_refund, sum(l.amount)
@@ -93,17 +93,17 @@ class HrLeaveAccrual(models.Model):
         for (amount_type, is_refund, amount) in cr.fetchall():
 
             if is_refund:
-                if amount_type == 'cash':
-                    total_cash -= amount
+                if amount_type == 'monetary':
+                    total_monetary -= amount
                 elif amount_type == 'hours':
                     total_hours -= amount
             else:
-                if amount_type == 'cash':
-                    total_cash += amount
+                if amount_type == 'monetary':
+                    total_monetary += amount
                 elif amount_type == 'hours':
                     total_hours += amount
 
         self.write({
             'total_hours': total_hours,
-            'total_cash': total_cash,
+            'total_monetary': total_monetary,
         })

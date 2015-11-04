@@ -48,13 +48,14 @@ class HrPayslipWorkedDays(models.Model):
         help="The employee's standard hourly rate for one hour of work. "
         "Example, 25 Euros per hour.",
         default=0,
-        digits_compute=dp.get_precision('Payroll'),
+        digits_compute=dp.get_precision('Payroll Rate'),
     )
     rate = fields.Float(
         'Rate (%)',
         help="The rate by which to multiply the standard hourly rate. "
         "Example, an overtime hour could be paid the standard rate "
         "multiplied by 150%.",
+        digits_compute=dp.get_precision('Payroll Rate'),
         default=100,
     )
     total = fields.Float(

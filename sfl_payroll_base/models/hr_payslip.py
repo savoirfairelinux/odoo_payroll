@@ -338,6 +338,8 @@ class HrPayslip(models.Model):
                     'code': rule.code,
                     'name': rule.name,
                     'appears_on_payslip': rule.appears_on_payslip,
+                    'amount_precise': amount,
+                    'amount_type': rule.amount_type,
                 }
 
         return [(0, 0, line) for line in result_dict.values()]

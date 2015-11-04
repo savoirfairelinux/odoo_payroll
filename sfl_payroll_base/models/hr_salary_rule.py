@@ -79,6 +79,15 @@ class HrSalaryRule(models.Model):
         required=True,
         default='none',
     )
+    amount_type = fields.Selection(
+        [
+            ('monetary', 'Monetary'),
+            ('number', 'Number'),
+        ],
+        type='char',
+        string='Amount Type',
+        help="Used to compute the decimal precision on the amount."
+    )
     condition_python = fields.Text(
         'Python Condition',
         required=True,

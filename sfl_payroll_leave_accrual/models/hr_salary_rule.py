@@ -29,5 +29,5 @@ class HrSalaryRule(models.Model):
     accrual_line_ids = fields.One2many(
         'hr.holidays.status.accrual.line',
         'salary_rule_id',
-        'Leave Accrual Lines',
+        'Accrual Lines',
     )

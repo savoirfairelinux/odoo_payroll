@@ -10,14 +10,13 @@
                         <field name="name"/>
                         <field
                             name="activity_type"
-                            on_change="onchange_activity_type()"
                         />
                         <newline/>
                         <field 
                             name="job_id"
                             attrs="{
-                                'invisible': [('type', '!=', 'job')],
-                                'required': [('type', '=', 'job')],
+                                'invisible': [('activity_type', '!=', 'job')],
+                                'required': [('activity_type', '=', 'job')],
                             }"
                             domain="[('activity_ids', '=', 0)]"
                         />
@@ -25,8 +24,8 @@
                         <field 
                             name="leave_id"
                             attrs="{
-                                'invisible': [('type', '!=', 'leave')],
-                                'required': [('type', '=', 'leave')]
+                                'invisible': [('activity_type', '!=', 'leave')],
+                                'required': [('activity_type', '=', 'leave')]
                             }"
                             domain="[('activity_ids', '=', 0)]"
                         />
@@ -40,7 +39,7 @@
             <field name="arch" type="xml">
                 <tree string="Activities">
                     <field name="name"/>
-                    <field name="type"/>
+                    <field name="activity_type"/>
                 </tree>
             </field>
         </record>

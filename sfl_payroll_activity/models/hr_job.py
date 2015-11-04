@@ -26,7 +26,7 @@ class HrJob(models.Model):
 
     _inherit = 'hr.job'
 
-    activity_ids = fields.one2many(
+    activity_ids = fields.One2many(
         'hr.activity',
         'job_id',
         'Activity',

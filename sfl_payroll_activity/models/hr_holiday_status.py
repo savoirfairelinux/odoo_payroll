@@ -23,6 +23,7 @@ from openerp import api, fields, models
 
 
 class HrHolidaysStatus(models.Model):
+
     _inherit = 'hr.holidays.status'
 
     paid_leave = fields.Boolean(
@@ -37,13 +38,9 @@ class HrHolidaysStatus(models.Model):
 
     @api.model
     def create(self, vals):
-        res = super(HrHolidaysStatus, self).create(vals)
+        if 'activity_ids' not in vals:
+            vals['activity_ids'] = [(0, 0, {
+                'activity_type': 'leave',
+            })]
 
-        if not res.activity_ids:
-            res.write({
-                'activity_ids': [(0, 0, {
-                    'activity_type': 'leave',
-                })]
-            })
-
-        return res
+        return super(HrHolidaysStatus, self).create(vals)

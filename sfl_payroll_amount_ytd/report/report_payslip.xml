@@ -2,7 +2,7 @@
 <openerp>
     <data>
         <template id="report_payslip_amount_ytd" inherit_id="sfl_payroll_base.report_payslip">
-            <xpath expr="//td[@class='payslip_line_header_amount']" position="after">
+            <xpath expr="//th[@class='payslip_line_header_amount']" position="after">
                 <th class="payslip_line_header_amount_ytd" style="text-align:right">Amount YTD</th>
             </xpath>
             <xpath expr="//td[@class='payslip_line_amount']" position="after">

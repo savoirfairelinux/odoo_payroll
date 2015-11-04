@@ -19,14 +19,14 @@
 #
 ##############################################################################
 
-from openerp import fields, models
+from openerp import api, fields, models
 
 
 class HrPayslipWorkedDays(models.Model):
 
     _inherit = 'hr.payslip.worked_days'
 
-    activity_id = fields.many2one(
+    activity_id = fields.Many2one(
         'hr.activity',
         'Activity',
         required=True,
@@ -45,3 +45,16 @@ class HrPayslipWorkedDays(models.Model):
     number_of_hours_allowed = fields.Float(
         'Hours Allowed',
     )
+
+    @api.depends(
+        'hourly_rate', 'number_of_hours', 'rate', 'number_of_hours_allowed')
+    def _compute_total(self):
+        if self.activity_type != 'leave':
+            super(HrPayslipWorkedDays, self)._compute_total()
+
+        else:
+            self.total = (
+                self.hourly_rate *
+                self.number_of_hours_allowed *
+                self.rate
+            ) / 100

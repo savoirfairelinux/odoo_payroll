@@ -35,7 +35,7 @@ class HrHolidaysStatusAccrualLine(models.Model):
     )
     salary_rule_id = fields.Many2one(
         'hr.salary.rule',
-        'Salary Rule',
+        'Leave Accrual Rule',
     )
     substract = fields.Boolean(
         'Substract Amount',
@@ -43,9 +43,9 @@ class HrHolidaysStatusAccrualLine(models.Model):
     )
     amount_type = fields.Selection(
         [
-            ('cash', 'Cash'),
+            ('monetary', 'Monetary'),
             ('hours', 'Hours'),
         ],
         string="Amount Type",
-        default='cash',
+        default='monetary',
     )

@@ -53,16 +53,16 @@ class HrActivity(models.Model):
         ondelete='cascade',
     )
 
-    _order = 'type,name'
+    _order = 'activity_type,name'
 
     @api.one
     @api.depends('activity_type', 'job_id', 'leave_id')
     def _compute_name(self):
-        if self.activity_type == 'job':
-            self.name = self.job_id.name_get()[1]
+        if self.activity_type == 'job' and self.job_id:
+            self.name = self.job_id.name_get()[0][1]
 
-        elif self.activity_type == 'leave':
-            self.name = self.leave_id.name_get()[1]
+        elif self.activity_type == 'leave' and self.leave_id:
+            self.name = self.leave_id.name_get()[0][1]
 
     @api.onchange('activity_type')
     def onchange_activity_type(self):

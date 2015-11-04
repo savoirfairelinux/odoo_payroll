@@ -2,20 +2,11 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-====================
-Worked Days Activity
-====================
+================
+Payroll Activity
+================
 This module adds the activity field on payslip worked days. It is used to
 distinguish the leaves types and job positions in worked days.
-
-
-How to use it
--------------
-
- - Create an employee's timesheet sheet.
- - Confirm and approve the sheet.
- - Create a payslip for the employee.
- - Click on the button 'Import From Timesheet'.
 
 
 Contributors

@@ -99,9 +99,12 @@ class HrPayslip(models.Model):
                     payslip_line = payslip_line_dict[salary_rule_id]
 
                     amount = (
-                        payslip_line.amount * -1 if line.substract
-                        else payslip_line.amount
+                        payslip_line.amount if line.amount_type == 'monetary'
+                        else payslip_line.amount_precise
                     )
+
+                    if line.substract:
+                        amount *= -1
 
                     if payslip_line.amount:
                         accrual_line_obj.create({

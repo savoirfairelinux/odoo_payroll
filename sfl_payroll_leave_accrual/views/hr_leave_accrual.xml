@@ -9,7 +9,7 @@
                     <group>
                         <field name="leave_type_id"/>
                         <field name="total_hours"/>
-                        <field name="total_cash"/>
+                        <field name="total_monetary"/>
                         <label for="line_ids" string="Leave Accrual Lines" colspan="4"/>
                     </group>
                     <field name="line_ids" nolabel="1" colspan="4">
@@ -45,7 +45,7 @@
                     <field name="employee_id"/>
                     <field name="leave_type_id"/>
                     <field name="total_hours" readonly="1"/>
-                    <field name="total_cash" readonly="1"/>
+                    <field name="total_monetary" readonly="1"/>
                 </tree>
             </field>
         </record>
