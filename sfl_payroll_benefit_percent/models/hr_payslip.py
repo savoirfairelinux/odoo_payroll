@@ -20,27 +20,33 @@
 ##############################################################################
 
 from openerp import api, fields, models
+import openerp.addons.decimal_precision as dp
 
 
-class HrJob(models.Model):
+class HrPayslip(models.Model):
 
-    _inherit = 'hr.job'
+    _inherit = 'hr.payslip'
 
-    activity_ids = fields.One2many(
-        'hr.activity',
-        'job_id',
-        'Activity',
+    # Fields required to compute benefits based on
+    # a percentage of the gross salary for the pay period
+    gross_salary = fields.Float(
+        'Gross Salary',
+        digits_compute=dp.get_precision('Payroll'),
+        readonly=True,
+        states={'draft': [('readonly', False)]},
+        default=0,
     )
 
-    @api.model
-    def create(self, vals):
-        res = super(HrJob, self).create(vals)
+    @api.multi
+    def set_gross_salary(self, gross):
+        """
+        Allow to set payslip fields directly from the salary rules.
 
-        if not res.activity_ids:
-            res.write({
-                'activity_ids': [(0, 0, {
-                    'activity_type': 'job',
-                })]
-            })
+        This is required to allow setting the gross_salary at a
+        precise moment in the salary structure.
 
-        return res
+        Exemple
+        -------
+        payslip.set_gross_salary(GROSS)
+        """
+        self.write({'gross_salary': gross})

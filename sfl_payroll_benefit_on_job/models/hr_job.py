@@ -19,28 +19,15 @@
 #
 ##############################################################################
 
-from openerp import api, fields, models
+from openerp import fields, models
 
 
 class HrJob(models.Model):
 
     _inherit = 'hr.job'
 
-    activity_ids = fields.One2many(
-        'hr.activity',
+    benefit_line_ids = fields.One2many(
+        'hr.employee.benefit',
         'job_id',
-        'Activity',
+        'Employee Benefits'
     )
-
-    @api.model
-    def create(self, vals):
-        res = super(HrJob, self).create(vals)
-
-        if not res.activity_ids:
-            res.write({
-                'activity_ids': [(0, 0, {
-                    'activity_type': 'job',
-                })]
-            })
-
-        return res

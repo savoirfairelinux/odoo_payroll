@@ -19,28 +19,7 @@
 #
 ##############################################################################
 
-from openerp import api, fields, models
-
-
-class HrJob(models.Model):
-
-    _inherit = 'hr.job'
-
-    activity_ids = fields.One2many(
-        'hr.activity',
-        'job_id',
-        'Activity',
-    )
-
-    @api.model
-    def create(self, vals):
-        res = super(HrJob, self).create(vals)
-
-        if not res.activity_ids:
-            res.write({
-                'activity_ids': [(0, 0, {
-                    'activity_type': 'job',
-                })]
-            })
-
-        return res
+from . import hr_employee_benefit
+from . import hr_employee_benefit_rate
+from . import hr_job
+from . import hr_payslip

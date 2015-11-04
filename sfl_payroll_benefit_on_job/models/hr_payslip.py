@@ -19,28 +19,15 @@
 #
 ##############################################################################
 
-from openerp import api, fields, models
+from openerp import api, models
 
 
-class HrJob(models.Model):
+class HrPayslip(models.Model):
+    _inherit = 'hr.payslip'
 
-    _inherit = 'hr.job'
+    @api.multi
+    def _search_benefits(self):
 
-    activity_ids = fields.One2many(
-        'hr.activity',
-        'job_id',
-        'Activity',
-    )
-
-    @api.model
-    def create(self, vals):
-        res = super(HrJob, self).create(vals)
-
-        if not res.activity_ids:
-            res.write({
-                'activity_ids': [(0, 0, {
-                    'activity_type': 'job',
-                })]
-            })
-
-        return res
+        benefits = super(HrPayslip, self)._search_benefits()
+        return benefits + self.contract_id.contract_job_ids.mapped(
+            'job_id.benefit_line_ids')

@@ -19,28 +19,24 @@
 #
 ##############################################################################
 
-from openerp import api, fields, models
+from openerp import api, models, _
 
 
-class HrJob(models.Model):
-
-    _inherit = 'hr.job'
-
-    activity_ids = fields.One2many(
-        'hr.activity',
-        'job_id',
-        'Activity',
-    )
+class HrEmployeeBenefitRate(models.Model):
+    _inherit = 'hr.employee.benefit.rate'
 
     @api.model
-    def create(self, vals):
-        res = super(HrJob, self).create(vals)
+    def get_all_amount_types(self):
+        res = super(HrEmployeeBenefitRate, self).get_all_amount_types()
 
-        if not res.activity_ids:
-            res.write({
-                'activity_ids': [(0, 0, {
-                    'activity_type': 'job',
-                })]
-            })
+        res.append(('percent_gross', _('Percent of Gross Salary')))
 
         return res
+
+    @api.model
+    def _get_line_base_ratio(self, line, payslip):
+        if line.amount_type == 'percent_gross':
+            return payslip.gross_salary / 100
+
+        return super(HrEmployeeBenefitRate, self)._get_line_base_ratio(
+            line, payslip)

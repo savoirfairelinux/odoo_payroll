@@ -21,5 +21,5 @@
 
 from . import hr_employee
 from . import hr_employee_exemption
-from . import hr_income_tax_exemption
 from . import hr_salary_rule
+from . import hr_income_tax_exemption

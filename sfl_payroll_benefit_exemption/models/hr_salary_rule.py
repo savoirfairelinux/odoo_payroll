@@ -19,28 +19,24 @@
 #
 ##############################################################################
 
-from openerp import api, fields, models
+from openerp import api, models
 
 
-class HrJob(models.Model):
+class HrSalaryRule(models.Model):
+    _inherit = 'hr.salary.rule'
 
-    _inherit = 'hr.job'
+    @api.multi
+    def _filter_benefits(self, payslip, **kwargs):
+        """
+        Remove all benefits that are exempted from a deduction.
+        """
+        benefits = super(HrSalaryRule, self)._filter_benefits(
+            payslip, **kwargs)
 
-    activity_ids = fields.One2many(
-        'hr.activity',
-        'job_id',
-        'Activity',
-    )
+        exemption = self.exemption_id
+        if exemption and not self.employee_benefit_ids:
 
-    @api.model
-    def create(self, vals):
-        res = super(HrJob, self).create(vals)
+            benefits = benefits.filtered(
+                lambda b: exemption not in b.category_id.exemption_ids)
 
-        if not res.activity_ids:
-            res.write({
-                'activity_ids': [(0, 0, {
-                    'activity_type': 'job',
-                })]
-            })
-
-        return res
+        return benefits

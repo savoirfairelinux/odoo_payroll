@@ -22,8 +22,8 @@
     'name': 'Employee Exemption',
     'version': '8.0.1.0.0',
     'license': 'AGPL-3',
-    'category': 'Generic Modules/Human Resources',
-    'author': "Savoir-faire Linux, Odoo Community Association (OCA)",
+    'category': 'Human Resources',
+    'author': "Savoir-faire Linux",
     'website': 'https://www.savoirfairelinux.com',
     'depends': [
         'sfl_payroll_base',

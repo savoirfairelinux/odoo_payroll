@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: sfl_payroll_base
-#: code:addons/hr_payroll/hr_payroll.py:77
+#: code:addons/hr_payroll/sfl_payroll_base.py:77
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
@@ -36,7 +36,7 @@ msgid ""
 msgstr "* Quand la fiche de paie est créée, le statut est 'Brouillon'.\n* Si la fiche de paie est à contrôler, le statut est 'En Attente'.\n* Si la fiche de paie est confirmée, le statut est 'Terminée'.\n* Quand l'utilisateur annule la fiche de paie, le statut est 'Rejetée'."
 
 #. module: sfl_payroll_base
-#: model:ir.actions.act_window,help:hr_payroll.action_contribution_register_form
+#: model:ir.actions.act_window,help:sfl_payroll_base.action_contribution_register_form
 msgid ""
 "<p class=\"oe_view_nocontent_create\">\n"
 "                Click to add a new contribution register.\n"
@@ -49,12 +49,12 @@ msgid ""
 msgstr ""
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Accounting"
 msgstr "Comptabilité"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Accounting Information"
 msgstr "Informations comptables"
 
@@ -64,18 +64,18 @@ msgid "Active"
 msgstr "Actif"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Add an internal note..."
 msgstr "Ajouter une note interne…"
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Address"
 msgstr "Adresse"
 
 #. module: sfl_payroll_base
-#: model:ir.actions.act_window,name:hr_payroll.act_children_salary_rules
+#: model:ir.actions.act_window,name:sfl_payroll_base.act_children_salary_rules
 msgid "All Children Rules"
 msgstr "Toutes les règles enfant"
 
@@ -87,14 +87,14 @@ msgstr "Toujours vrai"
 
 #. module: sfl_payroll_base
 #: field:hr.payslip.input,amount:0 field:hr.payslip.line,amount:0
-#: view:website:hr_payroll.report_contributionregister
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_contributionregister
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Amount"
 msgstr "Montant"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.line:hr_payroll.view_hr_payslip_line_filter
+#: view:hr.payslip.line:sfl_payroll_base.view_hr_payslip_line_filter
 #: field:hr.payslip.line,amount_select:0 field:hr.salary.rule,amount_select:0
 msgid "Amount Type"
 msgstr "Type de montant"
@@ -119,14 +119,14 @@ msgid ""
 msgstr "Appliquer cette règle pour le calcul si la condition est vraie. Vous pouvez spécifier une condition comme base> 1000."
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Authorized signature"
 msgstr ""
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Bank Account"
 msgstr "Compte bancaire"
 
@@ -141,29 +141,29 @@ msgid "Bi-weekly"
 msgstr "Bi-hebdomadaire"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.line:hr_payroll.view_hr_payslip_line_form
+#: view:hr.payslip.line:sfl_payroll_base.view_hr_payslip_line_form
 msgid "Calculations"
 msgstr "Calculs"
 
 #. module: sfl_payroll_base
-#: view:payslip.lines.contribution.register:hr_payroll.view_payslip_lines_contribution_register
+#: view:payslip.lines.contribution.register:sfl_payroll_base.view_payslip_lines_contribution_register
 msgid "Cancel"
 msgstr "Annuler"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Cancel Payslip"
 msgstr "Annuler la fiche de paie"
 
 #. module: sfl_payroll_base
 #: field:hr.payslip.line,category_id:0
-#: view:hr.salary.rule:hr_payroll.view_hr_rule_filter
+#: view:hr.salary.rule:sfl_payroll_base.view_hr_rule_filter
 #: field:hr.salary.rule,category_id:0
 msgid "Category"
 msgstr "Catégorie"
 
 #. module: sfl_payroll_base
-#: view:hr.salary.rule:hr_payroll.hr_salary_rule_form
+#: view:hr.salary.rule:sfl_payroll_base.hr_salary_rule_form
 msgid "Child Rules"
 msgstr "Règles enfant"
 
@@ -179,12 +179,12 @@ msgid "Children"
 msgstr "Enfants"
 
 #. module: sfl_payroll_base
-#: view:hr.salary.rule:hr_payroll.hr_salary_rule_form
+#: view:hr.salary.rule:sfl_payroll_base.hr_salary_rule_form
 msgid "Children Definition"
 msgstr ""
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.run:hr_payroll.hr_payslip_run_form
+#: view:hr.payslip.run:sfl_payroll_base.hr_payslip_run_form
 #: selection:hr.payslip.run,state:0
 msgid "Close"
 msgstr "Fermer"
@@ -193,14 +193,14 @@ msgstr "Fermer"
 #: field:hr.payslip.input,code:0 field:hr.payslip.line,code:0
 #: field:hr.payslip.worked_days,code:0 field:hr.rule.input,code:0
 #: field:hr.salary.rule,code:0 field:hr.salary.rule.category,code:0
-#: view:website:hr_payroll.report_contributionregister
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_contributionregister
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Code"
 msgstr "Code"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_filter
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_filter
 msgid "Companies"
 msgstr "Sociétés"
 
@@ -213,17 +213,17 @@ msgid "Company"
 msgstr "Société"
 
 #. module: sfl_payroll_base
-#: view:hr.salary.rule:hr_payroll.hr_salary_rule_form
+#: view:hr.salary.rule:sfl_payroll_base.hr_salary_rule_form
 msgid "Company Contribution"
 msgstr "Contribution de la société"
 
 #. module: sfl_payroll_base
-#: view:hr.salary.rule:hr_payroll.hr_salary_rule_form
+#: view:hr.salary.rule:sfl_payroll_base.hr_salary_rule_form
 msgid "Computation"
 msgstr "Calcul"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Compute Sheet"
 msgstr "Calculer la feuille"
 
@@ -234,12 +234,12 @@ msgid "Condition Based on"
 msgstr "Condition basée sur"
 
 #. module: sfl_payroll_base
-#: view:hr.salary.rule:hr_payroll.hr_salary_rule_form
+#: view:hr.salary.rule:sfl_payroll_base.hr_salary_rule_form
 msgid "Conditions"
 msgstr "Conditions"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Confirm"
 msgstr "Confirmer"
 
@@ -247,32 +247,32 @@ msgstr "Confirmer"
 #: field:hr.payslip,contract_id:0 field:hr.payslip.input,contract_id:0
 #: field:hr.payslip.line,contract_id:0
 #: field:hr.payslip.worked_days,contract_id:0
-#: model:ir.model,name:hr_payroll.model_hr_contract
+#: model:ir.model,name:sfl_payroll_base.model_hr_contract
 msgid "Contract"
 msgstr "Contrat"
 
 #. module: sfl_payroll_base
-#: view:hr.contribution.register:hr_payroll.hr_contribution_register_form
+#: view:hr.contribution.register:sfl_payroll_base.hr_contribution_register_form
 msgid "Contribution"
 msgstr "Contribution"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.line:hr_payroll.view_hr_payslip_line_filter
+#: view:hr.payslip.line:sfl_payroll_base.view_hr_payslip_line_filter
 #: field:hr.payslip.line,register_id:0 field:hr.salary.rule,register_id:0
-#: model:ir.model,name:hr_payroll.model_hr_contribution_register
+#: model:ir.model,name:sfl_payroll_base.model_hr_contribution_register
 msgid "Contribution Register"
 msgstr "Registre de contribution"
 
 #. module: sfl_payroll_base
-#: view:payslip.lines.contribution.register:hr_payroll.view_payslip_lines_contribution_register
+#: view:payslip.lines.contribution.register:sfl_payroll_base.view_payslip_lines_contribution_register
 msgid "Contribution Register's Payslip Lines"
 msgstr "Registre des contribution des lignes de bulletin"
 
 #. module: sfl_payroll_base
-#: view:hr.contribution.register:hr_payroll.hr_contribution_register_filter
-#: view:hr.contribution.register:hr_payroll.hr_contribution_register_tree
-#: model:ir.actions.act_window,name:hr_payroll.action_contribution_register_form
-#: model:ir.ui.menu,name:hr_payroll.menu_action_hr_contribution_register_form
+#: view:hr.contribution.register:sfl_payroll_base.hr_contribution_register_filter
+#: view:hr.contribution.register:sfl_payroll_base.hr_contribution_register_tree
+#: model:ir.actions.act_window,name:sfl_payroll_base.action_contribution_register_form
+#: model:ir.ui.menu,name:sfl_payroll_base.menu_action_hr_contribution_register_form
 msgid "Contribution Registers"
 msgstr "Registres des contributions"
 
@@ -314,26 +314,26 @@ msgstr "Avoir"
 #. module: sfl_payroll_base
 #: field:hr.payslip,date_from:0 field:hr.payslip.run,date_start:0
 #: field:payslip.lines.contribution.register,date_from:0
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Date From"
 msgstr "Date début"
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_contributionregister
+#: view:website:sfl_payroll_base.report_contributionregister
 msgid "Date From:"
 msgstr ""
 
 #. module: sfl_payroll_base
 #: field:hr.payslip,date_to:0 field:hr.payslip.run,date_end:0
 #: field:payslip.lines.contribution.register,date_to:0
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Date To"
 msgstr "Date de fin"
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_contributionregister
+#: view:website:sfl_payroll_base.report_contributionregister
 msgid "Date To:"
 msgstr ""
 
@@ -347,96 +347,96 @@ msgid ""
 msgstr "Défini les règles qui doivent être appliquées à ce bulletin de paie, conformément au contrat choisi. Si vous laissez vide le champ contrat, ce champ n'est plus obligatoire et donc les règles appliquées seront toutes les règles établies sur la structure de tous les contrats valides de l'employé pour la période déterminée"
 
 #. module: sfl_payroll_base
-#: view:hr.contribution.register:hr_payroll.hr_contribution_register_form
+#: view:hr.contribution.register:sfl_payroll_base.hr_contribution_register_form
 #: field:hr.contribution.register,note:0 field:hr.payroll.structure,note:0
 #: field:hr.payslip.input,name:0 field:hr.payslip.line,note:0
 #: field:hr.payslip.worked_days,name:0 field:hr.rule.input,name:0
-#: view:hr.salary.rule:hr_payroll.hr_salary_rule_form
+#: view:hr.salary.rule:sfl_payroll_base.hr_salary_rule_form
 #: field:hr.salary.rule,note:0 field:hr.salary.rule.category,note:0
 msgid "Description"
 msgstr "Description"
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Designation"
 msgstr "Désignation"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Details By Salary Rule Category"
 msgstr "Détails par catégorie de règle salariale"
 
 #. module: sfl_payroll_base
 #: field:hr.payslip,details_by_salary_rule_category:0
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Details by Salary Rule Category"
 msgstr "Détails par catégorie de règle salariale"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_filter
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_filter
 #: selection:hr.payslip,state:0
-#: view:hr.payslip.run:hr_payroll.hr_payslip_run_filter
+#: view:hr.payslip.run:sfl_payroll_base.hr_payslip_run_filter
 msgid "Done"
 msgstr "Terminé"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.run:hr_payroll.hr_payslip_run_filter
+#: view:hr.payslip.run:sfl_payroll_base.hr_payslip_run_filter
 msgid "Done Payslip Batches"
 msgstr "Lots terminés de bulletins de paie"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_filter
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_filter
 msgid "Done Slip"
 msgstr "Bulletin de paie terminé"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_filter
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_filter
 #: selection:hr.payslip,state:0
-#: view:hr.payslip.run:hr_payroll.hr_payslip_run_filter
+#: view:hr.payslip.run:sfl_payroll_base.hr_payslip_run_filter
 #: selection:hr.payslip.run,state:0
 msgid "Draft"
 msgstr "Brouillon"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.run:hr_payroll.hr_payslip_run_filter
+#: view:hr.payslip.run:sfl_payroll_base.hr_payslip_run_filter
 msgid "Draft Payslip Batches"
 msgstr "Lots brouillons de bulletins de paie"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_filter
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_filter
 msgid "Draft Slip"
 msgstr "Bulletin de paie brouillon"
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Email"
 msgstr "Courriel"
 
 #. module: sfl_payroll_base
 #: field:hr.payslip,employee_id:0 field:hr.payslip.line,employee_id:0
-#: model:ir.model,name:hr_payroll.model_hr_employee
+#: model:ir.model,name:sfl_payroll_base.model_hr_employee
 msgid "Employee"
 msgstr "Employé"
 
 #. module: sfl_payroll_base
-#: view:hr.payroll.structure:hr_payroll.view_hr_employee_grade_form
-#: view:hr.payroll.structure:hr_payroll.view_hr_payroll_structure_list_view
+#: view:hr.payroll.structure:sfl_payroll_base.view_hr_employee_grade_form
+#: view:hr.payroll.structure:sfl_payroll_base.view_hr_payroll_structure_list_view
 msgid "Employee Function"
 msgstr "Fonction de l'employé"
 
 #. module: sfl_payroll_base
-#: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payslip_form
-#: model:ir.ui.menu,name:hr_payroll.menu_department_tree
+#: model:ir.actions.act_window,name:sfl_payroll_base.action_view_hr_payslip_form
+#: model:ir.ui.menu,name:sfl_payroll_base.menu_department_tree
 msgid "Employee Payslips"
 msgstr "Bulletins de l'employé"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_filter
-#: view:hr.payslip.employees:hr_payroll.view_hr_payslip_by_employees
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_filter
+#: view:hr.payslip.employees:sfl_payroll_base.view_hr_payslip_by_employees
 #: field:hr.payslip.employees,employee_ids:0
-#: view:hr.payslip.line:hr_payroll.view_hr_payslip_line_filter
+#: view:hr.payslip.line:sfl_payroll_base.view_hr_payslip_line_filter
 msgid "Employees"
 msgstr "Employés"
 
@@ -446,11 +446,11 @@ msgid "Error ! You cannot create a recursive Salary Structure."
 msgstr ""
 
 #. module: sfl_payroll_base
-#: code:addons/hr_payroll/hr_payroll.py:851
-#: code:addons/hr_payroll/hr_payroll.py:856
-#: code:addons/hr_payroll/hr_payroll.py:862
-#: code:addons/hr_payroll/hr_payroll.py:879
-#: code:addons/hr_payroll/hr_payroll.py:885
+#: code:addons/hr_payroll/sfl_payroll_base.py:851
+#: code:addons/hr_payroll/sfl_payroll_base.py:856
+#: code:addons/hr_payroll/sfl_payroll_base.py:862
+#: code:addons/hr_payroll/sfl_payroll_base.py:879
+#: code:addons/hr_payroll/sfl_payroll_base.py:885
 #, python-format
 msgid "Error!"
 msgstr "Erreur!"
@@ -474,30 +474,30 @@ msgid "For example, enter 50.0 to apply a percentage of 50%"
 msgstr "Par exemple, saisir 50.0 pour appliquer un pourcentage de 50%"
 
 #. module: sfl_payroll_base
-#: view:hr.salary.rule:hr_payroll.hr_salary_rule_form
+#: view:hr.salary.rule:sfl_payroll_base.hr_salary_rule_form
 msgid "General"
 msgstr "Général"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.employees:hr_payroll.view_hr_payslip_by_employees
+#: view:hr.payslip.employees:sfl_payroll_base.view_hr_payslip_by_employees
 msgid "Generate"
 msgstr "Générer"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.run:hr_payroll.hr_payslip_run_form
-#: model:ir.actions.act_window,name:hr_payroll.action_hr_payslip_by_employees
+#: view:hr.payslip.run:sfl_payroll_base.hr_payslip_run_form
+#: model:ir.actions.act_window,name:sfl_payroll_base.action_hr_payslip_by_employees
 msgid "Generate Payslips"
 msgstr "Générer les bulletins de paie"
 
 #. module: sfl_payroll_base
-#: model:ir.model,name:hr_payroll.model_hr_payslip_employees
+#: model:ir.model,name:sfl_payroll_base.model_hr_payslip_employees
 msgid "Generate payslips for all selected employees"
 msgstr "Génère les bulletins de paie pour tous les employés sélectionnés"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_filter
-#: view:hr.payslip.line:hr_payroll.view_hr_payslip_line_filter
-#: view:hr.salary.rule:hr_payroll.view_hr_rule_filter
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_filter
+#: view:hr.payslip.line:sfl_payroll_base.view_hr_payslip_line_filter
+#: view:hr.salary.rule:sfl_payroll_base.view_hr_rule_filter
 msgid "Group By"
 msgstr "Regrouper par"
 
@@ -509,15 +509,15 @@ msgstr "Regrouper par"
 #: field:hr.rule.input,id:0 field:hr.salary.rule,id:0
 #: field:hr.salary.rule.category,id:0
 #: field:payslip.lines.contribution.register,id:0
-#: field:report.hr_payroll.report_contributionregister,id:0
-#: field:report.hr_payroll.report_payslip,id:0
-#: field:report.hr_payroll.report_payslipdetails,id:0
+#: field:report.sfl_payroll_base.report_contributionregister,id:0
+#: field:report.sfl_payroll_base.report_payslip,id:0
+#: field:report.sfl_payroll_base.report_payslipdetails,id:0
 msgid "ID"
 msgstr "ID"
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Identification No"
 msgstr "N° d'identification"
 
@@ -541,14 +541,14 @@ msgid "Indicates this payslip has a refund of another"
 msgstr "Indique que ce bulletin de paie est le remboursement d'un autre"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
-#: view:hr.salary.rule:hr_payroll.hr_salary_rule_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
+#: view:hr.salary.rule:sfl_payroll_base.hr_salary_rule_form
 msgid "Input Data"
 msgstr "Données d'entrée"
 
 #. module: sfl_payroll_base
 #: field:hr.payslip.line,input_ids:0
-#: view:hr.salary.rule:hr_payroll.hr_salary_rule_form
+#: view:hr.salary.rule:sfl_payroll_base.hr_salary_rule_form
 #: field:hr.salary.rule,input_ids:0
 msgid "Inputs"
 msgstr "Entrées"
@@ -627,7 +627,7 @@ msgid "Minimum Range"
 msgstr "Plage minimum"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Miscellaneous"
 msgstr "Divers"
 
@@ -640,20 +640,20 @@ msgstr "Mensuel"
 #: field:hr.contribution.register,name:0 field:hr.payroll.structure,name:0
 #: field:hr.payslip.line,name:0 field:hr.payslip.run,name:0
 #: field:hr.salary.rule,name:0 field:hr.salary.rule.category,name:0
-#: view:website:hr_payroll.report_contributionregister
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_contributionregister
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Name"
 msgstr "Nom"
 
 #. module: sfl_payroll_base
-#: code:addons/hr_payroll/hr_payroll.py:415
+#: code:addons/hr_payroll/sfl_payroll_base.py:415
 #, python-format
 msgid "Normal Working Days paid at 100%"
 msgstr "Jours travaillés à 100%"
 
 #. module: sfl_payroll_base
-#: view:hr.salary.rule.category:hr_payroll.hr_salary_rule_category_form
+#: view:hr.salary.rule.category:sfl_payroll_base.hr_salary_rule_category_form
 msgid "Notes"
 msgstr "Notes"
 
@@ -668,7 +668,7 @@ msgid "Number of Hours"
 msgstr "Nombre d'heures"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Other Inputs"
 msgstr "Autres entrées"
 
@@ -692,62 +692,62 @@ msgstr "Partenaire"
 #. module: sfl_payroll_base
 #: field:hr.payslip.input,payslip_id:0 field:hr.payslip.line,slip_id:0
 #: field:hr.payslip.worked_days,payslip_id:0
-#: model:ir.model,name:hr_payroll.model_hr_payslip
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: model:ir.model,name:sfl_payroll_base.model_hr_payslip
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Pay Slip"
 msgstr "Feuille de paie"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_filter
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_filter
 msgid "PaySlip Batch"
 msgstr "Lot de bulletins de paie"
 
 #. module: sfl_payroll_base
-#: model:ir.actions.report.xml,name:hr_payroll.payslip_details_report
+#: model:ir.actions.report.xml,name:sfl_payroll_base.payslip_details_report
 msgid "PaySlip Details"
 msgstr "Détails du bulletin de paie"
 
 #. module: sfl_payroll_base
-#: model:ir.actions.act_window,name:hr_payroll.action_payslip_lines_contribution_register
+#: model:ir.actions.act_window,name:sfl_payroll_base.action_payslip_lines_contribution_register
 msgid "PaySlip Lines"
 msgstr "Lignes du bulletin"
 
 #. module: sfl_payroll_base
-#: model:ir.actions.report.xml,name:hr_payroll.action_contribution_register
+#: model:ir.actions.report.xml,name:sfl_payroll_base.action_contribution_register
 msgid "PaySlip Lines By Conribution Register"
 msgstr "Lignes du bulletin de salaire par registre de contribution"
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_contributionregister
+#: view:website:sfl_payroll_base.report_contributionregister
 msgid "PaySlip Lines by Contribution Register"
 msgstr "Lignes du bulletin par registre de contribution"
 
 #. module: sfl_payroll_base
-#: model:ir.model,name:hr_payroll.model_payslip_lines_contribution_register
+#: model:ir.model,name:sfl_payroll_base.model_payslip_lines_contribution_register
 msgid "PaySlip Lines by Contribution Registers"
 msgstr "Lignes de bulletin par registre de contribution"
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_contributionregister
+#: view:website:sfl_payroll_base.report_contributionregister
 msgid "PaySlip Name"
 msgstr "Nom du bulletin"
 
 #. module: sfl_payroll_base
-#: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_reporting
-#: model:ir.ui.menu,name:hr_payroll.menu_hr_root_payroll
-#: model:ir.ui.menu,name:hr_payroll.payroll_configure
+#: model:ir.ui.menu,name:sfl_payroll_base.menu_hr_payroll_reporting
+#: model:ir.ui.menu,name:sfl_payroll_base.menu_hr_root_payroll
+#: model:ir.ui.menu,name:sfl_payroll_base.payroll_configure
 msgid "Payroll"
 msgstr "Paye"
 
 #. module: sfl_payroll_base
-#: view:hr.payroll.structure:hr_payroll.view_hr_payroll_structure_filter
+#: view:hr.payroll.structure:sfl_payroll_base.view_hr_payroll_structure_filter
 msgid "Payroll Structures"
 msgstr "Structures des bulletins"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
-#: model:ir.actions.report.xml,name:hr_payroll.action_report_payslip
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
+#: model:ir.actions.report.xml,name:sfl_payroll_base.action_report_payslip
 msgid "Payslip"
 msgstr "Feuille de paye"
 
@@ -758,20 +758,20 @@ msgstr "La date de début doit être antérieure à la date de fin."
 
 #. module: sfl_payroll_base
 #: field:hr.payslip,payslip_run_id:0
-#: view:hr.payslip.run:hr_payroll.hr_payslip_run_filter
-#: model:ir.model,name:hr_payroll.model_hr_payslip_run
+#: view:hr.payslip.run:sfl_payroll_base.hr_payslip_run_filter
+#: model:ir.model,name:sfl_payroll_base.model_hr_payslip_run
 msgid "Payslip Batches"
 msgstr "Lots de bulletins de paie"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 #: field:hr.payslip,payslip_count:0
-#: model:ir.actions.act_window,name:hr_payroll.act_payslip_lines
+#: model:ir.actions.act_window,name:sfl_payroll_base.act_payslip_lines
 msgid "Payslip Computation Details"
 msgstr "Détails pour le calcul du bulletin"
 
 #. module: sfl_payroll_base
-#: model:ir.model,name:hr_payroll.model_hr_payslip_input
+#: model:ir.model,name:sfl_payroll_base.model_hr_payslip_input
 msgid "Payslip Input"
 msgstr "Entrée du bulletin"
 
@@ -781,21 +781,21 @@ msgid "Payslip Inputs"
 msgstr "Entrées du bulletin de salaire"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
-#: view:hr.payslip.line:hr_payroll.view_hr_payslip_line_form
-#: model:ir.model,name:hr_payroll.model_hr_payslip_line
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
+#: view:hr.payslip.line:sfl_payroll_base.view_hr_payslip_line_form
+#: model:ir.model,name:sfl_payroll_base.model_hr_payslip_line
 msgid "Payslip Line"
 msgstr "Ligne de bulletin de salaire"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form field:hr.payslip,line_ids:0
-#: view:hr.payslip.line:hr_payroll.view_hr_payslip_line_filter
-#: model:ir.actions.act_window,name:hr_payroll.act_contribution_reg_payslip_lines
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form field:hr.payslip,line_ids:0
+#: view:hr.payslip.line:sfl_payroll_base.view_hr_payslip_line_filter
+#: model:ir.actions.act_window,name:sfl_payroll_base.act_contribution_reg_payslip_lines
 msgid "Payslip Lines"
 msgstr "Lignes du bulletin de paie"
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Payslip Lines by Contribution Register"
 msgstr ""
 
@@ -806,31 +806,31 @@ msgstr ""
 
 #. module: sfl_payroll_base
 #: field:hr.payslip,worked_days_line_ids:0
-#: model:ir.model,name:hr_payroll.model_hr_payslip_worked_days
+#: model:ir.model,name:sfl_payroll_base.model_hr_payslip_worked_days
 msgid "Payslip Worked Days"
 msgstr "Bulletin de paie jours travaillés"
 
 #. module: sfl_payroll_base
-#: view:hr.employee:hr_payroll.payroll_hr_employee_view_form
+#: view:hr.employee:sfl_payroll_base.payroll_hr_employee_view_form
 #: field:hr.employee,payslip_count:0 field:hr.employee,slip_ids:0
-#: view:hr.payslip:hr_payroll.view_hr_payslip_filter
-#: view:hr.payslip:hr_payroll.view_hr_payslip_tree
-#: view:hr.payslip.run:hr_payroll.hr_payslip_run_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_filter
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_tree
+#: view:hr.payslip.run:sfl_payroll_base.hr_payslip_run_form
 #: field:hr.payslip.run,slip_ids:0
-#: model:ir.actions.act_window,name:hr_payroll.act_hr_employee_payslip_list
+#: model:ir.actions.act_window,name:sfl_payroll_base.act_hr_employee_payslip_list
 msgid "Payslips"
 msgstr "Feuilles de paye"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.run:hr_payroll.hr_payslip_run_form
-#: view:hr.payslip.run:hr_payroll.hr_payslip_run_tree
-#: model:ir.actions.act_window,name:hr_payroll.action_hr_payslip_run_tree
-#: model:ir.ui.menu,name:hr_payroll.menu_hr_payslip_run
+#: view:hr.payslip.run:sfl_payroll_base.hr_payslip_run_form
+#: view:hr.payslip.run:sfl_payroll_base.hr_payslip_run_tree
+#: model:ir.actions.act_window,name:sfl_payroll_base.action_hr_payslip_run_tree
+#: model:ir.ui.menu,name:sfl_payroll_base.menu_hr_payslip_run
 msgid "Payslips Batches"
 msgstr "Lots de bulletins de paie"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.employees:hr_payroll.view_hr_payslip_by_employees
+#: view:hr.payslip.employees:sfl_payroll_base.view_hr_payslip_by_employees
 msgid "Payslips by Employees"
 msgstr "Bulletins de paie par employé"
 
@@ -849,13 +849,13 @@ msgid "Percentage based on"
 msgstr "Pourcentage basé sur"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
-#: view:hr.payslip.run:hr_payroll.hr_payslip_run_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
+#: view:hr.payslip.run:sfl_payroll_base.hr_payslip_run_form
 msgid "Period"
 msgstr "Période"
 
 #. module: sfl_payroll_base
-#: view:payslip.lines.contribution.register:hr_payroll.view_payslip_lines_contribution_register
+#: view:payslip.lines.contribution.register:sfl_payroll_base.view_payslip_lines_contribution_register
 msgid "Print"
 msgstr "Imprimer"
 
@@ -885,13 +885,13 @@ msgid "Quantity"
 msgstr "Quantité"
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_contributionregister
+#: view:website:sfl_payroll_base.report_contributionregister
 msgid "Quantity/Rate"
 msgstr "Quantité/taux"
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Quantity/rate"
 msgstr ""
 
@@ -919,24 +919,24 @@ msgstr "Taux (%)"
 
 #. module: sfl_payroll_base
 #: field:hr.payroll.structure,code:0 field:hr.payslip,number:0
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Reference"
 msgstr "Référence"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Refund"
 msgstr "Rembourser"
 
 #. module: sfl_payroll_base
-#: code:addons/hr_payroll/hr_payroll.py:334
+#: code:addons/hr_payroll/sfl_payroll_base.py:334
 #, python-format
 msgid "Refund Payslip"
 msgstr "Bulletin de remboursement"
 
 #. module: sfl_payroll_base
-#: code:addons/hr_payroll/hr_payroll.py:324
+#: code:addons/hr_payroll/sfl_payroll_base.py:324
 #, python-format
 msgid "Refund: "
 msgstr "Remboursement : "
@@ -947,7 +947,7 @@ msgid "Register Line"
 msgstr "Ligne du registre"
 
 #. module: sfl_payroll_base
-#: view:website:hr_payroll.report_contributionregister
+#: view:website:sfl_payroll_base.report_contributionregister
 msgid "Register Name:"
 msgstr ""
 
@@ -962,79 +962,79 @@ msgid "Rule"
 msgstr "Règle"
 
 #. module: sfl_payroll_base
-#: view:hr.salary.rule.category:hr_payroll.hr_salary_rule_category_form
+#: view:hr.salary.rule.category:sfl_payroll_base.hr_salary_rule_category_form
 msgid "Salary Categories"
 msgstr "Catégories de salaires"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Salary Computation"
 msgstr "Calcul de salaire"
 
 #. module: sfl_payroll_base
-#: view:hr.salary.rule.category:hr_payroll.hr_salary_rule_category_tree
-#: view:hr.salary.rule.category:hr_payroll.hr_salary_rule_category_tree_view
-#: view:hr.salary.rule.category:hr_payroll.view_hr_salary_rule_category_filter
-#: model:ir.actions.act_window,name:hr_payroll.action_hr_salary_rule_category
-#: model:ir.ui.menu,name:hr_payroll.menu_hr_salary_rule_category
+#: view:hr.salary.rule.category:sfl_payroll_base.hr_salary_rule_category_tree
+#: view:hr.salary.rule.category:sfl_payroll_base.hr_salary_rule_category_tree_view
+#: view:hr.salary.rule.category:sfl_payroll_base.view_hr_salary_rule_category_filter
+#: model:ir.actions.act_window,name:sfl_payroll_base.action_hr_salary_rule_category
+#: model:ir.ui.menu,name:sfl_payroll_base.menu_hr_salary_rule_category
 msgid "Salary Rule Categories"
 msgstr "Catégories de règles pour le salaire"
 
 #. module: sfl_payroll_base
-#: model:ir.actions.act_window,name:hr_payroll.action_hr_salary_rule_category_tree_view
-#: model:ir.ui.menu,name:hr_payroll.menu_hr_salary_rule_category_tree_view
+#: model:ir.actions.act_window,name:sfl_payroll_base.action_hr_salary_rule_category_tree_view
+#: model:ir.ui.menu,name:sfl_payroll_base.menu_hr_salary_rule_category_tree_view
 msgid "Salary Rule Categories Hierarchy"
 msgstr "Hiérarchie des catégories de règles salariales"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.line:hr_payroll.view_hr_payslip_line_filter
-#: model:ir.model,name:hr_payroll.model_hr_salary_rule_category
-#: view:website:hr_payroll.report_payslipdetails
+#: view:hr.payslip.line:sfl_payroll_base.view_hr_payslip_line_filter
+#: model:ir.model,name:sfl_payroll_base.model_hr_salary_rule_category
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Salary Rule Category"
 msgstr "Catégorie de règle salariale"
 
 #. module: sfl_payroll_base
 #: field:hr.rule.input,input_id:0
-#: model:ir.model,name:hr_payroll.model_hr_rule_input
+#: model:ir.model,name:sfl_payroll_base.model_hr_rule_input
 msgid "Salary Rule Input"
 msgstr "Règle salariale en entrée"
 
 #. module: sfl_payroll_base
-#: view:hr.payroll.structure:hr_payroll.view_hr_employee_grade_form
+#: view:hr.payroll.structure:sfl_payroll_base.view_hr_employee_grade_form
 #: field:hr.payroll.structure,rule_ids:0
-#: view:hr.salary.rule:hr_payroll.hr_salary_rule_form
-#: view:hr.salary.rule:hr_payroll.hr_salary_rule_list
-#: view:hr.salary.rule:hr_payroll.hr_salary_rule_tree
-#: view:hr.salary.rule:hr_payroll.view_hr_rule_filter
-#: model:ir.actions.act_window,name:hr_payroll.action_salary_rule_form
-#: model:ir.ui.menu,name:hr_payroll.menu_action_hr_salary_rule_form
+#: view:hr.salary.rule:sfl_payroll_base.hr_salary_rule_form
+#: view:hr.salary.rule:sfl_payroll_base.hr_salary_rule_list
+#: view:hr.salary.rule:sfl_payroll_base.hr_salary_rule_tree
+#: view:hr.salary.rule:sfl_payroll_base.view_hr_rule_filter
+#: model:ir.actions.act_window,name:sfl_payroll_base.action_salary_rule_form
+#: model:ir.ui.menu,name:sfl_payroll_base.menu_action_hr_salary_rule_form
 msgid "Salary Rules"
 msgstr "Règles salariales"
 
 #. module: sfl_payroll_base
-#: code:addons/hr_payroll/hr_payroll.py:658
+#: code:addons/hr_payroll/sfl_payroll_base.py:658
 #, python-format
 msgid "Salary Slip of %s for %s"
 msgstr "Bulletin de paie de %s pour %s"
 
 #. module: sfl_payroll_base
 #: field:hr.contract,struct_id:0
-#: view:hr.payroll.structure:hr_payroll.view_hr_payroll_structure_tree
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
-#: view:hr.payslip.line:hr_payroll.view_hr_payslip_line_tree
-#: model:ir.model,name:hr_payroll.model_hr_payroll_structure
+#: view:hr.payroll.structure:sfl_payroll_base.view_hr_payroll_structure_tree
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
+#: view:hr.payslip.line:sfl_payroll_base.view_hr_payslip_line_tree
+#: model:ir.model,name:sfl_payroll_base.model_hr_payroll_structure
 msgid "Salary Structure"
 msgstr "Structure salariale"
 
 #. module: sfl_payroll_base
-#: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payroll_structure_list_form
-#: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_structure_view
+#: model:ir.actions.act_window,name:sfl_payroll_base.action_view_hr_payroll_structure_list_form
+#: model:ir.ui.menu,name:sfl_payroll_base.menu_hr_payroll_structure_view
 msgid "Salary Structures"
 msgstr "Structure des salaires"
 
 #. module: sfl_payroll_base
-#: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payroll_structure_tree
-#: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_structure_tree
+#: model:ir.actions.act_window,name:sfl_payroll_base.action_view_hr_payroll_structure_tree
+#: model:ir.ui.menu,name:sfl_payroll_base.menu_hr_payroll_structure_tree
 msgid "Salary Structures Hierarchy"
 msgstr "Structure hiérarchique du salaire"
 
@@ -1044,22 +1044,22 @@ msgid "Scheduled Pay"
 msgstr "Paie planifiée"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.run:hr_payroll.hr_payslip_run_filter
+#: view:hr.payslip.run:sfl_payroll_base.hr_payslip_run_filter
 msgid "Search Payslip Batches"
 msgstr "Rechercher des lots de bulletin de paie"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.line:hr_payroll.view_hr_payslip_line_filter
+#: view:hr.payslip.line:sfl_payroll_base.view_hr_payslip_line_filter
 msgid "Search Payslip Lines"
 msgstr "Rechercher des lignes de bulletins"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_filter
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_filter
 msgid "Search Payslips"
 msgstr "Rechercher dans les feuilles de paye"
 
 #. module: sfl_payroll_base
-#: view:hr.salary.rule:hr_payroll.view_hr_rule_filter
+#: view:hr.salary.rule:sfl_payroll_base.view_hr_rule_filter
 msgid "Search Salary Rule"
 msgstr "Rechercher une règle salariale"
 
@@ -1075,13 +1075,13 @@ msgid "Sequence"
 msgstr "Séquence"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
-#: view:hr.payslip.run:hr_payroll.hr_payslip_run_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
+#: view:hr.payslip.run:sfl_payroll_base.hr_payslip_run_form
 msgid "Set to Draft"
 msgstr "Mettre à l'état \"Brouillon\""
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_filter
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_filter
 msgid "States"
 msgstr "États"
 
@@ -1146,7 +1146,7 @@ msgid ""
 msgstr "Sera utilisé pour calculer le % des valeurs des champs, en général s'applique à la base, mais vous pouvez également utiliser les catégories de champs de code en minuscules  en tant que nom de variables (hra, ma, Ita, etc.) et la base variable."
 
 #. module: sfl_payroll_base
-#: view:hr.payslip.employees:hr_payroll.view_hr_payslip_by_employees
+#: view:hr.payslip.employees:sfl_payroll_base.view_hr_payslip_by_employees
 msgid ""
 "This wizard will generate payslips for all selected employee(s) based on the"
 " dates and credit note specified on Payslips Run."
@@ -1154,9 +1154,9 @@ msgstr "Cet assistant va générer les fiches de paie de l' (des) employé(s) s�
 
 #. module: sfl_payroll_base
 #: field:hr.payslip.line,total:0
-#: view:website:hr_payroll.report_contributionregister
-#: view:website:hr_payroll.report_payslip
-#: view:website:hr_payroll.report_payslipdetails
+#: view:website:sfl_payroll_base.report_contributionregister
+#: view:website:sfl_payroll_base.report_payslip
+#: view:website:sfl_payroll_base.report_payslipdetails
 msgid "Total"
 msgstr "Total"
 
@@ -1166,7 +1166,7 @@ msgid "Total Basic Salary"
 msgstr "Total salaire de base"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Total Working Days"
 msgstr "Nb. jours travaillés"
 
@@ -1187,7 +1187,7 @@ msgid "Waiting"
 msgstr "En attente"
 
 #. module: sfl_payroll_base
-#: code:addons/hr_payroll/hr_payroll.py:353
+#: code:addons/hr_payroll/sfl_payroll_base.py:353
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:52
 #, python-format
 msgid "Warning!"
@@ -1199,52 +1199,52 @@ msgid "Weekly"
 msgstr "Hebdomadaire"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Worked Day"
 msgstr "Jour travaillé"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Worked Days"
 msgstr "Jours travaillés"
 
 #. module: sfl_payroll_base
-#: view:hr.payslip:hr_payroll.view_hr_payslip_form
+#: view:hr.payslip:sfl_payroll_base.view_hr_payslip_form
 msgid "Worked Days & Inputs"
 msgstr "Jours travaillés et entrées"
 
 #. module: sfl_payroll_base
-#: code:addons/hr_payroll/hr_payroll.py:856
+#: code:addons/hr_payroll/sfl_payroll_base.py:856
 #, python-format
 msgid "Wrong percentage base or quantity defined for salary rule %s (%s)."
 msgstr "Mauvaise base de pourcentage ou quantité définie pour la règle de salaire %s (%s)"
 
 #. module: sfl_payroll_base
-#: code:addons/hr_payroll/hr_payroll.py:862
+#: code:addons/hr_payroll/sfl_payroll_base.py:862
 #, python-format
 msgid "Wrong python code defined for salary rule %s (%s)."
 msgstr "Mauvais code python défini pour la règle de salaire %s (%s)."
 
 #. module: sfl_payroll_base
-#: code:addons/hr_payroll/hr_payroll.py:885
+#: code:addons/hr_payroll/sfl_payroll_base.py:885
 #, python-format
 msgid "Wrong python condition defined for salary rule %s (%s)."
 msgstr "Mauvaise condition python définie pour la règle de salaire %s (%s)."
 
 #. module: sfl_payroll_base
-#: code:addons/hr_payroll/hr_payroll.py:851
+#: code:addons/hr_payroll/sfl_payroll_base.py:851
 #, python-format
 msgid "Wrong quantity defined for salary rule %s (%s)."
 msgstr "Mauvaise quantité définie pour la règle de salaire %s (%s)"
 
 #. module: sfl_payroll_base
-#: code:addons/hr_payroll/hr_payroll.py:879
+#: code:addons/hr_payroll/sfl_payroll_base.py:879
 #, python-format
 msgid "Wrong range condition defined for salary rule %s (%s)."
 msgstr "Mauvaise condition de l'intervalle défini pour la règle de salaire %s (%s)."
 
 #. module: sfl_payroll_base
-#: code:addons/hr_payroll/hr_payroll.py:353
+#: code:addons/hr_payroll/sfl_payroll_base.py:353
 #, python-format
 msgid "You cannot delete a payslip which is not draft or cancelled!"
 msgstr "Vous ne pouvez supprimer une fiche de paie qui ne soit ni brouillon ni annulée!"
@@ -1256,7 +1256,7 @@ msgid "You must select employee(s) to generate payslip(s)."
 msgstr "Vous devez sélectionnner un (des) employé(s) pour générer une (des) fiche(s) de paie."
 
 #. module: sfl_payroll_base
-#: view:payslip.lines.contribution.register:hr_payroll.view_payslip_lines_contribution_register
+#: view:payslip.lines.contribution.register:sfl_payroll_base.view_payslip_lines_contribution_register
 msgid "or"
 msgstr "ou"
 

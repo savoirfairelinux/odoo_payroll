@@ -5,8 +5,7 @@
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
-#    by
-#    the Free Software Foundation, either version 3 of the License, or
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -19,28 +18,19 @@
 #
 ##############################################################################
 
-from openerp import api, fields, models
-
-
-class HrJob(models.Model):
-
-    _inherit = 'hr.job'
-
-    activity_ids = fields.One2many(
-        'hr.activity',
-        'job_id',
-        'Activity',
-    )
-
-    @api.model
-    def create(self, vals):
-        res = super(HrJob, self).create(vals)
-
-        if not res.activity_ids:
-            res.write({
-                'activity_ids': [(0, 0, {
-                    'activity_type': 'job',
-                })]
-            })
-
-        return res
+{
+    'name': 'Employee Benefit Exemption',
+    'version': '1.0',
+    'license': 'AGPL-3',
+    'category': 'Human Resources',
+    'author': "Savoir-faire Linux",
+    'website': 'https://www.savoirfairelinux.com',
+    'depends': [
+        'sfl_payroll_employee_benefit',
+        'sfl_payroll_employee_exemption',
+    ],
+    'data': [
+        'views/hr_employee_benefit_category.xml',
+    ],
+    'installable': True,
+}

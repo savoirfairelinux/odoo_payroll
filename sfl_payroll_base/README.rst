@@ -2,7 +2,7 @@
 Odoo Payroll Base
 =================
 
-This module is a fork from hr_payroll.
+This module is a fork from sfl_payroll_base.
 The module hr_payroll is problematic for many reasons, but first, a lack of unit test.
 The module removes most odd features in the modules and reimplements the models with the new api.
 
