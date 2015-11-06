@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_t4_summary_form" model="ir.ui.view">
+            <field name="name">hr.cra.t4.summary.form</field>
+            <field name="model">hr.cra.t4.summary</field>
+            <field name="arch" type="xml">
+                <form string="T4 Slips - Summary" version="7.0">
+                    <header>
+                        <button name="generate_slips" type="object" states="draft" string="Generate T4 Slips"/>
+                        <button string="Confirm T4 Slips" name="button_confirm_slips" type="object" states="draft"/>
+                        <button string="Confirm" name="button_confirm" type="object" states="draft" class="oe_highlight"/>
+                        <button string="Cancel" name="button_cancel" type="object" states="sent"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="year"/>
+                            <field name="type"/>
+                        </group>
+
+                        <notebook>
+                            <page name="general_info" string="Standard Information">
+                                <group>
+                                    <field name="sbmt_ref_id"/>
+                                    <field name="lang_cd"/>
+                                </group>
+                                <group string="Proprietor">
+                                    <field name="proprietor_1_id"/>
+                                    <field name="proprietor_2_id"/>
+                                </group>
+                                <group>
+                                    <group string="Contact">
+                                        <field name="contact_id" on_change="onchange_contact_id(contact_id)"/>
+                                        <field name="contact_area_code"/>
+                                        <field name="contact_phone"/>
+                                        <field name="contact_extension"/>
+                                        <field name="contact_email"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Totals">
+                                <field name="total_ids" nolabel="1">
+                                    <tree editable="top">
+                                        <field name="box_id"/>
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="t4_slips" string="T4 Slips">
+                                <field name="t4_slip_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_t4_summary_tree" model="ir.ui.view">
+            <field name="name">hr.cra.t4.summary.tree</field>
+            <field name="model">hr.cra.t4.summary</field>
+            <field name="arch" type="xml">
+                <tree string="T4 Slips">
+                    <field name="company_id"/>
+                    <field name="year"/>
+                    <field name="type"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_t4_summary_filter" model="ir.ui.view">
+            <field name="name">hr.cra.t4.summary.select</field>
+            <field name="model">hr.cra.t4.summary</field>
+            <field name="arch" type="xml">
+                <search string="Search Summarys">
+                    <field name="year"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_hr_t4_summary_tree" model="ir.actions.act_window">
+            <field name="name">T4 Slips - Summary</field>
+            <field name="res_model">hr.cra.t4.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_hr_t4_summary_tree"/>
+            <field name="search_view_id" ref="view_hr_t4_summary_filter"/>
+        </record>
+
+        <menuitem action="action_view_hr_t4_summary_tree" id="t4_summary_menu_item" parent="menu_fiscal_slips" groups="base.group_hr_manager" sequence="30"/>
+    </data>
+</openerp>

@@ -38,6 +38,13 @@ class HrPayslip(models.Model):
         states={'draft': [('readonly', False)]}
     )
 
+    @api.model
+    def create(self, vals):
+        if 'date_payment' not in vals:
+            vals['date_payment'] = vals.get('date_to')
+
+        return super(HrPayslip, self).create(vals)
+
     @api.one
     @api.constrains('hr_period_id', 'company_id')
     def _check_period_company(self):

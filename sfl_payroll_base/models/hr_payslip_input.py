@@ -44,3 +44,8 @@ class HrPayslipInput(models.Model):
         'Amount',
         default=0.0,
     )
+    category_id = fields.Many2one(
+        'hr.payslip.input.category',
+        'Category',
+        required=True,
+    )

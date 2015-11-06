@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--
+            This file contains the standard inputs on the T4
+
+            For each box that relies on salary rules,
+            the field salary_rule_ids will be [(6, 0, [ ids ])] or [(5, 0)]
+
+            The reason is that the values of these fields must remain serialized so
+            that module updates don't leave deprecated values.
+
+            Inputs based on employee benefits or tax deductions don't have to be serialized
+            because these are custom inputs that will change from a company to another.
+        -->
+
+        <record id="t4_box_empt_incamt" model="hr.cra.t4.box">
+            <field name="name">14 - Employment income</field>
+            <field name="code">14</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">empt_incamt</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_fit_i_other_wage')])]"/>
+        </record>
+
+        <record id="t4_box_cpp_cntrb_amt" model="hr.cra.t4.box">
+            <field name="name">16 - Employee's CPP contributions</field>
+            <field name="code">16</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">cpp_cntrb_amt</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_cpp_ee_c')])]"/>
+        </record>
+
+        <record id="t4_box_qpp_cntrb_amt" model="hr.cra.t4.box">
+            <field name="name">17 - Employee's QPP contributions</field>
+            <field name="code">17</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">qpp_cntrb_amt</field>
+        </record>
+
+        <record id="t4_box_empe_eip_amt" model="hr.cra.t4.box">
+            <field name="name">18 - Employee's EI premiums</field>
+            <field name="code">18</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">empe_eip_amt</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_ei_ee_c')])]"/>
+        </record>
+
+        <record id="t4_box_rpp_cntrb_amt" model="hr.cra.t4.box">
+            <field name="name">20 - RPP contributions</field>
+            <field name="code">20</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">rpp_cntrb_amt</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_rpp_ee_c')])]"/>
+        </record>
+
+        <record id="t4_box_itx_ddct_amt" model="hr.cra.t4.box">
+            <field name="name">22 - Income tax deducted</field>
+            <field name="code">22</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">itx_ddct_amt</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_fit_t')])]"/>
+        </record>
+
+        <record id="t4_box_ei_insu_ern_amt" model="hr.cra.t4.box">
+            <field name="name">24 - EI insurable earnings</field>
+            <field name="code">24</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">ei_insu_ern_amt</field>
+            <field name="required" eval="True"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_ei_ee_maxie')])]"/>
+        </record>
+
+        <record id="t4_box_cpp_qpp_ern_amt" model="hr.cra.t4.box">
+            <field name="name">26 - CPP/QPP pensionable earnings</field>
+            <field name="code">26</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">cpp_qpp_ern_amt</field>
+            <field name="required" eval="True"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_cpp_ee_maxie')])]"/>
+        </record>
+
+        <record id="t4_box_unn_dues_amt" model="hr.cra.t4.box">
+            <field name="name">44 - Union dues</field>
+            <field name="code">44</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">unn_dues_amt</field>
+        </record>
+
+        <record id="t4_box_chrty_dons_amt" model="hr.cra.t4.box">
+            <field name="name">46 - Charitable donations</field>
+            <field name="code">46</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">chrty_dons_amt</field>
+        </record>
+
+        <record id="t4_box_padj_amt" model="hr.cra.t4.box">
+            <field name="name">52 - Pension adjustment</field>
+            <field name="code">52</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">padj_amt</field>
+        </record>
+
+        <record id="t4_box_padj_amt_rpp" model="hr.fiscal_slip.box.benefit.line">
+            <field name="box_id" model='hr.fiscal_slip.box' search="[('xml_tag', '=', 'padj_amt')]"/>
+            <field name="category_id" ref="rpp"/>
+            <field name="date_from">2014-01-01</field>
+        </record>
+
+        <record id="t4_box_prov_pip_amt" model="hr.cra.t4.box">
+            <field name="name">55 - Employee's PPIP premiums</field>
+            <field name="code">55</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">prov_pip_amt</field>
+            <field name="salary_rule_ids" eval="[(5, 0)]"/>
+        </record>
+
+        <record id="t4_box_prov_insu_ern_amt" model="hr.cra.t4.box">
+            <field name="name">56 - PPIP insurable earnings</field>
+            <field name="code">56</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">prov_insu_ern_amt</field>
+            <field name="salary_rule_ids" eval="[(5, 0)]"/>
+        </record>
+
+        <!-- The 2 following boxes are only used to compute the totals on the summary -->
+        <!-- This allows to compute every summary total boxes the same way -->
+        <record id="t4_box_empr_cpp_amt" model="hr.cra.t4.box">
+            <field name="name">Employer's CPP contributions</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">empr_cpp_amt</field>
+            <field name="appears_on_summary" eval="False"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_cpp_er_c')])]"/>
+        </record>
+
+        <record id="t4_box_empr_eip_amt" model="hr.cra.t4.box">
+            <field name="name">Employer's EI contributions</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">empr_eip_amt</field>
+            <field name="appears_on_summary" eval="False"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_ei_er_c')])]"/>
+        </record>
+
+    </data>
+</openerp>

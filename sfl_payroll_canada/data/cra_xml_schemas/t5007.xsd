@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T5007  ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="T5007SlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType"/>
+			<xsd:element name="RCPNT_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="bn" type="ccraType3"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+			<xsd:element name="mb_scl_ast_pct" type="numeric3Type" minOccurs="0"/>
+			<xsd:element name="T5007_AMT" type="T5007AmountType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T5007AmountType">
+		<xsd:all>
+			<xsd:element name="wrkr_cmpn_ben_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="scl_ast_amt" type="decimal9Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T5007SummaryType">
+		<xsd:all>
+			<xsd:element name="bn" type="ccraType3"/>
+			<xsd:element name="PAYR_NM" type="Line3Type"/>
+			<xsd:element name="PAYR_ADDR" type="T5007SummaryAddressType"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="T5007_TAMT" type="T5007TotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T5007TotalsType">
+		<xsd:all>
+			<xsd:element name="tot_cmpn_ben_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_scl_ast_amt" type="decimal13Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T5007SummaryAddressType">
+		<xsd:all>
+			<xsd:element name="addr_l1_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="addr_l2_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="cty_nm" type="char28Type" minOccurs="0"/>
+			<xsd:element name="prov_cd" type="provinceStateType" minOccurs="0"/>
+			<xsd:element name="cntry_cd" type="countryType" minOccurs="0"/>
+			<xsd:element name="pstl_cd" type="pcType"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

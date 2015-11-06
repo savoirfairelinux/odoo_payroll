@@ -35,6 +35,9 @@ class HrPayslip(models.Model):
 
     @api.one
     def compute_ytd_amounts(self):
+        if not self.line_ids:
+            return
+
         query = (
             """SELECT pl_1.id, sum(
                 case when p.credit_note then -pl_2.amount else pl_2.amount end)

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T215 ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="T215SlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType"/>
+			<xsd:element name="RCPNT_ADDR" type="CanadaAddressType"/>
+			<xsd:element name="pspa_amt" type="decimal9Type"/>
+			<xsd:element name="rpp_rgst_nbr" type="numeric7Type"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T215SummaryType">
+		<xsd:all>
+			<xsd:element name="RPP_PL_NM" type="RppPlanNameType"/>
+			<xsd:element name="RPP_PL_ADMNR_NM" type="Line3Type"/>
+			<xsd:element name="RPP_PL_ADMNR_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="PLN_ADMNR_PHN_NBR" type="PlanAdmnrPhoneType"/>
+			<xsd:element name="PAST_SRVC_DT" type="DateType"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="tot_pspa_amt" type="decimal13Type"/>
+			<xsd:element name="rpp_rgst_nbr" type="numeric7Type"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="RppPlanNameType">
+		<xsd:all>
+			<xsd:element name="rpp_nm_l1" type="char30Type"/>
+			<xsd:element name="rpp_nm_l2" type="char30Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="PlanAdmnrPhoneType">
+		<xsd:all>
+			<xsd:element name="cntc_area_cd" type="numeric3Type"/>
+			<xsd:element name="cntc_phn_nbr" type="phoneType"/>
+			<xsd:element name="cntc_extn_nbr" type="int5Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

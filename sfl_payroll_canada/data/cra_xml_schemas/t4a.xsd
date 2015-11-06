@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T4A ComplexTypes @@@@  2013/August/20  Version# 1.13 (version #.yy)-->
+	<xsd:complexType name="T4ASlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType" minOccurs="0"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="rcpnt_bn" type="bnType"/>
+			<xsd:element name="RCPNT_CORP_NM" type="Line2Type" minOccurs="0"/>
+			<xsd:element name="RCPNT_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="rcpnt_nbr" type="char20Type" minOccurs="0"/>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="ppln_dpsp_rgst_nbr" type="int7Type" minOccurs="0"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+			<xsd:element name="T4A_AMT" type="T4aAmtType" minOccurs="0"/>
+			<xsd:element name="OTH_INFO" type="T4AOtherInformationType" minOccurs="0">
+				<xsd:unique name="Other_T4A_Info_Fields">
+					<xsd:selector xpath="."/>
+					<xsd:field xpath="elg_rtir_amt"/>
+					<xsd:field xpath="nelg_rtir_amt"/>
+					<xsd:field xpath="oth_incamt"/>
+					<xsd:field xpath="ptrng_aloc_amt"/>
+					<xsd:field xpath="rpp_past_srvc_amt"/>
+					<xsd:field xpath="padj_amt"/>
+					<xsd:field xpath="resp_aip_amt"/>
+					<xsd:field xpath="resp_educt_ast_amt"/>
+					<xsd:field xpath="chrty_dons_amt"/>
+					<xsd:field xpath="nr_lsp_trnsf_amt"/>
+					<xsd:field xpath="rsch_grnt_amt"/>
+					<xsd:field xpath="brsy_amt"/>
+					<xsd:field xpath="dth_ben_amt"/>
+					<xsd:field xpath="wag_ls_incamt"/>
+					<xsd:field xpath="lsp_rpp_nelg_amt"/>
+					<xsd:field xpath="nrgst_ppln_amt"/>
+					<xsd:field xpath="pr_71_acr_lsp_amt"/>
+					<xsd:field xpath="inc_avg_annty_amt"/>
+					<xsd:field xpath="dpsp_ins_pay_amt"/>
+					<xsd:field xpath="med_trvl_amt"/>
+					<xsd:field xpath="loan_ben_amt"/>
+					<xsd:field xpath="med_prem_ben_amt"/>
+					<xsd:field xpath="grp_trm_life_amt"/>
+					<xsd:field xpath="resp_aip_oth_amt"/>
+					<xsd:field xpath="ins_rvk_dpsp_amt"/>
+					<xsd:field xpath="brd_wrk_site_amt"/>
+					<xsd:field xpath="dsblt_ben_amt"/>
+					<!--remove for 2014 release  <xsd:field xpath="pr_90_rpp_amt"/>-->
+					<xsd:field xpath="cntrbr_prr_pspp_cnamt"/><!-- New for 2014 -->
+					<xsd:field xpath="vtrn_ben_amt"/>
+					<xsd:field xpath="ctrct_srvc_amt"/>
+					<xsd:field xpath="tx_dfr_ptrng_dvamt"/>
+					<xsd:field xpath="atp_inctv_grnt_amt"/>
+					<xsd:field xpath="rdsp_amt"/>
+					<xsd:field xpath="wag_ptct_pgm_amt"/>
+					<xsd:field xpath="var_pens_ben_amt"/>
+					<xsd:field xpath="tfsa_tax_amt"/>
+					<xsd:field xpath="rcpnt_pay_prem_phsp_amt"/>
+					<xsd:field xpath="pmmc_isg_amt"/><!-- New for 2014 -->
+					<xsd:field xpath="indn_elg_rtir_amt"/>
+					<xsd:field xpath="indn_nelg_rtir_amt"/>
+					<xsd:field xpath="indn_oth_incamt"/>
+					<xsd:field xpath="indn_xmpt_pens_amt"/>
+					<xsd:field xpath="indn_xmpt_lsp_amt"/>
+					<xsd:field xpath="lbr_adj_ben_aprpt_act_amt"/>
+					<xsd:field xpath="subp_qlf_amt"/>
+					<xsd:field xpath="csh_awrd_pze_payr_amt"/>
+					<xsd:field xpath="bkcy_sttl_amt"/>
+					<xsd:field xpath="lsp_nelg_trnsf_amt"/>
+					<xsd:field xpath="ncntrbr_prr_pspp_cnamt"/><!-- New for 2014 -->
+					<xsd:field xpath="lsp_dpsp_nelg_amt"/>
+					<xsd:field xpath="lsp_nrgst_pens_amt"/>
+					<xsd:field xpath="prpp_tx_inc_pamt"/><!-- New for 2014 -->
+					<xsd:field xpath="prpp_txmpt_inc_pamt"/><!-- New for 2014 -->
+				</xsd:unique>
+			</xsd:element>
+			<xsd:element name="ADD_INFO" type="T4AAdditionalInformationType" minOccurs="0">
+				<xsd:unique name="Additional_T4A_Info_Fields">
+					<xsd:selector xpath="."/>
+					<xsd:field xpath="spp_sps_cntrb_ind"/>
+					<xsd:field xpath="spp_sps_cntrbr_sin"/>
+				</xsd:unique>
+			</xsd:element>
+			</xsd:all>
+	</xsd:complexType>
+		<xsd:complexType name="T4AAdditionalInformationType">
+		<xsd:sequence>
+			<xsd:group ref="T4AAdditionalInfoGroup" minOccurs="0" maxOccurs="2"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:group name="T4AAdditionalInfoGroup">
+		<xsd:choice>
+			<xsd:element name="spp_sps_cntrb_ind" type="char9Type"/>
+			<xsd:element name="spp_sps_cntrbr_sin" type="char9Type"/>
+		</xsd:choice>
+	</xsd:group>
+	<xsd:complexType name="T4aAmtType">
+		<xsd:all>
+			<xsd:element name="pens_spran_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="lsp_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="self_empl_cmsn_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="itx_ddct_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="annty_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="fee_or_oth_srvc_amt" type="decimal11Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4AOtherInformationType">
+		<xsd:sequence>
+			<xsd:group ref="T4AOtherInfoGroup" minOccurs="0" maxOccurs="12"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:group name="T4AOtherInfoGroup">
+		<xsd:choice>
+			<xsd:element name="elg_rtir_amt" type="decimal11Type"/>
+			<xsd:element name="nelg_rtir_amt" type="decimal11Type"/>
+			<xsd:element name="oth_incamt" type="decimal11Type"/>
+			<xsd:element name="ptrng_aloc_amt" type="decimal11Type"/>
+			<xsd:element name="rpp_past_srvc_amt" type="decimal11Type"/>
+			<xsd:element name="padj_amt" type="decimal11Type"/>
+			<xsd:element name="resp_aip_amt" type="decimal11Type"/>
+			<xsd:element name="resp_educt_ast_amt" type="decimal11Type"/>
+			<xsd:element name="chrty_dons_amt" type="decimal11Type"/>
+			<xsd:element name="nr_lsp_trnsf_amt" type="decimal11Type"/>
+			<xsd:element name="rsch_grnt_amt" type="decimal11Type"/>
+			<xsd:element name="brsy_amt" type="decimal11Type"/>
+			<xsd:element name="dth_ben_amt" type="decimal11Type"/>
+			<xsd:element name="wag_ls_incamt" type="decimal11Type"/>
+			<xsd:element name="lsp_rpp_nelg_amt" type="decimal11Type"/>
+			<xsd:element name="nrgst_ppln_amt" type="decimal11Type"/>
+			<xsd:element name="pr_71_acr_lsp_amt" type="decimal11Type"/>
+			<xsd:element name="inc_avg_annty_amt" type="decimal11Type"/>
+			<xsd:element name="dpsp_ins_pay_amt" type="decimal11Type"/>
+			<xsd:element name="med_trvl_amt" type="decimal11Type"/>
+			<xsd:element name="loan_ben_amt" type="decimal11Type"/>
+			<xsd:element name="med_prem_ben_amt" type="decimal11Type"/>
+			<xsd:element name="grp_trm_life_amt" type="decimal11Type"/>
+			<xsd:element name="resp_aip_oth_amt" type="decimal11Type"/>
+			<xsd:element name="ins_rvk_dpsp_amt" type="decimal11Type"/>
+			<xsd:element name="brd_wrk_site_amt" type="decimal11Type"/>
+			<xsd:element name="dsblt_ben_amt" type="decimal11Type"/>
+			<!-- remove for 2014 <xsd:element name="pr_90_rpp_amt" type="decimal11Type"/> -->
+			<xsd:element name="cntrbr_prr_pspp_cnamt" type="decimal11Type"/><!-- New for 2014 -->
+			<xsd:element name="vtrn_ben_amt" type="decimal11Type"/>
+			<xsd:element name="ctrct_srvc_amt" type="decimal11Type"/>
+			<xsd:element name="tx_dfr_ptrng_dvamt" type="decimal11Type"/>
+			<xsd:element name="atp_inctv_grnt_amt" type="decimal11Type"/>
+			<xsd:element name="rdsp_amt" type="decimal11Type"/>
+			<xsd:element name="wag_ptct_pgm_amt" type="decimal11Type"/>
+			<xsd:element name="var_pens_ben_amt" type="decimal11Type"/>
+			<xsd:element name="tfsa_tax_amt" type="decimal11Type"/>
+			<xsd:element name="rcpnt_pay_prem_phsp_amt" type="decimal11Type"/>
+			<xsd:element name="pmmc_isg_amt" type="decimal11Type"/><!-- New for 2014 -->
+			<xsd:element name="indn_elg_rtir_amt" type="decimal11Type"/>
+			<xsd:element name="indn_nelg_rtir_amt" type="decimal11Type"/>
+			<xsd:element name="indn_oth_incamt" type="decimal11Type"/>
+			<xsd:element name="indn_xmpt_pens_amt" type="decimal11Type"/>
+			<xsd:element name="indn_xmpt_lsp_amt" type="decimal11Type"/>
+			<xsd:element name="lbr_adj_ben_aprpt_act_amt" type="decimal11Type"/>
+			<xsd:element name="subp_qlf_amt" type="decimal11Type"/>
+			<xsd:element name="csh_awrd_pze_payr_amt" type="decimal11Type"/>
+			<xsd:element name="bkcy_sttl_amt" type="decimal11Type"/>
+			<xsd:element name="lsp_nelg_trnsf_amt" type="decimal11Type"/>
+			<xsd:element name="ncntrbr_prr_pspp_cnamt" type="decimal11Type"/><!-- New for 2014 -->
+			<xsd:element name="lsp_dpsp_nelg_amt" type="decimal11Type"/>
+			<xsd:element name="lsp_nrgst_pens_amt" type="decimal11Type"/>
+			<xsd:element name="prpp_tx_inc_pamt" type="decimal11Type"/><!-- New for 2014 -->
+			<xsd:element name="prpp_txmpt_inc_pamt" type="decimal11Type"/><!-- New for 2014 -->
+		</xsd:choice>
+	</xsd:group>
+	<xsd:complexType name="T4ASummaryType">
+		<xsd:all>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="PAYR_NM" type="Line3Type"/>
+			<xsd:element name="PAYR_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="RPP_NBR" type="RppNumberType" minOccurs="0"/>
+			<xsd:element name="PPRTR_SIN" type="PropSinType" minOccurs="0"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="T4A_TAMT" type="T4aTotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4aTotalsType">
+		<xsd:all>
+			<xsd:element name="tot_pens_spran_amt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="tot_lsp_amt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="tot_self_cmsn_amt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="tot_ptrng_aloc_amt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="tot_past_srvc_amt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="tot_annty_incamt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="totr_incamt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="tot_itx_dedn_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_padj_amt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="tot_resp_aip_amt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="tot_resp_amt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="rpt_tot_fee_srvc_amt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="rpt_tot_oth_info_amt" type="decimal15Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="RppNumberType">
+		<xsd:all>
+			<xsd:element name="rpp_rgst_1_nbr" type="int7Type"/>
+			<xsd:element name="rpp_rgst_2_nbr" type="int7Type" minOccurs="0"/>
+			<xsd:element name="rpp_rgst_3_nbr" type="int7Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: 	PRPP Return Complex and Element Types
+Contact: 	CRA, ITB, PIECE, INFODEC MMPS
+Date created: 	March 2013
+Version#:	1.13 (version #.yy)
+-->
+
+<xsd:schema xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+	<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/>
+	<xsd:include schemaLocation="lemmcommontypes.xsd"/>
+
+	<xsd:complexType name="PRPPSlipType">
+		<xsd:all>
+			<xsd:element ref="EmployeeContributorSocialInsuranceNumber"/>
+			<xsd:element ref="EmployeeContributorName"/>
+			<xsd:element ref="EmployeeContributorAddress" minOccurs="0"/>
+			<xsd:element ref="EmployerContributorName"/>
+			<xsd:element ref="EmployerContributorAccountNumber" minOccurs="0"/>
+			<xsd:element ref="AdministratorAccountNumber"/>
+			<xsd:element ref="PooledRegisteredPensionPlanContractNumber"/>
+			<xsd:element ref="SlipReportTypeCode"/>
+			<xsd:element ref="PooledRegisteredPensionPlanAmount" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:element name="EmployeeContributorSocialInsuranceNumber" type="ccms:SINType"/>
+	<xsd:element name="EmployeeContributorName" type="IndividualNameType"/>
+	<xsd:element name="EmployeeContributorAddress" type="AddressType"/>
+	<xsd:element name="EmployerContributorName" type="TwoLinedLength30NameType"/>
+	<xsd:element name="EmployerContributorAccountNumber" type="BNType"/>
+	<xsd:element name="AdministratorAccountNumber" type="BNType"/>
+	<xsd:element name="PooledRegisteredPensionPlanContractNumber" type="Length1to12TextType"/>
+	<xsd:element name="PooledRegisteredPensionPlanAmount" type="PRPPAmountType"/>
+
+	<xsd:complexType name="PRPPAmountType">
+		<xsd:all>
+			<xsd:element ref="EmployeePriorYearContributionAmount" minOccurs="0"/>
+			<xsd:element ref="EmployeeCurrentYearContributionAmount" minOccurs="0"/>
+			<xsd:element ref="EmployeePriorYearExemptIncomeContributionAmount" minOccurs="0"/>
+			<xsd:element ref="EmployeeCurrentYearExemptIncomeContributionAmount" minOccurs="0"/>
+			<xsd:element ref="EmployerContributionAmount" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:element name="EmployeePriorYearContributionAmount" type="Decimal9AmountType"/>
+	<xsd:element name="EmployeeCurrentYearContributionAmount" type="Decimal9AmountType"/>
+	<xsd:element name="EmployeePriorYearExemptIncomeContributionAmount" type="Decimal9AmountType"/>
+	<xsd:element name="EmployeeCurrentYearExemptIncomeContributionAmount" type="Decimal9AmountType"/>
+	<xsd:element name="EmployerContributionAmount" type="Decimal9AmountType"/>
+
+	<xsd:complexType name="PRPPSummaryType">
+		<xsd:all>
+			<xsd:element ref="AdministratorAccountNumber"/>
+			<xsd:element ref="SummaryReportTypeCode"/>
+			<xsd:element ref="TaxationYear"/>
+			<xsd:element ref="PooledRegisteredPensionPlanNumber"/>
+			<xsd:element ref="TotalSlipCount"/>
+			<xsd:element ref="AdministratorName"/>
+			<xsd:element ref="AdministratorAddress" minOccurs="0"/>
+			<xsd:element ref="ContactInformation"/>  					
+			<xsd:element ref="PooledRegisteredPensionPlanTotalAmount" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:element name="PooledRegisteredPensionPlanNumber" type="Length1to9TextType"/>
+	<xsd:element name="AdministratorName" type="ThreeLinedLength30NameType"/>
+	<xsd:element name="AdministratorAddress" type="RequiredPostalCodeAddressType"/>
+	<xsd:element name="ContactInformation" type="ContactType3"/>  					
+	<xsd:element name="PooledRegisteredPensionPlanTotalAmount" type="PRPPTotalType"/>
+
+	<xsd:complexType name="PRPPTotalType">
+		<xsd:all>
+		    <xsd:element ref="TotalEmployeePriorYearContributionAmount" minOccurs="0"/>
+		    <xsd:element ref="TotalEmployeeCurrentYearContributionAmount" minOccurs="0"/>
+   		    <xsd:element ref="TotalEmployeePriorYearExemptIncomeContributionAmount" minOccurs="0"/>
+  		    <xsd:element ref="TotalEmployeeCurrentYearExemptIncomeContributionAmount" minOccurs="0"/>
+  		    <xsd:element ref="TotalEmployerContributionAmount" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+  	<xsd:element name="TotalEmployeePriorYearContributionAmount" type="Decimal13AmountType"/>
+    	<xsd:element name="TotalEmployeeCurrentYearContributionAmount" type="Decimal13AmountType"/>
+	<xsd:element name="TotalEmployeePriorYearExemptIncomeContributionAmount" type="Decimal13AmountType"/>
+  	<xsd:element name="TotalEmployeeCurrentYearExemptIncomeContributionAmount" type="Decimal13AmountType"/>
+  	<xsd:element name="TotalEmployerContributionAmount" type="Decimal13AmountType"/>
+
+</xsd:schema>

@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!--  @@@@     COMPLEX TYPE DEFINITIONS    @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="CanadaAddressType">
+		<xsd:all>
+			<xsd:element name="addr_l1_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="addr_l2_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="cty_nm" type="char28Type" minOccurs="0"/>
+			<xsd:element name="prov_cd" type="provinceStateType" minOccurs="0"/>
+			<xsd:element name="cntry_cd" type="countryType" minOccurs="0"/>
+			<xsd:element name="pstl_cd" type="pcType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="CanadaOnlyAddressType">
+		<xsd:all>
+			<xsd:element name="addr_l1_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="addr_l2_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="cty_nm" type="char28Type" minOccurs="0"/>
+			<xsd:element name="prov_cd" type="provinceType" minOccurs="0"/>
+			<xsd:element name="cntry_cd" type="countryType" minOccurs="0"/>
+			<xsd:element name="pstl_cd" type="pcType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="NR4CanadaAddressType">
+		<xsd:all>
+			<xsd:element name="addr_l1_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="addr_l2_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="cty_nm" type="char28Type" minOccurs="0"/>
+			<xsd:element name="prov_cd" type="provinceStateType" minOccurs="0"/>
+			<xsd:element name="cntry_cd" type="nr4CountryType" minOccurs="0"/>
+			<xsd:element name="pstl_cd" type="pcType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="NR4ForeignAddressType">
+		<xsd:all>
+			<xsd:element name="addr_l1_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="addr_l2_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="cty_nm" type="char28Type" minOccurs="0"/>
+			<xsd:element name="ste_cd" type="forcesProvinceStateType" minOccurs="0"/>
+			<xsd:element name="cntry_cd" type="nr4CountryType" minOccurs="0"/>
+			<xsd:element name="fgn_pstl_cd" type="pcType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="ForeignAddressType">
+		<xsd:all>
+			<xsd:element name="addr_l1_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="addr_l2_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="cty_nm" type="char28Type" minOccurs="0"/>
+			<xsd:element name="ste_cd" type="provinceStateType" minOccurs="0"/>
+			<xsd:element name="cntry_cd" type="countryType" minOccurs="0"/>
+			<xsd:element name="fgn_pstl_cd" type="pcType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T5SlipAddressType">
+		<xsd:all>
+			<xsd:element name="addr_l1_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="addr_l2_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="cty_nm" type="char28Type" minOccurs="0"/>
+			<xsd:element name="prov_cd" type="forcesProvinceStateType" minOccurs="0"/>
+			<xsd:element name="cntry_cd" type="countryType" minOccurs="0"/>
+			<xsd:element name="pstl_cd" type="pcType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="NR4SlipForeignAddressType">
+		<xsd:all>
+			<xsd:element name="addr_l1_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="addr_l2_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="cty_nm" type="char28Type" minOccurs="0"/>
+			<xsd:element name="ste_cd" type="forcesProvinceStateType" minOccurs="0"/>
+			<xsd:element name="cntry_cd" type="countryType" minOccurs="0"/>
+			<xsd:element name="fgn_pstl_cd" type="pcType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="RequiredPstlCdAddressType">
+		<xsd:all>
+			<xsd:element name="addr_l1_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="addr_l2_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="cty_nm" type="char28Type" minOccurs="0"/>
+			<xsd:element name="prov_cd" type="provinceStateType" minOccurs="0"/>
+			<xsd:element name="cntry_cd" type="countryType" minOccurs="0"/>
+			<xsd:element name="pstl_cd" type="pcType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="NameType">
+		<xsd:all>
+			<xsd:element name="snm" type="char20Type"/>
+			<xsd:element name="gvn_nm" type="char12Type" minOccurs="0"/>
+			<xsd:element name="init" type="char1Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="NameType_2">
+		<xsd:all>
+			<xsd:element name="sec_snm" type="char20Type" minOccurs="0"/>
+			<xsd:element name="sec_gvn_nm" type="char12Type" minOccurs="0"/>
+			<xsd:element name="sec_init" type="char1Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="Former_Spouse_NameType">
+		<xsd:all>
+			<xsd:element name="frmr_sps_snm" type="char30Type" minOccurs="0"/>
+			<xsd:element name="frmr_sps_gvn_nm" type="char30Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="ContactType">
+		<xsd:all>
+			<xsd:element name="cntc_nm" type="char22Type"/>
+			<xsd:element name="cntc_area_cd" type="numeric3Type"/>
+			<xsd:element name="cntc_phn_nbr" type="phoneType"/>
+			<xsd:element name="cntc_extn_nbr" type="int5Type" minOccurs="0"/>
+			<xsd:element name="cntc_email_area" type="char60Type"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="ContactType2">
+		<xsd:all>
+			<xsd:element name="cntc_nm" type="char22Type"/>
+			<xsd:element name="cntc_area_cd" type="numeric3Type"/>
+			<xsd:element name="cntc_phn_nbr" type="phoneType"/>
+			<xsd:element name="cntc_extn_nbr" type="int5Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="Line2Type">
+		<xsd:all>
+			<xsd:element name="l1_nm" type="char30Type"/>
+			<xsd:element name="l2_nm" type="char30Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="NR4_Line2Type">
+		<xsd:all>
+			<xsd:element name="l1_nm" type="char35Type"/>
+			<xsd:element name="l2_nm" type="char35Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="Line3Type">
+		<xsd:all>
+			<xsd:element name="l1_nm" type="char30Type"/>
+			<xsd:element name="l2_nm" type="char30Type" minOccurs="0"/>
+			<xsd:element name="l3_nm" type="char30Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="Line3Len35Type">
+		<xsd:all>
+			<xsd:element name="l1_nm" type="char35Type"/>
+			<xsd:element name="l2_nm" type="char35Type" minOccurs="0"/>
+			<xsd:element name="l3_nm" type="char35Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="RecipientNumberType">
+		<xsd:all>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="fssn" type="char20Type"/>
+			<xsd:element name="rcpnt_bn" type="bnType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="PropSinType">
+		<xsd:all>
+			<xsd:element name="pprtr_1_sin" type="sinType"/>
+			<xsd:element name="pprtr_2_sin" type="sinType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="DateType">
+		<xsd:all>
+			<xsd:element name="dy" type="dayType"/>
+			<xsd:element name="mo" type="monthType"/>
+			<xsd:element name="yr" type="yearType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="DateType2">
+		<xsd:all>
+			<xsd:element name="sec_dy" type="dayType"/>
+			<xsd:element name="sec_mo" type="monthType"/>
+			<xsd:element name="sec_yr" type="yearType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="DayMonthType">
+		<xsd:all>
+			<xsd:element name="dy" type="dayType"/>
+			<xsd:element name="mo" type="monthType"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

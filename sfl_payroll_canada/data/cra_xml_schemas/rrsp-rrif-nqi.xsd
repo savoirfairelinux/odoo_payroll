@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: 	RRSP/RRIF Non-Qualified Investment Return Complex and Element Types
+Contact: 	CRA, ITB, PIECE, INFODEC MMPS
+Date created: 	March 2013
+Version#:	1.13 (version #.yy)
+-->
+
+<xsd:schema xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" 
+	xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/>
+	<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/>
+	<xsd:include schemaLocation="lemmcommontypes.xsd"/>
+
+	<xsd:complexType name="RRSPOrRRIFNQISlipType">
+		<xsd:sequence>
+			<xsd:element ref="Transaction" maxOccurs="unbounded"/>
+			<xsd:element ref="SlipIdentification"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="SlipIdentification" type="RRSPOrRRIFNQISlipIdentificationType"/>
+	<xsd:element name="Transaction" type="RRSPOrRRIFNQITransactionType"/>
+
+	<xsd:complexType name="RRSPOrRRIFNQITransactionType">
+		<xsd:all>
+			<xsd:element ref="TransactionDate"/>
+			<xsd:element ref="AcquiredNonQualifiedInvestmentFairMarketValueAmount"/>
+			<xsd:element ref="DisposedNonQualifiedInvestmentFairMarketValueAmount"/>
+			<xsd:element ref="NonQualifiedInvestmentDescription"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:element name="TransactionDate" type="NonQualifiedInvestmentTransactionDateType"/>
+	<xsd:element name="AcquiredNonQualifiedInvestmentFairMarketValueAmount" type="Decimal11AmountType"/>
+	<xsd:element name="DisposedNonQualifiedInvestmentFairMarketValueAmount" type="Decimal11AmountType"/>
+	<xsd:element name="NonQualifiedInvestmentDescription" type="Length1to120TextType"/>
+
+	<xsd:complexType name="NonQualifiedInvestmentTransactionDateType">
+		<xsd:sequence>
+			<xsd:element ref="NQITransactionDay"/>
+			<xsd:element ref="NQITransactionMonth"/>
+			<xsd:element ref="NQITransactionYear"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="NQITransactionDay" type="sdt:DayType"/>
+	<xsd:element name="NQITransactionMonth" type="sdt:MonthType"/>
+	<xsd:element name="NQITransactionYear" type="sdt:YearType"/>
+
+	<xsd:complexType name="RRSPOrRRIFNQISlipIdentificationType">
+		<xsd:all>
+			<xsd:element ref="AnnuitantName"/>
+			<xsd:element ref="AnnuitantSocialInsuranceNumber"/>
+			<xsd:element ref="AnnuitantAddress" minOccurs="0"/>
+			<xsd:element ref="ContractID"/>
+			<xsd:element ref="SlipReportTypeCode"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:element name="AnnuitantName" type="AnnuitantNameType"/>
+	<xsd:element name="AnnuitantSocialInsuranceNumber" type="ccms:SINType"/>
+	<xsd:element name="AnnuitantAddress" type="AddressType"/>
+	<xsd:element name="ContractID" type="ContractIDType"/>
+
+	<xsd:complexType name="Length1to120TextType">
+		<xsd:simpleContent>
+			<xsd:restriction base="sdt:TextType">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="120"/>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+
+        <!-- Or use IndividualNameType? -->
+	<xsd:complexType name="AnnuitantNameType">
+		<xsd:all>
+			<xsd:element name="FamilyName" type="ccms:Name30CharacterType"/>
+			<xsd:element name="GivenName" type="ccms:Name30CharacterType"/>
+			<xsd:element name="NameInitialText" type="Length1NameType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+
+	<xsd:complexType name="ContractIDType">
+		<xsd:all>
+			<xsd:element ref="RRSPOrRRIFNumber"/>
+			<xsd:element ref="RRSPOrRRIFContractNumber"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:element name="RRSPOrRRIFNumber" type="Length1to20NumberType"/>
+	<xsd:element name="RRSPOrRRIFContractNumber" type="Length1to30NumberType"/>
+
+	<!-- use ccms:BusinessProgramAccountNumberType for BNType ? -->
+	<xsd:complexType name="RRSPOrRRIFNQISummaryType">
+		<xsd:all>
+			<xsd:element ref="FilerAccountNumber"/>
+			<xsd:element ref="SummaryReportTypeCode"/>
+			<xsd:element ref="TaxationYear"/>
+			<xsd:element ref="TotalSlipCount"/>
+			<xsd:element ref="FilerName"/>
+			<xsd:element ref="FilerAddress"/>
+			<xsd:element ref="FilerContact"/>  					
+			<xsd:element ref="TotalAcquiredNonQualifiedInvestmentFairMarketValueAmount"/>
+			<xsd:element ref="TotalDisposedNonQualifiedInvestmentFairMarketValueAmount"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:element name="FilerName" type="ThreeLinedLength35NameType"/>
+	<xsd:element name="FilerAddress" type="RequiredPostalCodeAddressType"/>
+	<xsd:element name="FilerContact" type="NQIFilerContactType"/>  					
+	<xsd:element name="TotalAcquiredNonQualifiedInvestmentFairMarketValueAmount" type="Decimal15AmountType"/>
+	<xsd:element name="TotalDisposedNonQualifiedInvestmentFairMarketValueAmount" type="Decimal15AmountType"/>
+
+	<xsd:complexType name="NQIFilerContactType">
+		<xsd:all>
+			<xsd:element ref="ContactFamilyName"/>
+			<xsd:element ref="ContactGivenName"/>
+			<xsd:element ref="ContactAreaCode"/>
+			<xsd:element ref="ContactPhoneNumber"/>
+			<xsd:element ref="ContactExtensionNumber" minOccurs="0"/>
+			<xsd:element ref="ContactEmailAddress"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

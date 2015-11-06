@@ -34,6 +34,7 @@
         'views/hr_holiday_status.xml',
         'views/hr_payslip.xml',
         'views/hr_activity.xml',
+        'views/hr_salary_rule.xml',
         'security/ir.model.access.csv',
     ],
     'installable': True,

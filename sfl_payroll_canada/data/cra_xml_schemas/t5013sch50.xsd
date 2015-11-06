@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: Specialty Business Returns -Net Income(Loss) For Income Tax Purposes (CRA Form T5013 SCH 50 E(11) )
+Contact: CRA, ITB, Solutions, RASD, Business Suite Assessing System, Other Levies
+Date created: October 2012
+Updates: ols50/1-0-1 - November 2013 - renamed Schedule50TotalPartnersCount to Schedule50NetIncomeTotalForAllPartnersAmount 
+		 sdt/updated reference to sdt/2-2-0 
+Users of this schema:
+-Other Levies System
+-->
+
+<xsd:schema
+xmlns:ols50="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols50/1-0-1" 
+xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" 
+xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+targetNamespace="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols50/1-0-1" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="ols50/1-0-1">
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/> 
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/> 	
+	
+<!-- T5013Schedule50Data is also referenced by other schemas for importing purposes -->
+	<xsd:element name="T5013Schedule50Data" type="ols50:Schedule50DataType"/>
+	<xsd:complexType name="Schedule50DataType">
+		<xsd:sequence>
+			<xsd:element ref="ols50:Schedule50PartnersCount" minOccurs="0"/>
+			<xsd:element ref="ols50:Schedule50DisposedInterestPartnersCount" minOccurs="0"/>
+			<xsd:element ref="ols50:Schedule50NomineesAgentsCount" minOccurs="0"/>
+			<xsd:element ref="ols50:Schedule50NetIncomeTotalForAllPartnersAmount" minOccurs="0"/>
+			<xsd:element ref="ols50:Schedule50PartnersAtYearEnd"  minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Schedule50PartnersAtYearEndType">
+		<xsd:sequence>
+			<xsd:element ref="ols50:Schedule50PartnerName" minOccurs="0"/>
+			<xsd:element ref="ols50:Schedule50PartnerAccountNumber" minOccurs="0"/>
+			<xsd:element ref="ols50:Schedule50PartnerTypeCode" minOccurs="0"/>
+			<xsd:element ref="ols50:Schedule50PartnerCode" minOccurs="0"/>
+			<xsd:element ref="ols50:Schedule50PartnerOwnershipPercent" minOccurs="0"/>
+			<xsd:element ref="ols50:Schedule50PartnerInterestDisposedOfIndicator" minOccurs="0"/>
+			<xsd:element ref="ols50:Schedule50PartnerLineAmounts" minOccurs="0" maxOccurs="200"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!--   Data Elements -->
+
+	<xsd:element name="Schedule50PartnersCount" type="sdt:CountType"/>
+	<xsd:element name="Schedule50DisposedInterestPartnersCount"  type="sdt:CountType"/>
+	<xsd:element name="Schedule50NomineesAgentsCount"  type="sdt:CountType"/>
+	<xsd:element name="Schedule50NetIncomeTotalForAllPartnersAmount"  type="sdt:AmountType"/>
+	<xsd:element name="Schedule50PartnersAtYearEnd"  type="ols50:Schedule50PartnersAtYearEndType"/>
+	<xsd:element name="Schedule50PartnerName" type="ccms:Name175CharacterType"/>
+	<xsd:element name="Schedule50PartnerAccountNumber" >
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:NumberType">
+				<xsd:maxLength value="15"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Schedule50PartnerTypeCode"  type="sdt:CodeType"/>
+	<xsd:element name="Schedule50PartnerCode"  type="sdt:CodeType"/>
+	<xsd:element name="Schedule50PartnerOwnershipPercent" type="sdt:PercentType"/>
+
+	<xsd:element name="Schedule50PartnerInterestDisposedOfIndicator"  type="ccms:OneTwoCodeType"/>
+	<xsd:element name="Schedule50PartnerLineAmounts" type="ccms:FieldCodeAmountType"/>
+		
+
+	
+</xsd:schema>

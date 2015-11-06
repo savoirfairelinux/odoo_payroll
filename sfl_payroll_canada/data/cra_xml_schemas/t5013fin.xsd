@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: Specialty Business Returns - Partnership Financial Return (CRA Form T5013 FIN )
+Contact: CRA, ITB, Solutions, RASD, Business Suite Assessing System, Other Levies
+Date created: Sept 2012
+Updates:
+Users of this schema:
+-Other Levies System
+-->   
+<xsd:schema xmlns:ols="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols/1-0-1" 
+			xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" 
+			xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"  
+			targetNamespace="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols/1-0-1" 
+				elementFormDefault="qualified" attributeFormDefault="unqualified" version="ols/1-0-1">
+				 
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/> 
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/> 
+	<xsd:element name="OLST5013DataExchange" type="ols:OLST5013DataExchangeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">Other Levies (OLS) Data exchange - Version 1-0-0</xsd:documentation>
+			<xsd:documentation xml:lang="fr">Système visant les autres prélèvements (SVAP)  Échange de données - Version 1-0-0</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="OLST5013DataExchangeType">
+		<xsd:sequence>
+			<xsd:element ref="ols:TransmissionInformation"/>
+			<xsd:element ref="ols:OLST5013Data" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TransmissionInformationType">
+		<xsd:sequence>
+			<xsd:element ref="ols:FileCreateDatetime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="TransmissionInformation" type="ols:TransmissionInformationType"/>
+	<xsd:element name="FileCreateDatetime" type="sdt:DateTimeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> Creation date and time of the XML file </xsd:documentation>
+			<xsd:documentation xml:lang="fr">traduction francaise</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	<xsd:element name="OLST5013Data" type="ols:OLST5013DataType"/>
+	<xsd:complexType name="OLST5013DataType">
+		<xsd:sequence>
+			<xsd:element ref="ols:PartnershipFinancialReturnData"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="PartnershipFinancialReturnData" type="ols:PartnershipFinancialReturnDataType"/>
+	<xsd:complexType name="PartnershipFinancialReturnDataType">
+		<xsd:sequence>
+			<xsd:element ref="ols:PartnershipAccountNumber" minOccurs="1" />
+			<xsd:element ref="ols:PartnershipSegment1Name" minOccurs="0"/>
+			<xsd:element ref="ols:PartnershipSegment2Name" minOccurs="0"/>
+			<xsd:element ref="ols:PartnershipOperatingSegment1Name" minOccurs="0"/>
+			<xsd:element ref="ols:PartnershipOperatingSegment2Name" minOccurs="0"/>
+			<xsd:element ref="ols:PhysicalAddressChangeIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:PhysicalAddress" minOccurs="0"/>
+
+			<xsd:element ref="ols:AmendedReturnIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:FiscalPeriodStartDate" minOccurs="0"/>
+			<xsd:element ref="ols:FiscalPeriodEndDate" minOccurs="1"/>
+			<xsd:element ref="ols:EndMembersIndicator" minOccurs="0" maxOccurs="2"/>
+			<xsd:element ref="ols:FirstYearFilingIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:PartnershipCreateDate" minOccurs="0"/>
+			<xsd:element ref="ols:T5013SlipsCount" minOccurs="0"/>
+
+			<xsd:element ref="ols:FinalReturnIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:FunctionalCurrencyName" minOccurs="0"/>
+			<xsd:element ref="ols:CanadianResidentIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:CountryOfResidenceCode" minOccurs="0"/>
+			<xsd:element ref="ols:TypeOfPartnershipCode" minOccurs="0"/>
+			<xsd:element ref="ols:OtherPartnershipTypeName" minOccurs="0"/>
+			<xsd:element ref="ols:TaxShelterIdentificationNumber" minOccurs="0"/>
+			<xsd:element ref="ols:NAICSCode" minOccurs="0"/>
+			<xsd:element ref="ols:SoftwareApprovalCode" minOccurs="0"/>
+			<!-- ATTACHMENTS -->
+			<xsd:element ref="ols:AffiliationsAttachmentIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:MemberTransactionsAttachmentIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:NonResidentTransactionsAttachmentIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:DonationsAttachmentIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:MultipleJurisdictionAttachmentIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:CapitalGainsAttachmentIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:CapitalCostsAttachmentIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:CapitalPropertyAttachmentIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:ResourceDeductionsAttachmentIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:ITCCalculationAttachmentIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:ScientificResearchAttachmentIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:AllocateRenouncedAttachmentIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:ForeignPropertyAttachmentIndicator" minOccurs="0"/>
+			<!-- ADDITIONAL INFORMATION -->
+			<xsd:element ref="ols:InternationalFinancialReportingStandardsIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:MultipleNomineeIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:NomineeRequirementToFileIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:NewNomineeIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:AllocateTaxDeductionAtSourceIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:ElectionsMadeIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:PredecessorIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:PredecessorPartnershipBusinessNumber" minOccurs="0" maxOccurs="2"/>
+			<xsd:element ref="ols:InactiveIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:ImmigrateToCanadaIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:EmmigrateFromCanadaIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:HadSubcontractorsIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:FarmFishCashReportingIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:PubliclyTradedIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:T5008IssuedIndicator" minOccurs="0"/>
+			<!-- MISCELLANEOUS INFORMATION -->
+			<xsd:element ref="ols:NR4ReturnFiledIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:NonResidentAccountNumber" minOccurs="0"/>
+			<xsd:element ref="ols:NR4SlipIssuedIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:SpecificInvestmentFlowThroughPartnershipIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:NonPortfolioEarningsAmount" minOccurs="0"/>
+			<xsd:element ref="ols:PartIXTaxPayableAmount" minOccurs="0"/>
+			<xsd:element ref="ols:Schedule52LateFilingPenaltyAmount" minOccurs="0"/>
+			<xsd:element ref="ols:T5013RemittedAmount" minOccurs="0"/>
+			<xsd:element ref="ols:DesignatedPartner" minOccurs="0"/>
+			<xsd:element ref="ols:PrincipalPromoter" minOccurs="0"/>
+			<xsd:element ref="ols:CertificationDetails" minOccurs="0"/>
+			<xsd:element ref="ols:CorrespondenceLanguageIndicator" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- -->
+	<!--   Custom Types used in this schema -->
+
+	<xsd:complexType name="DesignatedPartnerType">
+		<xsd:sequence>
+			<xsd:element ref="ols:DesignatedPartnerFamilyName" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols:DesignatedPartnerGivenName" minOccurs="0"/>
+			<xsd:element ref="ols:DesignatedPartnerSocialInsuranceNumber" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="DesignatedPartner" type="ols:DesignatedPartnerType"/>
+	<xsd:element name="DesignatedPartnerFamilyName" type="ccms:Name30CharacterType"/>
+	<xsd:element name="DesignatedPartnerGivenName" type="ccms:Name30CharacterType"/>
+	<xsd:element name="DesignatedPartnerSocialInsuranceNumber" type="ccms:SINType"/> 
+
+	<xsd:complexType name="PrincipalPromoterType" >
+		<xsd:sequence>
+			<xsd:element ref="ols:PrincipalPromoterFamilyName" minOccurs="0"/>
+			<xsd:element ref="ols:PrincipalPromoterGivenName" minOccurs="0"/>
+			<xsd:element ref="ols:PrincipalPromoterIdentificationNumber" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="PrincipalPromoter" type="ols:PrincipalPromoterType"/>
+	<xsd:element name="PrincipalPromoterFamilyName" type="ccms:Name30CharacterType"/>
+	<xsd:element name="PrincipalPromoterGivenName" type="ccms:Name30CharacterType"/>
+	<xsd:element name="PrincipalPromoterIdentificationNumber">
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:NumberType">
+				<xsd:minLength value="6"/>
+				<xsd:maxLength value="15"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:complexType name="CertificationDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols:CertificationFamilyName" minOccurs="0"/>
+			<xsd:element ref="ols:CertificationGivenName" minOccurs="0"/>
+			<xsd:element ref="ols:CertificationPositionTitleName" minOccurs="0"/>
+			<xsd:element ref="ols:CertificationDate" minOccurs="0"/>
+			<xsd:element ref="ols:CertifierTelephoneNumber" minOccurs="0"/>
+			<xsd:element ref="ols:CertificationContactIsSigningOfficerIndicator" minOccurs="0"/>
+			<xsd:element ref="ols:CertificationContactName" minOccurs="0"/>
+			<xsd:element ref="ols:CertificationContactTelephoneNumber" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="CertificationDetails" type="ols:CertificationDetailsType"/>
+	<xsd:element name="CertificationFamilyName" type="ccms:Name30CharacterType"/>
+	<xsd:element name="CertificationGivenName" type="ccms:Name30CharacterType"/>
+	<xsd:element name="CertificationPositionTitleName" type="ccms:Name30CharacterType"/>
+	<xsd:element name="CertificationDate" type="sdt:DateType"/>
+	<xsd:element name="CertifierTelephoneNumber">
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:NumberType">
+				<xsd:minLength value="9"/>
+				<xsd:maxLength value="30"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="CertificationContactIsSigningOfficerIndicator" type="ccms:OneTwoCodeType"/>
+	<xsd:element name="CertificationContactName" type="ccms:Name60CharacterType"/>
+	<xsd:element name="CertificationContactTelephoneNumber">
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:NumberType">
+				<xsd:minLength value="9"/>
+				<xsd:maxLength value="30"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="CorrespondenceLanguageIndicator" type="ccms:OneTwoCodeType"/>
+	<!--   Address details for various address types	-->
+	
+	<xsd:element name="AddressLine1Text" type="ccms:Character30TextType"/>
+	<xsd:element name="AddressLine2Text" type="ccms:Character30TextType"/>
+	<xsd:element name="MunicipalityName" type="ols:MunicipalityNameType"/>
+	<xsd:element name="ProvinceTerritoryStateCode" type="ccms:ProvinceTerritoryStateCodeType"/>
+	<xsd:element name="CountryCode" type="ccms:CountryCodeType"/>
+	<xsd:element name="PostalZipCode" type="ols:PostalZipCodeType"/>
+	<xsd:simpleType name="PostalZipCodeType">
+		<xsd:restriction base="sdt:CodeType">
+			<xsd:minLength value="3"/>
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--   validation not available for postal code.  One field capures multiple inputs Cdn; US; Foreign-->
+	<xsd:complexType name="MunicipalityNameType">
+		<xsd:simpleContent>
+			<xsd:restriction base="sdt:NameType">
+				<xsd:minLength value="2"/>
+				<xsd:maxLength value="30"/>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="AddressType">
+		<xsd:sequence>
+			<xsd:element ref="ols:AddressLine1Text" minOccurs="0"/>
+			<xsd:element ref="ols:AddressLine2Text" minOccurs="0"/>
+			<xsd:element ref="ols:MunicipalityName" minOccurs="0"/>
+			<xsd:element ref="ols:ProvinceTerritoryStateCode" minOccurs="0"/>
+			<xsd:element ref="ols:CountryCode" minOccurs="0"/>
+			<xsd:element ref="ols:PostalZipCode" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="FunctionalCurrencyType">
+		<xsd:simpleContent>
+			<xsd:restriction base="sdt:NameType">
+				<xsd:minLength value="3"/>
+				<xsd:maxLength value="15"/>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- TypeOfPartnership  -->
+	<xsd:simpleType name="PartnershipCodeType">
+		<xsd:restriction base="sdt:NumberType">
+			<xsd:enumeration value="01"/>
+			<xsd:enumeration value="02"/>
+			<xsd:enumeration value="03"/>
+			<xsd:enumeration value="08"/>
+			<xsd:enumeration value="11"/>
+			<xsd:enumeration value="12"/>
+			<xsd:enumeration value="13"/>
+			<xsd:enumeration value="18"/>
+			<xsd:enumeration value="19"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--   Data Elements -->
+	
+	<xsd:element name="PartnershipAccountNumber" type="ccms:BN15Type"/>
+
+	<xsd:element name="PartnershipSegment1Name" type="ccms:Name175CharacterType"/>
+	<xsd:element name="PartnershipSegment2Name" type="ccms:Name175CharacterType"/>
+	<xsd:element name="PartnershipOperatingSegment1Name" type="ccms:Name175CharacterType"/>
+	<xsd:element name="PartnershipOperatingSegment2Name" type="ccms:Name175CharacterType"/>
+	<xsd:element name="PhysicalAddressChangeIndicator" type="ccms:OneTwoCodeType"/>
+	<xsd:element name="PhysicalAddress" type="ols:AddressType"/>
+	<xsd:element name="AmendedReturnIndicator" type="ccms:OneTwoCodeType"/>
+	<xsd:element name="FiscalPeriodStartDate" type="sdt:DateType"/>
+	<xsd:element name="FiscalPeriodEndDate" type="sdt:DateType"/>
+	<xsd:element name="EndMembersIndicator">
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:IDType">
+				<xsd:enumeration value="01"/>
+				<xsd:enumeration value="02"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="FirstYearFilingIndicator" type="ccms:OneTwoCodeType"/>
+	<xsd:element name="PartnershipCreateDate" type="sdt:DateType"/>
+	<xsd:element name="T5013SlipsCount">
+            <xsd:simpleType>
+                  <xsd:restriction base="sdt:CountType">
+                        <xsd:minInclusive value="0"/>
+                        <xsd:maxInclusive value="9999999"/>
+                  </xsd:restriction>
+            </xsd:simpleType>
+      </xsd:element>
+
+	<xsd:element name="FinalReturnIndicator" type="ccms:OneTwoCodeType"/>
+	<xsd:element name="FunctionalCurrencyName" type="ols:FunctionalCurrencyType"/>	
+	<xsd:element name="CanadianResidentIndicator" type="ccms:OneTwoCodeType"/>
+	<xsd:element name="CountryOfResidenceCode" type="ccms:CountryCodeType"/>
+	<xsd:element name="TypeOfPartnershipCode" type="ols:PartnershipCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Type of partnership at the end of the of the fiscal period.  
+			Non tax shelter types can include: 01 - General partnership; 02 - Limited partnership; 03 Limited Liability partnership; 08 - Investment club.   
+			Tax shelter types can include: 11 - General partnership; 12 - Limited partnership; 13 - Co-ownership; and 19 - Other (Specify) 
+		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OtherPartnershipTypeName" type="ccms:Character60TextType"/>
+	<xsd:element name="TaxShelterIdentificationNumber">
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:NumberType">
+				<xsd:length value="6"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="NAICSCode" type="ccms:NAICSCodeType"/>
+	<xsd:element name="SoftwareApprovalCode" >
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:CodeType">
+				<xsd:maxLength value="10"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>	
+
+	<!--  range and mask for values is needed for Tax Shelter Number-->
+	<!--  ATTACHMENTS -->
+	<xsd:element name="AffiliationsAttachmentIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Does the partnership have any affiliated corporations, partnerships or trusts (defined in section 251.1)?  If yes, attach schedule 9.
+		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MemberTransactionsAttachmentIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Has the partnership had any transactions, including sections 97 and 98, and subsection 85(2) transfers with its members or employees, other than transactions in the ordinary course of business?  Exclude non-arm_s length transactions with non-residents.  
+		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NonResidentTransactionsAttachmentIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Has the partnership had any non-arm_s length transactions with a non-resident?  
+		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DonationsAttachmentIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Has the partnership made any charitable donations, gifts to Canada, a province, or a territory, gifts of cultural or ecological property, gifts of medicine, or federal, provincial, territorial or municipal political contributions? If yes, attach schedule 2
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MultipleJurisdictionAttachmentIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Does the partnership have a permanent establishment in more than one jurisdiction?  If yes, attach schedule 5
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CapitalGainsAttachmentIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Has the partnership realized any capital gains or incurred any capital losses during the fiscal period?  If yes, attach schedule 6
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CapitalCostsAttachmentIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Does the partnership have any property that is eligible for capital cost allowance?  If yes, attach schedule 8
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CapitalPropertyAttachmentIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Does the partnership have any property that is eligible capital property?  If yes, attach schedule 10
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ResourceDeductionsAttachmentIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Does the partnership have any resource-related deductions (excluding renounced expenditures)?  If yes, attach schedule 12
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ITCCalculationAttachmentIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Is the partnership allocating any investment tax credits (ITCs)?    If yes, attach detailed Calculation of the partnerships ITCs and their allocation to one or more partners
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ScientificResearchAttachmentIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Is the partnership allocating any scientific research and experimental development (SR and ED) expenditures? 
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AllocateRenouncedAttachmentIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Did the partnership allocate renounced resource expenses to its members?  If yes, attach completed Schedule 52.
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ForeignPropertyAttachmentIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Did the partnership own specified foreign property in the fiscal period with a cost amount over $100,000?
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!--  ADDITIONAL INFORMATION  -->
+	<xsd:element name="InternationalFinancialReportingStandardsIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Did the partnership use the International Financial Reporting Standards (IFRS) when it prepared its financial statements?
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MultipleNomineeIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Was an information slip issued to one or more nominees or agents?
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NomineeRequirementToFileIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Does the partnership agreement require that the nominee(s) or agent(s) complete and file any of the documents identified on page 2?
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NewNomineeIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Does the partnership have one or more new nominees or agents?
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AllocateTaxDeductionAtSourceIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Did the partnership allocate any amount of income tax deducted at source?
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ElectionsMadeIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Did the partnership make any other election(s) under the Income Tax Act during the fiscal period?
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PredecessorIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Is this partnership the continuation of one or more predecessor partnerships?  If yes, enter business number(s) of the predecessor in box 278 and 279.  If there are more than 2 predecessor partnerships, attach a note to this return with the business number of each additional partnership
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PredecessorPartnershipBusinessNumber" type="ccms:BNRootType" />
+	
+	<xsd:element name="InactiveIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Was the partnership inactive throughout the fiscal period this information return applies to? 
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ImmigrateToCanadaIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Did members of the partnership immigrate to Canada during the fiscal period? 
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EmmigrateFromCanadaIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Did members of the partnership emmigrate from Canada during the fiscal period? 
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HadSubcontractorsIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			If the major business activity is construction, did you have any subcontractors during the fiscal period? 
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FarmFishCashReportingIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Did the partnership report its farming or fishing income using the cash method?
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PubliclyTradedIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Is this a publicly traded partnership?
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="T5008IssuedIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			If yes, did the partnership issue T5008 information slips to report transactions of interests in the partnership?
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- MISCELLANEOUS INFORMATION -->
+	<xsd:element name="NR4ReturnFiledIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Was an NR4 information return for tax deductions withheld at source filed for the fiscal period?
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NonResidentAccountNumber">
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:NumberType">
+				<xsd:length value="7"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="NR4SlipIssuedIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			If yes at line 301 (NR4 information return was filed), was NR4 slip issued?
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SpecificInvestmentFlowThroughPartnershipIndicator" type="ccms:OneTwoCodeType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Is this partnership a Specified Investment Flow-Through (SIFT) partnership?
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NonPortfolioEarningsAmount" type="sdt:AmountType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			If yes at line 304 (SIFT Partnership), enter the taxable non- portfolio earnings for the fiscal period
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PartIXTaxPayableAmount" type="sdt:AmountType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			If yes at line 304 (SIFT Partnership), enter the tax payable under Part IX.1 for the fiscal period
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Schedule52LateFilingPenaltyAmount" type="sdt:AmountType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Enter the amount of the late filing penalty from line 307 of schedule 52
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="T5013RemittedAmount" type="sdt:AmountType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+			Amount of payment remitted to CRA
+ 		   </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

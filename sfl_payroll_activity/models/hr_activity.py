@@ -52,6 +52,10 @@ class HrActivity(models.Model):
         'Leave Type',
         ondelete='cascade',
     )
+    unpaid_activity_id = fields.Many2one(
+        'hr.activity',
+        'Related Unpaid Activity',
+    )
 
     _order = 'activity_type,name'
 

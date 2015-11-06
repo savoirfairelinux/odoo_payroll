@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: 	Part XVIII Return Data Element Types
+Contact: 	CRA, ITB, PIECE, INFODEC EMPS
+Date created: 	July 2014
+Version#:	2.14 (version #.yy)
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0">
+	<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/>
+	<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/>
+	<xsd:include schemaLocation="lemmcommontypes.xsd"/>
+
+	<!-- P18 Slip -->
+	<xsd:complexType name="PartXVIIISlipType">
+		<xsd:sequence>
+			<xsd:element name="DocumentSpecification" type="P18SlipDocSpecType"/>
+			<xsd:element ref="ClientAccountNumber"/>
+			<xsd:element ref="AccountHolder"/>
+			<xsd:element ref="AccountBalanceAmount"/>
+			<xsd:element ref="AccountPaymentAmount" minOccurs="0"/>
+			<xsd:element ref="AccountCurrencyTypeCode"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="ClientAccountNumber" type="P18ClientAccountNumberType"/>
+	<xsd:element name="AccountHolder" type="P18AccountHolderType"/>
+	<xsd:element name="AccountBalanceAmount" type="Decimal15AmountType"/>
+	<xsd:element name="AccountPaymentAmount" type="AccountPaymentAmountType"  />
+	<xsd:element name="AccountCurrencyTypeCode" type="CurrencyCodeType"/>
+	<xsd:simpleType name="P18SlipDocRefIdType">
+		<xsd:annotation>
+			<xsd:documentation>Format: CA-YY-BN15-SL-SEQ#, e.g. CA-16-123456789RZ0001-SL-123456789</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sdt:NumberType">
+			<xsd:pattern value="(CA)-\d{2}-\d{9}\p{Lu}{2}\d{4}-(SL)-\d{9}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="P18SlipDocSpecType">
+		<xsd:all>
+			<xsd:element ref="DocumentTypeCode"/>
+			<xsd:element name="DocumentReferenceIdentifier" type="P18SlipDocRefIdType"/>
+			<xsd:element name="CorrectedDocumentReferenceIdentifier" type="P18SlipDocRefIdType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:element name="DocumentTypeCode" type="SlipCodeType"/>
+	<!-- Is special char e.g. /# allowed? -->
+	<xsd:simpleType name="P18ClientAccountNumberType">
+		<xsd:restriction base="sdt:CodeType">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="30"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="P18AccountHolderType">
+		<xsd:sequence>
+			<xsd:element ref="AccountHolderTypeCode"/>
+			<xsd:group ref="P18AccountHolderGroup"/>
+			<xsd:element ref="AccountHolderAddress"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:group name="P18AccountHolderGroup">
+		<xsd:choice>
+			<xsd:element ref="IndividualAccountHolder"/>
+			<xsd:element ref="OrganizationAccountHolder"/>
+		</xsd:choice>
+	</xsd:group>
+	<xsd:element name="AccountHolderTypeCode" type="OneThreeCodeType"/>
+	<xsd:element name="IndividualAccountHolder" type="P18IndAHType"/>
+	<xsd:element name="OrganizationAccountHolder" type="P18OrgAHType"/>
+	<xsd:element name="AccountHolderAddress" type="RequiredCityCountryAddressType"/>
+	<xsd:simpleType name="OneThreeCodeType">
+		<xsd:annotation>
+			<xsd:documentation>1-individual account holder; 3-organization account holder.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sdt:CodeType">
+			<xsd:pattern value="1|3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- Individual account holder -->
+	<xsd:complexType name="P18IndAHType">
+		<xsd:sequence>
+			<xsd:element ref="ResidenceCountryCode" minOccurs="0" maxOccurs="5"/>
+			<xsd:element ref="IndividualTIN"/>
+			<xsd:element ref="TINIssueCountryCode" minOccurs="0"/>
+			<xsd:element ref="IndividualIdentificationNumber" minOccurs="0"/>
+			<xsd:element name="AccountHolderName" type="IndividualNameIIType"/>
+			<xsd:element ref="AccountHolderBirthInformation" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="ResidenceCountryCode" type="Length2CountryCodeType"/>
+	<xsd:element name="IndividualTIN" type="ccms:SINType"/>
+	<xsd:element name="TINIssueCountryCode" type="Length2CountryCodeType"/>
+	<xsd:element name="IndividualIdentificationNumber" type="ccms:SINType"/>
+	<xsd:element name="AccountHolderBirthInformation" type="BirthInformationType"/>
+	<xsd:complexType name="IndividualNameIIType">
+		<xsd:sequence>
+			<xsd:element ref="FirstName"/>
+			<xsd:element ref="MiddleName" minOccurs="0"/>
+			<xsd:element ref="LastName"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BirthInformationType">
+		<xsd:all>
+			<xsd:element ref="Day"/>
+			<xsd:element ref="Month"/>
+			<xsd:element ref="Year"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="AccountPaymentAmountType">
+		<xsd:sequence>
+			<xsd:element name="DividendsAmount" type="Decimal13AmountType" minOccurs="0"/>
+			<xsd:element name="InterestAmount" type="Decimal13AmountType" minOccurs="0"/>
+			<xsd:element name="GrossProceedsRedemptionsAmount" type="Decimal13AmountType" minOccurs="0"/>
+			<xsd:element name="OtherAmount" type="Decimal13AmountType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Organization account holder -->
+	<xsd:complexType name="P18OrgAHType">
+		<xsd:sequence>
+			<xsd:element ref="ResidenceCountryCode" minOccurs="0" maxOccurs="5"/>
+			<xsd:element ref="OrganizationTIN"/>
+			<xsd:element ref="TINIssueCountryCode" minOccurs="0"/>
+			<xsd:element ref="BusinessNumber" minOccurs="0"/>
+			<xsd:element name="AccountHolderName" type="TwoLinedLength35NameType"/>
+			<xsd:element ref="OrganizationAccountHolderTypeCode"/>
+			<xsd:element ref="ControllingPerson" minOccurs="0" maxOccurs="16"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="OrganizationAccountHolderTypeCode" type="P18OrgAHCodeType"/>
+	<xsd:element name="OrganizationTIN" type="P18OrgTINType"/>
+	<xsd:element name="BusinessNumber" type="BNType"/>
+	<xsd:element name="ControllingPerson" type="P18CPType"/>
+	<xsd:simpleType name="P18OrgAHCodeType">
+		<xsd:annotation>
+			<xsd:documentation>
+				-F101 for owner-documented FI with specified US owner(s). If selected, you must complete the 						          	      information in the ControllingPerson tags.
+				-F102 for passive non-financial entity with substantial US owner(s). If selected, you must
+				      complete the information in the ControllingPerson tags.
+				-F103 for non-participating FFI. 
+				-F104 for specified US person.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sdt:CodeType">
+			<xsd:length value="4"/>
+			<xsd:enumeration value="F101"/>
+			<xsd:enumeration value="F102"/>
+			<xsd:enumeration value="F103"/>
+			<xsd:enumeration value="F104"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="P18OrgTINType">
+		<xsd:restriction base="sdt:CodeType">
+			<xsd:minLength value="9"/>
+			<xsd:maxLength value="19"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- Controlling Person -->
+	<xsd:complexType name="P18CPType">
+		<xsd:sequence>
+			<xsd:element ref="ResidenceCountryCode" minOccurs="0" maxOccurs="5"/>
+			<xsd:element ref="IndividualTIN"/>
+			<xsd:element ref="TINIssueCountryCode" minOccurs="0"/>
+			<xsd:element ref="IndividualIdentificationNumber" minOccurs="0"/>
+			<xsd:element name="ControllingPersonName" type="IndividualNameIIType"/>
+			<xsd:element name="ControllingPersonAddress" type="RequiredCityCountryAddressType"/>
+			<xsd:element name="ControllingPersonBirthInformation" type="BirthInformationType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- P18 Summary -->
+	<xsd:complexType name="PartXVIIISummaryType">
+		<xsd:all>
+			<xsd:element ref="FilerAccountNumber"/>
+			<xsd:element ref="SummaryReportTypeCode"/>
+			<xsd:element name="RecipientCountryCode" type="Length2CountryCodeType"/>
+			<xsd:element name="PartXVIIITypeCode" type="P18TypeCodeType"/>
+			<xsd:element ref="TaxationYear"/>
+			<xsd:element ref="TotalSlipCount"/>
+			<xsd:element name="FilerContact" type="ContactType4"/>
+			<xsd:element name="ReportingFinancialInstitution" type="P18ReportingFIType"/>
+			<xsd:element name="FinancialInstitutionSponsor" type="P18FISponsorType" minOccurs="0"/>
+			<xsd:element name="TotalAccountBalanceAmount" type="Decimal15AmountType"/>
+			<xsd:element name="TotalAccountPaymentAmount" type="P18TotalAcctPaymentAmtType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:simpleType name="P18TypeCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Enter F for FATCA reporting</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sdt:CodeType">
+			<xsd:pattern value="(F|f)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Reporting FI -->
+	<xsd:complexType name="P18ReportingFIType">
+		<xsd:all>
+			<xsd:element name="DocumentSpecification" type="P18FIDocSpecType"/>
+			<xsd:element ref="ResidenceCountryCode" minOccurs="0"/>
+			<xsd:element ref="GlobalIntermediaryIdentificationNumber"/>
+			<xsd:element name="ReportingFinancialInstitutionName" type="TwoLinedLength35NameType"/>
+			<xsd:element name="ReportingFinancialInstitutionAddress" type="RequiredCityCountryAddressType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:element name="GlobalIntermediaryIdentificationNumber" type="GIINType"/>
+	<xsd:complexType name="P18FIDocSpecType">
+		<xsd:all>
+			<xsd:element name="DocumentTypeCode" type="SummaryCodeType"/>
+			<xsd:element name="DocumentReferenceIdentifier" type="P18FIDocRefIdType"/>
+			<xsd:element name="CorrectedDocumentReferenceIdentifier" type="P18FIDocRefIdType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:simpleType name="P18FIDocRefIdType">
+		<xsd:annotation>
+			<xsd:documentation>Format: CA-YY-BN15-FI-SEQ#, e.g. CA-16-123456789RZ0001-FI-123456789</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sdt:NumberType">
+			<xsd:pattern value="(CA)-\d{2}-\d{9}\p{Lu}{2}\d{4}-(FI)-\d{9}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="GIINType">
+		<xsd:annotation>
+			<xsd:documentation>GIIN should be entered with periods as was issued by the IRS. Example: 98Q96B.00000.FI.124</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sdt:NumberType">
+			<xsd:pattern value="[A-Z0-9]{6}.[A-Z0-9]{5}.\p{Lu}{2}.\d{3}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="P18FISponsorType">
+		<xsd:all>
+			<xsd:element name="DocumentSpecification" type="P18SponsorDocSpecType"/>
+			<xsd:element ref="ResidenceCountryCode" minOccurs="0"/>
+			<xsd:element ref="GlobalIntermediaryIdentificationNumber"/>
+			<xsd:element name="SponsorName" type="TwoLinedLength35NameType"/>
+			<xsd:element name="SponsorAddress" type="RequiredCityCountryAddressType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="P18SponsorDocSpecType">
+		<xsd:all>
+			<xsd:element ref="DocumentTypeCode"/>
+			<xsd:element name="DocumentReferenceIdentifier" type="P18SponsorDocRefIdType"/>
+			<xsd:element name="CorrectedDocumentReferenceIdentifier" type="P18SponsorDocRefIdType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:simpleType name="P18SponsorDocRefIdType">
+		<xsd:annotation>
+			<xsd:documentation>Format: CA-YY-BN15-SP-SEQ#, e.g. CA-16-123456789RZ0001-SP-123456789</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sdt:NumberType">
+			<xsd:pattern value="(CA)-\d{2}-\d{9}\p{Lu}{2}\d{4}-(SP)-\d{9}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="P18TotalAcctPaymentAmtType">
+		<xsd:sequence>
+			<xsd:element name="TotalDividendsAmount" type="Decimal15AmountType" minOccurs="0"/>
+			<xsd:element name="TotalInterestAmount" type="Decimal15AmountType" minOccurs="0"/>
+			<xsd:element name="TotalGrossProceedsRedemptionsAmount" type="Decimal15AmountType" minOccurs="0"/>
+			<xsd:element name="TotalOtherAmount" type="Decimal15AmountType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

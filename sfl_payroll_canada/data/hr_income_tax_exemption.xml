@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="ei_exempt" model="hr.income.tax.exemption">
+            <field name="name">Employment Insurance Exempt</field>
+        </record>
+        <record id="cpp_exempt" model="hr.income.tax.exemption">
+            <field name="name">Canada Pension Plan / Quebec Pension Plan Exempt</field>
+        </record>
+        <record id="fit_exempt" model="hr.income.tax.exemption">
+            <field name="name">Federal Income Tax Exempt</field>
+        </record>
+        <record id="pit_exempt" model="hr.income.tax.exemption">
+            <field name="name">Provincial Income Tax Exempt</field>
+        </record>
+        <record id="pip_exempt" model="hr.income.tax.exemption">
+            <field name="name">Provincial Insurance Plan Exempt</field>
+        </record>
+
+    </data>
+</openerp>

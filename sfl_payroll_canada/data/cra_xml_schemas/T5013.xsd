@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: 	T5013 Return Element Types
+Contact: 	CRA, ITB, PIECE, INFODEC MMPS
+Date created: 	March 2013
+Version#:	1.13 (version #.yy)
+-->
+
+<xsd:schema xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" 
+	xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/>
+	<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/>
+	<xsd:include schemaLocation="lemmcommontypes.xsd"/>
+
+<xsd:element name="T5013SlipAndSummary" type="T5013SlipSummaryType"/>
+
+<xsd:complexType name="T5013SlipSummaryType" >
+	<xsd:sequence>
+		<xsd:element ref="T5013SlipInformation" minOccurs="0" maxOccurs="unbounded"/>
+		<xsd:element ref="T5013SummaryInformation" minOccurs="1"/>
+	</xsd:sequence>
+</xsd:complexType>
+
+<!-- *************  SLIP SECTION *************   --> 
+	<xsd:element name="T5013SlipInformation" type="T5013SlipInformationType"/>
+	<xsd:complexType name="T5013SlipInformationType" >
+		<xsd:sequence>
+			<xsd:element ref="RecipientName" minOccurs="0"/>
+			<xsd:element ref="RecipientSIN" />
+			<xsd:element ref="BusinessName" minOccurs="0"/>
+			<xsd:element ref="RecipientBusinessNumber" />
+			<xsd:element ref="RecipientTrustAccountNumber" minOccurs="0"/>
+			<xsd:element ref="RecipientAddress" minOccurs="0"/>		
+			<xsd:element ref="SlipFilerAccountNumber" />	
+			<xsd:element ref="SlipReportTypeCode"/>				
+			<xsd:element ref="PartnershipPartnerCode"/>	
+			<xsd:element ref="PartnerResidenceCountryCode"/>
+			<xsd:element ref="RecipientTypeCode" />		
+			<xsd:element ref="PartnerOwnershipPercent"/>
+			<xsd:element ref="T5013Amounts" minOccurs="0"/>
+			<xsd:element ref="T5013SlipFinancialDetails"  minOccurs="0" maxOccurs="24"/>
+			<xsd:element ref="T5013SlipOtherInformation"  minOccurs="0" maxOccurs="10"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+ 	<!--  SLIP INFORMATION -->
+ 	<xsd:element name="RecipientName" type="IndividualNameType"/>	
+ 	
+	<xsd:element name="RecipientSIN" type="ccms:SINType"/>
+	<xsd:element name="BusinessName" type="BusinessNameType"/>
+	<xsd:complexType name="BusinessNameType">
+		<xsd:sequence>
+			<xsd:element ref="BusinessNameLine1Text" />
+			<xsd:element ref="BusinessNameLine2Text" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>					
+	<xsd:element name="BusinessNameLine1Text" type="ccms:Name30CharacterType" />
+	<xsd:element name="BusinessNameLine2Text" type="ccms:Name30CharacterType" />
+
+	<xsd:element name="RecipientBusinessNumber" type="BNType"/>			
+	<xsd:element name="RecipientTrustAccountNumber" type="ccms:TrustNumberType"/> 			
+	<xsd:element name="RecipientAddress" type="AddressType"/>
+
+	<xsd:element name="SlipFilerAccountNumber" type="BNType"/>	
+
+	<xsd:element name="PartnershipPartnerCode" >
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:CodeType">
+				<xsd:enumeration value="0"/>
+				<xsd:enumeration value="1"/>
+				<xsd:enumeration value="2"/>
+				<xsd:enumeration value="3"/>
+				<xsd:enumeration value="4"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>	
+	<xsd:element name="PartnerResidenceCountryCode" type="ccms:CountryCodeType"/>
+	<xsd:element name="RecipientTypeCode" >
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:CodeType">
+				<xsd:enumeration value="1"/>
+				<xsd:enumeration value="2"/>
+				<xsd:enumeration value="3"/>
+				<xsd:enumeration value="4"/>
+				<xsd:enumeration value="5"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="PartnerOwnershipPercent" type="Precision6PercentType"/>
+	<xsd:element name="T5013Amounts" type="T5013AmountType"/>
+	<xsd:complexType name="T5013AmountType">
+		<xsd:sequence>
+			<xsd:element ref="LimitedPartnerBusinessIncomeAmount" minOccurs="0" />    
+			<xsd:element ref="NetBusinessIncomeAmount"  minOccurs="0" />
+			<xsd:element ref="CapitalGainLossAmount" minOccurs="0"  />
+			<xsd:element ref="CapitalCostAllowanceAmount" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="LimitedPartnerBusinessIncomeAmount" type="SignedDecimal11AmountType"/>
+	<xsd:element name="NetBusinessIncomeAmount" type="SignedDecimal11AmountType"/>  
+	<xsd:element name="CapitalGainLossAmount" type="SignedDecimal11AmountType"/>
+	<xsd:element name="CapitalCostAllowanceAmount" type="SignedDecimal11AmountType"/>
+
+	<!-- SLIP FINANCIAL DETAILS --> 	
+	<xsd:element name="T5013SlipFinancialDetails" type="T5013SlipFinancialDetailsType"/>
+	<xsd:complexType name="T5013SlipFinancialDetailsType" >
+		<xsd:annotation>
+			<xsd:documentation>
+101	Net Limited Partner Farming Income Amount	 				- Multi-jurisdictional field
+102	Agricultural Income Stabilization Income Amount	 				- not a multi-jurisdictional field
+103	Net Limited Partner Fishing Income Amount	 				- Multi-jurisdictional field
+104	Net Limited Partner Business Income Amount	 				- Multi-jurisdictional field
+105	Limited Partner At-Risk Amount	 						- not a multi-jurisdictional field
+106	Limited Partner Adjusted At-Risk Amount	 					- not a multi-jurisdictional field
+107	Net Limited Partner Rental Income Amount	 				- not a multi-jurisdictional field
+108	Limited Partnership Loss Carryforward Amount	 				- not a multi-jurisdictional field
+109	Previous Limited Partnership Loss Current Eligible Amount			- not a multi-jurisdictional field
+110	Net Rental Income  Amount	 						- Multi-jurisdictional field
+111	Foreign Net Rental Income Amount	 					- Multi-jurisdictional field
+112	Tax Exempt Foreign Rental Income Amount	 					- Multi-jurisdictional field
+113	Partner Return Of Capital Amount	 					- not a multi-jurisdictional field
+114	Other Income Amount	 							- not a multi-jurisdictional field
+116	Net Business Income Amount	 						- Multi-jurisdictional field
+117	Gross Rental Income  Amount	 						- not a multi-jurisdictional field
+118	Gross Business Income Amount	 						- Multi-jurisdictional field
+119	Tax Exempt Foreign Business Income Amount	 				- Multi-jurisdictional field
+120	Net Professional Income Amount	 						- Multi-jurisdictional field
+121	Gross Professional Income Amount	 					- Multi-jurisdictional field
+122	Net Commission Income Amount	 						- Multi-jurisdictional field
+123	Gross Commission Income Amount	 						- Multi-jurisdictional field
+124	Net Farming Income Amount	 						- Multi-jurisdictional field
+125	Gross Farming Income Amount	 						- Multi-jurisdictional field
+126	Net Fishing Income Amount	 						- Multi-jurisdictional field
+127	Gross Fishing Income Amount	 						- Multi-jurisdictional field
+128	Canadian Interest Amount	 						- not a multi-jurisdictional field
+129	Actual Non-Eligible Dividend Amount	 					- not a multi-jurisdictional field
+130	Taxable Non-Eligible Dividend Amount	 					- not a multi-jurisdictional field
+131	Non-Eligible Dividend Tax Credit Amount	 					- not a multi-jurisdictional field
+132	Actual Eligible Dividend Amount	 						- not a multi-jurisdictional field
+133	Taxable Eligible Dividend Amount	 					- not a multi-jurisdictional field
+134	Eligible Dividend Tax Credit Amount	 					- not a multi-jurisdictional field
+135	Foreign Dividend Interest Income Amount	 					- Multi-jurisdictional field
+136	Tax Exempt Foreign Investment Income Amount	 				- Multi-jurisdictional field
+137	Gross Business Investment Loss Amount	 					- not a multi-jurisdictional field
+142	Allowable Business Investment Loss Disposition Amount				- Multi-jurisdictional field
+143	Allowable Business Investment Loss Adjusted Cost Base Amount			- Multi-jurisdictional field
+144	Allowable Business Investment Loss Disposition Expense Amount			- Multi-jurisdictional field
+145	Dividend Rental Arrangement Compensation Payment Amount	 			- not a multi-jurisdictional field
+146	Other Investment Income Amount	 						- not a multi-jurisdictional field
+148	Investment Carrying Charge Amount	 					- not a multi-jurisdictional field
+149	Active Business Income Amount	 						- not a multi-jurisdictional field
+150	Canadian Manufacturing and Processing Profits Amount	 			- not a multi-jurisdictional field
+151	Capital Gain/Loss Amount	 						- Multi-jurisdictional field
+152	Capital Gains Reserve Current Amount	 					- not a multi-jurisdictional field
+153	Qualified Small Business Corporation Shares Eligible Capital Gain Amount	- not a multi-jurisdictional field
+154	Qualified Farm Property Qualified Fishing Property Eligible Capital Gain Amount	- not a multi-jurisdictional field
+155	Qualified Farm Property Qualified Fishing Property Foreclosure Eligible 
+	Capital Gain Amount	 							- not a multi-jurisdictional field
+156	Foreign Capital Gain/Loss Amount	 					- Multi-jurisdictional field
+157	Tax Exempt Foreign Capital Gain Amount	 					- Multi-jurisdictional field
+158	Qualified Farm Property Qualified Fishing Property Eligible Capital Property 
+	Deduction Eligible Income Amount	 					- not a multi-jurisdictional field
+159	Capital Gain Reserve Amount	 						- not a multi-jurisdictional field
+160	Child Qualified Farm Property Qualified Fishing Property Capital Gain 
+	Reserve Amount	 								- not a multi-jurisdictional field
+161	Child Qualified Small Business Corporation Shares Capital Gain Reserve Amount	- not a multi-jurisdictional field
+162	Child Other Capital Property Capital Gain Reserve Amount	 		- not a multi-jurisdictional field
+163	Other Capital Gain Reserve Amount	 					- not a multi-jurisdictional field
+164	Before November 13 1981 Capital Gain Reserve Amount	 			- not a multi-jurisdictional field
+165	Non-Qualifying Security Donation Capital Gain Reserve Amount	 		- not a multi-jurisdictional field
+166	Capital Gain Reserve Gift Non-Qualifying Security Eligible Amount	 	- not a multi-jurisdictional field
+167	Capital Gain Reserve Gift Non-Qualifying Security Advantage Amount	 	- not a multi-jurisdictional field
+168	Income Tax Deducted Amount	 						- not a multi-jurisdictional field
+169	Specified Investment Flow Through Partnership Tax Amount	 		- not a multi-jurisdictional field
+170	Specified Investment Flow Through Partnership Taxable Non-Portfolio 
+	Earnings Amount	 								- not a multi-jurisdictional field
+171	Foreign Non-Business Income Tax Paid Amount	 				- Multi-jurisdictional field
+172	Foreign Business Income Tax Paid Amount	 					- Multi-jurisdictional field
+173	Non-Canadian Renewable and Conservation Expense Canadian Exploration 
+	Expense Amount	 								- not a multi-jurisdictional field
+174	Canadian Development Expense Amount	 					- not a multi-jurisdictional field
+175	Canadian Oil And Gas Property Expense Amount	 				- not a multi-jurisdictional field
+176	Foreign Exploration and Development Expense Amount	 			- Multi-jurisdictional field
+177	Earned Depletion Recapture Amount	 					- not a multi-jurisdictional field
+178	Resource Allowance Deduction Eligible Amount	 				- not a multi-jurisdictional field
+179	Canadian Exploration Expense Assistance Amount	 				- not a multi-jurisdictional field
+180	Canadian Development Expense Assistance Amount	 				- not a multi-jurisdictional field
+181	Canadian Oil And Gas Property Expense Assistance Amount	 			- not a multi-jurisdictional field
+182	Charitable Donation Gift Eligible Amount	 				- not a multi-jurisdictional field
+183	Certified Property Gift Eligible Amount	 					- not a multi-jurisdictional field
+184	Federal Political Contribution Eligible Amount	 				- not a multi-jurisdictional field
+185	Provincial Political Contribution Eligible Amount	 			- Multi-jurisdictional field
+186	Investment Tax Credit Cost Amount	 					- Multi-jurisdictional field
+187	Partner Transferred Investment Tax Credit Amount	 			- not a multi-jurisdictional field
+188	Investment Tax Credit Recapture Amount	 					- not a multi-jurisdictional field
+190	Renounced Canadian Exploration Expense Amount	 				- not a multi-jurisdictional field
+191	Renounced Canadian Development Expense Amount	 				- not a multi-jurisdictional field
+192	Renounced Canadian Exploration Expense Assistance Amount	 		- not a multi-jurisdictional field
+193	Renounced Canadian Development Expense Assistance Amount	 		- not a multi-jurisdictional field
+194	Investment Tax Credit Renounced Canadian Exploration Expense Amount	 	- not a multi-jurisdictional field
+195	Investment Tax Credit Renounced Canadian Exploration Expense Interest Free 
+	Period Amount	 								- not a multi-jurisdictional field
+196	Renounced Canadian Exploration Expense Interest Free Period Amount	 	- not a multi-jurisdictional field
+197	British Columbia Tax Credit Renounced Resource Expense Amount	 		- not a multi-jurisdictional field
+198	Saskatchewan Tax Credit Renounced Resource Expense Amount	 		- not a multi-jurisdictional field
+199	Manitoba Tax Credit Renounced Resource Expense Amount	 			- not a multi-jurisdictional field
+200	Ontario Tax Credit Renounced Resource Expense Amount	 			- not a multi-jurisdictional field
+202	Tax Shelter Acquisition Unit Cost Amount	 				- not a multi-jurisdictional field
+203	Tax Shelter Acquisition Total Cost Amount	 				- not a multi-jurisdictional field
+204	Tax Shelter Acquisition Other Deduction Amount	 				- not a multi-jurisdictional field
+206	Canadian Renewable and Conservation Expense Amount	 			- not a multi-jurisdictional field
+207	Municipal Political Contribution Eligible Amount	 			- Multi-jurisdictional field
+208	Medical Gift Eligible Amount	 						- not a multi-jurisdictional field
+209	Part XII 2 Trust Tax Credit Amount	 					- not a multi-jurisdictional field
+210	Investment Carrying Charge Total Amount	 					- Multi-jurisdictional field
+211	Investment Income Carrying Charge Amount	 				- Multi-jurisdictional field
+212	Rental Income Carrying Charge Amount	 					- Multi-jurisdictional field
+213	Film Property Carrying Charge Amount	 					- Multi-jurisdictional field
+214	Resource Property Flow Through Share Carrying Charge Amount	 		- Multi-jurisdictional field
+215	Partnership Interes tAcquisition Carrying Charge Amount	 			- Multi-jurisdictional field
+216	Other Source Carrying Charge Amount	 					- Multi-jurisdictional field
+220	Rental Property Capital Cost Allowance Amount	 				- not a multi-jurisdictional field
+221	Film Property Capital Cost Allowance Amount	 				- not a multi-jurisdictional field
+			</xsd:documentation> 
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="FinancialDetailsFieldCode"/>
+			<xsd:element ref="FinancialDetailsJurisdictionCode"  minOccurs="0" />
+			<xsd:element ref="FinancialDetailsFieldAmount"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="FinancialDetailsFieldCode">
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:CodeType">
+				<xsd:pattern value="\d{3}"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="FinancialDetailsJurisdictionCode" type="ProvinceStateCountryCodeType"/>
+	<xsd:element name="FinancialDetailsFieldAmount" type="SignedDecimal11AmountType"/>
+
+	<!-- SLIP OTHER INFORMATION --> 
+	<xsd:element name="T5013SlipOtherInformation" type="T5013SlipOtherInformationType"/>
+	<xsd:complexType name="T5013SlipOtherInformationType" >
+		<xsd:annotation>
+			<xsd:documentation>
+115	Other Income (Loss) Description							- not a multi-jurisdictional field
+138	Allowable Business Investment Loss Corporation Name				- not a multi-jurisdictional field
+139	Allowable Business Investment Loss Disposition Description			- not a multi-jurisdictional field
+140	Allowable Business Investment Loss Insolvency Date				- not a multi-jurisdictional field
+141	Allowable Business Investment Loss Acquisition Date				- not a multi-jurisdictional field
+147	Other Investment Income Description						- not a multi-jurisdictional field
+189	Investment Tax Credit Type Code							- Multi-jurisdictional field
+201	Tax Shelter Acquisition Unit Count						- not a multi-jurisdictional field
+205	Currency Type Code								- not a multi-jurisdictional field
+			</xsd:documentation> 
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="OtherInformationFieldCode"/>
+			<xsd:element ref="OtherInformationJurisdictionCode"  minOccurs="0" />
+			<xsd:element ref="OtherInformationFieldText"/>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="OtherInformationFieldCode">
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:CodeType">
+				<xsd:pattern value="\d{3}"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="OtherInformationJurisdictionCode" type="ProvinceStateCountryCodeType"/>
+	<xsd:element name="OtherInformationFieldText" type="Length1to25TextType"/>
+
+
+ 
+<!--*************  SUMMARY SECTION *************  --> 
+	<xsd:element name="T5013SummaryInformation" type="T5013SummaryInformationType"/>
+	<xsd:complexType name="T5013SummaryInformationType">
+		<xsd:sequence>
+			<xsd:element ref="SummaryFilerAccountNumber"/>	
+			<xsd:element ref="SummaryFilerName" minOccurs="0"/>	
+			<xsd:element ref="SummaryFilerAddress" minOccurs="0"/>	
+			<xsd:element ref="PartnershipReturnNomineeIndicationCode" minOccurs="0"/>	
+			<xsd:element ref="NomineeAgentAccountNumber" minOccurs="0"/>	
+			<xsd:element ref="NomineeAgentName" minOccurs="0"/>	
+			<xsd:element ref="TaxShelterIdentificationNumber" minOccurs="0"/>	
+			<xsd:element ref="SummaryFilerContact" minOccurs="0"/>	
+			<xsd:element ref="FiscalPeriodStartDate" minOccurs="0"/>	
+			<xsd:element ref="FiscalPeriodEndDate" minOccurs="0"/>	
+			<xsd:element ref="TotalSlipCount"/>	
+ 			<xsd:element ref="SummaryReportTypeCode"/> 
+			<xsd:element ref="T5013TotalsAmount"  minOccurs="0"/>		
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="SummaryFilerAccountNumber" type="BNType"/>
+	<xsd:element name="SummaryFilerName" type="T5013FilerNameType"/>
+	<xsd:complexType name="T5013FilerNameType">
+		<xsd:sequence>
+			<xsd:element ref="FilerNameLine1Text"/>
+			<xsd:element ref="FilerNameLine2Text" minOccurs="0"/>
+			<xsd:element ref="FilerNameLine3Text" minOccurs="0"/>  
+		</xsd:sequence>
+	</xsd:complexType>	
+	<xsd:element name="FilerNameLine1Text" type="ccms:Name35CharacterType"/>
+	<xsd:element name="FilerNameLine2Text" type="ccms:Name35CharacterType"/>
+	<xsd:element name="FilerNameLine3Text" type="ccms:Name35CharacterType"/>
+
+	<xsd:element name="SummaryFilerAddress" type="RequiredPostalCodeAddressType"/>
+
+	<xsd:element name="PartnershipReturnNomineeIndicationCode" type="ccms:YesNoCodeType"/>
+	<xsd:element name="NomineeAgentAccountNumber" type="BNType"/>
+	<xsd:element name="NomineeAgentName" type="ccms:Name30CharacterType"/>
+	<xsd:element name="TaxShelterIdentificationNumber">
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:NumberType">
+				<xsd:length value="6"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+
+	<xsd:element name="SummaryFilerContact" type="ContactType3"/>
+	
+	<xsd:element name="FiscalPeriodStartDate" type="FiscalPeriodStartDateType"/>
+	<xsd:complexType name="FiscalPeriodStartDateType">
+		<xsd:sequence>
+				<xsd:element ref="FiscalPeriodStartYear"/>
+				<xsd:element ref="FiscalPeriodStartMonth"/>
+				<xsd:element ref="FiscalPeriodStartDay"/>			
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="FiscalPeriodStartYear" type="sdt:YearType"/>
+	<xsd:element name="FiscalPeriodStartMonth" type="sdt:MonthType"/>
+	<xsd:element name="FiscalPeriodStartDay" type="sdt:DayType"/>
+
+	<xsd:element name="FiscalPeriodEndDate" type="FiscalPeriodEndDateType"/>
+	<xsd:complexType name="FiscalPeriodEndDateType">
+		<xsd:sequence>
+				<xsd:element ref="FiscalPeriodEndYear"/>
+				<xsd:element ref="FiscalPeriodEndMonth"/>
+				<xsd:element ref="FiscalPeriodEndDay"/>			
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="FiscalPeriodEndYear" type="sdt:YearType"/>
+	<xsd:element name="FiscalPeriodEndMonth" type="sdt:MonthType"/>
+	<xsd:element name="FiscalPeriodEndDay" type="sdt:DayType"/>
+	
+	<xsd:element name="T5013TotalsAmount" type="T5013TotalsType"/>
+	<xsd:complexType name="T5013TotalsType">
+		<xsd:sequence>
+			<xsd:element ref="TotalLimitedPartnerBusinessIncomeAmount" minOccurs="0"/>
+			<xsd:element ref="TotalNetBusinessIncomeAmount" minOccurs="0"/>
+			<xsd:element ref="TotalCapitalGainLossAmount" minOccurs="0"/>
+			<xsd:element ref="TotalCapitalCostAllowanceAmount" minOccurs="0"/>
+			<xsd:element ref="TotalCanadianForeignNetRentalIncomeLossAmount" minOccurs="0"/>
+			<xsd:element ref="TotalNetProfessionalIncomeLossAmount" minOccurs="0"/>
+			<xsd:element ref="TotalRenouncedCanadianExplorationExpenseAmount" minOccurs="0"/>
+			<xsd:element ref="TotalRenouncedCanadianDevelopmentExpenseAmount" minOccurs="0"/>
+			<xsd:element ref="TotalITCQualifyingExpensesAmount" minOccurs="0"/>
+			<xsd:element ref="TotalCarryingChargesAmount" minOccurs="0"/>
+ 		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="TotalLimitedPartnerBusinessIncomeAmount" type="SignedDecimal15AmountType"/>
+	<xsd:element name="TotalNetBusinessIncomeAmount" type="SignedDecimal15AmountType"/>
+	<xsd:element name="TotalCapitalGainLossAmount" type="SignedDecimal15AmountType"/>
+	<xsd:element name="TotalCapitalCostAllowanceAmount" type="SignedDecimal15AmountType"/>
+	<xsd:element name="TotalCanadianForeignNetRentalIncomeLossAmount" type="SignedDecimal15AmountType"/>
+	<xsd:element name="TotalNetProfessionalIncomeLossAmount" type="SignedDecimal15AmountType"/>
+	<xsd:element name="TotalRenouncedCanadianExplorationExpenseAmount" type="SignedDecimal15AmountType"/>
+	<xsd:element name="TotalRenouncedCanadianDevelopmentExpenseAmount" type="SignedDecimal15AmountType"/>
+	<xsd:element name="TotalITCQualifyingExpensesAmount" type="SignedDecimal15AmountType"/>
+	<xsd:element name="TotalCarryingChargesAmount" type="SignedDecimal15AmountType"/>
+
+</xsd:schema>

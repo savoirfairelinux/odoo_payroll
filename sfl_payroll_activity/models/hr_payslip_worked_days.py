@@ -46,6 +46,8 @@ class HrPayslipWorkedDays(models.Model):
         'Hours Allowed',
     )
 
+    _order = 'date,activity_id'
+
     @api.depends(
         'hourly_rate', 'number_of_hours', 'rate', 'number_of_hours_allowed')
     def _compute_total(self):

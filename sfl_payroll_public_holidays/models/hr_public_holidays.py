@@ -86,8 +86,6 @@ class HrPublicHolidays(models.Model):
             raise ValidationError(
                 _('The country of %s is not set.') % partner.country_id.name)
 
-        print partner.state_id
-
         return self.env['hr.holidays.public.line'].search([
             ('date', '>=', date_from),
             ('date', '<=', date_to),

@@ -34,6 +34,7 @@
         'views/hr_employee.xml',
         'views/hr_leave_accrual.xml',
         'views/hr_holidays_status.xml',
+        'views/hr_salary_rule.xml',
         'views/res_company.xml',
     ],
     'installable': True,

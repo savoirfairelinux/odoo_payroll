@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T4A-P ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="T4A_PSlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType"/>
+			<xsd:element name="RCPNT_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="rcpnt_nbr" type="char20Type" minOccurs="0"/>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+			<xsd:element name="DT" type="DateType" minOccurs="0"/>
+            <xsd:element name="cqpp_dsblt_ben_mo_cnt" type="int2Type" minOccurs="0"/>	
+            <xsd:element name="cqpp_rtir_ben_mo_cnt" type="int2Type" minOccurs="0"/>		
+           	<xsd:element name="T4AP_AMT" type="T4apAmtType" minOccurs="0"/>
+			<xsd:element name="LMP_DSBLT" type="LumpSumDisabilityType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4apAmtType">
+		<xsd:all>
+			<xsd:element name="rtir_ben_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="srvr_ben_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="dsblt_ben_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="chld_ben_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="dth_ben_amt" type="decimal9Type" minOccurs="0"/>
+            <xsd:element name="cqpp_prtir_bnamt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="tx_cpp_qpp_ben_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="itx_ddct_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="net_oasp_amt" type="decimal9Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="LumpSumDisabilityType">
+		<xsd:all>
+			<xsd:element name="lsp_1_pyr_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="lsp_2_pyr_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="lsp_3_pyr_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="lsp_4_pyr_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="lsp_5_pyr_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="lsp_6_pyr_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="lsp_7_pyr_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="lsp_8_pyr_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="lsp_9_pyr_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="lsp_10_pyr_amt" type="decimal9Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4A_PSummaryType">
+		<xsd:all>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="PAYR_NM" type="Line3Type"/>
+			<xsd:element name="PAYR_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="T4AP_TAMT" type="T4apTotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4apTotalsType">
+		<xsd:all>
+			<xsd:element name="tot_rtir_ben_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_srvr_ben_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_dsblt_ben_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_chld_ben_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_dth_ben_amt" type="decimal13Type" minOccurs="0"/>
+      	    <xsd:element name="rtot_cqpp_prtir_bnamt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_tx_cpp_qpp_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_itx_ddct_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_net_oasp_amt" type="decimal13Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

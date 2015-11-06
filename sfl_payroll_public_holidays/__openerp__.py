@@ -22,13 +22,13 @@
 {
     'name': 'Public Holidays',
     'version': '8.0.1.0.0',
-    'category': 'Generic Modules/Human Resources',
+    'category': 'Human Resources',
     'author': "Michael Telahun Makonnen <mmakonnen@gmail.com>,"
               "Savoir-faire Linux",
     'website': 'https://savoirfairelinux.com',
     'license': 'AGPL-3',
     'depends': [
-        'hr',
+        'sfl_payroll_base',
     ],
     'data': [
         'security/ir.model.access.csv',

@@ -49,6 +49,7 @@ class HrSalaryRuleVariable(models.Model):
         ],
         type='char',
         string='Type',
+        default="python",
     )
     python_code = fields.Text(
         'Python Code',

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="jurisdiction_federal" model="hr.deduction.jurisdiction">
+            <field name="name">Federal</field>
+        </record>
+
+        <record id="jurisdiction_federal_provincial" model="hr.deduction.jurisdiction">
+            <field name="name">Federal and Provincial</field>
+        </record>
+
+    </data>
+</openerp>

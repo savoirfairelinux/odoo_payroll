@@ -53,16 +53,6 @@ class HrLeaveAccrual(models.Model):
         readonly=True,
     )
 
-    @api.multi
-    def get_approved_lines(self):
-        """
-        Get lines of leave accruals entered mannually plus those
-        related to an approved payslip
-        """
-        self.ensure_one()
-        return self.mapped('line_ids').filtered(
-            lambda l: not l.payslip_id or l.state in ['done'])
-
     @api.one
     def update_totals(self):
         """
@@ -107,3 +97,8 @@ class HrLeaveAccrual(models.Model):
             'total_hours': total_hours,
             'total_monetary': total_monetary,
         })
+
+    @api.multi
+    def sum_leaves_available(self, date, in_cash=False):
+        self.ensure_one()
+        return self.total_monetary if in_cash else self.total_hours

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: Specialty Business Returns -Net Income(Loss) For Income Tax Purposes (CRA Form T5013 SCH 2 E(11) )
+Contact: CRA, ITB, Solutions, RASD, Business Suite Assessing System, Other Levies
+Date created: October 2012
+Updates: ols2/1-0-1 - November 2013 - added Min and Max for sequence elements 
+		 sdt/updated reference to sdt/2-2-0
+Users of this schema:
+-Other Levies System
+-->
+<xsd:schema 
+xmlns:ols2="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols2/1-0-1" 
+xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" 
+xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+targetNamespace="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols2/1-0-1" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="ols2/1-0-1">
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/> 
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/> 	
+
+	<!-- T5013Schedule2Data is also referenced by other schemas for importing purposes -->	
+	<xsd:element name="T5013Schedule2Data" type="ols2:Schedule2DataType"/>
+	<xsd:complexType name="Schedule2DataType">
+		<xsd:sequence>
+			<xsd:element ref="ols2:Schedule2GiftsAndDonationsDetails" minOccurs="0" maxOccurs="2000"/>
+			<xsd:element ref="ols2:Schedule2PoliticalContributionDetails"  minOccurs="0" maxOccurs="2000"/>
+			<xsd:element ref="ols2:Schedule2GiftOfMedicineDetails"  minOccurs="0" maxOccurs="2000"/>
+			
+			<xsd:element ref="ols2:GiftOfMedicineTotalEligibleAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols2:MunicipalContributionTotalEligibleAmount"  minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:ProvincialTerritryContributionTotalEligibleAmount"  minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:FederalContributionTotalEligibleAmount"  minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:EcologicalGiftsTotalEligibleAmount"  minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:CulturalProperytGiftsTotalEligibleAmount"  minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:GiftsToCanadaProvinceTerritoryTotalEligibleAmount"  minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:CharitableDonationsTotalEligibleAmount"  minOccurs="0"  maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="Schedule2GiftsAndDonationsDetails" type="ols2:Schedule2GiftsAndDonationsDetailsType"/>
+	<xsd:element name="Schedule2PoliticalContributionDetails" type="ols2:Schedule2PoliticalContributionDetailsType"/>
+	<xsd:element name="Schedule2GiftOfMedicineDetails" type="ols2:Schedule2GiftOfMedicineDetailsType"/>
+
+	<xsd:complexType name="Schedule2GiftsAndDonationsDetailsType">
+		<xsd:annotation>
+			<xsd:documentation>
+	Charitable Donations
+	Enter each partner's share of the amount from box 2-210 in box 182 of the T5013 slips
+	
+	Gifts to Canada, a province or a territory
+	Enter each partner's share of the amount from box 2-310 in box 182 of the T5013 slips
+	
+	Gifts of certified cultural property
+	Enter each partner's share of the amount from box 2-410 in box 183 of the T5013 slips
+	
+	Gifts of certified ecologically sensitive land
+	 Enter each partner's share of the amount from box 2-510 in box 183 of the T5013 slips
+	
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ols2:CharitableGiftTypeName" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:RecipientName" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:GiftOrContributionDate" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:PropertyDescriptionText" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:DonorName" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:GiftValueAmount" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:EligibleAmount" minOccurs="0"  maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Schedule2PoliticalContributionDetailsType">
+		<xsd:annotation>
+			<xsd:documentation>
+	Political Donations - federal registered party, or the provincial or territorial division of the registered party
+	Enter each partner's share of the amount from box 2-610 in box 184 of the T5013 or T5013A slips
+	
+	Political Donations - provincial or territorial registered party
+	Enter each partner's share of the amount from box 2-710 in box 185 of the T5013 or T5013A slips
+
+	Political Donations - municipal registered party
+	Enter each partner's share of the amount from box 910 in box 207 of the T5013 slips
+	
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ols2:PoliticalDonationTypeName" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:RegisteredPartyName" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:ConstituencyAssociationName" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:CandidateName" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:GiftOrContributionDate" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:DonorName" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:EligibleAmount" minOccurs="0"  maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+		<xsd:complexType name="Schedule2GiftOfMedicineDetailsType">
+		<xsd:annotation>
+			<xsd:documentation>
+	Gift of Medicine
+	Enter each partner share of the amount from box 810 in box 208 of the T5013 slips
+	
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ols2:GiftOfMedicineRecipientName" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:GiftOfMedicineDate" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:GiftOfMedicineDonorName" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:GiftOfMedicinePartnershipCostAmount" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:GiftOfMedicineDispositionProceedsAmount" minOccurs="0"  maxOccurs="1"/>
+			<xsd:element ref="ols2:GiftOfMedicineEligibleAmount" minOccurs="0"  maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Character175NameType">
+		<xsd:simpleContent>
+			<xsd:restriction base="sdt:NameType">
+				<xsd:maxLength value="175"/>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="Character60NameType">
+		<xsd:simpleContent>
+			<xsd:restriction base="sdt:NameType">
+				<xsd:maxLength value="60"/>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="CharitableGiftType">
+		<xsd:simpleContent>
+			<xsd:restriction base="sdt:NameType">
+				<xsd:enumeration value="Charitable donations"/>
+				<xsd:enumeration value="Gifts to Canada, a province, or a territory"/>
+				<xsd:enumeration value="Gifts of certified cultural property"/>
+				<xsd:enumeration value="Gifts of certified ecologically sensitive land"/>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="PoliticalDonationType">
+		<xsd:simpleContent>
+			<xsd:restriction base="sdt:NameType">
+				<xsd:enumeration value="Federal political contributions"/>
+				<xsd:enumeration value="Provincial or territorial political contributions"/>
+				<xsd:enumeration value="Municipal political contributions"/>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:element name="GiftOfMedicineTotalEligibleAmount" type="sdt:AmountType"/>
+	<xsd:element name="MunicipalContributionTotalEligibleAmount" type="sdt:AmountType"/>
+	<xsd:element name="ProvincialTerritryContributionTotalEligibleAmount" type="sdt:AmountType"/>
+	<xsd:element name="FederalContributionTotalEligibleAmount" type="sdt:AmountType"/>
+	<xsd:element name="EcologicalGiftsTotalEligibleAmount" type="sdt:AmountType"/>
+	<xsd:element name="CulturalProperytGiftsTotalEligibleAmount" type="sdt:AmountType"/>
+	<xsd:element name="GiftsToCanadaProvinceTerritoryTotalEligibleAmount" type="sdt:AmountType"/>
+	<xsd:element name="CharitableDonationsTotalEligibleAmount" type="sdt:AmountType"/>
+
+	<xsd:element name="GiftOfMedicineRecipientName" type="ccms:Name60CharacterType" />
+	<xsd:element name="GiftOfMedicineDate" type="sdt:DateType"/>
+	<xsd:element name="GiftOfMedicineDonorName" type="ccms:Name60CharacterType" />
+	<xsd:element name="GiftOfMedicinePartnershipCostAmount" type="sdt:AmountType"/>
+	<xsd:element name="GiftOfMedicineDispositionProceedsAmount" type="sdt:AmountType"/>
+	<xsd:element name="GiftOfMedicineEligibleAmount" type="sdt:AmountType"/>
+
+	<xsd:element name="CharitableGiftTypeName" type="ols2:CharitableGiftType"/>
+	<xsd:element name="PoliticalDonationTypeName" type="ols2:PoliticalDonationType"/>
+	<xsd:element name="RecipientName" type="ccms:Name60CharacterType"/>
+	<xsd:element name="GiftOrContributionDate" type="sdt:DateType"/>
+	<xsd:element name="PropertyDescriptionText" type="ccms:Name175CharacterType"/>
+	<xsd:element name="DonorName" type="ccms:Name175CharacterType"/>
+	<xsd:element name="GiftValueAmount" type="sdt:AmountType"/>
+	<xsd:element name="EligibleAmount" type="sdt:AmountType"/>
+	<xsd:element name="RegisteredPartyName" type="ccms:Name175CharacterType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+					Name of the registered party, or of the provincial or territorial division of the registered party	
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element> 
+	<xsd:element name="ConstituencyAssociationName" type="ccms:Name175CharacterType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+					Name of the registered constituency association	
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CandidateName" type="ccms:Name175CharacterType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+					Name of the candidate 
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

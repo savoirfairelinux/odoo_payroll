@@ -20,6 +20,9 @@
 #
 ##############################################################################
 
+import sys
+import traceback
+
 from openerp import fields, models, api, _
 from openerp.exceptions import ValidationError
 from openerp.tools.safe_eval import safe_eval
@@ -104,6 +107,11 @@ class HrSalaryRule(models.Model):
     note = fields.Text(
         'Description',
     )
+    payslip_input_ids = fields.Many2many(
+        'hr.payslip.input.category',
+        'hr_payslip_input_salary_rule_rel',
+        string='Payslip Inputs',
+    )
 
     @api.multi
     def compute_rule(self, localdict):
@@ -122,10 +130,11 @@ class HrSalaryRule(models.Model):
                 localdict, mode='exec', nocopy=True
             )
             return float(localdict['result'])
-        except Exception:
+        except Exception as err:
+            traceback.print_exc(file=sys.stdout)
             raise ValidationError(
-                _('Wrong python code defined for salary rule %s (%s).') %
-                (self.name, self.code))
+                _('Wrong python code defined for salary rule %s (%s): %s') %
+                (self.name, self.code, err))
 
     @api.multi
     def satisfy_condition(self, localdict):

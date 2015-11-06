@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--    Version# 2.8-2008-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:complexType name="TapeType">
+		<xsd:all>
+			<xsd:element name="TAPE_INFO" type="InfoType"/>
+			<xsd:element name="sbmt_gbl_1_ecd" type="xsd:string"/>
+			<xsd:element name="oe_trnmtr_nbr" type="transNbrType"/>
+			<xsd:element name="oe_cler_uid" type="xsd:string"/>
+			<xsd:element name="OE_CLER_TSTMP" type="DateTimeType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="InfoType">
+		<xsd:all>
+			<xsd:element name="t_rec_len" type="xsd:string"/>
+			<xsd:element name="t_mom_cd" type="xsd:string"/>
+			<xsd:element name="t_mode_tcd" type="xsd:string"/>
+			<xsd:element name="t_blp_cd" type="xsd:string"/>
+			<xsd:element name="t_vol_senbr" type="xsd:string"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:simpleType name="hourType">
+		<xsd:restriction base="xsd:unsignedShort">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="23"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="minuteType">
+		<xsd:restriction base="xsd:unsignedShort">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="59"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="secondType">
+		<xsd:restriction base="xsd:unsignedShort">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="59"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="DateTimeType">
+		<xsd:all>
+			<xsd:element name="ss" type="secondType"/>
+			<xsd:element name="mm" type="minuteType"/>
+			<xsd:element name="hh" type="hourType"/>
+			<xsd:element name="dy" type="dayType"/>
+			<xsd:element name="mo" type="monthType"/>
+			<xsd:element name="yr" type="yearType"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: Specialty Business Returns -Net Income(Loss) For Income Tax Purposes (CRA Form T5013 SCH 1 E(11) )
+Contact: CRA, ITB, Solutions, RASD, Business Suite Assessing System, Other Levies
+Date created: March 2013
+Updates: ols1/1-0-1 - November 2013 - added Min and Max for sequence elements 
+		 sdt/updated reference to sdt/2-2-0
+Users of this schema:
+-Other Levies System
+-->
+<xsd:schema 
+xmlns:ols1="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols1/1-0-1" 
+			xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0"
+			xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols1/1-0-1" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="ols1/1-0-1">
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/> 
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/> 
+
+<!-- T5013Schedule1Data is also referenced by other schemas for importing purposes -->	
+	<xsd:element name="T5013Schedule1Data" type="ols1:Schedule1DataType"/>
+	<xsd:complexType name="Schedule1DataType">
+		<xsd:sequence>
+			<xsd:element ref="ols1:Schedule1LineAmounts" minOccurs="0" maxOccurs="200"/>
+			<xsd:element ref="ols1:OtherSchedule1LineAmount" minOccurs="0" maxOccurs="10"/>
+<!--  The Other less common deductions Lines 700 - 704 with 390 - 394) are captured with the  "ols1:OtherSchedule1LineAmount" -->
+			<!-- <xsd:element ref="ols1:OtherLessCommonDeductionSchedule1LineAmount" maxOccurs="5"/>  -->
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="Schedule1LineAmounts" type="ccms:FieldCodeAmountType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+For the Schedule1LineAmounts, the expected line numbers and Descriptions are listed below: 
+500	Partnership_s net income (loss) after other comprehensive income and extraordinary items from the partnership_s financial statements from line 9999 of Schedule 125 (T5013 SCH 125)
+101	Provision for Part IX.1 Specified Investment Flow Through (SIFT) taxes
+104	Amortization/depreciation of tangible assets
+105	Amortization of natural resource assets
+106	Amortization of intangible assets
+107	Recapture of capital cost allowance from Schedule 8
+108	Income recapture inclusion on sale of eligible capital property from Schedule 10
+109	Income or loss for tax purposes from partnerships
+110	Loss in equity of affiliates
+111	Loss on disposal of assets per financial statements
+112	Charitable donations from Schedule 2
+114	Political contributions from Schedule 2 
+115	Current fiscal period_s holdbacks
+116	Deferred and prepaid expenses
+117	Depreciation in inventory _ end of fiscal period
+118	SR and ED expenditures deducted per financial statements
+119	Capitalized interest and property taxes on vacant land
+120	Non-deductible club dues and fees
+121	Non-deductible meals and entertainment expenses
+122	Non-deductible automobile expenses
+123	Non-deductible life insurance premiums
+124	Non-deductible company pension plans 
+126	Reserves from financial statements _ balance at the end of the fiscal period
+127	Soft costs on construction and renovation of buildings
+150	Salary and wages paid to partners deducted on financial statements
+151	Cost of products available for sale that were consumed
+152	Personal expenses of the partners paid by the partnership
+153	Residual income inclusion on sale of eligible capital property from Schedule 10
+154	Dividend rental arrangement compensation payment deductions
+155	Renounced exploration, development and resource property expenses deducted per financial statements from Schedule 52
+156	Certain fines and penalties
+159	Carrying charges
+199	Amount from line 508 on page 2 of this schedule
+501	Total 
+502	Deduct 
+503	Net income (loss) for income tax purposes 
+504	Deduct:  Net income (loss) for general partners
+505	Net income (loss) for income tax purposes for limited and non-active partners 
+
+Add:
+201	Accounts payable and accruals for cash basis _ closing
+202	Accounts receivable and prepaid for cash basis _ opening
+203	Accrual inventory _ opening
+204	Accrued dividends _ prior fiscal period
+205	Book loss on joint ventures or partnerships
+206	Capital items expensed
+208	Debt issue expense
+209	Deemed dividend income
+210	Deemed interest on loans to non-residents
+211	Deemed interest received
+212	Development expenses claimed in current fiscal period
+213	Dividend stop-loss adjustment
+214	Dividends credited to the investment account
+215	Exploration expenses claimed in current fiscal period
+216	Financing fees deducted in books
+217	Foreign accrual property income
+218	Foreign affiliate property income
+219	Foreign exchange included in retained earnings
+220	Gain on settlement of debt _ income inclusion under subsection 80(13)
+221	Interest paid on income debentures
+222	Limited partnership losses 
+223	Loss from international banking centres
+224	Mandatory inventory adjustment _ included in current fiscal period
+226	Non-deductible advertising
+227	Non-deductible interest
+228	Non-deductible legal and accounting fees
+229	Optional value of inventory _ included in current fiscal period
+230	Other expenses from financial statements
+231	Recapture of SR and ED expenditures from Form T661
+232	Resource amounts deducted
+234	Sales tax assessments
+236	Write-down of capital property
+237	Amounts received in respect of qualifying environmental trust per paragraphs 12(1) (z.1) and 12(1)(z.2)
+238 	Contractors_ completion method adjustment: revenue net of costs on contracts under 2 years _ previous fiscal period
+239	Taxable/Non-deductible other comprehensive income items
+506	Total 
+507	Total 
+508	Total 
+
+Deduct:
+300	Accounts payable and accruals for cash basis _ opening
+301	Accounts receivable and prepaid for cash basis _ closing
+302	Accrual inventory _ closing
+303	Accrued dividends _ current fiscal period
+304	Bad debt
+305	Book income of joint venture or partnership
+306	Equity in income from affiliates
+307	Exempt income under section 81
+308	Income from international banking centres
+309	Mandatory inventory adjustment _ included in prior fiscal period
+310	Contributions to a qualifying environmental trust
+311	Non-Canadian advertising expenses _ broadcasting
+312	Non-Canadian advertising expenses _ printed materials
+313	Optional value of inventory _ included in prior fiscal period
+314	Other income from financial statements
+315	Payments made for allocations in proportion to borrowing and bonus interest payments
+316 	Contractors_ completion method adjustment: revenue net of costs on contracts under 2 years _ current fiscal period
+347	Non-taxable/Deductible other comprehensive income items
+
+Other deductions:
+401	Gain on disposal of assets per financial statements
+402	Non-taxable dividends under section 83
+403	Capital cost allowance from Schedule 8
+404	Terminal loss from Schedule 8
+405	Cumulative eligible capital deduction from Schedule 10
+407	Foreign non-business tax deduction under subsection 20(12)
+408	Prior fiscal period_s holdbacks
+409	Deferred and prepaid expenses
+410	Depreciation in inventory _ end of prior fiscal period
+411	SR and ED expenditures claimed in fiscal period from Form T661 
+414	Reserves from financial statements _ balance at the beginning of the fiscal period
+416	Patronage dividends 
+417	Contributions to deferred income plans 
+509	Total
+510	Total 
+511	Total 
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!--	OtherAdditions  -->
+	<xsd:complexType name="OtherSchedule1LineAmountType">
+		<xsd:sequence>
+			<xsd:element ref="ols1:OtherSchedule1CodeAndText" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols1:OtherSchedule1CodeAndAmount" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="OtherSchedule1CodeAndText" type="ccms:FieldCodeText60Type"/>
+	<xsd:element name="OtherSchedule1CodeAndAmount" type="ccms:FieldCodeAmountType"/>	
+	<xsd:element name="OtherSchedule1LineAmount" type="ols1:OtherSchedule1LineAmountType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+					Provide the addition or deduction description (maximum 60 characters) and the amount.
+		Other Additions
+600	Freeform line 1
+290	Amount 1
+601	Freeform line 2
+291	Amount 2
+602	Freeform line 3
+292	Amount 3
+603	Freeform line 4
+293	Amount 4
+604	Freeform line 5
+294	Amount 5
+
+	Other Deductions
+700	Freeform line 1
+390	Amount 1
+701	Freeform line 2
+391	Amount 2
+702	Freeform line 3
+392	Amount 3
+703	Freeform line 4
+393	Amount 4
+704	Freeform line 5
+394	Amount 5
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- <xsd:element name="OtherLessCommonDeductionSchedule1LineAmount" type="ols1:OtherSchedule1LineAmountType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+					Provide the deduction description (maximum 60 characters) and the amount.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>  -->
+</xsd:schema>

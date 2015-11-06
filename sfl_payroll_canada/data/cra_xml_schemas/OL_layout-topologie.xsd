@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by John West (Canada Customs and Revenue Agency) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:olsbr="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/olsbr/1-0-1">
+	<!-- @@@@@@ Include Related Schemas @@@@@@ Version# 2.8-2008 -->
+	<xsd:include schemaLocation="simple.xsd"/>
+	<xsd:include schemaLocation="complex.xsd"/>
+	<xsd:include schemaLocation="t5013.xsd"/>
+	<xsd:import namespace="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/olsbr/1-0-1" schemaLocation="t5013main.xsd"/>
+	<!-- @@@@    Common Record Layout     @@@@ -->
+	<xsd:element name="Submission" type="SubmissionType"/>
+	<xsd:complexType name="SubmissionType">
+		<xsd:sequence>
+			<xsd:element name="T619" type="TransmitterType"/>
+			<xsd:element ref="T5013SlipAndSummary" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="olsbr:OLSBRT5013Data" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TransmitterType">
+		<xsd:all>
+			<xsd:element name="trnmtr_nbr" type="transNbrType"/>
+			<xsd:element name="sbmt_ref_id" type="char8Type"/>
+			<xsd:element name="trnmtr_tcd" type="indicator1-6Type" minOccurs="0"/>
+			<xsd:element name="summ_cnt" type="int6Type"/>
+			<xsd:element name="TRNMTR_NM" type="Line2Type"/>
+			<xsd:element name="TRNMTR_ADDR" type="CanadaAddressType"/>
+			<xsd:element name="CNTC" type="ContactType"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="lang_cd" type="languageType"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

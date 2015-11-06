@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T4A(OAS) ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="T4A_OASSlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType"/>
+			<xsd:element name="RCPNT_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="rcpnt_nbr" type="char20Type" minOccurs="0"/>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+			<xsd:element name="T4A_OAS_AMT" type="T4aoasAmtType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4aoasAmtType">
+		<xsd:all>
+			<xsd:element name="net_pens_pay_amt" type="signedDecimal9Type" minOccurs="0"/>
+			<xsd:element name="gro_pens_pay_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="opay_rvr_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="net_supp_amt" type="signedDecimal9Type" minOccurs="0"/>
+			<xsd:element name="itx_ddct_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="qc_itx_ddct_amt" type="decimal9Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4A_OASSummaryType">
+		<xsd:all>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="PAYR_NM" type="Line3Type"/>
+			<xsd:element name="PAYR_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="T4A_OAS_TAMT" type="T4aoasTotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4aoasTotalsType">
+		<xsd:all>
+			<xsd:element name="tot_net_pens_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_gro_pens_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_opay_rvr_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_net_supp_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_itx_ddct_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_qc_tx_ddct_amt" type="decimal13Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

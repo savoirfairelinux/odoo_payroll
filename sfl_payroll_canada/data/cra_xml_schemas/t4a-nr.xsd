@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T4A-NR ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="T4A_NRSlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType" minOccurs="0"/>
+			<xsd:element name="ENTPRS_NM" type="Line2Type" minOccurs="0"/>
+			<xsd:element name="RCPNT_ADDR" type="ForeignAddressType" minOccurs="0"/>
+			<xsd:element name="RCPNT_NBR" type="RecipientNumberType"/>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="T4A_NR_AMT" type="T4anrAmtType" minOccurs="0"/>
+			<xsd:element name="redn_auth_cd" type="indicator1-2Type" minOccurs="0"/>
+			<xsd:element name="srvc_rndr_cty_nm" type="char28Type" minOccurs="0"/>
+			<xsd:element name="srvc_rndr_prov_cd" type="provinceType" minOccurs="0"/>
+			<xsd:element name="rcpnt_pres_dy_cnt" type="dayJulianType" minOccurs="0"/>
+			<xsd:element name="pro_nm_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="sic_cd" type="numeric4Type" minOccurs="0"/>
+			<xsd:element name="tx_cntry_cd" type="countryType"/>
+			<xsd:element name="nr_indst_tcd" type="numeric2Type" minOccurs="0"/>
+			<xsd:element name="rcpnt_tcd" type="numeric1Type"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4anrAmtType">
+		<xsd:all>
+			<xsd:element name="itx_ddct_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="trvl_examt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="gro_incamt" type="decimal11Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4A_NRSummaryType">
+		<xsd:all>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="PAYR_NM" type="Line3Type"/>
+			<xsd:element name="PAYR_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="PPRTR_SIN" type="PropSinType" minOccurs="0"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="T4A_NR_TAMT" type="T4anrTotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4anrTotalsType">
+		<xsd:all>
+			<xsd:element name="tot_gro_incamt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="tot_itx_ddct_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="tot_trvl_examt" type="decimal11Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

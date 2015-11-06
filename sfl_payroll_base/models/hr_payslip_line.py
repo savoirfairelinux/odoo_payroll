@@ -33,6 +33,7 @@ class HrPayslipLine(models.Model):
     name = fields.Char(
         'Name',
         required=True,
+        translate=True,
     )
     slip_id = fields.Many2one(
         'hr.payslip',

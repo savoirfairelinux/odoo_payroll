@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from openerp import api, fields, models
+from openerp import fields, models
 
 
 class HrHolidaysStatus(models.Model):
@@ -34,13 +34,5 @@ class HrHolidaysStatus(models.Model):
         'hr.activity',
         'leave_id',
         'Activity',
+        default=[(0, 0, {'activity_type': 'leave'})],
     )
-
-    @api.model
-    def create(self, vals):
-        if 'activity_ids' not in vals:
-            vals['activity_ids'] = [(0, 0, {
-                'activity_type': 'leave',
-            })]
-
-        return super(HrHolidaysStatus, self).create(vals)

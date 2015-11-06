@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_structure_ca_base" model="hr.payroll.structure">
+            <field name="code">CA</field>
+            <field name="name">Canadian Base</field>
+            <field name="parent_id" eval="False"/>
+            <field name="rule_ids" eval="[(6, 0, [
+                ref('rule_ca_p'),
+                ref('rule_ca_psb'),
+                ref('rule_ca_pr'),
+                ref('rule_ca_hourly_rate'),
+                ref('rule_ca_paid_hours'),
+                ref('rule_ca_grossp'),
+                ref('rule_ca_gross'),
+                ref('rule_ca_bonus'),
+                ref('rule_ca_retro_pay'),
+                ref('rule_ca_other_wage'),
+                ref('rule_ca_other_wage_pytd'),
+                ref('rule_ca_total_pay'),
+                ref('rule_ca_net'),
+
+                ref('rule_ca_vac_available'),
+                ref('rule_ca_vac_available_hours'),
+                ref('rule_ca_vac_requested'),
+                ref('rule_ca_vac_taken'),
+                ref('rule_ca_vac_taken_hours'),
+                ref('rule_ca_unused_vac_taken'),
+                ref('rule_ca_unused_vac_taken_hours'),
+                ref('rule_ca_vac_added'),
+                ref('rule_ca_vac_added_hours'),
+
+                ref('rule_ca_sl_available'),
+                ref('rule_ca_sl_requested'),
+                ref('rule_ca_sl_taken_cash'),
+                ref('rule_ca_sl_taken'),
+                ref('rule_ca_unused_sl_taken_cash'),
+                ref('rule_ca_unused_sl_taken'),
+
+                ref('rule_ca_public_available'),
+                ref('rule_ca_public_requested'),
+                ref('rule_ca_public_taken'),
+
+                ref('rule_ca_comp_available'),
+                ref('rule_ca_comp_available_hours'),
+                ref('rule_ca_comp_requested'),
+                ref('rule_ca_comp_taken'),
+                ref('rule_ca_comp_taken_hours'),
+                ref('rule_ca_unused_comp_taken'),
+                ref('rule_ca_unused_comp_taken_hours'),
+                ref('rule_ca_comp_added'),
+                ref('rule_ca_comp_added_hours'),
+
+                ref('rule_ca_ei_ee_maxie'),
+                ref('rule_ca_ei_ee_c'),
+                ref('rule_ca_ei_er_c'),
+
+                ref('rule_ca_cpp_ee_maxie'),
+                ref('rule_ca_cpp_ee_c'),
+                ref('rule_ca_cpp_er_c'),
+
+                ref('rule_ca_rpp_er_c'),
+                ref('rule_ca_rpp_ee_c'),
+
+                ref('rule_ca_prpp_er_c'),
+                ref('rule_ca_prpp_ee_c'),
+
+                ref('rule_ca_vrsp_er_c'),
+                ref('rule_ca_vrsp_ee_c'),
+
+                ref('rule_ca_fit_i'),
+                ref('rule_ca_fit_i_other_wage'),
+                ref('rule_ca_fit_f'),
+                ref('rule_ca_fit_f2'),
+                ref('rule_ca_fit_u1'),
+                ref('rule_ca_fit_hd'),
+                ref('rule_ca_fit_f1'),
+                ref('rule_ca_fit_a'),
+                ref('rule_ca_fit_a_other_wage_pytd'),
+                ref('rule_ca_fit_a_other_wage_ytd'),
+                ref('rule_ca_fit_k1'),
+                ref('rule_ca_fit_k2'),
+                ref('rule_ca_fit_k3'),
+                ref('rule_ca_fit_k4'),
+                ref('rule_ca_fit_t3'),
+                ref('rule_ca_fit_t1'),
+                ref('rule_ca_fit_t'),
+
+                ref('rule_ca_ben_ee_c'),
+                ref('rule_ca_ben_er_c'),
+                ])]"
+            />
+        </record>
+
+    </data>
+</openerp>

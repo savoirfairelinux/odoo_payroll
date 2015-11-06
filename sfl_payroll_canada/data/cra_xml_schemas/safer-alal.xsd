@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of Safer  ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="SAFERSlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType"/>
+			<xsd:element name="RCPNT_ADDR" type="CanadaOnlyAddressType" minOccurs="0"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="rcpnt_nbr" type="char20Type" minOccurs="0"/>
+			<xsd:element name="bn" type="ccraType3"/>
+			<xsd:element name="rpt_tcd" type="preMatchDataType"/>
+			<xsd:element name="shltr_amt" type="decimal9Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="SAFERSummaryType">
+		<xsd:all>
+			<xsd:element name="rpt_tcd" type="preMatchDataType"/>
+			<xsd:element name="bn" type="ccraType3"/>
+			<xsd:element name="PAYR_NM" type="Line3Type"/>
+			<xsd:element name="PAYR_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="tot_shltr_amt" type="decimal13Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

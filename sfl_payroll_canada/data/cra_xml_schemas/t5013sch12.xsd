@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: Specialty Business Returns -Net Income(Loss) For Income Tax Purposes (CRA Form T5013 SCH 10 E(11) )
+Contact: CRA, ITB, Solutions, RASD, Business Suite Assessing System, Other Levies
+Date created: October 2012
+Updates: ols12/1-0-1 - November 2013 - added Min and Max for sequence elements 
+		 sdt/updated reference to sdt/2-2-0
+Users of this schema:
+-Other Levies System
+-->
+<xsd:schema 
+xmlns:ols12="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols12/1-0-1" 
+xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" 
+xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+targetNamespace="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols12/1-0-1" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="ols12/1-0-1">
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/> 
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/> 	
+
+	<xsd:element name="T5013Schedule12Data" type="ols12:Schedule12DataType"/>
+	<xsd:complexType name="Schedule12DataType">
+		<xsd:sequence>
+			<xsd:element ref="ols12:Schedule12LineAmounts" minOccurs="0" maxOccurs="200"/>
+			<xsd:element ref="ols12:Schedule12ForeignResourceExpenses" minOccurs="0"/>
+			<xsd:element ref="ols12:Schedule12EarnedDepletionRecaptureAmount" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Schedule12ForeignResourceExpensesType">
+		<xsd:sequence>
+			<xsd:element ref="ols12:Schedule12ForeignResourceExpensesLineItems" maxOccurs="2000"/>
+			<xsd:element ref="ols12:Schedule12ForeignResourceExpensesTotalAmount" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Schedule12ForeignResourceExpensesLineItemsType" >
+	<xsd:sequence>
+			<xsd:element ref="ols12:Schedule12ForeignCountryName" minOccurs="0"/>
+			<xsd:element ref="ols12:Schedule12CurrentYearExpensesAmount" minOccurs="0"/>
+			<xsd:element ref="ols12:Schedule12TransferAdditionsAmount" minOccurs="0"/>
+			<xsd:element ref="ols12:Schedule12OtherAdditionsAmount" minOccurs="0"/>
+			<xsd:element ref="ols12:Schedule12TransferDeductionsAmount" minOccurs="0"/>
+			<xsd:element ref="ols12:Schedule12OtherDeductionsAmount" minOccurs="0"/>
+			<xsd:element ref="ols12:Schedule12ExpensesLineTotalAmount" minOccurs="0"/>
+			<xsd:element ref="ols12:Schedule12ForeignResourceIncomeAmount" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!--   Data Elements -->
+	<xsd:element name="Schedule12LineAmounts" type="ccms:FieldCodeAmountType"/>
+	<xsd:element name="Schedule12ForeignResourceExpenses" type="ols12:Schedule12ForeignResourceExpensesType"/>
+
+	<xsd:element name="Schedule12ForeignResourceExpensesLineItems" type="ols12:Schedule12ForeignResourceExpensesLineItemsType"/>
+	<xsd:element name="Schedule12ForeignResourceExpensesTotalAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule12ForeignCountryName" type="ccms:Name175CharacterType"/>
+	<xsd:element name="Schedule12CurrentYearExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule12TransferAdditionsAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule12OtherAdditionsAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule12TransferDeductionsAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule12OtherDeductionsAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule12ExpensesLineTotalAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule12ForeignResourceIncomeAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule12EarnedDepletionRecaptureAmount" type="sdt:AmountType"/>
+			
+</xsd:schema>

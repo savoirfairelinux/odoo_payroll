@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: Specialty Business Returns -Net Income(Loss) For Income Tax Purposes (CRA Form T5013 SCH 10 E(11) )
+Contact: CRA, ITB, Solutions, RASD, Business Suite Assessing System, Other Levies
+Date created: October 2012
+Updates:  ols10/1-0-1 - November 2013 
+		 sdt/updated reference to sdt/2-2-0
+Users of this schema:
+-Other Levies System
+-->
+<xsd:schema  
+xmlns:ols10="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols10/1-0-1" 
+xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" 
+xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+targetNamespace="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols10/1-0-1" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="ols10/1-0-1">
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/> 
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/> 	
+	
+<!-- T5013Schedule10Data is also referenced by other schemas for importing purposes -->
+	<xsd:element name="T5013Schedule10Data" type="ols10:Schedule10DataType"/>
+	<xsd:complexType name="Schedule10DataType">
+		<xsd:annotation>
+		<xsd:documentation>
+Calculations Relating to Cumulative Eligible Capital
+Part 1 - Subsection 14(1.01) or (1.02) election for eligible property (other than goodwill) disposed of in the fiscal period
+100	Eligible capital property disposed of during the fiscal period
+101	Actual proceeds of disposition
+102	Eligible capital expenditures for the acquisition of the eligible capital property
+103	Excess
+		</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+			<!-- Part 1 Election for Eligible Capital Property -->
+			<xsd:element ref="ols10:EligibleCapitalPropertyDisposedDescription" minOccurs="0" />
+			<xsd:element ref="ols10:EligibleCapitalPropertyDisposedProceedsAmount" minOccurs="0" />
+			<xsd:element ref="ols10:EligibleCapitalPropertyDisposedExpendituresAmount" minOccurs="0" />
+			<xsd:element ref="ols10:EligibleCapitalPropertyDisposedGainAmount" minOccurs="0" />
+			<xsd:element ref="ols10:EligibleCapitalPropertyElectionToRemoveName" minOccurs="0" />
+			<xsd:element ref="ols10:EligibleCapitalPropertyElection14101IndicatorCode" minOccurs="0" />
+			<xsd:element ref="ols10:EligibleCapitalPropertyElection14102IndicatorCode" minOccurs="0" />
+			<xsd:element ref="ols10:EligibleCapitalPropertyElectionToRemoveDate" minOccurs="0" />
+			<xsd:element ref="ols10:Schedule10Part2And3And4LineAmounts" minOccurs="0" maxOccurs="200"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Part 1 Election for Eligible Capital Property -->
+	<xsd:element name="EligibleCapitalPropertyDisposedDescription" type="ccms:Name175CharacterType" />
+	<xsd:element name="EligibleCapitalPropertyDisposedProceedsAmount" type="sdt:AmountType"/>
+	<xsd:element name="EligibleCapitalPropertyDisposedExpendituresAmount" type="sdt:AmountType"/>
+	<xsd:element name="EligibleCapitalPropertyDisposedGainAmount" type="sdt:AmountType"/>
+	<xsd:element name="EligibleCapitalPropertyElectionToRemoveName" type="ccms:Name175CharacterType"/>
+	<xsd:element name="EligibleCapitalPropertyElection14101IndicatorCode" type="ols10:EligibleCapitalPropertyElection14101IndicatorCodeType"/>
+	<xsd:element name="EligibleCapitalPropertyElection14102IndicatorCode" type="ols10:EligibleCapitalPropertyElection14101IndicatorCodeType"/>
+	<xsd:simpleType name="EligibleCapitalPropertyElection14101IndicatorCodeType" >
+		<xsd:annotation>
+			<xsd:documentation>
+			Example: 0 => Notchecked  1 => checked -->
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="sdt:CodeType">
+			<xsd:enumeration value="0"/>
+			<xsd:enumeration value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	
+	<xsd:element name="EligibleCapitalPropertyElectionToRemoveDate" type="sdt:DateType"/>
+	<xsd:element name="Schedule10Part2And3And4LineAmounts" type="ccms:FieldCodeAmountType">
+		<xsd:annotation>
+			<xsd:documentation>
+Line Name
+	Part 2 - Calculation of the current fiscal period's deduction and carryforward
+200	Cumulative eligible capital (CEC) balance at the beginning of the fiscal period
+222	Cost of eligible capital property acquired during the fiscal period
+230	Subtotal of lines (200 + 222) X 3/4
+242	Proceeds of disposition (less outlays and expenses) of eligible capital property during the fiscal period.
+243	Eligible capital expenditures from line 102 in Part 1 above to remove the eligible capital property from the CEC pool
+244	Forgiven debt obligation designated by the partnership under subsection 80(7)
+248	Subtotal (add amounts D,E, and F) x 3/4
+250	Current fiscal period's CEC deduction
+300	CEC balance at the end of the fiscal period
+	Part 3 - Calculating the amounts to be included in income resulting from dispositions
+400	Total CEC deductions claimed for fiscal periods ending after adjustment time
+401	Total previous subsection 80(7) forgiven debt obligation reductions
+402	Total CEC deductions claimed for fiscal periods ending before adjustment time (as defined in subsection 14(5))
+403	Total subsection 14(1) income inclusions for fiscal periods ending before the adjustment time
+409	Subtotal (line 7 plus line 8)
+410	Recapture amount
+420	Residual income inclusion
+	Part 4 - Calculating the farming or fishing income eligible for the capital gains deduction
+500	Balance at the beginning of the fiscal period
+501	All proceeds of disposition for the fiscal period from the disposition of eligible capital property (ECP) that is qualified farm property (QFP) or qualified fishing property (QXP)
+502	All eligible capital expenditures for the ECP that is QFP or QXP disposed for the fiscal period
+503	Outlays and expenses, related to the dispositions included at line B above, not deductible in computing income
+505	Amount F X 1/2
+506	Taxable capital gains for the fiscal period from the disposition of ECP that is QFP or QXP of the business
+507	Total farming income or fishing income eligible for the capital gains deduction from the disposition of ECP that is QFP or QXP
+508	Add amounts H and I
+510	Ending balance -  Amount A plus amount G minus amount J (if negative, enter "0").
+520	Enter the amount from line S in Part 3 or line K in Part 4, whichever is less. 	
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+</xsd:schema>

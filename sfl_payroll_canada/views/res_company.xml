@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_company_form" model="ir.ui.view">
+           <field name="name">res.company.form</field>
+           <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page name="canada_payroll" string="Canada Payroll" groups="base.group_hr_manager">
+                        <group name="canada_payroll_group_1">
+                            <field name="cra_transmitter_number" required="1"/>
+                            <field name="cra_payroll_number" required="1"/>
+                            <field name="week_start" required="1"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>

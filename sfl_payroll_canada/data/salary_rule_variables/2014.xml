@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- CANADA PENSION PLAN -->
+        <!-- CPP - Employee Contribution (CPP_EE_C) -->
+        <record id="rule_ca_cpp_ee_c_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_ca_cpp_ee_c"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="python_code">{'rate': 0.0495, 'max_annual': 2425.50, 'basic_exempt': 3500}</field>
+        </record>
+        <!-- CPP - Employee Contribution (CPP_EE_C) -->
+        <record id="rule_ca_cpp_ee_maxie_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_ca_cpp_ee_maxie"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="python_code">{'max_annual': 52500}</field>
+        </record>
+
+        <!-- FEDERAL INCOME TAX -->
+        <!-- FIT - Federal personal tax credit (FIT_K1) -->
+        <record id="rule_ca_fit_k1_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_ca_fit_k1"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="python_code">{'default_amount': 11138}</field>
+        </record>
+        <!-- FIT - Canada employment tax credit (FIT_K4) -->
+        <record id="rule_ca_fit_k4_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_ca_fit_k4"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="python_code">{'max_annual': 1127}</field>
+        </record>
+
+        <record id="rule_ca_fit_k2_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_ca_fit_k2"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="python_code">{'max_deductions': {'EI': 913.68, 'CPP': 2425.50}}</field>
+        </record>
+
+        <!-- FIT - Basic federal tax (FIT_T3) -->
+        <record id="rule_ca_fit_t3_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_ca_fit_t3"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="python_code">
+{
+    'brackets': [
+        {'min': 0, 'max': 43953, 'R': 0.15, 'K': 0},
+        {'min': 43953, 'max': 87907, 'R': 0.22, 'K': 3077},
+        {'min': 87907, 'max': 136270, 'R': 0.26, 'K': 6593},
+        {'min': 136270, 'max': 10**15, 'R': 0.29, 'K': 10681}
+    ],
+    'rates': {
+        'K1': 0.15,
+        'K2': 0.15,
+        'K3': 0.15,
+        'K4': 0.15,
+    }
+}
+            </field>
+        </record>
+
+        <!-- FIT - Basic federal tax (FIT_T) -->
+        <record id="rule_ca_fit_t_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_ca_fit_t"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="python_code">
+{
+    'brackets': [
+        {'min': 0, 'max': 43953, 'R': 0.15, 'K': 0},
+        {'min': 43953, 'max': 87907, 'R': 0.22, 'K': 3077},
+        {'min': 87907, 'max': 136270, 'R': 0.26, 'K': 6593},
+        {'min': 136270, 'max': 10**15, 'R': 0.29, 'K': 10681}
+    ],
+    'rates': {
+        'K1': 0.15,
+        'K2': 0.15,
+        'K3': 0.15,
+        'K4': 0.15,
+    }
+}
+            </field>
+        </record>
+
+        <!-- EMPLOYMENT INSURANCE -->
+        <!-- EI - Employee - Maximum Insurable Earnings (EI_EE_MAXIE) -->
+        <record id="rule_ca_ei_ee_maxie_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_ca_ei_ee_maxie"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="python_code">{'max_annual': 48600}</field>
+        </record>
+        <!-- EI - Employee Contribution (EI_EE_C) -->
+        <record id="rule_ca_ei_ee_c_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_ca_ei_ee_c"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="python_code">{'rate': 0.0188, 'max_annual': 913.68}</field>
+        </record>
+        <!-- EI - Employer Contribution (EI_ER_C) -->
+        <record id="rule_ca_ei_er_c_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_ca_ei_er_c"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="python_code">{'contribution_ratio': 1.4, 'max_annual': 1279.15}</field>
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Submission xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0"
+xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0"
+xmlns:ols="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols/1-0-1"
+xmlns:ols1="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols1/1-0-1"
+xmlns:ols10="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols10/1-0-1"
+xmlns:ols100="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols100/1-0-1"
+xmlns:ols12="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols12/1-0-1"
+xmlns:ols125="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols125/1-0-1"
+xmlns:ols140="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols140/1-0-1"
+xmlns:ols141="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols141/1-0-1"
+xmlns:ols2="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols2/1-0-1"
+xmlns:ols5="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols5/1-0-1"
+xmlns:ols50="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols50/1-0-1"
+xmlns:ols52="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols52/1-0-1"
+xmlns:ols6="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols6/1-0-1"
+xmlns:ols8="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols8/1-0-1"
+xmlns:ols9="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols9/1-0-1"
+xmlns:olsbr="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/olsbr/1-0-1"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
+<T619>
+  <CNTC>
+    <cntc_extn_nbr>1234</cntc_extn_nbr>
+    <cntc_email_area>test@test.com</cntc_email_area>
+    <cntc_nm>John Doe</cntc_nm>
+    <cntc_phn_nbr>888-8888</cntc_phn_nbr>
+    <cntc_area_cd>888</cntc_area_cd>
+  </CNTC>
+  <TRNMTR_NM>
+    <l1_nm>Company 1</l1_nm>
+  </TRNMTR_NM>
+  <TRNMTR_ADDR>
+    <prov_cd>AB</prov_cd>
+    <pstl_cd>P1P1P1</pstl_cd>
+    <cntry_cd>CAN</cntry_cd>
+    <cty_nm>Regina</cty_nm>
+    <addr_l2_txt>test</addr_l2_txt>
+    <addr_l1_txt>test</addr_l1_txt>
+  </TRNMTR_ADDR>
+  <trnmtr_tcd>3</trnmtr_tcd>
+  <summ_cnt>2</summ_cnt>
+  <lang_cd>E</lang_cd>
+  <sbmt_ref_id>123456</sbmt_ref_id>
+  <trnmtr_nbr>MM555555</trnmtr_nbr>
+  <rpt_tcd>O</rpt_tcd>
+</T619>
+
+<Return>
+  <T4>
+    <T4Slip>
+      <T4_AMT>
+        <itx_ddct_amt>2037.10</itx_ddct_amt>
+        <padj_amt>500.00</padj_amt>
+        <ei_insu_ern_amt>8208.00</ei_insu_ern_amt>
+        <cpp_qpp_ern_amt>8208.00</cpp_qpp_ern_amt>
+        <rpp_cntrb_amt>8.00</rpp_cntrb_amt>
+        <empt_incamt>8208.00</empt_incamt>
+        <empe_eip_amt>154.31</empe_eip_amt>
+        <cpp_cntrb_amt>402.96</cpp_cntrb_amt>
+      </T4_AMT>
+      <OTH_INFO>
+        <spcl_wrk_site_amt>200.00</spcl_wrk_site_amt>
+        <hm_brd_lodg_amt>100.00</hm_brd_lodg_amt>
+      </OTH_INFO>
+      <bn>123456789RP1234</bn>
+      <prov_pip_xmpt_cd>0</prov_pip_xmpt_cd>
+      <cpp_qpp_xmpt_cd>0</cpp_qpp_xmpt_cd>
+      <empt_prov_cd>AB</empt_prov_cd>
+      <rpp_dpsp_rgst_nbr>1</rpp_dpsp_rgst_nbr>
+      <rpt_tcd>O</rpt_tcd>
+      <ei_xmpt_cd>0</ei_xmpt_cd>
+      <EMPE_ADDR>
+        <prov_cd>AB</prov_cd>
+        <pstl_cd>P1P1P1</pstl_cd>
+        <cntry_cd>CAN</cntry_cd>
+        <cty_nm>Québec</cty_nm>
+        <addr_l2_txt>test</addr_l2_txt>
+        <addr_l1_txt>test</addr_l1_txt>
+      </EMPE_ADDR>
+      <EMPE_NM>
+        <snm>Doe</snm>
+        <gvn_nm>Jane</gvn_nm>
+      </EMPE_NM>
+      <sin>624842680</sin>
+    </T4Slip>
+    <T4Slip>
+      <T4_AMT>
+        <itx_ddct_amt>4076.86</itx_ddct_amt>
+        <padj_amt>1500.00</padj_amt>
+        <ei_insu_ern_amt>16416.00</ei_insu_ern_amt>
+        <cpp_qpp_ern_amt>16416.00</cpp_qpp_ern_amt>
+        <rpp_cntrb_amt>16.00</rpp_cntrb_amt>
+        <empt_incamt>16416.00</empt_incamt>
+        <empe_eip_amt>308.62</empe_eip_amt>
+        <cpp_cntrb_amt>805.92</cpp_cntrb_amt>
+      </T4_AMT>
+      <OTH_INFO/>
+      <bn>123456789RP1234</bn>
+      <prov_pip_xmpt_cd>0</prov_pip_xmpt_cd>
+      <cpp_qpp_xmpt_cd>0</cpp_qpp_xmpt_cd>
+      <empt_prov_cd>AB</empt_prov_cd>
+      <rpp_dpsp_rgst_nbr>1</rpp_dpsp_rgst_nbr>
+      <rpt_tcd>O</rpt_tcd>
+      <ei_xmpt_cd>0</ei_xmpt_cd>
+      <EMPE_ADDR>
+        <prov_cd>AB</prov_cd>
+        <pstl_cd>P1P1P1</pstl_cd>
+        <cntry_cd>CAN</cntry_cd>
+        <cty_nm>Québec</cty_nm>
+        <addr_l2_txt>test</addr_l2_txt>
+        <addr_l1_txt>test</addr_l1_txt>
+      </EMPE_ADDR>
+      <EMPE_NM>
+        <snm>Doe</snm>
+        <gvn_nm>John</gvn_nm>
+      </EMPE_NM>
+      <sin>684242680</sin>
+    </T4Slip>
+    <T4Summary>
+      <slp_cnt>2</slp_cnt>
+      <PPRTR_SIN>
+        <pprtr_1_sin>684242680</pprtr_1_sin>
+      </PPRTR_SIN>
+      <EMPR_NM>
+        <l1_nm>Company 1</l1_nm>
+      </EMPR_NM>
+      <CNTC>
+        <cntc_extn_nbr>1234</cntc_extn_nbr>
+        <cntc_nm>John Doe</cntc_nm>
+        <cntc_phn_nbr>888-8888</cntc_phn_nbr>
+        <cntc_area_cd>888</cntc_area_cd>
+      </CNTC>
+      <EMPR_ADDR>
+        <prov_cd>AB</prov_cd>
+        <pstl_cd>P1P1P1</pstl_cd>
+        <cntry_cd>CAN</cntry_cd>
+        <cty_nm>Regina</cty_nm>
+        <addr_l2_txt>test</addr_l2_txt>
+        <addr_l1_txt>test</addr_l1_txt>
+      </EMPR_ADDR>
+      <T4_TAMT>
+        <tot_itx_ddct_amt>6113.96</tot_itx_ddct_amt>
+        <tot_empr_cpp_amt>1208.88</tot_empr_cpp_amt>
+        <tot_empe_eip_amt>462.93</tot_empe_eip_amt>
+        <tot_empr_eip_amt>648.09</tot_empr_eip_amt>
+        <tot_padj_amt>2000.00</tot_padj_amt>
+        <tot_rpp_cntrb_amt>24.00</tot_rpp_cntrb_amt>
+        <tot_empe_cpp_amt>1208.88</tot_empe_cpp_amt>
+        <tot_empt_incamt>24624.00</tot_empt_incamt>
+      </T4_TAMT>
+      <bn>123456789RP1234</bn>
+      <tx_yr>2014</tx_yr>
+      <rpt_tcd>O</rpt_tcd>
+    </T4Summary>
+  </T4>
+</Return>
+</Submission>

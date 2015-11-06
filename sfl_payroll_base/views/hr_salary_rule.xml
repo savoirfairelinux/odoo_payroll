@@ -59,6 +59,12 @@
                                 <field colspan="4" name="amount_python_compute"/>
                             </group>
                         </page>
+                        <page name="payslip_inputs" string="Payslip Inputs">
+                            <label for="payslip_input_ids"/>
+                            <field name="payslip_input_ids" nolabel="1" colspan="4"/>
+                        </page>
+                        <page name="leaves" string="Leaves">
+                        </page>
                         <page string="Description">
                             <field name="note"/>
                         </page>
@@ -89,7 +95,10 @@
             <field name="search_view_id" ref="view_hr_rule_filter"/>
         </record>
 
-        <menuitem id="menu_action_hr_salary_rule_form" action="action_salary_rule_form" parent="payroll_configure" sequence="12"/>
+        <menuitem id="menu_action_hr_salary_rule_form"
+            action="action_salary_rule_form"
+            parent="payroll_configure"
+            sequence="12"/>
 
     </data>
 </openerp>

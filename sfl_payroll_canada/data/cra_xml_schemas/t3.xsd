@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T3 ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="T3SlipType">
+		<xsd:all>
+			<xsd:element name="BNFY_NM" type="NameType" minOccurs="0"/>
+			<xsd:element name="SEC_BNFY_NM" type="NameType_2" minOccurs="0"/>
+			<xsd:element name="ENTPRS_BNFY_NM" type="Line2Type" minOccurs="0"/>
+			<xsd:element name="BNFY_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="bnfy_tr_acct_nbr" type="trustType"/>
+			<xsd:element name="tr_acct_nbr" type="trustType"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+			<xsd:element name="bnfy_cd" type="indicator1-5Type"/>
+			<xsd:element name="itc_cd" type="indicator1-7Type" minOccurs="0"/>
+			<xsd:element name="T3_AMT" type="T3AmountType" minOccurs="0"/>
+			<!--xsd:element name="OTH_INFO" type="OtherT3InformationType" minOccurs="0"/-->
+			<xsd:element name="OTH_INFO" type="OtherT3InformationType" minOccurs="0">
+				<xsd:unique name="Other_T3_Info_Fields">
+					<xsd:selector xpath="."/>
+					<xsd:field xpath="pens_lsp_amt"/>
+					<xsd:field xpath="fgn_bus_incamt"/>
+					<xsd:field xpath="fgn_nbus_incamt"/>
+					<xsd:field xpath="elg_pens_incamt"/>
+					<xsd:field xpath="fgn_bus_tx_amt"/>
+					<xsd:field xpath="fgn_tx_amt"/>
+					<xsd:field xpath="dth_ben_amt"/>
+					<xsd:field xpath="insu_fnd_clamt"/>
+					<xsd:field xpath="XII_2_tx_cr_amt"/>
+					<xsd:field xpath="invs_cost_examt"/>
+					<xsd:field xpath="itc_amt"/>
+					<xsd:field xpath="oth_cr_amt"/>
+					<xsd:field xpath="amt_rslt_acb_amt"/>
+					<xsd:field xpath="pens_trnsf_amt"/>
+					<xsd:field xpath="rtir_alwnc_amt"/>
+					<xsd:field xpath="chrty_dons_amt"/>
+				</xsd:unique>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T3AmountType">
+		<xsd:all>
+			<xsd:element name="cgamt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="actl_elg_dvamt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="actl_dvnd_amt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="oth_incamt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="elg_dedn_cgamt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="tx_elg_dvnd_pamt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="tx_dvnd_amt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="enhn_dvtc_amt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="dvnd_tx_cr_amt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="prd_2_cgamt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="prd_3_cgamt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="prd_2_elg_cgamt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="prd_3_elg_cgamt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="prd_2_insu_clamt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="prd_3_insu_clamt" type="signedDecimal11Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="OtherT3InformationType">
+		<xsd:sequence>
+			<xsd:group ref="OtherT3InfoGroup" minOccurs="0" maxOccurs="6"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:group name="OtherT3InfoGroup">
+		<xsd:choice>
+			<xsd:element name="pens_lsp_amt" type="signedDecimal11Type"/>
+			<xsd:element name="fgn_bus_incamt" type="signedDecimal11Type"/>
+			<xsd:element name="fgn_nbus_incamt" type="signedDecimal11Type"/>
+			<xsd:element name="elg_pens_incamt" type="signedDecimal11Type"/>
+			<xsd:element name="fgn_bus_tx_amt" type="signedDecimal11Type"/>
+			<xsd:element name="fgn_tx_amt" type="signedDecimal11Type"/>
+			<xsd:element name="dth_ben_amt" type="signedDecimal11Type"/>
+			<xsd:element name="insu_fnd_clamt" type="signedDecimal11Type"/>
+			<xsd:element name="XII_2_tx_cr_amt" type="signedDecimal11Type"/>
+			<xsd:element name="invs_cost_examt" type="signedDecimal11Type"/>
+			<xsd:element name="itc_amt" type="signedDecimal11Type"/>
+			<xsd:element name="oth_cr_amt" type="signedDecimal11Type"/>
+			<xsd:element name="amt_rslt_acb_amt" type="signedDecimal11Type"/>
+			<xsd:element name="pens_trnsf_amt" type="signedDecimal11Type"/>
+			<xsd:element name="rtir_alwnc_amt" type="signedDecimal11Type"/>
+			<xsd:element name="chrty_dons_amt" type="signedDecimal11Type"/>
+		</xsd:choice>
+	</xsd:group>
+	<xsd:complexType name="T3SummaryType">
+		<xsd:all>
+			<xsd:element name="tr_acct_nbr" type="trustType"/>
+			<xsd:element name="TR_NM" type="Line2Type"/>
+			<xsd:element name="tre_exctr_admnr_nm" type="char30Type"/>
+			<xsd:element name="TRE_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="TR_TX_SDT" type="DateType"/>
+			<xsd:element name="TR_TX_NDT" type="DateType2"/>
+			<xsd:element name="T3_TAMT" type="T3TotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T3TotalsType">
+		<xsd:all>
+			<xsd:element name="tot_cgamt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_actl_elg_dvamt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_actl_dvnd_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_oth_incamt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_elg_dedn_cgamt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_tx_elg_dvamt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_tx_dvnd_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_pens_trnsf_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_rtir_alwnc_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_chrty_dons_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_enhn_dvtc_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_dvnd_tx_cr_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_elg_invs_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_pens_lsp_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_fgn_bus_incamt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_fgn_nbus_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_pens_incamt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_fgn_bus_tx_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_fgn_itx_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_dth_ben_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_insu_fnd_clamt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_XII_2_cr_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_itc_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="totr_cr_amt" type="signedDecimal13Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

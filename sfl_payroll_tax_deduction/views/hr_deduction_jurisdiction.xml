@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_deduction_jurisdiction_form" model="ir.ui.view">
+            <field name="name">hr.deduction.jurisdiction.form</field>
+            <field name="model">hr.deduction.jurisdiction</field>
+            <field name="arch" type="xml">
+                <form string="Deduction Jurisdiction">
+                    <group col="2">
+                        <field name="name"/>
+                        <field name="deduction_ids" context="{'default_jurisdiction_id': id}">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_deduction_jurisdiction_list" model="ir.ui.view">
+          <field name="name">hr.deduction.jurisdiction.tree</field>
+            <field name="model">hr.deduction.jurisdiction</field>
+            <field name="arch" type="xml">
+                <tree string="Deduction Jurisdictions">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_deduction_jurisdiction_filter" model="ir.ui.view">
+            <field name="name">hr.deduction.jurisdiction.select</field>
+            <field name="model">hr.deduction.jurisdiction</field>
+            <field name="arch" type="xml">
+                <search string="Search Jurisdiction">
+                    <field name="name" string="Jurisdiction" filter_domain="[('name', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_hr_deduction_jurisdiction_list" model="ir.actions.act_window">
+            <field name="name">Deduction Jurisdictions</field>
+            <field name="res_model">hr.deduction.jurisdiction</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="hr_deduction_jurisdiction_list"/>
+            <field name="search_view_id" ref="view_hr_deduction_jurisdiction_filter"/>
+        </record>
+
+        <menuitem id="menu_action_hr_deduction_jurisdiction_list" action="action_hr_deduction_jurisdiction_list" parent="sfl_payroll_base.payroll_configure" sequence="18"/>
+
+    </data>
+</openerp>

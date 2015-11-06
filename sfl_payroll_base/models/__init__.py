@@ -29,4 +29,5 @@ from . import hr_payslip
 from . import hr_payslip_line
 from . import hr_payslip_worked_days
 from . import hr_payslip_input
+from . import hr_payslip_input_category
 from . import hr_config_settings

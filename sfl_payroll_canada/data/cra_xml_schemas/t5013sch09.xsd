@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: Specialty Business Returns -Net Income(Loss) For Income Tax Purposes (CRA Form T5013 SCH 9 E(11) )
+Contact: CRA, ITB, Solutions, RASD, Business Suite Assessing System, Other Levies
+Date created: December 2012
+Updates: ols9/1-0-1 - November 2013 - AffiliatedEntityCanadianBusinessNumber updated for field length limits 
+		 sdt/updated reference to sdt/2-2-0
+Users of this schema:
+-Other Levies System
+-->
+<xsd:schema  
+xmlns:ols9="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols9/1-0-1" 
+xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" 
+xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/1-0-0" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+targetNamespace="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols9/1-0-1" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="ols9/1-0-1">
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/> 
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/> 	
+	
+<!-- T5013Schedule9Data is also referenced by other schemas for importing purposes -->
+	<xsd:element name="T5013Schedule9Data" type="ols9:Schedule9DataType"/>
+	<xsd:complexType name="Schedule9DataType">
+		<xsd:sequence>
+			<xsd:element ref="ols9:Schedule9AffiliationEntityDetails" minOccurs="0" maxOccurs="2000"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="Schedule9AffiliationEntityDetails" type="ols9:Schedule9AffiliationEntityDetailsType"/>
+	<xsd:complexType name="Schedule9AffiliationEntityDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols9:AffiliatedEntityName" minOccurs = "0"/>
+			<xsd:element ref="ols9:AffiliatedEntityCountryCode" minOccurs = "0"/>
+			<xsd:element ref="ols9:AffiliatedEntityCanadianBusinessNumber" minOccurs = "0"/>
+			<xsd:element ref="ols9:AffiliationEntityCode" minOccurs = "0"/>
+			<xsd:element ref="ols9:AffiliationEquitiesCount" minOccurs = "0"/>
+			<xsd:element ref="ols9:AffiliationEquitiesTypeCode" minOccurs = "0"/>
+			<xsd:element ref="ols9:AffiliationEquitiesOwnershipPercent" minOccurs = "0"/>
+			<xsd:element ref="ols9:AffiliationEquitiesBookValue" minOccurs = "0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="AffiliatedEntityName" type="sdt:NameType"/>
+	<xsd:element name="AffiliatedEntityCountryCode" type="sdt:CodeType"/>
+	<xsd:element name="AffiliatedEntityCanadianBusinessNumber" >
+		<xsd:simpleType>
+			<xsd:restriction base="sdt:NumberType">
+				<xsd:minLength value="1"/>
+				<xsd:maxLength value="9"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="AffiliationEntityCode">
+		<xsd:annotation>
+			<xsd:documentation>
+Affiliation code
+Enter the code number from the following list for the relationship that applies the most to the affiliated entity:
+1 _ Top tier partnership
+2 _ Second tier partnership
+3 _ Multi-tier partnership
+6 _ Member of a controlling group
+
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:enumeration value="1"/>
+				<xsd:enumeration value="2"/>
+				<xsd:enumeration value="3"/>
+				<xsd:enumeration value="6"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="AffiliationEquitiesCount" type="sdt:CountType"/>
+	<xsd:element name="AffiliationEquitiesTypeCode" >
+	<xsd:annotation>
+			<xsd:documentation>
+Equities type code
+Enter the code number from the following list for the relationship that applies the most to the affiliated entity:
+01  Common shares
+02  Preferred shares
+03  Partnership units
+04  Trust units
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:enumeration value="01"/>
+				<xsd:enumeration value="02"/>
+				<xsd:enumeration value="03"/>
+				<xsd:enumeration value="04"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="AffiliationEquitiesOwnershipPercent" type="sdt:PercentType"/>
+	<xsd:element name="AffiliationEquitiesBookValue" type="sdt:AmountType"/>
+	
+</xsd:schema>

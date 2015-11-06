@@ -24,3 +24,4 @@ from . import hr_payslip
 from . import hr_payslip_worked_days
 from . import hr_holiday_status
 from . import hr_job
+from . import hr_salary_rule

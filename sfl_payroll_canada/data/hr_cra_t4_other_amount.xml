@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- This is not a complete list of other amounts -->
+        <!-- But only the most frequent ones -->
+        <record id="other_amount_source_30" model="hr.cra.t4.box">
+            <field name="name">30 - Housing, board and lodging amount</field>
+            <field name="xml_tag">hm_brd_lodg_amt</field>
+            <field name="code">30</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+        <record id="other_amount_source_31" model="hr.cra.t4.box">
+            <field name="name">31 - Special work site amount</field>
+            <field name="xml_tag">spcl_wrk_site_amt</field>
+            <field name="code">31</field>
+            <field name="type">deduction</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+        <record id="other_amount_source_32" model="hr.cra.t4.box">
+            <field name="name">32 - Travel in a prescribed zone amount</field>
+            <field name="xml_tag">prscb_zn_trvl_amt</field>
+            <field name="code">32</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+        <record id="other_amount_source_33" model="hr.cra.t4.box">
+            <field name="name">33 - Medical travel amount</field>
+            <field name="xml_tag">med_trvl_amt</field>
+            <field name="code">33</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+        <record id="other_amount_source_34" model="hr.cra.t4.box">
+            <field name="name">34 - Personal use of employer automobile amount</field>
+            <field name="xml_tag">prsnl_vhcl_amt</field>
+            <field name="code">34</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+        <record id="other_amount_source_36" model="hr.cra.t4.box">
+            <field name="name">36 - Interest-free and low-interest loan amount</field>
+            <field name="xml_tag">low_int_loan_amt</field>
+            <field name="code">36</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+        <record id="other_amount_source_37" model="hr.cra.t4.box">
+            <field name="name">37 - Employee home-relocation loan deduction amount</field>
+            <field name="xml_tag">empe_hm_loan_amt</field>
+            <field name="code">37</field>
+            <field name="type">deduction</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+
+        <record id="other_amount_source_38" model="hr.cra.t4.box">
+            <field name="name">38 - Security options benefits</field>
+            <field name="xml_tag">sob_a00_feb_amt</field>
+            <field name="code">38</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+        <record id="other_amount_source_39" model="hr.cra.t4.box">
+            <field name="name">39 - Security options deductions 110(1)(d)</field>
+            <field name="xml_tag">sod_d_a00_feb_amt</field>
+            <field name="code">39</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+
+        <record id="other_amount_source_40" model="hr.cra.t4.box">
+            <field name="name">40 - Other taxable allowance and benefit amount</field>
+            <field name="xml_tag">oth_tx_ben_amt</field>
+            <field name="code">40</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+
+        <record id="other_amount_source_42" model="hr.cra.t4.box">
+            <field name="name">42 - Employment commission amount</field>
+            <field name="xml_tag">empt_cmsn_amt</field>
+            <field name="code">42</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+        <record id="other_amount_source_66" model="hr.cra.t4.box">
+            <field name="name">66 - Eligible retiring allowances</field>
+            <field name="xml_tag">elg_rtir_amt</field>
+            <field name="code">66</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+        <record id="other_amount_source_67" model="hr.cra.t4.box">
+            <field name="name">67 - Non-eligible retiring allowances</field>
+            <field name="xml_tag">nelg_rtir_amt</field>
+            <field name="code">67</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+
+        <record id="other_amount_source_72" model="hr.cra.t4.box">
+            <field name="name">72 - Outside of Canada employment income amount- Section 122.3</field>
+            <field name="xml_tag">oc_dy_cnt</field>
+            <field name="code">72</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+        <record id="other_amount_source_73" model="hr.cra.t4.box">
+            <field name="name">73 - Employment outside of Canada Day Count</field>
+            <field name="xml_tag">oc_dy_cnt</field>
+            <field name="code">73</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="is_other_amount" eval="True"/>
+        </record>
+
+    </data>
+</openerp>

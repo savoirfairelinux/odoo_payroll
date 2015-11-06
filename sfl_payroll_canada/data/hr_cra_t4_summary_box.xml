@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="t4_summary_box_tot_empt_incamt" model="hr.cra.t4.summary.box">
+            <field name="name">Total employment income</field>
+            <field name="xml_tag">tot_empt_incamt</field>
+            <field name="child_ids" eval="[(6, 0, [ref('t4_box_empt_incamt')])]"/>
+        </record>
+
+        <record id="t4_summary_box_tot_empe_cpp_amt" model="hr.cra.t4.summary.box">
+            <field name="name">Total employee CPP contributions</field>
+            <field name="xml_tag">tot_empe_cpp_amt</field>
+            <field name="child_ids" eval="[(6, 0, [ref('t4_box_cpp_cntrb_amt')])]"/>
+        </record>
+
+        <record id="t4_summary_box_tot_empe_eip_amt" model="hr.cra.t4.summary.box">
+            <field name="name">Total employee EI premiums </field>
+            <field name="xml_tag">tot_empe_eip_amt</field>
+            <field name="child_ids" eval="[(6, 0, [ref('t4_box_empe_eip_amt')])]"/>
+        </record>
+
+        <record id="t4_summary_box_tot_rpp_cntrb_amt" model="hr.cra.t4.summary.box">
+            <field name="name">Total registered pension plan contributions</field>
+            <field name="xml_tag">tot_rpp_cntrb_amt</field>
+            <field name="child_ids" eval="[(6, 0, [ref('t4_box_rpp_cntrb_amt')])]"/>
+        </record>
+
+        <record id="t4_summary_box_tot_itx_ddct_amt" model="hr.cra.t4.summary.box">
+            <field name="name">Total income tax deducted</field>
+            <field name="xml_tag">tot_itx_ddct_amt</field>
+            <field name="child_ids" eval="[(6, 0, [ref('t4_box_itx_ddct_amt')])]"/>
+        </record>
+
+        <record id="t4_summary_box_tot_padj_amt" model="hr.cra.t4.summary.box">
+            <field name="name">Total pension adjustment</field>
+            <field name="xml_tag">tot_padj_amt</field>
+            <field name="child_ids" eval="[(6, 0, [ref('t4_box_padj_amt')])]"/>
+        </record>
+
+        <record id="t4_summary_box_tot_empr_cpp_amt" model="hr.cra.t4.summary.box">
+            <field name="name">Total employer CPP contributions</field>
+            <field name="xml_tag">tot_empr_cpp_amt</field>
+            <field name="child_ids" eval="[(6, 0, [ref('t4_box_empr_cpp_amt')])]"/>
+        </record>
+
+        <record id="t4_summary_box_tot_empr_eip_amt" model="hr.cra.t4.summary.box">
+            <field name="name">Total employer EI premiums</field>
+            <field name="xml_tag">tot_empr_eip_amt</field>
+            <field name="child_ids" eval="[(6, 0, [ref('t4_box_empr_eip_amt')])]"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: Specialty Business Returns -Net Income(Loss) For Income Tax Purposes (CRA Form T5013 SCH 6 E(11) )
+Contact: CRA, ITB, Solutions, RASD, Business Suite Assessing System, Other Levies
+Date created: October 2012
+Updates: ols6/1-0-1 - November 2013 - added Min and Max for sequence elements 
+		 sdt/updated reference to sdt/2-2-0
+Users of this schema:
+-Other Levies System
+
+-->
+<xsd:schema 
+xmlns:ols6="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols6/1-0-1" 
+xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" 
+xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+targetNamespace="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols6/1-0-1" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="ols6/1-0-1">
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/> 
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/> 	
+
+<!-- T5013Schedule6Data is also referenced by other schemas for importing purposes -->
+	<xsd:element name="T5013Schedule6Data" type="ols6:Schedule6DataType"/>
+	<xsd:complexType name="Schedule6DataType">
+		<xsd:sequence>
+			<!-- Part 1  through Part 13 -->
+			<xsd:element ref="ols6:Schedule6QSBCSharesDetails"  minOccurs="0" maxOccurs="2000"/> 
+			<xsd:element ref="ols6:Schedule6QSBCSharesTotalAmount"  minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6QFPAndQXPDetails"  minOccurs="0" maxOccurs="2000"/>			
+			<xsd:element ref="ols6:Schedule6QFPAndQXPTotalAmount" minOccurs="0" maxOccurs="1"/>			
+			<xsd:element ref="ols6:Schedule6QFPAndQXPForeclosuresAndRepossessionsDetails" minOccurs="0" maxOccurs="2000"/>
+			<xsd:element ref="ols6:Schedule6QFPAndQXPForeclosuresAndRepossessionsTotalAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6MutualFundUnitsAndSharesDetails"  minOccurs="0" maxOccurs="2000"/>
+			<xsd:element ref="ols6:Schedule6MutualFundUnitsAndSharesTotalAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6RealEstateDepreciablePropertyandOtherPropertiesDetails"  minOccurs="0" maxOccurs="2000"/>			
+			<xsd:element ref="ols6:Schedule6RealEstateDepreciablePropertyandOtherPropertiesTotalAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6BondsDebenturesAndSimilarPropertiesDetails"  minOccurs="0" maxOccurs="2000"/>
+			<xsd:element ref="ols6:Schedule6BondsDebenturesAndSimilarPropertiesTotalAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6PersonalUsePropertyDetails"  minOccurs="0" maxOccurs="2000"/>
+			<xsd:element ref="ols6:Schedule6PersonalUsePropertyTotalAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6ListedPersonalPropertyDetails"  minOccurs="0" maxOccurs="2000"/>
+			<xsd:element ref="ols6:Schedule6ListedPersonalPropertyTotalAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6OtherGainsLossesExceptGiftsOfCertainCapitalPropertyDetails"  minOccurs="0" maxOccurs="2000"/>
+			<xsd:element ref="ols6:Schedule6OtherGainsLossesExceptGiftsOfCertainCapitalPropertyTotalAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6GiftsOfCertainCapitalPropertyDetails"  minOccurs="0" maxOccurs="2000"/>
+			<xsd:element ref="ols6:Schedule6GiftsOfCertainCapitalPropertyTotalAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6CapitalGainsLossesFromAllT5AndT4PSSlipsAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6CapitalGainsLossesFromAllT3SlipsAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6T5013Schedule10Line103Amount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6TotalCapitalGainsLossesAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6QSBCSharesDeductionAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6QFPAndQXPDeductionAmount" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols6:Schedule6QFPAndQXPForeclosuresAndRepossessionsAmount" minOccurs="0" maxOccurs="1"/>  
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Part 1 Qualified Small Business Corporation Share 
+	abbreviated to QSBC -->
+	<xsd:element name="Schedule6QSBCSharesDetails" type="ols6:Schedule6QSBCSharesDetailsType"/>
+	<xsd:complexType name="Schedule6QSBCSharesDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols6:QSBCShareCount" minOccurs="0" />
+			<xsd:element ref="ols6:QSBCShareClassName" minOccurs="0" />
+			<xsd:element ref="ols6:QSBCName" minOccurs="0" />
+			<xsd:element ref="ols6:QSBCShareAcquisitionDate" minOccurs="0" />
+			<xsd:element ref="ols6:QSBCShareProceedsOfDispositionAmount" minOccurs="0" />
+			<xsd:element ref="ols6:QSBCShareAdjustedCostBaseAmount" minOccurs="0" />
+			<xsd:element ref="ols6:QSBCShareOutlaysAndExpensesAmount" minOccurs="0" />
+			<xsd:element ref="ols6:QSBCShareGainLossAmount" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="QSBCShareCount" type= "sdt:CountType"/>
+	<xsd:element name="QSBCShareClassName"  type= "sdt:NameType"/>
+	<xsd:element name="QSBCName"  type= "sdt:NameType"/>
+	<xsd:element name="QSBCShareAcquisitionDate" type="sdt:DateType"/>
+	<xsd:element name="QSBCShareProceedsOfDispositionAmount" type="sdt:AmountType"/>
+	<xsd:element name="QSBCShareAdjustedCostBaseAmount" type="sdt:AmountType"/>
+	<xsd:element name="QSBCShareOutlaysAndExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="QSBCShareGainLossAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule6QSBCSharesTotalAmount" type="sdt:AmountType"/>
+	
+	<!-- Part 2 Qualified Farm Property (QFP) and Qualified Fishing Property (QXP) -->
+	
+	<xsd:element name="Schedule6QFPAndQXPDetails" type="ols6:Schedule6QFPAndQXPDetailsType"/>
+	<xsd:complexType name="Schedule6QFPAndQXPDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols6:QFPAndQXPAddressOrLegalDescriptionText" minOccurs="0" />
+			<xsd:element ref="ols6:QFPAndQXPAcquisitionDate" minOccurs="0" />
+			<xsd:element ref="ols6:QFPAndQXPProceedsOfDispositionAmount" minOccurs="0" />
+			<xsd:element ref="ols6:QFPAndQXPAdjustedCostBaseAmount" minOccurs="0" />
+			<xsd:element ref="ols6:QFPAndQXPOutlaysAndExpensesAmount" minOccurs="0" />
+			<xsd:element ref="ols6:QFPAndQXPGainLossAmount" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="QFPAndQXPAddressOrLegalDescriptionText"  type= "sdt:TextType"/>
+	<xsd:element name="QFPAndQXPAcquisitionDate" type="sdt:DateType"/>
+	<xsd:element name="QFPAndQXPProceedsOfDispositionAmount" type="sdt:AmountType"/>
+	<xsd:element name="QFPAndQXPAdjustedCostBaseAmount" type="sdt:AmountType"/>
+	<xsd:element name="QFPAndQXPOutlaysAndExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="QFPAndQXPGainLossAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule6QFPAndQXPTotalAmount"  type="sdt:AmountType"/>
+
+<!-- Part 3 QFP and QXP Mortgage Foreclosures and Conditional Sales repossessions-->
+	<xsd:element name="Schedule6QFPAndQXPForeclosuresAndRepossessionsDetails" type ="ols6:Schedule6QFPAndQXPForeclosuresAndRepossessionsDetailsType" />
+	
+		<xsd:complexType name="Schedule6QFPAndQXPForeclosuresAndRepossessionsDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols6:QFPAndQXPForeclosuresAndRepossessionsDescription" minOccurs="0" />
+			<xsd:element ref="ols6:QFPAndQXPForeclosuresAndRepossessionsAddressOrLegalDescriptionText"  minOccurs="0" />
+			<xsd:element ref="ols6:QFPAndQXPForeclosuresAndRepossessionsAcquisitionDate" minOccurs="0" />
+			<xsd:element ref="ols6:QFPAndQXPForeclosuresAndRepossessionsProceedsOfDispositionAmount" minOccurs="0" />
+			<xsd:element ref="ols6:QFPAndQXPForeclosuresAndRepossessionsAdjustedCostBaseAmount" minOccurs="0" />
+			<xsd:element ref="ols6:QFPAndQXPForeclosuresAndRepossessionsOutlaysAndExpensesAmount" minOccurs="0" />
+			<xsd:element ref="ols6:QFPAndQXPForeclosuresAndRepossessionsGainLossAmount" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="Schedule6QFPAndQXPForeclosuresAndRepossessionsTotalAmount" type="sdt:AmountType"/>
+	<xsd:element name="QFPAndQXPForeclosuresAndRepossessionsDescription"  type= "sdt:NameType"/>
+	<xsd:element name="QFPAndQXPForeclosuresAndRepossessionsAddressOrLegalDescriptionText"  type= "sdt:TextType"/>
+	<xsd:element name="QFPAndQXPForeclosuresAndRepossessionsAcquisitionDate" type="sdt:DateType"/>
+	<xsd:element name="QFPAndQXPForeclosuresAndRepossessionsProceedsOfDispositionAmount" type="sdt:AmountType"/>
+	<xsd:element name="QFPAndQXPForeclosuresAndRepossessionsAdjustedCostBaseAmount" type="sdt:AmountType"/>
+	<xsd:element name="QFPAndQXPForeclosuresAndRepossessionsOutlaysAndExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="QFPAndQXPForeclosuresAndRepossessionsGainLossAmount" type="sdt:AmountType"/>
+	
+	
+	<!-- Part 4 Mutual Fund units, deferral of eligible small business corporation shares, and other shares including publicly traded shares-->
+	<xsd:element name="Schedule6MutualFundUnitsAndSharesDetails" type ="ols6:Schedule6MutualFundUnitsAndSharesDetailsType" />
+	
+	<xsd:complexType name="Schedule6MutualFundUnitsAndSharesDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols6:MutualFundUnitsAndSharesCount" minOccurs="0" />
+			<xsd:element ref="ols6:MutualFundUnitsAndSharesClassDescription" minOccurs="0" />
+			<xsd:element ref="ols6:MutualFundUnitsAndSharesName" minOccurs="0" />
+			<xsd:element ref="ols6:MutualFundUnitsAndSharesAcquisitionDate" minOccurs="0" />
+			<xsd:element ref="ols6:MutualFundUnitsAndSharesProceedsOfDispositionAmount" minOccurs="0" />
+			<xsd:element ref="ols6:MutualFundUnitsAndSharesAdjustedCostBaseAmount" minOccurs="0" />
+			<xsd:element ref="ols6:MutualFundUnitsAndSharesOutlaysAndExpensesAmount" minOccurs="0" />
+			<xsd:element ref="ols6:MutualFundUnitsAndSharesGainLossAmount" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="MutualFundUnitsAndSharesCount" type="sdt:CountType"/>
+	<xsd:element name="MutualFundUnitsAndSharesClassDescription"  type= "sdt:NameType"/>
+	<xsd:element name="MutualFundUnitsAndSharesName"  type= "sdt:NameType"/>
+	<xsd:element name="MutualFundUnitsAndSharesAcquisitionDate" type="sdt:DateType"/>
+	<xsd:element name="MutualFundUnitsAndSharesProceedsOfDispositionAmount" type="sdt:AmountType"/>
+	<xsd:element name="MutualFundUnitsAndSharesAdjustedCostBaseAmount" type="sdt:AmountType"/>
+	<xsd:element name="MutualFundUnitsAndSharesOutlaysAndExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="MutualFundUnitsAndSharesGainLossAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule6MutualFundUnitsAndSharesTotalAmount" type="sdt:AmountType"/>
+	
+	<!-- Part 5 Real Estate, depreciable property, and other properties -->
+	
+	<xsd:element name="Schedule6RealEstateDepreciablePropertyandOtherPropertiesDetails" type="ols6:Schedule6RealEstateDepreciablePropertyandOtherPropertiesDetailsType"/>
+	<xsd:complexType name="Schedule6RealEstateDepreciablePropertyandOtherPropertiesDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols6:RealEstateDepreciablePropertyandOtherPropertiesAddressOrLegalDescriptionText" minOccurs="0" />
+			<xsd:element ref="ols6:RealEstateDepreciablePropertyandOtherPropertiesAcquisitionDate" minOccurs="0" />
+			<xsd:element ref="ols6:RealEstateDepreciablePropertyandOtherPropertiesProceedsOfDispositionAmount" minOccurs="0" />
+			<xsd:element ref="ols6:RealEstateDepreciablePropertyandOtherPropertiesAdjustedCostBaseAmount" minOccurs="0" />
+			<xsd:element ref="ols6:RealEstateDepreciablePropertyandOtherPropertiesOutlaysAndExpensesAmount" minOccurs="0" />
+			<xsd:element ref="ols6:RealEstateDepreciablePropertyandOtherPropertiesGainLossAmount" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RealEstateDepreciablePropertyandOtherPropertiesAddressOrLegalDescriptionText"  type= "sdt:NameType"/>
+	<xsd:element name="RealEstateDepreciablePropertyandOtherPropertiesAcquisitionDate" type="sdt:DateType"/>
+	<xsd:element name="RealEstateDepreciablePropertyandOtherPropertiesProceedsOfDispositionAmount" type="sdt:AmountType"/>
+	<xsd:element name="RealEstateDepreciablePropertyandOtherPropertiesAdjustedCostBaseAmount" type="sdt:AmountType"/>
+	<xsd:element name="RealEstateDepreciablePropertyandOtherPropertiesOutlaysAndExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="RealEstateDepreciablePropertyandOtherPropertiesGainLossAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule6RealEstateDepreciablePropertyandOtherPropertiesTotalAmount"  type="sdt:AmountType"/>
+	
+	<!-- Part 6 Bonds, debentures, promissory notes and other similar properties-->
+	<xsd:element name="Schedule6BondsDebenturesAndSimilarPropertiesDetails" type ="ols6:Schedule6BondsDebenturesAndSimilarPropertiesDetailsType" />
+	
+	<xsd:complexType name="Schedule6BondsDebenturesAndSimilarPropertiesDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols6:BondsDebenturesAndSimilarPropertiesFaceValue" minOccurs="0" />
+			<xsd:element ref="ols6:BondsDebenturesAndSimilarPropertiesMaturityDate" minOccurs="0" />
+			<xsd:element ref="ols6:BondsDebenturesAndSimilarPropertiesIssuerName" minOccurs="0" />
+			<xsd:element ref="ols6:BondsDebenturesAndSimilarPropertiesIssuanceDate" minOccurs="0" />
+			<xsd:element ref="ols6:BondsDebenturesAndSimilarPropertiesProceedsOfDispositionAmount" minOccurs="0" />
+			<xsd:element ref="ols6:BondsDebenturesAndSimilarPropertiesAdjustedCostBaseAmount" minOccurs="0" />
+			<xsd:element ref="ols6:BondsDebenturesAndSimilarPropertiesOutlaysAndExpensesAmount" minOccurs="0" />
+			<xsd:element ref="ols6:BondsDebenturesAndSimilarPropertiesGainLossAmount" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="BondsDebenturesAndSimilarPropertiesFaceValue" type="sdt:AmountType"/>
+	<xsd:element name="BondsDebenturesAndSimilarPropertiesMaturityDate"  type= "sdt:DateType"/>
+	<xsd:element name="BondsDebenturesAndSimilarPropertiesIssuerName"  type= "sdt:NameType"/>
+	<xsd:element name="BondsDebenturesAndSimilarPropertiesIssuanceDate" type="sdt:DateType"/>
+	<xsd:element name="BondsDebenturesAndSimilarPropertiesProceedsOfDispositionAmount" type="sdt:AmountType"/>
+	<xsd:element name="BondsDebenturesAndSimilarPropertiesAdjustedCostBaseAmount" type="sdt:AmountType"/>
+	<xsd:element name="BondsDebenturesAndSimilarPropertiesOutlaysAndExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="BondsDebenturesAndSimilarPropertiesGainLossAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule6BondsDebenturesAndSimilarPropertiesTotalAmount" type="sdt:AmountType"/>
+	
+	<!-- Part 7 Personal-use property-->
+	<xsd:element name="Schedule6PersonalUsePropertyDetails" type="ols6:Schedule6PersonalUsePropertyDetailsType"/>
+	<xsd:complexType name="Schedule6PersonalUsePropertyDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols6:PersonalUsePropertyDescription" minOccurs="0" />
+			<xsd:element ref="ols6:PersonalUsePropertyAcquisitionDate" minOccurs="0" />
+			<xsd:element ref="ols6:PersonalUsePropertyProceedsOfDispositionAmount" minOccurs="0" />
+			<xsd:element ref="ols6:PersonalUsePropertyAdjustedCostBaseAmount" minOccurs="0" />
+			<xsd:element ref="ols6:PersonalUsePropertyOutlaysAndExpensesAmount" minOccurs="0" />
+			<xsd:element ref="ols6:PersonalUsePropertyGainAmount" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="PersonalUsePropertyDescription"  type= "sdt:DescriptionType"/>
+	<xsd:element name="PersonalUsePropertyAcquisitionDate" type="sdt:DateType"/>
+	<xsd:element name="PersonalUsePropertyProceedsOfDispositionAmount" type="sdt:AmountType"/>
+	<xsd:element name="PersonalUsePropertyAdjustedCostBaseAmount" type="sdt:AmountType"/>
+	<xsd:element name="PersonalUsePropertyOutlaysAndExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="PersonalUsePropertyGainAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule6PersonalUsePropertyTotalAmount"  type="sdt:AmountType"/>
+	
+	<!-- Part 8 Listed personal property-->
+	<xsd:element name="Schedule6ListedPersonalPropertyDetails" type="ols6:Schedule6ListedPersonalPropertyDetailsType"/>
+	<xsd:complexType name="Schedule6ListedPersonalPropertyDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols6:ListedPersonalPropertyDescription" minOccurs="0" />
+			<xsd:element ref="ols6:ListedPersonalPropertyAcquisitionDate" minOccurs="0" />
+			<xsd:element ref="ols6:ListedPersonalPropertyProceedsOfDispositionAmount" minOccurs="0" />
+			<xsd:element ref="ols6:ListedPersonalPropertyAdjustedCostBaseAmount" minOccurs="0" />
+			<xsd:element ref="ols6:ListedPersonalPropertyOutlaysAndExpensesAmount" minOccurs="0" />
+			<xsd:element ref="ols6:ListedPersonalPropertyGainAmount" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="ListedPersonalPropertyDescription"  type= "sdt:DescriptionType"/>
+	<xsd:element name="ListedPersonalPropertyAcquisitionDate" type="sdt:DateType"/>
+	<xsd:element name="ListedPersonalPropertyProceedsOfDispositionAmount" type="sdt:AmountType"/>
+	<xsd:element name="ListedPersonalPropertyAdjustedCostBaseAmount" type="sdt:AmountType"/>
+	<xsd:element name="ListedPersonalPropertyOutlaysAndExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="ListedPersonalPropertyGainAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule6ListedPersonalPropertyTotalAmount"  type="sdt:AmountType"/>
+	
+		<!-- Part 9 Other Gains (losses) except gifts of certain capital property-->
+	<xsd:element name="Schedule6OtherGainsLossesExceptGiftsOfCertainCapitalPropertyDetails" type="ols6:Schedule6OtherGainsLossesExceptGiftsOfCertainCapitalPropertyDetailsType"/>
+	<xsd:complexType name="Schedule6OtherGainsLossesExceptGiftsOfCertainCapitalPropertyDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols6:OtherGainLossPropertyDescription" minOccurs="0" />
+			<xsd:element ref="ols6:OtherGainLossPropertyAcquisitionDate" minOccurs="0" />
+			<xsd:element ref="ols6:OtherGainLossPropertyProceedsOfDispositionAmount" minOccurs="0" />
+			<xsd:element ref="ols6:OtherGainLossPropertyAdjustedCostBaseAmount" minOccurs="0" />
+			<xsd:element ref="ols6:OtherGainLossPropertyOutlaysAndExpensesAmount" minOccurs="0" />
+			<xsd:element ref="ols6:OtherGainLossPropertyGainAmount" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="OtherGainLossPropertyDescription"  type= "sdt:DescriptionType"/>
+	<xsd:element name="OtherGainLossPropertyAcquisitionDate" type="sdt:DateType"/>
+	<xsd:element name="OtherGainLossPropertyProceedsOfDispositionAmount" type="sdt:AmountType"/>
+	<xsd:element name="OtherGainLossPropertyAdjustedCostBaseAmount" type="sdt:AmountType"/>
+	<xsd:element name="OtherGainLossPropertyOutlaysAndExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="OtherGainLossPropertyGainAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule6OtherGainsLossesExceptGiftsOfCertainCapitalPropertyTotalAmount"  type="sdt:AmountType"/>
+	
+	<!-- Part 10 Gifts Of Certain Capital Property-->
+	<xsd:element name="Schedule6GiftsOfCertainCapitalPropertyDetails" type ="ols6:Schedule6GiftsOfCertainCapitalPropertyDetailsType" />
+	
+	<xsd:complexType name="Schedule6GiftsOfCertainCapitalPropertyDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyFaceValue" minOccurs="0" />
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyMaturityDate" minOccurs="0" />
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyCount" minOccurs="0" />
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyClassDescription" minOccurs="0" />
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyIssuerName" minOccurs="0" />
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyAddressOrLegalDescriptionText" minOccurs="0" />
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyAcquisitionDate" minOccurs="0" />
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyProceedsOfDispositionAmount" minOccurs="0" />
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyAdjustedCostBaseAmount" minOccurs="0" />
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyOutlaysAndExpensesAmount" minOccurs="0" />
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyGainAmount" minOccurs="0" />
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyEligibleAmount" minOccurs="0" />
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyGainSubjectToZeroInclusionRateAmount" minOccurs="0" />
+			<xsd:element ref="ols6:GiftsOfCertainCapitalPropertyGainSubjectTo50PercentInclusionRateAmount" minOccurs="0" />		
+			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="GiftsOfCertainCapitalPropertyFaceValue" type="sdt:AmountType"/>
+	<xsd:element name="GiftsOfCertainCapitalPropertyMaturityDate"  type= "sdt:DateType"/>
+	<xsd:element name="GiftsOfCertainCapitalPropertyCount" type="sdt:CountType"/>
+	<xsd:element name="GiftsOfCertainCapitalPropertyClassDescription"  type= "sdt:DescriptionType"/>
+	<xsd:element name="GiftsOfCertainCapitalPropertyIssuerName"  type= "sdt:NameType"/>
+	<xsd:element name="GiftsOfCertainCapitalPropertyAddressOrLegalDescriptionText"  type= "sdt:TextType"/>
+	<xsd:element name="GiftsOfCertainCapitalPropertyAcquisitionDate" type="sdt:DateType"/>
+	<xsd:element name="GiftsOfCertainCapitalPropertyProceedsOfDispositionAmount" type="sdt:AmountType"/>
+	<xsd:element name="GiftsOfCertainCapitalPropertyAdjustedCostBaseAmount" type="sdt:AmountType"/>
+	<xsd:element name="GiftsOfCertainCapitalPropertyOutlaysAndExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="GiftsOfCertainCapitalPropertyGainAmount" type="sdt:AmountType"/>
+	<xsd:element name="GiftsOfCertainCapitalPropertyEligibleAmount" type="sdt:AmountType"/>
+	<xsd:element name="GiftsOfCertainCapitalPropertyGainSubjectToZeroInclusionRateAmount" type="sdt:AmountType"/>
+	<xsd:element name="GiftsOfCertainCapitalPropertyGainSubjectTo50PercentInclusionRateAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule6GiftsOfCertainCapitalPropertyTotalAmount" type="sdt:AmountType"/>
+	
+	<!-- Part 11 Capital gains (losses) from other sources-->
+	<xsd:element name="Schedule6CapitalGainsLossesFromAllT5AndT4PSSlipsAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule6CapitalGainsLossesFromAllT3SlipsAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule6T5013Schedule10Line103Amount" type="sdt:AmountType"/>
+	
+	<!-- Part 12 Total capital gains (losses)-->
+	<xsd:element name="Schedule6TotalCapitalGainsLossesAmount" type="sdt:AmountType"/>
+
+	<!-- Part 13 Amounts eligible for capital gains deductions -->
+	<xsd:element name="Schedule6QSBCSharesDeductionAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule6QFPAndQXPDeductionAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule6QFPAndQXPForeclosuresAndRepossessionsAmount" type="sdt:AmountType"/>
+	
+</xsd:schema>

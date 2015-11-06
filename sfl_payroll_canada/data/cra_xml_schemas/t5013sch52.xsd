@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: Specialty Business Returns -Net Income(Loss) For Income Tax Purposes (CRA Form T5013 SCH 52 E(11) )
+Contact: CRA, ITB, Solutions, RASD, Business Suite Assessing System, Other Levies
+Date created: October 2012
+Updates: ols52/1-0-1 - November 2013 - added Min and Max for sequence elements 
+		 sdt/updated reference to sdt/2-2-0
+Users of this schema:
+-Other Levies System
+-->
+<xsd:schema
+xmlns:ols52="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols52/1-0-1" 
+xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" 
+xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+targetNamespace="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols52/1-0-1" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="ols52/1-0-1">
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/> 
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/> 	
+
+<!-- T5013Schedule52Data is also referenced by other schemas for importing purposes -->	
+	<xsd:element name="T5013Schedule52Data" type="ols52:Schedule52DataType"/>
+	<xsd:complexType name="Schedule52DataType">
+		<xsd:sequence>
+			<xsd:element ref="ols52:Schedule52RenouncedResourceExpensesDetails" minOccurs="0" maxOccurs="2000"/>
+			<xsd:element ref="ols52:TotalCEEAmount" minOccurs="0" />
+			<xsd:element ref="ols52:TotalCanadianDevelopmentExpensesAmount" minOccurs="0" />
+			<xsd:element ref="ols52:TotalCEEInterestFreePeriodAmount" minOccurs="0" />
+			<xsd:element ref="ols52:Schedule52AllocatedAssistanceDetails"  minOccurs="0" maxOccurs="2000"/>
+			<xsd:element ref="ols52:TotalAssistanceCCEAmount" minOccurs="0" />
+			<xsd:element ref="ols52:TotalAssistanceCanadianDevelopmentExpensesAmount" minOccurs="0" />
+			<xsd:element ref="ols52:Schedule52QualifiedITCDetails"  minOccurs="0" maxOccurs="2000"/>
+			<xsd:element ref="ols52:TotalITCMiningExplorationAmount" minOccurs="0" />
+			<xsd:element ref="ols52:TotalITCInterestFreePeriodAmount" minOccurs="0" />
+			<xsd:element ref="ols52:Schedule52QualifiedProvincialTaxCreditDetails"  minOccurs="0" maxOccurs="2000"/>
+			
+			<xsd:element ref="ols52:Schedule52TotalQualifiedProvincialTaxCredits" minOccurs="0" maxOccurs="20"/>
+			<xsd:element ref="ols52:Schedule52PenaltyCalculation" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Schedule52RenouncedResourceExpensesDetailsType">
+		<xsd:annotation>
+			<xsd:documentation>
+	Summary of renounced resource expenses allocated to members of the partnership and the portion of the reduction subject to an interest free period 
+	Boxes 120 and 121, and box 130 of the T101 slips
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ols52:RREIssuingCorporationIdentificationNumber" minOccurs="0" />
+			<xsd:element ref="ols52:RREEffectiveRenunciationDate" minOccurs="0" />
+			<xsd:element ref="ols52:RRECEEAmount" minOccurs="0"/>
+			<xsd:element ref="ols52:RRECanadianDevelopmentExpensesAmount" minOccurs="0" />
+			<xsd:element ref="ols52:RRECCEInterestFreePeriodAmount" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Schedule52AllocatedAssistanceDetailsType">
+		<xsd:annotation>
+			<xsd:documentation>
+	Summary of Assistance allocated or to be allocated 
+	Boxes 124 and 125 of the T101 slips
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ols52:AllocatedAssistanceIssuingCorporationIdentificationNumber" minOccurs="0"/>
+			<xsd:element ref="ols52:AllocatedAssistanceEffectiveRenunciationDate" minOccurs="0"/>
+			<xsd:element ref="ols52:AllocatedAssistanceCCEAmount" minOccurs="0"/>
+			<xsd:element ref="ols52:AllocatedAssistanceCanadianDevelopmentExpensesAmount" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Schedule52QualifiedITCDetailsType">
+		<xsd:annotation>
+			<xsd:documentation>
+	Summary of expenses qualifying for an Investment Tax Credit (ITC) allocated to members of the partnership 
+	Boxes 128 and 129 of the T101 slips
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ols52:ITCIssuingCorporationIdentificationNumber" minOccurs="0"/>
+			<xsd:element ref="ols52:ITCEffectiveRenunciationDate" minOccurs="0"/>
+			<xsd:element ref="ols52:ITCMiningExplorationAmount" minOccurs="0"/>
+			<xsd:element ref="ols52:ITCInterestFreePeriodAmount" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Schedule52QualifiedProvincialTaxCreditDetailsType">
+		<xsd:annotation>
+			<xsd:documentation>
+	Summary of expenses qualifying for a Provincial Tax Credit 
+	Boxes 141, 144 and 145 of the T101 slips
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ols52:QualifiedIssuingCorporationIdentificationNumber" minOccurs="0"/>
+			<xsd:element ref="ols52:QualifiedProvincialTaxCredits" minOccurs="0" maxOccurs="20"/>
+			<!--  As of 2013 there are 4 participating provinces BC-402; SK-404; MB-406; ON-408
+			maxOccurs set to 20 in case of future need  -->
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Schedule52PenaltyCalculationDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols52:Schedule52ExpensePenaltyAmount" minOccurs="0"/>
+			<xsd:element ref="ols52:Schedule52AssistancePenaltyAmount" minOccurs="0"/>
+			<xsd:element ref="ols52:Schedule52CalculatedExpensePenaltyAmount" minOccurs="0"/>
+			<xsd:element ref="ols52:Schedule52CalculatedAssistancePenaltyAmount" minOccurs="0"/>
+			<xsd:element ref="ols52:Schedule52TotalPenaltyAmount" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="Schedule52RenouncedResourceExpensesDetails" type="ols52:Schedule52RenouncedResourceExpensesDetailsType"/>
+	<xsd:element name="RREIssuingCorporationIdentificationNumber" type="ccms:BN15Type"/>
+	<xsd:element name="RREEffectiveRenunciationDate" type="sdt:DateType"/>
+	<xsd:element name="RRECEEAmount" type="sdt:AmountType"/>
+	<xsd:element name="RRECanadianDevelopmentExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="RRECCEInterestFreePeriodAmount" type="sdt:AmountType"/>
+	<xsd:element name="TotalCEEAmount" type="sdt:AmountType"/>
+	<xsd:element name="TotalCanadianDevelopmentExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="TotalCEEInterestFreePeriodAmount" type="sdt:AmountType"/>
+					
+	<xsd:element name="Schedule52AllocatedAssistanceDetails" type="ols52:Schedule52AllocatedAssistanceDetailsType"/>
+	<xsd:element name="AllocatedAssistanceIssuingCorporationIdentificationNumber" type="ccms:BN15Type"/>
+	<xsd:element name="AllocatedAssistanceEffectiveRenunciationDate" type="sdt:DateType"/>
+	<xsd:element name="AllocatedAssistanceCCEAmount" type="sdt:AmountType"/>
+	<xsd:element name="AllocatedAssistanceCanadianDevelopmentExpensesAmount" type="sdt:AmountType"/>
+	<xsd:element name="TotalAssistanceCCEAmount" type="sdt:AmountType"/>
+	<xsd:element name="TotalAssistanceCanadianDevelopmentExpensesAmount" type="sdt:AmountType"/>
+	
+	<xsd:element name="Schedule52QualifiedITCDetails" type="ols52:Schedule52QualifiedITCDetailsType"/>
+	<xsd:element name="ITCIssuingCorporationIdentificationNumber" type="ccms:BN15Type"/>
+	<xsd:element name="ITCEffectiveRenunciationDate" type="sdt:DateType"/>
+	<xsd:element name="ITCMiningExplorationAmount"  type="sdt:AmountType"/>
+	<xsd:element name="ITCInterestFreePeriodAmount" type="sdt:AmountType"/>
+	<xsd:element name="TotalITCMiningExplorationAmount"  type="sdt:AmountType"/>
+	<xsd:element name="TotalITCInterestFreePeriodAmount" type="sdt:AmountType"/>
+	
+	<xsd:element name="Schedule52QualifiedProvincialTaxCreditDetails" type="ols52:Schedule52QualifiedProvincialTaxCreditDetailsType"/>
+	<xsd:element name="QualifiedIssuingCorporationIdentificationNumber" type="ccms:BN15Type"/>
+	<xsd:element name="QualifiedProvincialTaxCredits"  type="ccms:FieldCodeAmountType"/>
+	<xsd:element name="Schedule52TotalQualifiedProvincialTaxCredits" type="ccms:FieldCodeAmountType"/>
+	
+	<xsd:element name="Schedule52PenaltyCalculation" type="ols52:Schedule52PenaltyCalculationDetailsType"/>
+	<xsd:element name="Schedule52ExpensePenaltyAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule52AssistancePenaltyAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule52CalculatedExpensePenaltyAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule52CalculatedAssistancePenaltyAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule52TotalPenaltyAmount" type="sdt:AmountType"/>
+
+	
+</xsd:schema>

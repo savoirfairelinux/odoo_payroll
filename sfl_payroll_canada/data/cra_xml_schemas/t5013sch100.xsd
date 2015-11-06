@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: Specialty Business Returns -Net Income(Loss) For Income Tax Purposes (CRA Form T5013 SCH 100 E(11) )
+Contact: CRA, ITB, Solutions, RASD, Business Suite Assessing System, Other Levies
+Date created: October 2012
+Updates: ols100/1-0-1 - November 2013  
+		 sdt/updated reference to sdt/2-2-0
+Users of this schema:
+-Other Levies System
+-->
+<xsd:schema  
+xmlns:ols100="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols100/1-0-1" 
+xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" 
+xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+targetNamespace="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols100/1-0-1" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="ols100/1-0-1">
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/> 
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/> 	
+
+<!-- T5013Schedule1Data is also referenced by other schemas for importing purposes -->	
+	<xsd:element name="T5013Schedule100Data" type="ols100:Schedule100DataType"/>
+	<xsd:complexType name="Schedule100DataType">
+		<xsd:sequence>
+			<xsd:element ref="ols100:Schedule100LineAmounts" minOccurs="0" maxOccurs="2000"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="Schedule100LineAmounts" type="ccms:FieldCodeAmountType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en"> 
+	General Index of Financial Information (GIFI) code and amounts 
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+</xsd:schema>

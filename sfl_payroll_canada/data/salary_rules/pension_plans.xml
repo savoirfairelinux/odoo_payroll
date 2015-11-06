@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="rule_ca_rpp_ee_c" model="hr.salary.rule">
+            <field name="name">RPP - Employee Contribution</field>
+            <field name="sequence" eval="163"/>
+            <field name="code">RPP_EE_C</field>
+            <field name="category_id" ref="SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_benefits(payslip)
+            </field>
+            <field name="employee_benefit_ids" eval="[(6, 0, [ref('rpp')])]"/>
+        </record>
+
+        <record id="rule_ca_rpp_er_c" model="hr.salary.rule">
+            <field name="name">RPP - Employer Contribution</field>
+            <field name="sequence" eval="164"/>
+            <field name="code">RPP_ER_C</field>
+            <field name="category_id" ref="EMP"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_benefits(payslip, employer=True)
+            </field>
+            <field name="employee_benefit_ids" eval="[(6, 0, [ref('rpp')])]"/>
+        </record>
+
+        <record id="rule_ca_prpp_ee_c" model="hr.salary.rule">
+            <field name="name">PRPP - Employee Contribution</field>
+            <field name="sequence" eval="165"/>
+            <field name="code">PRPP_EE_C</field>
+            <field name="category_id" ref="SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_benefits(payslip)
+            </field>
+            <field name="employee_benefit_ids" eval="[(6, 0, [ref('prpp')])]"/>
+        </record>
+
+        <record id="rule_ca_prpp_er_c" model="hr.salary.rule">
+            <field name="name">PRPP - Employer Contribution</field>
+            <field name="sequence" eval="166"/>
+            <field name="code">PRPP_ER_C</field>
+            <field name="category_id" ref="EMP"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_benefits(payslip, employer=True)
+            </field>
+            <field name="employee_benefit_ids" eval="[(6, 0, [ref('prpp')])]"/>
+        </record>
+
+        <record id="rule_ca_vrsp_ee_c" model="hr.salary.rule">
+            <field name="name">VRSP - Employee Contribution</field>
+            <field name="sequence" eval="167"/>
+            <field name="code">VRSP_EE_C</field>
+            <field name="category_id" ref="SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_benefits(payslip)
+            </field>
+            <field name="employee_benefit_ids" eval="[(6, 0, [ref('vrsp')])]"/>
+        </record>
+
+        <record id="rule_ca_vrsp_er_c" model="hr.salary.rule">
+            <field name="name">VRSP - Employer Contribution</field>
+            <field name="sequence" eval="168"/>
+            <field name="code">VRSP_ER_C</field>
+            <field name="category_id" ref="EMP"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_benefits(payslip, employer=True)
+            </field>
+            <field name="employee_benefit_ids" eval="[(6, 0, [ref('vrsp')])]"/>
+        </record>
+    </data>
+</openerp>

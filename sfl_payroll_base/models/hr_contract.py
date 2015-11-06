@@ -37,6 +37,12 @@ class HrContract(models.Model):
         select=True,
         default='monthly',
     )
+    pays_per_year = fields.Float(
+        'Pays Per Year',
+        compute='_get_pays_per_year',
+        store=True,
+        readonly=True,
+    )
 
     @api.model
     def get_schedule_selection(self):
@@ -58,3 +64,28 @@ class HrContract(models.Model):
         """
         structures = self.mapped('struct_id')
         return structures.get_parent_structures()
+
+    @api.one
+    @api.depends('schedule_pay')
+    def _get_pays_per_year(self):
+        """
+        :param ids: ID of contract
+        :return: The number of pays per year
+        """
+        schedule_pay = {
+            'daily': 365,
+            'weekly': 52,
+            'bi-weekly': 26,
+            'semi-monthly': 24,
+            'monthly': 12,
+            'bi-monthly': 6,
+            'quarterly': 4,
+            'semi-annually': 2,
+            'annually': 1,
+        }
+
+        if (
+            self.schedule_pay and
+            schedule_pay.get(self.schedule_pay)
+        ):
+            self.pays_per_year = schedule_pay[self.schedule_pay]

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of NR4  ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="NR4SlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType" minOccurs="0"/>
+			<xsd:element name="SEC_RCPNT_NM" type="NameType_2" minOccurs="0"/>
+			<xsd:element name="ENTPRS_NM" type="NR4_Line2Type" minOccurs="0"/>
+			<xsd:element name="RCPNT_ADDR" type="NR4ForeignAddressType" minOccurs="0"/>
+			<xsd:element name="tx_cntry_cd" type="char3Type"/>
+			<xsd:element name="fssn_nbr" type="char20Type"/>
+			<xsd:element name="nr_acct_nbr" type="nrType"/>
+			<xsd:element name="rcpnt_tcd" type="indicator1-5Type"/>
+			<xsd:element name="payr_nbr" type="char20Type" minOccurs="0"/>
+			<xsd:element name="inc_1_tcd" type="numeric2Type" minOccurs="0"/>
+			<xsd:element name="crcy_1_cd" type="char3Type" minOccurs="0"/>
+			<xsd:element name="NR4_AMT" type="NR4AmountType" minOccurs="0"/>
+			<xsd:element name="tx_xmpt_1_cd" type="char1Type" minOccurs="0"/>
+			<xsd:element name="inc_2_tcd" type="numeric2Type" minOccurs="0"/>
+			<xsd:element name="crcy_2_cd" type="char3Type" minOccurs="0"/>
+			<xsd:element name="tx_xmpt_2_cd" type="char1Type" minOccurs="0"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="NR4AmountType">
+		<xsd:all>
+			<xsd:element name="gro_1_incamt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="nr_tx_1_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="gro_2_incamt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="nr_tx_2_amt" type="decimal11Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="NR4SummaryType">
+		<xsd:all>
+			<xsd:element name="nr_acct_nbr" type="nrType"/>
+			<xsd:element name="PAYR_NM" type="Line3Type"/>
+			<xsd:element name="PAYR_ADDR" type="NR4CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="NR4_TAMT" type="NR4TotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="NR4TotalsType">
+		<xsd:all>
+			<xsd:element name="tot_gro_1_incamt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_nr_tx_1_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_gro_2_incamt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_nr_tx_2_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_nrpt_incamt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_nr_nrpt_tx_amt" type="decimal13Type" minOccurs="0"/>
+		</xsd:all>
+		<xsd:attribute name="tot_incamt" type="xsd:string"/>
+		<xsd:attribute name="tot_tx_wthld" type="xsd:string"/>
+	</xsd:complexType>
+</xsd:schema>

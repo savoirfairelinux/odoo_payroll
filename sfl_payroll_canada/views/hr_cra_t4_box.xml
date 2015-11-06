@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_t4_box_form" model="ir.ui.view">
+            <field name="name">hr.cra.t4.box.form</field>
+            <field name="model">hr.cra.t4.box</field>
+            <field name="arch" type="xml">
+                <form string="T4 Box" version="7.0">
+                    <sheet>
+                        <group name="slip_info" col="4">
+                            <field name="name"/>
+                            <newline/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+
+                            <field name="code"/>
+                            <field name="xml_tag"/>
+                            <field name="is_other_amount"/>
+                            <field name="type"/>
+
+                            <field name="required"/>
+                            <field name="appears_on_summary"/>
+                        </group>
+                        <notebook>
+                            <page name="salary_rules" string="Salary Rules" attrs="{'invisible': [('type', '!=', 'salary_rule')]}">
+                                <field name="salary_rule_ids" nolabel="1" colspan="4"/>
+                            </page>
+                            <page name="benefits" string="Employee Benefits" attrs="{'invisible': [('type', '!=', 'benefit')]}">
+                                <field name="benefit_line_ids" nolabel="1" colspan="4">
+                                    <tree editable="top">
+                                        <field name="category_id"/>
+                                        <field name="include_employer"/>
+                                        <field name="include_employee"/>
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="deductions" string="Income Tax Deductions" attrs="{'invisible': [('type', '!=', 'deduction')]}">
+                                <field name="deduction_line_ids" nolabel="1" colspan="4">
+                                    <tree editable="top">
+                                        <field name="category_id"/>
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_t4_box_tree" model="ir.ui.view">
+            <field name="name">hr.cra.t4.box.tree</field>
+            <field name="model">hr.cra.t4.box</field>
+            <field name="arch" type="xml">
+                <tree string="T4 Boxes">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="is_other_amount"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_t4_box_filter" model="ir.ui.view">
+            <field name="name">hr.cra.t4.box.filter</field>
+            <field name="model">hr.cra.t4.box</field>
+            <field name="arch" type="xml">
+                <search string="Search T4 Box">
+                    <field name="type"/>
+                    <field name="is_other_amount"/>
+                    <group string="Group By...">
+                        <filter name="type"
+                            string="Type"
+                            context="{'group_by':'type'}"/>
+                        <filter name="group_is_other_amount"
+                            string="Is Other Amount"
+                            context="{'group_by':'is_other_amount'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_t4_box_tree" model="ir.actions.act_window">
+            <field name="name">T4 Boxes</field>
+            <field name="res_model">hr.cra.t4.box</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_t4_box_tree"/>
+            <field name="search_view_id" ref="view_t4_box_filter"/>
+        </record>
+
+        <menuitem
+            action="action_view_t4_box_tree"
+            id="t4_box_menu_item"
+            parent="menu_canada_payroll_configuration"
+            />
+    </data>
+</openerp>
+

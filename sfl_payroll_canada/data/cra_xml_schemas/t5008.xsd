@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T5008 ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="T5008SlipType">
+		<xsd:sequence>
+			<xsd:element name="disp_record" type="T5008SlipDispositionType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="ident_record" type="T5008SlipIdentificationRecordType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T5008SlipDispositionType">
+		<xsd:all>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="sbrn_root" type="bnRootType"/>
+			<xsd:element name="rcpnt_tr_acct_nbr" type="trustType" minOccurs="0"/>
+			<xsd:element name="bn" type="ccraType3"/>
+			<xsd:element name="rcpnt_pstl_cd" type="pcType" minOccurs="0"/>
+			<xsd:element name="DISPN_DT" type="DayMonthType"/>
+			<xsd:element name="T5008_AMT" type="T5008AmountType" minOccurs="0"/>
+			<xsd:element name="rcv_scty_tcd" type="char3ANType" minOccurs="0"/>
+			<xsd:element name="scty_rcv_cnt" type="decimal9fraction4Type" minOccurs="0"/>
+			<xsd:element name="rcv_cusip_nbr" type="char12Type" minOccurs="0"/>
+			<xsd:element name="rcv_cusip_cd" type="indicator1-3Type" minOccurs="0"/>
+			<xsd:element name="id_scty_sttl_txt" type="char60Type" minOccurs="0"/>
+			<xsd:element name="dsps_scty_tcd" type="char3ANType" minOccurs="0"/>
+			<xsd:element name="dsps_scty_cnt" type="decimal9fraction4Type" minOccurs="0"/>
+			<xsd:element name="dsps_cusip_nbr" type="char12Type" minOccurs="0"/>
+			<xsd:element name="dsps_cusip_cd" type="indicator1-3Type" minOccurs="0"/>
+			<xsd:element name="id_scty_dsps_txt" type="char60Type" minOccurs="0"/>
+			<xsd:element name="fgn_crcy_cd" type="char3AlphaType" minOccurs="0"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T5008AmountType">
+		<xsd:all>
+			<xsd:element name="fval_amt" type="int11Type" minOccurs="0"/>
+			<xsd:element name="cost_bok_val_amt" type="int11Type" minOccurs="0"/>
+			<xsd:element name="dispn_amt" type="signedInt11Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T5008SlipIdentificationRecordType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType" minOccurs="0"/>
+			<xsd:element name="SEC_RCPNT_NM" type="NameType_2" minOccurs="0"/>
+			<xsd:element name="ENTPRS_NM" type="Line2Type" minOccurs="0"/>
+			<xsd:element name="RCPNT_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="sbrn_root" type="bnRootType"/>
+			<xsd:element name="rcpnt_tr_acct_nbr" type="trustType" minOccurs="0"/> 
+			<xsd:element name="bn" type="ccraType3"/>
+			<xsd:element name="rcpnt_acct_nbr" type="char12Type" minOccurs="0"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+			<xsd:element name="rcpnt_tcd" type="indicator1-4Type"/>
+			<xsd:element name="dispn_trans_cnt" type="int7Type"/>
+			<xsd:element name="sttl_amt" type="signedInt13Type"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T5008SummaryType">
+		<xsd:all>
+			<xsd:element name="bn" type="ccraType3"/>
+			<xsd:element name="TRD_DEALR_NM" type="Line3Type"/>
+			<xsd:element name="TRD_DEALR_ADDR" type="RequiredPstlCdAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="tot_sttl_amt" type="signedInt15Type"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

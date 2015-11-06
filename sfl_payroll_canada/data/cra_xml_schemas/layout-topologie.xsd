@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@@@ Include Related Schemas @@@@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:include schemaLocation="simple.xsd"/>
+	<xsd:include schemaLocation="complex.xsd"/>
+	<xsd:include schemaLocation="t4.xsd"/>
+	<xsd:include schemaLocation="t4a.xsd"/>
+	<xsd:include schemaLocation="t4a-nr.xsd"/>
+	<xsd:include schemaLocation="t4rif.xsd"/>
+	<xsd:include schemaLocation="t4rsp.xsd"/>
+	<xsd:include schemaLocation="rrsp-reer.xsd"/>
+	<xsd:include schemaLocation="t215.xsd"/>
+	<xsd:include schemaLocation="t4a-oas.xsd"/>
+	<xsd:include schemaLocation="t4a-p.xsd"/>
+	<xsd:include schemaLocation="t1204.xsd"/>
+	<xsd:include schemaLocation="agr-1.xsd"/>
+	<xsd:include schemaLocation="t5018.xsd"/>
+	<xsd:include schemaLocation="nr4.xsd"/>
+	<xsd:include schemaLocation="t5.xsd"/>
+	<xsd:include schemaLocation="t5007.xsd"/>
+	<xsd:include schemaLocation="t5008.xsd"/>
+	<xsd:include schemaLocation="t3.xsd"/>
+	<xsd:include schemaLocation="safer-alal.xsd"/>
+	<xsd:include schemaLocation="t4e.xsd"/>
+	<xsd:include schemaLocation="tfsa-celi.xsd"/>
+	<xsd:include schemaLocation="prpp-rpac.xsd"/>
+	<xsd:include schemaLocation="rrsp-rrif-nqi.xsd"/>
+	<xsd:include schemaLocation="partxviii.xsd"/>
+	<xsd:include schemaLocation="frms.xsd"/>
+	<!-- @@@@    Common Record Layout     @@@@ -->
+	<xsd:element name="Submission" type="ReturnType"/>
+	<xsd:complexType name="ReturnType">
+		<xsd:sequence>
+			<xsd:element name="T619" type="TransmitterType"/>
+			<xsd:element name="Return" type="ReturnChoiceType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TransmitterType">
+		<xsd:all>
+			<xsd:element name="sbmt_ref_id" type="char8Type"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="trnmtr_nbr" type="transNbrType"/>
+			<xsd:element name="trnmtr_tcd" type="indicator1-4Type" minOccurs="0"/>
+			<xsd:element name="summ_cnt" type="int6Type"/>
+			<xsd:element name="lang_cd" type="languageType"/>
+			<xsd:element name="TRNMTR_NM" type="Line2Type"/>
+			<xsd:element name="TRNMTR_ADDR" type="CanadaAddressType"/>
+			<xsd:element name="CNTC" type="ContactType"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

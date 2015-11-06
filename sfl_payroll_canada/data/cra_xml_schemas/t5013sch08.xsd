@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: Specialty Business Returns -Net Income(Loss) For Income Tax Purposes (CRA Form T5013 SCH 8 E(11) )
+Contact: CRA, ITB, Solutions, RASD, Business Suite Assessing System, Other Levies
+Date created: December 2012
+Updates: ols8/1-0-1 - November 2013 - added Min and Max for sequence elements 
+		 sdt/updated reference to sdt/2-2-0
+Users of this schema:
+-Other Levies System
+-->
+<xsd:schema 
+xmlns:ols8="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols8/1-0-1" 
+xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" 
+xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+targetNamespace="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols8/1-0-1" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="ols8/1-0-1">
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/> 
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/> 	
+	
+<!-- T5013Schedule8Data is also referenced by other schemas for importing purposes -->
+	<xsd:element name="T5013Schedule8Data" type="ols8:Schedule8DataType"/>
+	<xsd:complexType name="Schedule8DataType">
+		<xsd:sequence>
+			<xsd:element ref="ols8:Schedule8CapitalCostAllowanceDetails" minOccurs="0" maxOccurs="2000"/>
+			<xsd:element ref="ols8:CCARecaptureTotalAmount"  minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols8:TerminalLossTotalAmount"  minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="ols8:ClaimedCCATotalAmount"  minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="Schedule8CapitalCostAllowanceDetails" type="ols8:Schedule8CapitalCostAllowanceDetailsType"/>
+	<xsd:complexType name="Schedule8CapitalCostAllowanceDetailsType">
+		<xsd:sequence>
+			<xsd:element ref="ols8:CCAClassNumber"  minOccurs="0" />
+			<xsd:element ref="ols8:OpeningUCCAmount"  minOccurs="0" />
+			<xsd:element ref="ols8:CCAAcquisitionCostAmount"  minOccurs="0" />
+			<xsd:element ref="ols8:CCANetAdjustmentAmount"  minOccurs="0" />
+			<xsd:element ref="ols8:CCADispositionProceedsAmount"  minOccurs="0" />
+			<xsd:element ref="ols8:UCCAmount"  minOccurs="0" />
+			<xsd:element ref="ols8:UCC50PercentRuleAmount"  minOccurs="0" />
+			<xsd:element ref="ols8:ReducedUCCAmount"  minOccurs="0" />
+			<xsd:element ref="ols8:CCARatePercent"  minOccurs="0" />
+			<xsd:element ref="ols8:CCARecaptureAmount"  minOccurs="0" />
+			<xsd:element ref="ols8:CCATerminalLossAmount"  minOccurs="0" />
+			<xsd:element ref="ols8:ClaimedCCAAmount"  minOccurs="0" />
+			<xsd:element ref="ols8:ClosingUCCAmount"  minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="CCAClassNumber" type="sdt:NumberType"/>
+	<xsd:element name="OpeningUCCAmount" type="sdt:AmountType"/>
+	<xsd:element name="CCAAcquisitionCostAmount" type="sdt:AmountType"/>
+	<xsd:element name="CCANetAdjustmentAmount" type="sdt:AmountType"/>
+	<xsd:element name="CCADispositionProceedsAmount" type="sdt:AmountType"/>
+	<xsd:element name="UCCAmount" type="sdt:AmountType"/>
+	<xsd:element name="UCC50PercentRuleAmount" type="sdt:AmountType"/>
+	<xsd:element name="ReducedUCCAmount" type="sdt:AmountType"/>
+	<xsd:element name="CCARatePercent" type="sdt:PercentType"/>
+	<xsd:element name="CCARecaptureAmount" type="sdt:AmountType"/>
+	<xsd:element name="CCATerminalLossAmount" type="sdt:AmountType"/>
+	<xsd:element name="ClaimedCCAAmount" type="sdt:AmountType"/>
+	<xsd:element name="ClosingUCCAmount" type="sdt:AmountType"/>
+	<xsd:element name="CCARecaptureTotalAmount" type="sdt:AmountType"/>
+	<xsd:element name="TerminalLossTotalAmount" type="sdt:AmountType"/>
+	<xsd:element name="ClaimedCCATotalAmount" type="sdt:AmountType"/>
+	
+</xsd:schema>

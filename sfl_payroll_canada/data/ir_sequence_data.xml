@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="seq_code_t4_summary" model="ir.sequence.type">
+            <field name="name">T4 Summary</field>
+            <field name="code">hr.cra.t4.summary</field>
+        </record>
+
+        <record id="seq_t4_summary" model="ir.sequence">
+            <field name="name">T4 Summary</field>
+            <field name="code">hr.cra.t4.summary</field>
+            <field name="padding" eval="3"/>
+            <field name="prefix">T4SUM</field>
+        </record>
+
+        <record id="seq_code_t4" model="ir.sequence.type">
+            <field name="name">T4 Slip</field>
+            <field name="code">hr.cra.t4</field>
+        </record>
+
+        <record id="seq_t4" model="ir.sequence">
+            <field name="name">T4 Slip</field>
+            <field name="code">hr.cra.t4</field>
+            <field name="padding" eval="5"/>
+            <field name="prefix">T4</field>
+        </record>
+
+    </data>
+</openerp>

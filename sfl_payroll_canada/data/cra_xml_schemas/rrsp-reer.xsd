@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of RRSP ComplexTypes @@@@  2010/Oct/13  Version# 2.10-->
+	<xsd:complexType name="RRSPSlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="RCPNT_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="bn" type="ccraType3"/>
+			<xsd:element name="SEC_RCPNT_NM" type="NameType_2" minOccurs="0"/>
+			<xsd:element name="annuit_sin" type="sinType" minOccurs="0"/>
+			<xsd:element name="rrsp_spcmn_nbr" type="char20Type" minOccurs="0"/>
+			<xsd:element name="ctrct_nbr" type="char12Type"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+			<xsd:element name="sps_cntrb_ind" type="indicator1-2Type"/>
+			<xsd:element name="RRSP_AMT" type="RRSPAmtType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="RRSPAmtType">
+		<xsd:all>
+			<xsd:element name="rrsp_pyr_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="rrsp_cyr_amt" type="decimal9Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="RRSPSummaryType">
+		<xsd:all>
+			<xsd:element name="bn" type="ccraType3"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="rrsp_spcmn_nbr" type="char20Type" minOccurs="0"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="RRSP_ISU_NM" type="Line3Type"/>
+			<xsd:element name="RRSP_ISU_ADDR" type="RequiredPstlCdAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="RRSP_TAMT" type="RRSPTotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="RRSPTotalsType">
+		<xsd:all>
+			<xsd:element name="tot_rrsp_pyr_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_rrsp_cyr_amt" type="decimal13Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

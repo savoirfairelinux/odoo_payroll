@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Employee benefits excluding pension plans !-->
+        <record id="rule_ca_ben_ee_c" model="hr.salary.rule">
+            <field name="name">Employee Benefits - Employee Contribution</field>
+            <field name="sequence" eval="255"/>
+            <field name="code">BEN_EE_C</field>
+            <field name="category_id" ref="SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_benefits(payslip)
+            </field>
+        </record>
+
+        <record id="rule_ca_ben_er_c" model="hr.salary.rule">
+            <field name="name">Employee Benefits - Employer Contribution</field>
+            <field name="sequence" eval="257"/>
+            <field name="code">BEN_ER_C</field>
+            <field name="category_id" ref="EMP"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_benefits(payslip, employer=True)
+            </field>
+        </record>
+
+    </data>
+</openerp>

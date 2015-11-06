@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T4 ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="T4SlipType">
+		<xsd:all>
+			<xsd:element name="EMPE_NM" type="NameType"/>
+			<xsd:element name="EMPE_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="empe_nbr" type="char20Type" minOccurs="0"/>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="rpp_dpsp_rgst_nbr" type="int7Type" minOccurs="0"/>
+			<xsd:element name="cpp_qpp_xmpt_cd" type="indicator0-1Type"/>
+			<xsd:element name="ei_xmpt_cd" type="indicator0-1Type"/>
+			<xsd:element name="prov_pip_xmpt_cd" type="indicator0-1Type" minOccurs="0"/>
+			<xsd:element name="empt_cd" type="numeric2Type" minOccurs="0"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+			<xsd:element name="empt_prov_cd" type="provinceType"/>
+			<xsd:element name="T4_AMT" type="T4AmtType" minOccurs="0"/>
+			<xsd:element name="OTH_INFO" type="OtherInformationType" minOccurs="0">
+				<xsd:unique name="Other_T4_Info_Fields">
+					<xsd:selector xpath="."/>
+					<xsd:field xpath="hm_brd_lodg_amt"/>
+					<xsd:field xpath="spcl_wrk_site_amt"/>
+					<xsd:field xpath="prscb_zn_trvl_amt"/>
+					<xsd:field xpath="med_trvl_amt"/>
+					<xsd:field xpath="prsnl_vhcl_amt"/>
+					<xsd:field xpath="rsn_per_km_amt"/>
+					<xsd:field xpath="low_int_loan_amt"/>
+					<xsd:field xpath="empe_hm_loan_amt"/>
+					<xsd:field xpath="stok_opt_ben_amt"/>
+					<xsd:field xpath="sob_a00_feb_amt"/>
+					<xsd:field xpath="shr_opt_d_ben_amt"/>
+					<xsd:field xpath="sod_d_a00_feb_amt"/>
+					<xsd:field xpath="oth_tx_ben_amt"/>
+					<xsd:field xpath="shr_opt_d1_ben_amt"/>
+					<xsd:field xpath="sod_d1_a00_feb_amt"/>
+					<xsd:field xpath="empt_cmsn_amt"/>
+					<xsd:field xpath="dfr_sob_amt"/>
+					<xsd:field xpath="elg_rtir_amt"/>
+					<xsd:field xpath="nelg_rtir_amt"/>
+					<xsd:field xpath="indn_elg_rtir_amt"/>
+					<xsd:field xpath="indn_nelg_rtir_amt"/>
+					<xsd:field xpath="cfppa_amt"/>
+					<xsd:field xpath="mun_ofcr_examt"/>
+					<xsd:field xpath="indn_empe_amt"/>
+					<xsd:field xpath="oc_incamt"/>
+					<xsd:field xpath="oc_dy_cnt"/>
+					<xsd:field xpath="pr_90_cntrbr_amt"/>
+					<xsd:field xpath="pr_90_ncntrbr_amt"/>
+					<xsd:field xpath="cmpn_rpay_empr_amt"/>
+					<xsd:field xpath="fish_gro_ern_amt"/>
+					<xsd:field xpath="fish_net_ptnr_amt"/>
+					<xsd:field xpath="fish_shr_prsn_amt"/>
+					<xsd:field xpath="plcmt_emp_agcy_amt"/>
+					<xsd:field xpath="drvr_taxis_oth_amt"/>
+					<xsd:field xpath="brbr_hrdrssr_amt"/>
+					<xsd:field xpath="pub_trnst_pass_amt"/>
+					<xsd:field xpath="epaid_hlth_pln_amt"/>
+					<xsd:field xpath="stok_opt_csh_out_eamt"/>
+					<xsd:field xpath="vlntr_emergencyworker_xmpt_amt"/>
+					<xsd:field xpath="indn_txmpt_sei_amt"/> 
+				</xsd:unique>
+			</xsd:element>
+			<!--xsd:element name="OTH_INFO" type="OtherInformationType" minOccurs="0"/-->
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4AmtType">
+		<xsd:all>
+			<xsd:element name="empt_incamt" type="decimal10Type" minOccurs="0"/>
+			<xsd:element name="cpp_cntrb_amt" type="decimal6Type" minOccurs="0"/>
+			<xsd:element name="qpp_cntrb_amt" type="decimal6Type" minOccurs="0"/>
+			<xsd:element name="empe_eip_amt" type="decimal6Type" minOccurs="0"/>
+			<xsd:element name="rpp_cntrb_amt" type="decimal7Type" minOccurs="0"/>
+			<xsd:element name="itx_ddct_amt" type="decimal10Type" minOccurs="0"/>
+			<xsd:element name="ei_insu_ern_amt" type="decimal7Type" minOccurs="0"/>
+			<xsd:element name="cpp_qpp_ern_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="unn_dues_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="chrty_dons_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="padj_amt" type="decimal7Type" minOccurs="0"/>
+			<xsd:element name="prov_pip_amt" type="decimal6Type" minOccurs="0"/>
+			<xsd:element name="prov_insu_ern_amt" type="decimal7Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="OtherInformationType">
+		<xsd:sequence>
+			<xsd:group ref="OtherInfoGroup" minOccurs="0" maxOccurs="6"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:group name="OtherInfoGroup">
+		<xsd:choice>
+			<xsd:element name="hm_brd_lodg_amt" type="decimal9Type"/>
+			<xsd:element name="spcl_wrk_site_amt" type="decimal9Type"/>
+			<xsd:element name="prscb_zn_trvl_amt" type="decimal9Type"/>
+			<xsd:element name="med_trvl_amt" type="decimal9Type"/>
+			<xsd:element name="prsnl_vhcl_amt" type="decimal9Type"/>
+			<xsd:element name="rsn_per_km_amt" type="decimal9Type"/>
+			<xsd:element name="low_int_loan_amt" type="decimal9Type"/>
+			<xsd:element name="empe_hm_loan_amt" type="decimal9Type"/>
+			<xsd:element name="stok_opt_ben_amt" type="decimal9Type"/>
+			<xsd:element name="sob_a00_feb_amt" type="decimal9Type"/>
+			<xsd:element name="shr_opt_d_ben_amt" type="decimal9Type"/>
+			<xsd:element name="sod_d_a00_feb_amt" type="decimal9Type"/>
+			<xsd:element name="oth_tx_ben_amt" type="decimal9Type"/>
+			<xsd:element name="shr_opt_d1_ben_amt" type="decimal9Type"/>
+			<xsd:element name="sod_d1_a00_feb_amt" type="decimal9Type"/>
+			<xsd:element name="empt_cmsn_amt" type="decimal9Type"/>
+			<xsd:element name="cfppa_amt" type="decimal9Type"/>
+			<xsd:element name="dfr_sob_amt" type="decimal9Type"/>
+			<xsd:element name="elg_rtir_amt" type="decimal9Type"/>
+			<xsd:element name="nelg_rtir_amt" type="decimal9Type"/>
+			<xsd:element name="indn_elg_rtir_amt" type="decimal9Type"/>
+			<xsd:element name="indn_nelg_rtir_amt" type="decimal9Type"/>
+			<xsd:element name="mun_ofcr_examt" type="decimal9Type"/>
+			<xsd:element name="indn_empe_amt" type="decimal9Type"/>
+			<xsd:element name="oc_incamt" type="decimal9Type"/>
+			<xsd:element name="oc_dy_cnt" type="dayJulianType"/>
+			<xsd:element name="pr_90_cntrbr_amt" type="decimal9Type"/>
+			<xsd:element name="pr_90_ncntrbr_amt" type="decimal9Type"/>
+			<xsd:element name="cmpn_rpay_empr_amt" type="decimal9Type"/>
+			<xsd:element name="fish_gro_ern_amt" type="decimal9Type"/>
+			<xsd:element name="fish_net_ptnr_amt" type="decimal9Type"/>
+			<xsd:element name="fish_shr_prsn_amt" type="decimal9Type"/>
+			<xsd:element name="plcmt_emp_agcy_amt" type="decimal9Type"/>
+			<xsd:element name="drvr_taxis_oth_amt" type="decimal9Type"/>
+			<xsd:element name="brbr_hrdrssr_amt" type="decimal9Type"/>
+			<xsd:element name="pub_trnst_pass_amt" type="decimal9Type"/>
+			<xsd:element name="epaid_hlth_pln_amt" type="decimal9Type"/>
+			<xsd:element name="stok_opt_csh_out_eamt" type="decimal9Type"/>
+			<xsd:element name="vlntr_emergencyworker_xmpt_amt" type="decimal9Type"/>
+			<xsd:element name="indn_txmpt_sei_amt" type="decimal9Type"/> 
+		</xsd:choice>
+	</xsd:group>
+	<xsd:complexType name="T4SummaryType">
+		<xsd:all>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="EMPR_NM" type="Line3Type"/>
+			<xsd:element name="EMPR_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="PPRTR_SIN" type="PropSinType" minOccurs="0"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="T4_TAMT" type="T4TotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4TotalsType">
+		<xsd:all>
+			<xsd:element name="tot_empt_incamt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_empe_cpp_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="tot_empe_eip_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="tot_rpp_cntrb_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="tot_itx_ddct_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_padj_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_empr_cpp_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="tot_empr_eip_amt" type="decimal11Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

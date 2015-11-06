@@ -87,3 +87,8 @@ class HrPayslipRun(models.Model):
     @api.multi
     def close_payslip_run(self):
         return self.write({'state': 'close'})
+
+    @api.one
+    def button_confirm_slips(self):
+        for slip in self.slip_ids:
+            slip.process_sheet()

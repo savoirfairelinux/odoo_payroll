@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="rpp" model="hr.employee.benefit.category">
+            <field name="name">Registered Pension Plan</field>
+            <field name="code">RPP</field>
+            <field name="description">Contribution to a Registered Pension Plan</field>
+            <field name="is_rpp_dpsp" eval="True"/>
+            <field name="reference">0000001</field>
+            <field name="exemption_ids" eval="[(6, 0, [
+                ref('ei_exempt'),
+                ref('cpp_exempt'),
+                ref('fit_exempt'),
+                ref('pit_exempt'),
+                ref('pip_exempt'),
+            ])]"/>
+        </record>
+
+        <record id="vrsp" model="hr.employee.benefit.category">
+            <field name="name">Voluntary Retirement Saving Plan</field>
+            <field name="code">VRSP</field>
+            <field name="description">Contribution to a Voluntary Retirement Saving Plan (The Quebec equivalent of PRPP)</field>
+        </record>
+
+        <record id="prpp" model="hr.employee.benefit.category">
+            <field name="name">Pooled Retirement Pension Plan</field>
+            <field name="code">PRPP</field>
+            <field name="description">Contribution to a Pooled Registered Pension Plan</field>
+        </record>
+
+    </data>
+</openerp>

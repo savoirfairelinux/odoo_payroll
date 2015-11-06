@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of TFSA ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="TFSASlipType">
+		<xsd:sequence>
+			<xsd:element name="TFSA_TRANS" type="TFSASlipTransactionType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="TFSA_IDENT" type="TFSASlipIdentificationRecordType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TFSASlipTransactionType">
+		<xsd:all>
+			<xsd:element name="TRANS_DT" type="TFSA_Trans_DateType"/>
+			<xsd:element name="cnamt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="wdamt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="mbk_trnsf_out_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="mbk_trnsf_in_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="FRMR_SPS_NM" type="Former_Spouse_NameType" minOccurs="0"/>
+			<xsd:element name="frmr_sps_sin" type="sinType" minOccurs="0"/>
+			<xsd:element name="aqstn_nqlf_fmv_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="dispn_nqlf_fmv_amt" type="decimal11Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="TFSA_Trans_DateType">
+		<xsd:all>
+			<xsd:element name="trans_dt_yr" type="yearType"/>
+			<xsd:element name="trans_dt_mo" type="monthType"/>
+			<xsd:element name="trans_dt_dy" type="dayType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="TFSASlipIdentificationRecordType">
+		<xsd:all>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="tfsa_pln_id" type="numeric8Type"/>
+			<xsd:element name="tfsa_ctrct_nbr" type="char30Type"/>
+			<xsd:element name="tfsa_hldr_sin" type="sinType"/>
+			<xsd:element name="HLDR_NM" type="Holder_NameType"/>
+			<xsd:element name="HLDR_ADDR" type="Holder_AddressType"/>
+			<xsd:element name="TFSA_HLDR_BRTH_DT" type="TFSA_Holder_Birth_DateType"/>
+			<xsd:element name="TFSA_HLDR_DTH_DT" type="TFSA_Holder_Death_DateType" minOccurs="0"/>
+			<xsd:element name="fmv_at_dthamt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="tfsa_new_ctrct_ind" type="indicatorYesNoType"/>
+			<xsd:element name="ctrct_trmnt_ind" type="indicatorYesNoType"/>
+			<xsd:element name="TFSA_TRMNT_DT" type="TFSA_TRNMT_DateType" minOccurs="0"/>
+			<xsd:element name="tfsa_scsr_ind" type="indicatorYesNoType" minOccurs="0"/>
+			<xsd:element name="DCES_TFSA_NM" type="TFSA_Deceased_NameType" minOccurs="0"/>
+			<xsd:element name="dces_tfsa_sin" type="sinType" minOccurs="0"/>
+			<xsd:element name="DCES_TFSA_DTH_DT" type="TFSA_Deceased_DateType" minOccurs="0"/>
+			<xsd:element name="cye_fmv_amt" type="decimal11Type"/>
+			<xsd:element name="stot_trans_cnt" type="int4Type"/>
+			<xsd:element name="TFSA_HLDR_TAMT" type="TFSAAmtType" minOccurs="0"/>
+			<xsd:element name="slip_type_code" type="slipDataType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="Holder_NameType">
+		<xsd:all>
+			<xsd:element name="tfsa_hldr_snm" type="char30Type"/>
+			<xsd:element name="tfsa_hldr_gvn_nm" type="char30Type"/>
+			<xsd:element name="tfsa_hldr_init" type="char1Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="Holder_AddressType">
+		<xsd:all>
+			<xsd:element name="tfsa_hldr_addr_l1_txt" type="char30Type"/>
+			<xsd:element name="tfsa_hldr_addr_l2_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="tfsa_hldr_cty_nm" type="char28Type"/>
+			<xsd:element name="tfsa_hldr_pvst_cd" type="provinceStateType"/>
+			<xsd:element name="tfsa_hldr_cntry_cd" type="countryType" minOccurs="0"/>
+			<xsd:element name="hldr_pstl_zip_cd" type="pcType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="TFSA_Holder_Birth_DateType">
+		<xsd:all>
+			<xsd:element name="tfsa_hldr_brth_dt_yr" type="year1900_2099Type"/>
+			<xsd:element name="tfsa_hldr_brth_dt_mo" type="monthType"/>
+			<xsd:element name="tfsa_hldr_brth_dt_dy" type="dayType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="TFSA_Holder_Death_DateType">
+		<xsd:all>
+			<xsd:element name="tfsa_hldr_dth_dt_yr" type="yearType" minOccurs="0"/>
+			<xsd:element name="tfsa_hldr_dth_dt_mo" type="monthType" minOccurs="0"/>
+			<xsd:element name="tfsa_hldr_dth_dt_dy" type="dayType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="TFSA_TRNMT_DateType">
+		<xsd:all>
+			<xsd:element name="tfsa_trmnt_dt_yr" type="yearType" minOccurs="0"/>
+			<xsd:element name="tfsa_trmnt_dt_mo" type="monthType" minOccurs="0"/>
+			<xsd:element name="tfsa_trmnt_dt_dy" type="dayType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="TFSA_Deceased_NameType">
+		<xsd:all>
+			<xsd:element name="dces_tfsa_snm" type="char30Type" minOccurs="0"/>
+			<xsd:element name="dces_tfsa_gvn_nm" type="char30Type" minOccurs="0"/>
+			<xsd:element name="dces_tfsa_init" type="char1Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="TFSA_Deceased_DateType">
+		<xsd:all>
+			<xsd:element name="dces_tfsa_dth_dt_yr" type="yearType" minOccurs="0"/>
+			<xsd:element name="dces_tfsa_dth_dt_mo" type="monthType" minOccurs="0"/>
+			<xsd:element name="dces_tfsa_dth_dt_dy" type="dayType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="TFSAAmtType">
+		<xsd:all>
+			<xsd:element name="stot_cnamt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="stot_wdamt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="stot_mbk_out_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="stot_mbk_in_amt" type="decimal11Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="TFSASummaryType">
+		<xsd:all>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="summ_tcd" type="otherDataType"/>
+			<xsd:element name="rpt_yr" type="yearType"/>
+			<xsd:element name="tfsa_pln_id" type="numeric8Type"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="FLR_NM" type="Line3Len35Type"/>
+			<xsd:element name="FLR_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="TFSA_ContactType"/>
+			<xsd:element name="TFSA_TAMT" type="TFSATotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="TFSA_ContactType">
+		<xsd:all>
+			<xsd:element name="filr_cntc_snm" type="char30Type"/>
+			<xsd:element name="filr_cntc_gvn_nm" type="char30Type" minOccurs="0"/>
+			<xsd:element name="cntc_area_cd" type="numeric3Type"/>
+			<xsd:element name="cntc_phn_nbr" type="phoneType"/>
+			<xsd:element name="cntc_extn_nbr" type="int5Type" minOccurs="0"/>
+			<xsd:element name="filr_cntc_ema" type="char60Type"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="TFSATotalsType">
+		<xsd:all>
+			<xsd:element name="rtot_cnamt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="rtot_wdamt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="rtot_cye_fmv_amt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="rtot_mbk_out_amt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="rtot_mbk_in_amt" type="decimal15Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

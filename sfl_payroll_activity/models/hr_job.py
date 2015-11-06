@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from openerp import api, fields, models
+from openerp import fields, models
 
 
 class HrJob(models.Model):
@@ -30,17 +30,5 @@ class HrJob(models.Model):
         'hr.activity',
         'job_id',
         'Activity',
+        default=[(0, 0, {'activity_type': 'job'})],
     )
-
-    @api.model
-    def create(self, vals):
-        res = super(HrJob, self).create(vals)
-
-        if not res.activity_ids:
-            res.write({
-                'activity_ids': [(0, 0, {
-                    'activity_type': 'job',
-                })]
-            })
-
-        return res

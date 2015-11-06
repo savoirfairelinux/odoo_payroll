@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Description: Specialty Business Returns -Net Income(Loss) For Income Tax Purposes (CRA Form T5013 SCH 5 E )
+Contact: CRA, ITB, Solutions, RASD, Business Suite Assessing System, Other Levies
+Date created: October 2012
+Updates: ols5/1-0-1 - November 2013 - added Min and Max for sequence elements 
+		 sdt/updated reference to sdt/2-2-0
+Users of this schema:
+-Other Levies System
+-->
+<xsd:schema 
+xmlns:ols5="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols5/1-0-1" 
+xmlns:sdt="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" 
+xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+targetNamespace="http://www.cra-arc.gc.ca/enov/ol/interfaces/efile/partnership/ols5/1-0-1" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="ols5/1-0-1">
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/sdt/2-2-0" schemaLocation="standarddatatypes.xsd"/> 
+<xsd:import namespace="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0" schemaLocation="cracommonstructures.xsd"/> 	
+
+<!-- T5013Schedule5Data is also referenced by other schemas for importing purposes -->		
+	<xsd:element name="T5013Schedule5Data" type="ols5:Schedule5DataType"/>
+	<xsd:complexType name="Schedule5DataType">
+		<xsd:sequence>
+			<xsd:element ref="ols5:Schedule5JurisdictionSalariesWagesGrossRevenueDetails" minOccurs="0" />
+			<xsd:element ref="ols5:Schedule5AllocationByOtherPartnershipDetails" minOccurs="0"  maxOccurs="2000"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Schedule5AllocationOfSalariesWagesGrossRevenueType">
+		<xsd:sequence>
+			<xsd:element ref="ols5:Schedule5RegionalJurisdictionAllocationDetails" minOccurs="0" maxOccurs="20"/>
+			<xsd:element ref="ols5:Schedule5SalariesAndWagesAllocationTotalAmount" minOccurs="0" />
+			<xsd:element ref="ols5:Schedule5GrossRevenueAllocationTotalAmount" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Schedule5AllocationByOtherPartnershipDetailsType">
+		<xsd:annotation>
+			<xsd:documentation>
+	By Region allocation of salaries and wages, and gross revenue 
+				</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ols5:Schedule5OtherPartnershipName" minOccurs="0" />
+			<xsd:element ref="ols5:Schedule5OtherPartnershipAccountNumber" minOccurs="0" />
+			<xsd:element ref="ols5:Schedule5AllocationFromOtherPartnershipIndicator" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Schedule5RegionalJurisdictionDetailsType">
+		<xsd:annotation>
+			<xsd:documentation>
+	By Region allocation of salaries and wages, and gross revenue 
+				</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ols5:Schedule5RegionAllocationCode" minOccurs="0" />
+			<xsd:element ref="ols5:Schedule5AllocationIndicator" minOccurs="0" />
+			<xsd:element ref="ols5:Schedule5SalariesAndWagesCode" minOccurs="0" />
+			<xsd:element ref="ols5:Schedule5SalariesAndWagesAmount" minOccurs="0" />
+			<xsd:element ref="ols5:Schedule5GrossRevenueCode" minOccurs="0" />
+			<xsd:element ref="ols5:Schedule5GrossRevenueAmount" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!--   Data Elements -->
+	<!--- Part 1 Allocation of salaries and wages, and gross revenue	-->
+
+	<!--	JursidictionAndAllocationDetails 
+RegionalJurisdictionAllocationDetails-->
+	<xsd:element name="Schedule5JurisdictionSalariesWagesGrossRevenueDetails" type="ols5:Schedule5AllocationOfSalariesWagesGrossRevenueType"/>
+	<xsd:element name="Schedule5RegionalJurisdictionAllocationDetails" type="ols5:Schedule5RegionalJurisdictionDetailsType"/>
+	<xsd:element name="Schedule5RegionAllocationCode" type="sdt:CodeType"/>
+	<xsd:element name="Schedule5AllocationIndicator" type="ccms:OneTwoCodeType"/>
+	<xsd:element name="Schedule5SalariesAndWagesCode" type="sdt:CodeType"/>
+	<xsd:element name="Schedule5SalariesAndWagesAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule5GrossRevenueCode" type="sdt:CodeType"/>
+	<xsd:element name="Schedule5GrossRevenueAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule5SalariesAndWagesAllocationTotalAmount" type="sdt:AmountType"/>
+	<xsd:element name="Schedule5GrossRevenueAllocationTotalAmount" type="sdt:AmountType"/>
+	<!--- Part 2 Amounts allocated by one or more partnerships	-->
+	<xsd:element name="Schedule5AllocationByOtherPartnershipDetails" type="ols5:Schedule5AllocationByOtherPartnershipDetailsType"/>
+	<xsd:element name="Schedule5OtherPartnershipName" type="ccms:Name60CharacterType"/>
+	<xsd:element name="Schedule5OtherPartnershipAccountNumber" type="ccms:BN15Type"/>
+	<xsd:element name="Schedule5AllocationFromOtherPartnershipIndicator" type="ccms:OneTwoCodeType"/>
+</xsd:schema>

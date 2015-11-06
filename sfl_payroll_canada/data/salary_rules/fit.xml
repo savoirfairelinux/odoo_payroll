@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>  
+    <!-- Federal Income Tax - 170 to 190 -->
+
+        <record id="rule_ca_fit_i" model="hr.salary.rule">
+            <field name="name">FIT - Gross remuneration for the pay period</field>
+            <field name="sequence" eval="170"/>
+            <field name="code">FIT_I</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="fit_exempt"/>
+            <field name="amount_python_compute">
+benefits = rule.sum_benefits(payslip, employer=True)
+
+result = benefits + GROSSP
+            </field>
+        </record>
+
+        <!-- This rule is only used to compute the employee's T4 -->
+        <record id="rule_ca_fit_i_other_wage" model="hr.salary.rule">
+            <field name="name">FIT - Gross remuneration including non-periodic amounts</field>
+            <field name="sequence" eval="171"/>
+            <field name="code">FIT_I_OTHER_WAGE</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="fit_exempt"/>
+            <field name="amount_python_compute">
+result = FIT_I + OTHER_WAGE
+            </field>
+        </record>
+
+        <record id="rule_ca_fit_f" model="hr.salary.rule">
+            <field name="name">FIT - Deduction for contributions to pension plans</field>
+            <field name="sequence" eval="172"/>
+            <field name="code">FIT_F</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip)
+
+result += rule.sum_benefits(payslip, codes=['RPP', 'PRPP', 'VRSP'])
+
+result += rule.sum_benefits(payslip, codes=['PRPP', 'VRSP'], employer=True)
+            </field>
+        </record>
+
+        <record id="rule_ca_fit_f2" model="hr.salary.rule">
+            <field name="name">FIT - Deduction for alimony or maintenance payments</field>
+            <field name="sequence" eval="172"/>
+            <field name="code">FIT_F2</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip)
+            </field>
+        </record>
+
+        <record id="rule_ca_fit_u1" model="hr.salary.rule">
+            <field name="name">FIT - Deduction for union dues</field>
+            <field name="sequence" eval="172"/>
+            <field name="code">FIT_U1</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip)
+            </field>
+        </record>
+
+        <record id="rule_ca_fit_hd" model="hr.salary.rule">
+            <field name="name">FIT - Deduction for living in a prescribed zone</field>
+            <field name="sequence" eval="172"/>
+            <field name="code">FIT_HD</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip) * P
+            </field>
+        </record>
+
+        <record id="rule_ca_fit_f1" model="hr.salary.rule">
+            <field name="name">FIT - Deductions for child care and support payments</field>
+            <field name="sequence" eval="172"/>
+            <field name="code">FIT_F1</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip) * P
+            </field>
+        </record>
+
+        <record id="rule_ca_fit_a" model="hr.salary.rule">
+            <field name="name">FIT - Annual taxable income</field>
+            <field name="sequence" eval="174"/>
+            <field name="code">FIT_A</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="fit_exempt"/>
+            <field name="amount_python_compute">
+result = P * (FIT_I - FIT_F - FIT_F2 - FIT_U1) - FIT_HD - FIT_F1
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_ca_fit_a_other_wage_pytd" model="hr.salary.rule">
+            <field name="name">FIT - Annual taxable income (with previous non-periodic payments)</field>
+            <field name="sequence" eval="175"/>
+            <field name="code">FIT_A_OTHER_WAGE_PYTD</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="fit_exempt"/>
+            <field name="amount_python_compute">
+result = FIT_A + OTHER_WAGE_PYTD
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_ca_fit_a_other_wage_ytd" model="hr.salary.rule">
+            <field name="name">FIT - Annual taxable income (with YTD non-periodic payments)</field>
+            <field name="sequence" eval="175"/>
+            <field name="code">FIT_A_OTHER_WAGE_YTD</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="fit_exempt"/>
+            <field name="amount_python_compute">
+result = FIT_A + OTHER_WAGE + OTHER_WAGE_PYTD
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_ca_fit_k1" model="hr.salary.rule">
+            <field name="name">FIT - Federal personal tax credit</field>
+            <field name="sequence" eval="176"/>
+            <field name="code">FIT_K1</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="fit_exempt"/>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip) * P
+if result == 0:
+    variables = rule.variable(payslip.date_payment)
+    result = variables['default_amount']
+            </field>
+        </record>
+        
+        <!-- Rule for the calculation of the federal CPP, QPIP and EI tax credit -->
+        <record id="rule_ca_fit_k2" model="hr.salary.rule">
+            <field name="name">FIT - Annual amount contributed CPP, PPIP and EI</field>
+            <field name="sequence" eval="176"/>
+            <field name="code">FIT_K2</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+max_deductions = rule.variable(payslip.date_payment)['max_deductions']
+
+cpp_ytd = payslip.ytd_amount('CPP_EE_C') + CPP_EE_C
+ei_ytd = payslip.ytd_amount('EI_EE_C') + EI_EE_C
+
+deductions = [
+    {'C': CPP_EE_C, 'YTD': cpp_ytd, 'max': max_deductions['CPP']},
+    {'C': EI_EE_C, 'YTD': ei_ytd, 'max': max_deductions['EI']}
+]
+
+# get the higher from 2 methods allowed by the CRA
+
+result_1 = 0
+for d in deductions:
+    result_1 += min(d['YTD'] + PR * d['C'], d['max'])
+
+result_2 = 0
+for d in deductions:
+    result_2 += min(P * d['C'], d['max'])
+
+result = max(result_1, result_2)
+
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_ca_fit_k3" model="hr.salary.rule">
+            <field name="name">FIT - Other federal tax credits</field>
+            <field name="sequence" eval="176"/>
+            <field name="code">FIT_K3</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip) * P
+            </field>
+        </record>
+
+        <record id="rule_ca_fit_k4" model="hr.salary.rule">
+            <field name="name">FIT - Employment tax credit</field>
+            <field name="sequence" eval="176"/>
+            <field name="code">FIT_K4</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+variables = rule.variable(payslip.date_payment)
+result = min(FIT_A, variables['max_annual'])
+            </field>
+        </record>
+
+        <!-- Keep sequence 177 for FIT_K2Q in module l10n_ca_qc_hr_payroll-->
+        
+        <record id="rule_ca_fit_t3" model="hr.salary.rule">
+            <field name="name">FIT - Basic federal tax</field>
+            <field name="sequence" eval="178"/>
+            <field name="code">FIT_T3</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="fit_exempt"/>
+            <field name="amount_python_compute">
+variables = rule.variable(payslip.date_payment)
+brackets = variables['brackets']
+
+rates = variables['rates']
+
+tax_credits = FIT_K1 * rates['K1'] \
+    + FIT_K2 * rates['K2'] \
+    + FIT_K3 * rates['K3'] \
+    + FIT_K4 * rates['K4']
+
+result = 0
+for b in brackets:
+    if b['min'] &lt; FIT_A &lt;= b['max']:
+        result = FIT_A * b['R'] - b['K'] - tax_credits
+
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_ca_fit_t1" model="hr.salary.rule">
+            <field name="name">FIT - Federal income tax</field>
+            <field name="sequence" eval="182"/>
+            <field name="code">FIT_T1</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="fit_exempt"/>
+            <field name="amount_python_compute">
+result = FIT_T3
+            </field>
+        </record>
+
+        <record id="rule_ca_fit_t" model="hr.salary.rule">
+            <field name="name">FIT - Federal Income Tax</field>
+            <field name="sequence" eval="184"/>
+            <field name="code">FIT_T</field>
+            <field name="category_id" ref="SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="include_in_payroll_analysis" eval="True"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="fit_exempt"/>
+            <field name="amount_python_compute">
+result = FIT_T1 / P
+
+# Non periodic payments
+if OTHER_WAGE:
+    result_2 = 0
+    result_3 = 0
+    variables = rule.variable(payslip.date_payment)
+    brackets = variables['brackets']
+
+    rates = variables['rates']
+
+    tax_credits = FIT_K1 * rates['K1'] \
+        + FIT_K2 * rates['K2'] \
+        + FIT_K3 * rates['K3'] \
+        + FIT_K4 * rates['K4']
+
+    for b in brackets:
+        if b['min'] &lt; FIT_A_OTHER_WAGE_PYTD &lt;= b['max']:
+            result_2 = FIT_A_OTHER_WAGE_PYTD * b['R'] - b['K'] - tax_credits
+
+    for b in brackets:
+        if b['min'] &lt; FIT_A_OTHER_WAGE_YTD &lt;= b['max']:
+            result_3 = FIT_A_OTHER_WAGE_YTD * b['R'] - b['K'] - tax_credits
+
+    result += max(result_3 - result_2, 0)
+            </field>
+        </record>
+
+    </data>
+</openerp>

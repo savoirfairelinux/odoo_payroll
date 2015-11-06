@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T4rsp ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="T4RSPSlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType"/>
+			<xsd:element name="RCPNT_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="ctrct_nbr" type="char12Type"/>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="sps_cntrb_ind" type="indicator1-2Type"/>
+			<xsd:element name="sps_sin" type="sinType"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+			<xsd:element name="T4RSP_AMT" type="T4rspAmtType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4rspAmtType">
+		<xsd:all>
+			<xsd:element name="annty_pay_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="rfnd_prem_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="rfnd_excs_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="wdrw_pay_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="deem_rcpt_dth_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="deem_drgst_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="oth_inc_dedn_amt" type="signedDecimal9Type" minOccurs="0"/>
+			<xsd:element name="tx_ddct_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="tx_pay_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="llp_wdrw_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="hbp_rrsp_wdrw_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="mrrg_bkdn_tramt" type="decimal9Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4RSPSummaryType">
+		<xsd:all>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="PAYR_NM" type="Line3Type"/>
+			<xsd:element name="PAYR_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="T4RSP_TAMT" type="T4rspTotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4rspTotalsType">
+		<xsd:all>
+			<xsd:element name="tot_annty_pay_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_sps_rfnd_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_rfnd_excs_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_wdrw_pay_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_deem_drgst_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="totr_inc_dedn_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_itx_ddct_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_deem_dth_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_tx_pay_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_llp_wdrw_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_hbp_wdrw_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_mrrg_tramt" type="decimal13Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

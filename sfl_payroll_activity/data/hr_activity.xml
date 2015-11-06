@@ -25,5 +25,11 @@
             <field name="activity_type">leave</field>
             <field name="leave_id" ref="holiday_status_vacation"/>
         </record>
+
+        <record id="activity_holiday_status_public" model="hr.activity">
+            <field name="activity_type">leave</field>
+            <field name="leave_id" ref="holiday_status_public"/>
+        </record>
+
     </data>
 </openerp>

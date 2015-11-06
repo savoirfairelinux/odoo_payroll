@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of AGR-1 ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="AGR-1SlipType">
+		<xsd:sequence>
+			<xsd:element name="Detail_Record" type="AGR-1DetailRecType" maxOccurs="unbounded"/>
+			<xsd:element name="Slip_Record" type="AGR-1SlipRecType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AGR-1DetailRecType">
+		<xsd:all>
+			<xsd:element name="rcpnt_pstl_cd" type="pcType" minOccurs="0"/>
+			<xsd:element name="sqnbr" type="int9Type"/>
+			<xsd:element name="PGM_1_INFO" type="Agr-1ProgramType" minOccurs="0"/>
+			<xsd:element name="PGM_2_INFO" type="Agr-2ProgramType" minOccurs="0"/>
+			<xsd:element name="PGM_3_INFO" type="Agr-3ProgramType" minOccurs="0"/>
+			<xsd:element name="PGM_4_INFO" type="Agr-4ProgramType" minOccurs="0"/>
+			<xsd:element name="PGM_5_INFO" type="Agr-5ProgramType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="Agr-1ProgramType">
+		<xsd:all>
+			<xsd:element name="pgm_1_cd" type="int3Type"/>
+			<xsd:element name="pgm_1_nm" type="char60Type"/>
+			<xsd:element name="pgm_1_rlt_box_nbr" type="int2Type"/>
+			<xsd:element name="pgm_1_amt" type="signedDecimal11Type"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="Agr-2ProgramType">
+		<xsd:all>
+			<xsd:element name="pgm_2_cd" type="int3Type"/>
+			<xsd:element name="pgm_2_nm" type="char60Type"/>
+			<xsd:element name="pgm_2_rlt_box_nbr" type="int2Type"/>
+			<xsd:element name="pgm_2_amt" type="signedDecimal11Type"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="Agr-3ProgramType">
+		<xsd:all>
+			<xsd:element name="pgm_3_cd" type="int3Type"/>
+			<xsd:element name="pgm_3_nm" type="char60Type"/>
+			<xsd:element name="pgm_3_rlt_box_nbr" type="int2Type"/>
+			<xsd:element name="pgm_3_amt" type="signedDecimal11Type"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="Agr-4ProgramType">
+		<xsd:all>
+			<xsd:element name="pgm_4_cd" type="int3Type"/>
+			<xsd:element name="pgm_4_nm" type="char60Type"/>
+			<xsd:element name="pgm_4_rlt_box_nbr" type="int2Type"/>
+			<xsd:element name="pgm_4_amt" type="signedDecimal11Type"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="Agr-5ProgramType">
+		<xsd:all>
+			<xsd:element name="pgm_5_cd" type="int3Type"/>
+			<xsd:element name="pgm_5_nm" type="char60Type"/>
+			<xsd:element name="pgm_5_rlt_box_nbr" type="int2Type"/>
+			<xsd:element name="pgm_5_amt" type="signedDecimal11Type"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="AGR-1SlipRecType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType"/>
+			<xsd:element name="ENTPRS_TR_RCPNT_NM" type="Line2Type" minOccurs="0"/>
+			<xsd:element name="RCPNT_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="sqnbr" type="int9Type"/>
+			<xsd:element name="rpt_tcd" type="preMatchDataType"/>
+			<xsd:element name="rcpnt_ty_ind" type="indicator1-3-4Type"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="tr_nbr" type="trustType" minOccurs="0"/>
+			<xsd:element name="ptnrp_nbr" type="finType" minOccurs="0"/>
+			<xsd:element name="bn" type="bnType" minOccurs="0"/>
+			<xsd:element name="AGR-1_AMT" type="Agr-1AmtType" minOccurs="0"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="ftnt_desc_area" type="char60Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="Agr-1AmtType">
+		<xsd:all>
+			<xsd:element name="grnt_sbsdy_amt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="sttl_debt_amt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="insu_prcd_amt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="opay_rcap_amt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="invs_incamt" type="signedDecimal11Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="AGR-1SummaryType">
+		<xsd:all>
+			<xsd:element name="bn" type="bnType" minOccurs="0"/>
+			<xsd:element name="FILR_NM" type="Line3Type"/>
+			<xsd:element name="FILR_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="rpt_tcd" type="preMatchDataType"/>
+			<xsd:element name="filr_nbr" type="finType" minOccurs="0"/>
+			<xsd:element name="AGR-1_TOT_AMT" type="Agr-1TotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="Agr-1TotalsType">
+		<xsd:all>
+			<xsd:element name="tot_grnt_sbsdy_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_sttl_debt_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_insu_prcd_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_opay_rcap_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_invs_incamt" type="signedDecimal13Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

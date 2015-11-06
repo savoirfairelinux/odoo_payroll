@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!--@@@@@@  List of Form Type Choices   @@@@@@  2011/Sept/28  Version# 1.12 (version #.yy)-->
+	<xsd:complexType name="ReturnChoiceType">
+		<xsd:choice>
+			<xsd:element name="T4" type="T4ReturnType" minOccurs="0">
+				<xsd:key name="Unique_BN_Name">
+  					<xsd:selector xpath="T4Summary"/>
+  					<xsd:field xpath="bn"/>
+				</xsd:key>
+				<xsd:keyref name="Slip_BN_Not_Equal_Summary_BN" refer="Unique_BN_Name">
+  					<xsd:selector xpath="T4Slip"/>
+ 					 <xsd:field xpath="bn"/>
+				</xsd:keyref>
+			</xsd:element>
+			<xsd:element name="T4A" type="T4AReturnType" minOccurs="0"/>
+			<xsd:element name="T4A_NR" type="T4A_NRReturnType" minOccurs="0"/>
+			<xsd:element name="T4RIF" type="T4RIFReturnType" minOccurs="0"/>
+			<xsd:element name="T4RSP" type="T4RSPReturnType" minOccurs="0"/>
+			<xsd:element name="RRSP" type="RRSPReturnType" minOccurs="0"/>
+			<xsd:element name="T215" type="T215ReturnType" minOccurs="0"/>
+			<xsd:element name="T4A_OAS" type="T4A_OASReturnType" minOccurs="0"/>
+			<xsd:element name="T4A_P" type="T4A_PReturnType" minOccurs="0"/>
+			<xsd:element name="T1204" type="T1204ReturnType" minOccurs="0"/>
+			<xsd:element name="AGR-1" type="AGR-1ReturnType" minOccurs="0"/>
+			<xsd:element name="T4E" type="T4EReturnType" minOccurs="0"/>
+			<xsd:element name="T5018" type="T5018ReturnType" minOccurs="0"/>
+			<xsd:element name="T5007" type="T5007ReturnType" minOccurs="0"/>
+			<xsd:element name="T5" type="T5ReturnType" minOccurs="0"/>
+			<xsd:element name="T5008" type="T5008ReturnType" minOccurs="0"/>
+			<xsd:element name="T3" type="T3ReturnType" minOccurs="0"/>
+			<xsd:element name="SAFER" type="SAFERReturnType" minOccurs="0"/>
+			<xsd:element name="NR4" type="NR4ReturnType" minOccurs="0"/>
+			<xsd:element name="TFSA" type="TFSAReturnType" minOccurs="0"/>
+
+			<!-- New form types for 2014 -->
+			<xsd:element name="PRPP" type="PRPPReturnType" minOccurs="0"/>
+			<xsd:element name="RRSPOrRRIFNonQualifiedInvestment" type="RRSPOrRRIFNQIReturnType" minOccurs="0"/>	
+			<xsd:element name="PartXVIII" type="PartXVIIIReturnType" minOccurs="0"/>		
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="T4ReturnType">
+		<xsd:sequence>
+			<xsd:element name="T4Slip" type="T4SlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T4Summary" type="T4SummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T4AReturnType">
+		<xsd:sequence>
+			<xsd:element name="T4ASlip" type="T4ASlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T4ASummary" type="T4ASummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T4A_NRReturnType">
+		<xsd:sequence>
+			<xsd:element name="T4A_NRSlip" type="T4A_NRSlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T4A_NRSummary" type="T4A_NRSummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T4RIFReturnType">
+		<xsd:sequence>
+			<xsd:element name="T4RIFSlip" type="T4RIFSlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T4RIFSummary" type="T4RIFSummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T4RSPReturnType">
+		<xsd:sequence>
+			<xsd:element name="T4RSPSlip" type="T4RSPSlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T4RSPSummary" type="T4RSPSummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RRSPReturnType">
+		<xsd:sequence>
+			<xsd:element name="RRSP_CNTRB_SLP" type="RRSPSlipType" maxOccurs="unbounded"/>
+			<xsd:element name="RRSP_CNTRB_SUMM" type="RRSPSummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T215ReturnType">
+		<xsd:sequence>
+			<xsd:element name="T215Slip" type="T215SlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T215Summary" type="T215SummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T4A_OASReturnType">
+		<xsd:sequence>
+			<xsd:element name="T4A_OASSlip" type="T4A_OASSlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T4A_OASSummary" type="T4A_OASSummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T4A_PReturnType">
+		<xsd:sequence>
+			<xsd:element name="T4A_PSlip" type="T4A_PSlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T4A_PSummary" type="T4A_PSummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T1204ReturnType">
+		<xsd:sequence>
+			<xsd:element name="T1204Slip" type="T1204SlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T1204Summary" type="T1204SummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AGR-1ReturnType">
+		<xsd:sequence>
+			<xsd:element name="AGR-1Slip" type="AGR-1SlipType" maxOccurs="unbounded"/>
+			<xsd:element name="AGR-1Summary" type="AGR-1SummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T5ReturnType">
+		<xsd:sequence>
+			<xsd:element name="T5Slip" type="T5SlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T5Summary" type="T5SummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T5008ReturnType">
+		<xsd:sequence>
+			<xsd:element name="T5008Slip" type="T5008SlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T5008Summary" type="T5008SummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TFSAReturnType">
+		<xsd:sequence>
+			<xsd:element name="TFSA_SLP" type="TFSASlipType" maxOccurs="unbounded"/>
+			<xsd:element name="TFSA_SUMM" type="TFSASummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T5007ReturnType">
+		<xsd:sequence>
+			<xsd:element name="T5007Slip" type="T5007SlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T5007Summary" type="T5007SummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T3ReturnType">
+		<xsd:sequence>
+			<xsd:element name="T3Slip" type="T3SlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T3Summary" type="T3SummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="NR4ReturnType">
+		<xsd:sequence>
+			<xsd:element name="NR4Slip" type="NR4SlipType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="NR4Summary" type="NR4SummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SAFERReturnType">
+		<xsd:sequence>
+			<xsd:element name="SAFERSlip" type="SAFERSlipType" maxOccurs="unbounded"/>
+			<xsd:element name="SAFERSummary" type="SAFERSummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T4EReturnType">
+		<xsd:sequence>
+			<xsd:element name="T4ESlip" type="T4ESlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T4ESummary" type="T4ESummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="T5018ReturnType">
+		<xsd:sequence>
+			<xsd:element name="T5018Slip" type="T5018SlipType" maxOccurs="unbounded"/>
+			<xsd:element name="T5018Summary" type="T5018SummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PRPPReturnType">
+		<xsd:sequence>
+			<xsd:element name="PRPPSlip" type="PRPPSlipType" maxOccurs="unbounded"/>
+			<xsd:element name="PRPPSummary" type="PRPPSummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RRSPOrRRIFNQIReturnType">
+		<xsd:sequence>
+			<xsd:element name="RRSPOrRRIFNQISlip" type="RRSPOrRRIFNQISlipType" maxOccurs="unbounded"/>
+			<xsd:element name="RRSPOrRRIFNQISummary" type="RRSPOrRRIFNQISummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PartXVIIIReturnType">
+		<xsd:sequence>
+			<xsd:element name="PartXVIIISlip" type="PartXVIIISlipType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="PartXVIIISummary" type="PartXVIIISummaryType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

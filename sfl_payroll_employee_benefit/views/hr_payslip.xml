@@ -7,9 +7,6 @@
             <field name="model">hr.payslip</field>
             <field name="inherit_id" ref="sfl_payroll_base.view_hr_payslip_form"/>
             <field name="arch" type="xml">
-                <field name="payslip_run_id" position="after">
-                    <field name="pays_per_year"/>
-                </field>
                 <page string="Salary Computation" position="before">
                     <page string="Employee Benefits">
                         <group>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="rrsp" model="hr.deduction.category">
+            <field name="name">Contributions to RRSP</field>
+            <field name="jurisdiction_id" ref="jurisdiction_federal_provincial"/>
+            <field name="amount_type">each_pay</field>
+            <field name="description">Contributions to RRSP</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_fit_f')])]"/>
+        </record>
+
+        <record id="fitf2" model="hr.deduction.category">
+            <field name="name">Canada - Alimony</field>
+            <field name="jurisdiction_id" ref="jurisdiction_federal"/>
+            <field name="amount_type">each_pay</field>
+            <field name="description">Periodic alimony or maintenance payments required by a public document dated before May 1, 1997, to be payroll-deducted authorized by a tax services office or tax centre.</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_fit_f2')])]"/>
+        </record>
+
+        <record id="fitu1" model="hr.deduction.category">
+            <field name="name">Canada - Union Dues</field>
+            <field name="jurisdiction_id" ref="jurisdiction_federal"/>
+            <field name="amount_type">each_pay</field>
+            <field name="description">Periodic union dues for the pay period paid to a trade union, an association of public servants, or dues required under the law of a province to a parity or advisory committee or similar body.</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_fit_u1')])]"/>
+        </record>
+
+        <record id="fithd" model="hr.deduction.category">
+            <field name="name">Canada - Prescribed Zone</field>
+            <field name="jurisdiction_id" ref="jurisdiction_federal"/>
+            <field name="amount_type">annual</field>
+            <field name="description">Annual deduction for living in a prescribed zone, as shown on Form TD1.</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_fit_hd')])]"/>
+        </record>
+
+        <record id="fitf1" model="hr.deduction.category">
+            <field name="name">Canada - Child Care / Support Payments</field>
+            <field name="jurisdiction_id" ref="jurisdiction_federal"/>
+            <field name="amount_type">annual</field>
+            <field name="description">Annual deductions such as child care expenses and support payments, requested by an employee or pensioner and authorized by a tax services office or tax centre.</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_fit_f1')])]"/>
+        </record>
+
+        <record id="fitk1" model="hr.deduction.category">
+            <field name="name">Canada - Personal Tax Credit</field>
+            <field name="jurisdiction_id" ref="jurisdiction_federal"/>
+            <field name="amount_type">annual</field>
+            <field name="description">Federal non-refundable personal tax credit (the lowest federal tax rate is used to calculate this credit).</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_fit_k1')])]"/>
+        </record>
+
+        <record id="fit_k3_char" model="hr.deduction.category">
+            <field name="name">Canada - Charitable Donation</field>
+            <field name="jurisdiction_id" ref="jurisdiction_federal"/>
+            <field name="amount_type">annual</field>
+            <field name="description">Charitable donations tax credit authorized by a tax services office or tax centre.</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_fit_k3')])]"/>
+        </record>
+
+        <record id="fit_k3_medic" model="hr.deduction.category">
+            <field name="name">Canada - Medical Expenses</field>
+            <field name="jurisdiction_id" ref="jurisdiction_federal"/>
+            <field name="amount_type">annual</field>
+            <field name="description">Medical expenses tax credit authorized by a tax services office or tax centre.</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_ca_fit_k3')])]"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,719 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@@ Definition of SimpleTypes @@@@@@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<!--                                                                                  -->
+	<!--                    String definitions                                    -->
+	<!--                                                                                   -->
+	<xsd:simpleType name="slipDataType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="A"/>
+			<xsd:enumeration value="M"/>
+			<xsd:enumeration value="O"/>
+			<xsd:enumeration value="C"/>
+			<xsd:enumeration value="a"/>
+			<xsd:enumeration value="m"/>
+			<xsd:enumeration value="o"/>
+			<xsd:enumeration value="c"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="otherDataType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="A"/>
+			<xsd:enumeration value="M"/>
+			<xsd:enumeration value="O"/>
+			<xsd:enumeration value="a"/>
+			<xsd:enumeration value="m"/>
+			<xsd:enumeration value="o"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="preMatchDataType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="O"/>
+			<xsd:enumeration value="o"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="transNbrType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(MM|mm)\d{6}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="stateType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="AL"/>
+			<xsd:enumeration value="al"/>
+			<xsd:enumeration value="NV"/>
+			<xsd:enumeration value="nv"/>
+			<xsd:enumeration value="AK"/>
+			<xsd:enumeration value="ak"/>
+			<xsd:enumeration value="NH"/>
+			<xsd:enumeration value="nh"/>
+			<xsd:enumeration value="AZ"/>
+			<xsd:enumeration value="az"/>
+			<xsd:enumeration value="NJ"/>
+			<xsd:enumeration value="nj"/>
+			<xsd:enumeration value="AR"/>
+			<xsd:enumeration value="ar"/>
+			<xsd:enumeration value="NM"/>
+			<xsd:enumeration value="nm"/>
+			<xsd:enumeration value="CA"/>
+			<xsd:enumeration value="ca"/>
+			<xsd:enumeration value="NY"/>
+			<xsd:enumeration value="ny"/>
+			<xsd:enumeration value="CO"/>
+			<xsd:enumeration value="co"/>
+			<xsd:enumeration value="NC"/>
+			<xsd:enumeration value="nc"/>
+			<xsd:enumeration value="CT"/>
+			<xsd:enumeration value="ct"/>
+			<xsd:enumeration value="ND"/>
+			<xsd:enumeration value="nd"/>
+			<xsd:enumeration value="DE"/>
+			<xsd:enumeration value="de"/>
+			<xsd:enumeration value="OH"/>
+			<xsd:enumeration value="oh"/>
+			<xsd:enumeration value="DC"/>
+			<xsd:enumeration value="dc"/>
+			<xsd:enumeration value="OK"/>
+			<xsd:enumeration value="ok"/>
+			<xsd:enumeration value="FL"/>
+			<xsd:enumeration value="fl"/>
+			<xsd:enumeration value="OR"/>
+			<xsd:enumeration value="or"/>
+			<xsd:enumeration value="GA"/>
+			<xsd:enumeration value="ga"/>
+			<xsd:enumeration value="PA"/>
+			<xsd:enumeration value="pa"/>
+			<xsd:enumeration value="HI"/>
+			<xsd:enumeration value="hi"/>
+			<xsd:enumeration value="RI"/>
+			<xsd:enumeration value="ri"/>
+			<xsd:enumeration value="ID"/>
+			<xsd:enumeration value="id"/>
+			<xsd:enumeration value="SC"/>
+			<xsd:enumeration value="sc"/>
+			<xsd:enumeration value="IL"/>
+			<xsd:enumeration value="il"/>
+			<xsd:enumeration value="SD"/>
+			<xsd:enumeration value="sd"/>
+			<xsd:enumeration value="IN"/>
+			<xsd:enumeration value="in"/>
+			<xsd:enumeration value="TN"/>
+			<xsd:enumeration value="tn"/>
+			<xsd:enumeration value="IA"/>
+			<xsd:enumeration value="ia"/>
+			<xsd:enumeration value="TX"/>
+			<xsd:enumeration value="tx"/>
+			<xsd:enumeration value="KS"/>
+			<xsd:enumeration value="ks"/>
+			<xsd:enumeration value="UT"/>
+			<xsd:enumeration value="ut"/>
+			<xsd:enumeration value="KY"/>
+			<xsd:enumeration value="ky"/>
+			<xsd:enumeration value="VT"/>
+			<xsd:enumeration value="vt"/>
+			<xsd:enumeration value="LA"/>
+			<xsd:enumeration value="la"/>
+			<xsd:enumeration value="VA"/>
+			<xsd:enumeration value="va"/>
+			<xsd:enumeration value="ME"/>
+			<xsd:enumeration value="me"/>
+			<xsd:enumeration value="WA"/>
+			<xsd:enumeration value="wa"/>
+			<xsd:enumeration value="MD"/>
+			<xsd:enumeration value="md"/>
+			<xsd:enumeration value="WV"/>
+			<xsd:enumeration value="wv"/>
+			<xsd:enumeration value="MA"/>
+			<xsd:enumeration value="ma"/>
+			<xsd:enumeration value="WI"/>
+			<xsd:enumeration value="wi"/>
+			<xsd:enumeration value="MI"/>
+			<xsd:enumeration value="mi"/>
+			<xsd:enumeration value="WY"/>
+			<xsd:enumeration value="wy"/>
+			<xsd:enumeration value="MN"/>
+			<xsd:enumeration value="mn"/>
+			<xsd:enumeration value="MS"/>
+			<xsd:enumeration value="ms"/>
+			<xsd:enumeration value="MO"/>
+			<xsd:enumeration value="mo"/>
+			<xsd:enumeration value="MT"/>
+			<xsd:enumeration value="mt"/>
+			<xsd:enumeration value="NE"/>
+			<xsd:enumeration value="ne"/>
+			<xsd:enumeration value="PR"/>
+			<xsd:enumeration value="pr"/>
+			<xsd:enumeration value="AS"/>
+			<xsd:enumeration value="as"/>
+			<xsd:enumeration value="FM"/>
+			<xsd:enumeration value="fm"/>
+			<xsd:enumeration value="GU"/>
+			<xsd:enumeration value="gu"/>
+			<xsd:enumeration value="MH"/>
+			<xsd:enumeration value="mh"/>
+			<xsd:enumeration value="MP"/>
+			<xsd:enumeration value="mp"/>
+			<xsd:enumeration value="PW"/>
+			<xsd:enumeration value="pw"/>
+			<xsd:enumeration value="VI"/>
+			<xsd:enumeration value="vi"/>
+			<xsd:enumeration value="ZZ"/>
+			<xsd:enumeration value="zz"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="provinceType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="ON"/>
+			<xsd:enumeration value="on"/>
+			<xsd:enumeration value="On"/>
+			<xsd:enumeration value="NS"/>
+			<xsd:enumeration value="ns"/>
+			<xsd:enumeration value="Ns"/>
+			<xsd:enumeration value="PE"/>
+			<xsd:enumeration value="pe"/>
+			<xsd:enumeration value="Pe"/>
+			<xsd:enumeration value="NB"/>
+			<xsd:enumeration value="nb"/>
+			<xsd:enumeration value="Nb"/>
+			<xsd:enumeration value="QC"/>
+			<xsd:enumeration value="qc"/>
+			<xsd:enumeration value="Qc"/>
+			<xsd:enumeration value="MB"/>
+			<xsd:enumeration value="mb"/>
+			<xsd:enumeration value="Mb"/>
+			<xsd:enumeration value="MA"/>
+			<xsd:enumeration value="ma"/>
+			<xsd:enumeration value="Ma"/>
+			<xsd:enumeration value="SK"/>
+			<xsd:enumeration value="sk"/>
+			<xsd:enumeration value="Sk"/>
+			<xsd:enumeration value="SA"/>
+			<xsd:enumeration value="sa"/>
+			<xsd:enumeration value="Sa"/>
+			<xsd:enumeration value="AB"/>
+			<xsd:enumeration value="ab"/>
+			<xsd:enumeration value="Ab"/>
+			<xsd:enumeration value="AL"/>
+			<xsd:enumeration value="al"/>
+			<xsd:enumeration value="Al"/>
+			<xsd:enumeration value="BC"/>
+			<xsd:enumeration value="bc"/>
+			<xsd:enumeration value="Bc"/>
+			<xsd:enumeration value="NT"/>
+			<xsd:enumeration value="nt"/>
+			<xsd:enumeration value="Nt"/>
+			<xsd:enumeration value="YT"/>
+			<xsd:enumeration value="yt"/>
+			<xsd:enumeration value="Yt"/>
+			<xsd:enumeration value="NL"/>
+			<xsd:enumeration value="nl"/>
+			<xsd:enumeration value="Nl"/>
+			<xsd:enumeration value="NF"/>
+			<xsd:enumeration value="nf"/>
+			<xsd:enumeration value="Nf"/>
+			<xsd:enumeration value="LB"/>
+			<xsd:enumeration value="lb"/>
+			<xsd:enumeration value="Lb"/>
+			<xsd:enumeration value="PQ"/>
+			<xsd:enumeration value="pq"/>
+			<xsd:enumeration value="Pq"/>
+			<xsd:enumeration value="QU"/>
+			<xsd:enumeration value="qu"/>
+			<xsd:enumeration value="Qu"/>
+			<xsd:enumeration value="NU"/>
+			<xsd:enumeration value="nu"/>
+			<xsd:enumeration value="Nu"/>
+			<xsd:enumeration value="NN"/>
+			<xsd:enumeration value="nn"/>
+			<xsd:enumeration value="Nn"/>
+			<xsd:enumeration value="US"/>
+			<xsd:enumeration value="us"/>
+			<xsd:enumeration value="Us"/>
+			<xsd:enumeration value="ZZ"/>
+			<xsd:enumeration value="zz"/>
+			<xsd:enumeration value="Zz"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="provinceStateType">
+		<xsd:union memberTypes="provinceType stateType"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="forcesProvType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="AA"/>
+			<xsd:enumeration value="aa"/>
+			<xsd:enumeration value="AE"/>
+			<xsd:enumeration value="ae"/>
+			<xsd:enumeration value="AP"/>
+			<xsd:enumeration value="ap"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="forcesProvinceStateType">
+		<xsd:union memberTypes="forcesProvType provinceType stateType"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="pcType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="languageType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="E"/>
+			<xsd:enumeration value="F"/>
+			<xsd:enumeration value="e"/>
+			<xsd:enumeration value="f"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="phoneType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{3}-\d{4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="countryType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\p{L}{3}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nr4CountryType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\p{L}{3}|\p{N}{3}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="yearType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(20\d{2})|(196[6-9])|(19[7-9][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="year1900_2099Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(19\d{2})|(20\d{2})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="sinType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{9}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="bnType">
+		<xsd:annotation>
+			<xsd:documentation>Root = 999999999, Program ID = AA, Account # = 9999</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{9}\p{L}{2}\d{4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="bnRootType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{9}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="trustType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(\p{L}{1}[0-9]{8})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="finType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(\p{L}{2}[0-9]{7})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nrType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(\p{L}{3}[0-9]{6})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ccraType">
+		<xsd:union memberTypes="bnType nrType"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="ccraType2">
+		<xsd:union memberTypes="bnType sinType"/>
+	</xsd:simpleType>
+		<xsd:simpleType name="ccraType3">
+		<xsd:union memberTypes="bnType finType"/>
+	</xsd:simpleType>
+
+	<!--                                                                  -->
+	<!--            Fixed Length Numeric definitions (1,2,4,6,7,8,9,12) -->
+	<!--                                                                  -->
+	<xsd:simpleType name="numeric1Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="numeric2Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="numeric3Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{3}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="numeric4Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="numeric6Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{6}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="numeric7Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{7}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="numeric8Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{8}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="numeric9Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{9}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="numeric12Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{12}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--                                                                                                     -->
+	<!-- Variable Length Numeric definitions (2,3,4,7,8,11,12,13,15)     -->
+	<!--                                                                                                     -->
+	<xsd:simpleType name="int2Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{1,2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="int3Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{1,3}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="int4Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{1,4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="int5Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{1,5}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="int6Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{1,6}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="int7Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{1,7}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="signedInt7Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(\d{1,7})|(-\d{1,7})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="int8Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{1,8}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="int9Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{1,9}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="int11Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{1,11}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="signedInt11Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(\d{1,11})|(-\d{1,11})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="int12Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{1,12}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="int13Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{1,13}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="signedInt13Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(\d{1,13})|(-\d{1,13})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="int15Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{1,15}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="signedInt15Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(\d{1,15})|(-\d{1,15})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="dayType">
+		<xsd:restriction base="xsd:unsignedShort">
+			<xsd:totalDigits value="2"/>
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="31"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="dayJulianType">
+		<xsd:restriction base="xsd:unsignedShort">
+			<xsd:totalDigits value="3"/>
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="366"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="monthType">
+		<xsd:restriction base="xsd:unsignedShort">
+			<xsd:totalDigits value="2"/>
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--                                                                     -->
+	<!-- Decimal definitions (6,7,9,10,11,12,13,14)  -->
+	<!--                                                                     -->
+	<xsd:simpleType name="decimal6Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{0,4}\.\d{2}|\d{0,4},\d{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="decimal7Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{0,5}\.\d{2}|\d{0,5},\d{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="decimal9Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{0,7}\.\d{2}|\d{0,7},\d{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="signedDecimal9Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(-\d{0,7}\.\d{2}|\d{0,7}\.\d{2})|(-\d{0,7},\d{2}|\d{0,7},\d{2})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="decimal9fraction4Type">
+		<xsd:annotation>
+			<xsd:documentation>For T5008 Detail Slip Only(scty_rcv_cnt, dsps_scty_cnt)
+								 These are percentages not amounts
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{0,9}\.\d{4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="decimal10Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{0,8}\.\d{2}|\d{0,8},\d{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="decimal11Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{0,9}\.\d{2}|\d{0,9},\d{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="signedDecimal11Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(-\d{0,9}\.\d{2}|\d{0,9}\.\d{2})|(-\d{0,9},\d{2}|\d{0,9},\d{2})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="decimal12Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{0,10}\.\d{2}|\d{0,10},\d{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="decimal13Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{0,11}\.\d{2}|\d{0,11},\d{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="signedDecimal13Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(-\d{0,11}\.\d{2}|\d{0,11}\.\d{2})|(-\d{0,11},\d{2}|\d{0,11},\d{2})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="decimal14Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{0,12}\.\d{2}|\d{0,12},\d{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="decimal15Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{0,13}\.\d{2}|\d{0,13},\d{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="signedDecimal15Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(-\d{0,13}\.\d{2}|\d{0,13}\.\d{2})|(-\d{0,13},\d{2}|\d{0,13},\d{2})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--                                                                                      		-->
+	<!-- Character definitions (1,3,10,12,15,20,22,28,30,60) 		-->
+	<!--                                                                                         	-->
+	<xsd:simpleType name="char1Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\p{L}{1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char3Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\p{L}{3}|\p{N}{3}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char3ANType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\w{3}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char3AlphaType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\p{L}{3}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char8Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="8"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char9Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="9"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char10Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char12Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char15Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="15"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char20Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="20"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char22Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="22"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char28Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="28"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char30Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="30"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char35Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="35"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="char60Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="60"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--xsd:simpleType name="char60EmailType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[\p{L}\p{N}\-_]+@[\p{L}\p{N}\-_]+\.\p{L}{2,4}"/>
+			<xsd:maxLength value="60"/>
+		</xsd:restriction>
+	</xsd:simpleType-->
+	<!--                                                                                        -->
+	<!-- Indicator  definitions (1-5,1-4,0-3,0-2,1-2,1-3-4,)	 	-->
+	<!--                                                                                      	-->
+	<xsd:simpleType name="indicator1-3Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[1-3]{1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="indicator1-4Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[1-4]{1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="indicator1-5Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[1-5]{1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="indicator1-6Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[1-6]{1}"/>
+			<xsd:whiteSpace value="collapse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="indicator1-7Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[1-7]{1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="indicator0-3Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-3]{1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="indicator0-2Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-2]{1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="indicator0-1Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0|1]{1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="indicator1-2Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[1-2]{1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="indicator1-3-4Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="1|3|4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="indicatorYesNoType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="y|Y|n|N|o|O"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

@@ -18,6 +18,12 @@
             <field name="paid_leave">1</field>
             <field name="activity_ids" eval="[(6, 0, [])]"/>
         </record>
+        <record id="holiday_status_public" model="hr.holidays.status">
+            <field name="name">Public Holidays</field>
+            <field name="color_name">black</field>
+            <field name="paid_leave">1</field>
+            <field name="activity_ids" eval="[(6, 0, [])]"/>
+        </record>
 
         <record id="hr_holidays.holiday_status_comp" model="hr.holidays.status">
             <field name="paid_leave">1</field>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T1204 ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="T1204SlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType" minOccurs="0"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="rcpnt_bn" type="bnType"/>
+			<xsd:element name="RCPNT_BUS_NM" type="Line2Type" minOccurs="0"/>
+			<xsd:element name="rcpnt_tcd" type="indicator1-3-4Type"/>
+			<xsd:element name="RCPNT_BUS_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="payr_bn" type="bnType"/>
+			<xsd:element name="T1204_AMT" type="T1204AmtType" minOccurs="0"/>
+			<xsd:element name="ptnrp_filr_id" type="finType" minOccurs="0"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T1204AmtType">
+		<xsd:all>
+			<xsd:element name="srvc_pay_amt" type="decimal12Type" minOccurs="0"/>
+			<xsd:element name="mxd_gd_pay_amt" type="decimal12Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T1204SummaryType">
+		<xsd:all>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="PAYR_NM" type="Line3Type"/>
+			<xsd:element name="PAYR_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="T1204_TAMT" type="T1204TotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T1204TotalsType">
+		<xsd:all>
+			<xsd:element name="tot_srvc_pay_amt" type="decimal14Type" minOccurs="0"/>
+			<xsd:element name="tot_mxd_gd_pay_amt" type="decimal14Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

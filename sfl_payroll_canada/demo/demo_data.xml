@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="base.main_company" model="res.company">
+            <field name="cra_payroll_number">123456789RP1234</field>
+            <field name="street">4505 St-Hurbain Street</field>
+            <field name="street2">Bureau 300</field>
+            <field name="city">Montréal</field>
+            <field name="state_id" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="country_id" model="res.country" search="[('code','=','CA')]"/>
+            <field name="zip">G3J1P9</field>
+            <field name="holidays_entitlement_ids" eval="[(6, 0, [ref('standard_vacation_entitlement')])]"/>
+        </record>
+
+        <record id="user_john" model="res.users">
+            <field name="name">John Smith</field>
+            <field name="login">john_smith</field>
+        </record>
+        <record id="user_stanley" model="res.users">
+            <field name="name">Stanley Bolduc</field>
+            <field name="login">stanley_bolduc</field>
+        </record>
+        <record id="user_linda" model="res.users">
+            <field name="name">Linda Johnson</field>
+            <field name="login">linda_johnson</field>
+        </record>
+
+        <record id="job_electrician" model="hr.job">
+            <field name="name">Electrician</field>
+        </record>
+        <record id="job_carpenter" model="hr.job">
+            <field name="name">Carpenter</field>
+        </record>
+        <record id="job_foreman" model="hr.job">
+            <field name="name">Foreman</field>
+        </record>
+        <record id="job_electrical_engineer" model="hr.job">
+            <field name="name">Electrical Engineer</field>
+        </record>
+        <record id="job_building_engineer" model="hr.job">
+            <field name="name">Building Engineer</field>
+        </record>
+
+        <record id="working_address" model="res.partner">
+            <field name="name">Your Company - Office in Montréal</field>
+            <field name="street">4505 St-Hurbain Street</field>
+            <field name="street2">Bureau 300</field>
+            <field name="city">Montréal</field>
+            <field name="state_id" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="country_id" model="res.country" search="[('code','=','CA')]"/>
+            <field name="zip">G3J1P9</field>
+        </record>
+
+        <record id="partner_john" model="res.partner">
+            <field name="name">John Smith</field>
+            <field name="street">2 Mapple Street</field>
+            <field name="street2">Appartment 7</field>
+            <field name="city">Montréal</field>
+            <field name="state_id" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="country_id" model="res.country" search="[('code','=','CA')]"/>
+            <field name="zip">G1G1P1</field>
+        </record>
+        <record id="partner_stanley" model="res.partner">
+            <field name="name">Stanley Bolduc</field>
+            <field name="street">130 Oak Street</field>
+            <field name="city">Montréal</field>
+            <field name="state_id" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="country_id" model="res.country" search="[('code','=','CA')]"/>
+            <field name="zip">G1G1P2</field>
+        </record>
+        <record id="partner_linda" model="res.partner">
+            <field name="name">Linda Johnson</field>
+            <field name="street">2510 Rue des Sapins</field>
+            <field name="city">Québec</field>
+            <field name="state_id" model="res.country.state" search="[('code','=','QC')]"/>
+            <field name="country_id" model="res.country" search="[('code','=','CA')]"/>
+            <field name="zip">G1G1P3</field>
+        </record>
+
+        <record id="employee_john" model="hr.employee">
+            <field name="firstname">John</field>
+            <field name="lastname">Smith</field>
+            <field name="user_id" ref="user_john"/>
+            <field name="address_home_id" ref="partner_john"/>
+            <field name="address_id" ref="working_address"/>
+            <field name="sin">604208406</field>
+        </record>
+        <record id="employee_stanley" model="hr.employee">
+            <field name="firstname">Stanley</field>
+            <field name="lastname">Bolduc</field>
+            <field name="user_id" ref="user_stanley"/>
+            <field name="address_home_id"  ref="partner_stanley"/>
+            <field name="address_id" ref="working_address"/>
+            <field name="sin">604208505</field>
+        </record>
+        <record id="employee_linda" model="hr.employee">
+            <field name="firstname">Linda</field>
+            <field name="lastname">Johnson</field>
+            <field name="user_id" ref="user_linda"/>
+            <field name="address_home_id"  ref="partner_linda"/>
+            <field name="address_id" ref="working_address"/>
+            <field name="sin">604208604</field>
+        </record>
+
+        <!-- Hourly Rate Classes -->
+        <record id="hourly_rate_apprentice_electrician" model="hr.hourly.rate.class">
+            <field name="name">Apprentice Electrician</field>
+            <field name="line_ids" eval="[
+                (0, 0, {'date_start': '2014-01-01', 'date_end': '2014-12-31', 'rate': 20}),
+                (0, 0, {'date_start': '2015-01-01', 'rate': 21}),
+            ]"/>
+        </record>
+        <record id="hourly_rate_apprentice_carpenter" model="hr.hourly.rate.class">
+            <field name="name">Apprentice Carpenter</field>
+            <field name="line_ids" eval="[
+                (0, 0, {'date_start': '2014-01-01', 'date_end': '2014-12-31', 'rate': 24.5}),
+                (0, 0, {'date_start': '2015-01-01', 'rate': 26}),
+            ]"/>
+        </record>
+        <record id="hourly_rate_journeyman_electrician" model="hr.hourly.rate.class">
+            <field name="name">Journeyman Electrician</field>
+            <field name="line_ids" eval="[
+                (0, 0, {'date_start': '2014-01-01', 'date_end': '2014-12-31', 'rate': 25}),
+                (0, 0, {'date_start': '2015-01-01', 'rate': 26}),
+            ]"/>
+        </record>
+        <record id="hourly_rate_journeyman_carpenter" model="hr.hourly.rate.class">
+            <field name="name">Journeyman Carpenter</field>
+            <field name="line_ids" eval="[
+                (0, 0, {'date_start': '2014-01-01', 'date_end': '2014-12-31', 'rate': 28.75}),
+                (0, 0, {'date_start': '2015-01-01', 'rate': 29.50}),
+            ]"/>
+        </record>
+        <record id="hourly_rate_foreman" model="hr.hourly.rate.class">
+            <field name="name">Foreman</field>
+            <field name="line_ids" eval="[
+                (0, 0, {'date_start': '2014-01-01', 'date_end': '2014-12-31', 'rate': 32}),
+                (0, 0, {'date_start': '2015-01-01', 'rate': 34}),
+            ]"/>
+        </record>
+
+        <record id="contract_john" model="hr.contract">
+            <field name="employee_id" ref="employee_john"/>
+            <field name="name">Contract John</field>
+            <field name="salary_computation_method">hourly</field>
+            <field name="wage">0</field>
+            <field name="schedule_pay">weekly</field>
+            <field name="worked_hours_per_pay_period">40</field>
+            <field name="weeks_of_vacation">4</field>
+            <field name="struct_id" ref="hr_structure_ca_base"/>
+            <field name="date_start">2014-01-01</field>
+            <field name="contract_job_ids" eval="[
+                (0, 0, {
+                    'hourly_rate_class_id': ref('hourly_rate_apprentice_electrician'),
+                    'job_id': ref('job_electrician'),
+                    'is_main_job': True,
+                }),
+                (0, 0, {
+                    'hourly_rate_class_id': ref('hourly_rate_apprentice_carpenter'),
+                    'job_id': ref('job_carpenter'),
+                }),
+
+            ]"/>
+        </record>
+
+        <record id="contract_stanley" model="hr.contract">
+            <field name="employee_id" ref="employee_stanley"/>
+            <field name="name">Contract Stanley</field>
+            <field name="wage">0</field>
+            <field name="schedule_pay">weekly</field>
+            <field name="worked_hours_per_pay_period">40</field>
+            <field name="weeks_of_vacation">4</field>
+            <field name="salary_computation_method">hourly</field>
+            <field name="struct_id" ref="hr_structure_ca_base"/>
+            <field name="date_start">2014-01-01</field>
+            <field name="schedule_pay">weekly</field>
+            <field name="contract_job_ids" eval="[
+                (0, 0, {
+                    'job_id': ref('job_carpenter'),
+                    'is_main_job': True,
+                    'hourly_rate_class_id': ref('hourly_rate_journeyman_carpenter'),
+                }),
+                (0, 0, {
+                    'job_id': ref('job_electrician'),
+                    'hourly_rate_class_id': ref('hourly_rate_apprentice_electrician'),
+                }),
+                (0, 0, {
+                    'job_id': ref('job_foreman'),
+                    'hourly_rate_class_id': ref('hourly_rate_foreman'),
+                }),
+            ]"/>
+        </record>
+
+        <record id="contract_linda" model="hr.contract">
+            <field name="employee_id" ref="employee_linda"/>
+            <field name="name">Contract Linda</field>
+            <field name="salary_computation_method">yearly</field>
+            <field name="wage">90000</field>
+            <field name="schedule_pay">weekly</field>
+            <field name="worked_hours_per_pay_period">40</field>
+            <field name="weeks_of_vacation">4</field>
+            <field name="struct_id" ref="hr_structure_ca_base"/>
+            <field name="date_start">2014-01-01</field>
+            <field name="schedule_pay">weekly</field>
+            <field name="contract_job_ids" eval="[
+                (0, 0, {
+                    'job_id': ref('job_electrical_engineer'),
+                    'is_main_job': True,
+                }),
+                (0, 0, {
+                    'job_id': ref('job_building_engineer'),
+                }),
+            ]"/>
+        </record>
+
+        <!-- Income tax deductions -->
+        <record id="employee_stanley_unions" model="hr.employee.deduction">
+            <field name="employee_id" ref="employee_stanley"/>
+            <field name="category_id" ref="fitu1"/>
+            <field name="date_start">2014-01-01</field>
+            <field name="date_start">2015-06-30</field>
+            <field name="amount">500</field>
+        </record>
+        <record id="employee_john_unions" model="hr.employee.deduction">
+            <field name="employee_id" ref="employee_stanley"/>
+            <field name="category_id" ref="fitu1"/>
+            <field name="date_start">2015-07-01</field>
+            <field name="amount">800</field>
+        </record>
+
+        <record id="linda_rpp_rate" model="hr.employee.benefit.rate">
+            <field name="name">RPP rates for engineers</field>
+            <field name="category_id" ref="rpp"/>
+            <field name="amount_type">percent_gross</field>
+            <field name="line_ids" eval="[(5, 0)]"/>
+        </record>
+
+        <record id="linda_rpp_rate" model="hr.employee.benefit.rate">
+            <field name="line_ids" eval="[(0, 0, {
+                'date_start': '2014-01-01',
+                'employer_amount': 3,
+                'employee_amount': 1.5,
+            })]"/>
+        </record>
+
+        <!-- employee benefits -->
+        <record id="linda_rpp" model="hr.employee.benefit">
+            <field name="contract_id" ref="contract_linda"/>
+            <field name="category_id" ref="rpp"/>
+            <field name="date_start">2014-01-01</field>
+            <field name="rate_id" ref="linda_rpp_rate"/>
+        </record>
+    </data>
+</openerp>

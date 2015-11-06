@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T5 ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="T5SlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType" minOccurs="0"/>
+			<xsd:element name="SEC_RCPNT_NM" type="NameType_2" minOccurs="0"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="sbrn_root" type="bnRootType"/>
+                        <xsd:element name="rcpnt_tr_acct_nbr" type="trustType" minOccurs="0"/>
+			<xsd:element name="BUS_NM" type="Line2Type" minOccurs="0"/>
+			<xsd:element name="RCPNT_ADDR" type="T5SlipAddressType" minOccurs="0"/>
+			<xsd:element name="bn" type="ccraType3"/>
+			<xsd:element name="rcpnt_fi_br_nbr" type="char8Type"/>
+			<xsd:element name="rcpnt_fi_acct_nbr" type="char12Type"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+			<xsd:element name="rcpnt_tcd" type="indicator1-5Type"/>
+			<xsd:element name="fgn_crcy_ind" type="char3AlphaType" minOccurs="0"/>
+			<xsd:element name="T5_AMT" type="T5AmountType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T5AmountType">
+		<xsd:all>
+			<xsd:element name="actl_elg_dvamt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="actl_dvnd_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="tx_elg_dvnd_pamt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="tx_dvnd_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="enhn_dvtc_amt" type="signedDecimal11Type" minOccurs="0"/>
+			<xsd:element name="dvnd_tx_cr_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="cdn_int_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="oth_cdn_incamt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="fgn_incamt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="fgn_tx_pay_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="cdn_royl_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="cgain_dvnd_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="acr_annty_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="rsrc_alwnc_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="cgain_dvnd_1_amt" type="decimal11Type" minOccurs="0"/>
+			<xsd:element name="cgain_dvnd_2_amt" type="decimal11Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T5SummaryType">
+		<xsd:all>
+			<xsd:element name="bn" type="ccraType3"/>
+			<xsd:element name="FILR_NM" type="Line3Type"/>
+			<xsd:element name="FILR_ADDR" type="T5SummaryAddressType"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="filr_fi_br_nbr" type="char8Type"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="T5_TAMT" type="T5TotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T5TotalsType">
+		<xsd:all>
+			<xsd:element name="tot_cdn_int_amt" type="decimal15Type" minOccurs="0"/>
+			<xsd:element name="tot_actl_elg_dvamt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_actl_dvnd_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_tx_elg_dvamt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_tx_dvnd_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_enhn_dvtc_amt" type="signedDecimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_dvnd_tx_cr_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="totr_cdn_incamt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_fgn_incamt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_fgn_tx_pay_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_cdn_royl_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_cgain_dvnd_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_acr_annty_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_rsrc_alwnc_amt" type="decimal13Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T5SummaryAddressType">
+		<xsd:all>
+			<xsd:element name="addr_l1_txt" type="char30Type"/>
+			<xsd:element name="addr_l2_txt" type="char30Type" minOccurs="0"/>
+			<xsd:element name="cty_nm" type="char28Type" minOccurs="0"/>
+			<xsd:element name="prov_cd" type="provinceStateType" minOccurs="0"/>
+			<xsd:element name="cntry_cd" type="countryType" minOccurs="0"/>
+			<xsd:element name="pstl_cd" type="pcType"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

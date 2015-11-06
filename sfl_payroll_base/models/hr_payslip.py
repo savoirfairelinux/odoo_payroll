@@ -22,11 +22,26 @@
 
 
 import time
-from datetime import datetime
+from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 
 from openerp import api, fields, models, tools, _
 from openerp.exceptions import ValidationError
+
+to_string = fields.Date.to_string
+from_string = fields.Date.from_string
+
+PAYS_PER_YEAR = {
+    'annually': 1,
+    'semi-annually': 2,
+    'quaterly': 4,
+    'bi-monthly': 6,
+    'monthly': 12,
+    'semi-monthly': 24,
+    'bi-weekly': 26,
+    'weekly': 52,
+    'daily': 365,
+}
 
 
 class HrPayslip(models.Model):
@@ -90,7 +105,10 @@ class HrPayslip(models.Model):
         'slip_id',
         'Payslip Lines',
         readonly=True,
-        domain=[('appears_on_payslip', '=', True)],
+        domain=[
+            ('appears_on_payslip', '=', True),
+            ('amount', '!=', 0),
+        ],
     )
     details_by_salary_rule_category = fields.One2many(
         'hr.payslip.line',
@@ -156,6 +174,19 @@ class HrPayslip(models.Model):
         compute='_payslip_count',
         string='Payslip Computation Details',
     )
+    pays_per_year = fields.Integer(
+        compute='_get_pays_per_year',
+        string='Number of pays per year',
+        readonly=True,
+        store=True,
+        help="Field required to compute benefits based on an annual "
+        "amount."
+    )
+
+    @api.depends('contract_id')
+    def _get_pays_per_year(self):
+        self.pays_per_year = PAYS_PER_YEAR.get(
+            self.contract_id.schedule_pay, False)
 
     @api.one
     def _payslip_count(self):
@@ -388,3 +419,58 @@ class HrPayslip(models.Model):
 
         self.date_from = payslip_run.date_start
         self.date_to = payslip_run.date_end
+
+    @api.multi
+    def ytd_amount(self, code):
+        """
+        Get the total amount since the beginning of the year
+        of a given salary rule code.
+
+        :param code: salary rule code
+        :return: float
+        """
+        self.ensure_one()
+
+        date_slip = fields.Date.from_string(self.date_payment)
+        date_from = to_string(datetime(date_slip.year, 1, 1))
+
+        query = (
+            """SELECT sum(
+                case when p.credit_note then -pl.amount else pl.amount end)
+            FROM hr_payslip_line pl, hr_payslip p
+            WHERE pl.slip_id = p.id
+            AND p.employee_id = %(employee_id)s
+            AND p.company_id = %(company_id)s
+            AND p.state = 'done'
+            AND %(date_from)s <= p.date_payment
+            AND p.date_payment <= %(date_to)s
+            """
+        )
+
+        cr = self.env.cr
+
+        cr.execute(query, {
+            'date_from': date_from,
+            'date_to': self.date_payment,
+            'company_id': self.company_id.id,
+            'employee_id': self.employee_id.id,
+        })
+
+        return cr.fetchone()[0] or 0
+
+    @api.multi
+    def get_pays_since_beginning(self, pays_per_year):
+        """
+        Get the number of pay periods since the beginning of the year.
+        """
+        self.ensure_one()
+
+        date_from = from_string(self.date_from)
+
+        year_start = date(date_from.year, 1, 1)
+        year_end = date(date_from.year, 12, 31)
+
+        days_past = float((date_from - year_start).days)
+        days_total = (year_end - year_start).days
+
+        return round((days_past / days_total) * pays_per_year, 0) + 1

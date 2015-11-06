@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T5018 ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="T5018SlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType" minOccurs="0"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="rcpnt_bn" type="bnType"/>
+			<xsd:element name="CORP_PTNRP_NM" type="Line2Type" minOccurs="0"/>
+			<xsd:element name="rcpnt_tcd" type="indicator1-3-4Type"/>
+			<xsd:element name="RCPNT_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="sbctrcr_amt" type="decimal12Type" minOccurs="0"/>
+			<xsd:element name="ptnrp_filr_id" type="finType" minOccurs="0"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T5018SummaryType">
+		<xsd:all>
+			<xsd:element name="bn" type="bnType"/>
+			<xsd:element name="PAYR_NM" type="Line3Type"/>
+			<xsd:element name="PAYR_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="PRD_END_DT" type="DateType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="tot_sbctrcr_amt" type="decimal14Type"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>

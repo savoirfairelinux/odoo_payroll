@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!-- @@@@ Definition of T4E ComplexTypes @@@@  2011/June/22  Version# 1.11 (version #.yy)-->
+	<xsd:complexType name="T4ESlipType">
+		<xsd:all>
+			<xsd:element name="RCPNT_NM" type="NameType"/>
+			<xsd:element name="RCPNT_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="sin" type="sinType"/>
+			<xsd:element name="rcpnt_nbr" type="char20Type" minOccurs="0"/>
+			<xsd:element name="bn" type="ccraType"/>
+			<xsd:element name="rpt_tcd" type="slipDataType"/>
+			<xsd:element name="rpay_rt" type="int3Type" minOccurs="0"/>
+			<xsd:element name="amd_rcd" type="int2Type" minOccurs="0"/>
+			<xsd:element name="T4E_AMT" type="T4EAmountType" minOccurs="0"/>
+			<!--xsd:element name="OTH_INFO" type="T4EOtherInformationType" minOccurs="0"/-->
+			<xsd:element name="OTH_INFO" type="T4EOtherInformationType" minOccurs="0">
+				<xsd:unique name="Other_T4E_Info_Fields">
+					<xsd:selector xpath="."/>
+					<xsd:field xpath="tx_xmpt_ben_amt"/>
+					<xsd:field xpath="nr_tx_ddct_amt"/>
+					<xsd:field xpath="opay_rpay_amt"/>
+					<xsd:field xpath="rev_itx_ddct_amt"/>
+					<xsd:field xpath="rpay_amt"/>
+					<xsd:field xpath="pay_con_rev_amt"/>
+					<xsd:field xpath="qmpb_amt"/>
+					<xsd:field xpath="ppip_ben_pay_amt"/>
+				</xsd:unique>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4EAmountType">
+		<xsd:all>
+			<xsd:element name="ben_pay_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="regu_oth_ben_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="empt_supt_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="tx_tuit_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="non_tx_tuit_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="itx_ddct_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="qc_itx_ddct_amt" type="decimal9Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4EOtherInformationType">
+		<xsd:sequence>
+			<xsd:group ref="T4EOtherInfoGroup" minOccurs="0" maxOccurs="6"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:group name="T4EOtherInfoGroup">
+		<xsd:choice>
+			<xsd:element name="tx_xmpt_ben_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="nr_tx_ddct_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="opay_rpay_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="rev_itx_ddct_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="rpay_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="pay_con_rev_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="qmpb_amt" type="decimal9Type" minOccurs="0"/>
+			<xsd:element name="ppip_ben_pay_amt" type="decimal9Type" minOccurs="0"/>
+		</xsd:choice>
+	</xsd:group>
+	<xsd:complexType name="T4ESummaryType">
+		<xsd:all>
+			<xsd:element name="PAYR_NM" type="Line3Type"/>
+			<xsd:element name="PAYR_ADDR" type="CanadaAddressType" minOccurs="0"/>
+			<xsd:element name="CNTC" type="ContactType2"/>
+			<xsd:element name="tx_yr" type="yearType"/>
+			<xsd:element name="slp_cnt" type="int7Type"/>
+			<xsd:element name="bn" type="ccraType"/>
+			<xsd:element name="rpt_tcd" type="otherDataType"/>
+			<xsd:element name="T4E_TAMT" type="T4ETotalsType" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="T4ETotalsType">
+		<xsd:all>
+			<xsd:element name="tot_ben_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_regu_oth_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_empt_supt_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_itx_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_qc_itx_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_tx_tuit_amt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="non_tx_tuit_tamt" type="decimal13Type" minOccurs="0"/>
+			<xsd:element name="tot_nr_tx_ddct_amt" type="decimal13Type" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>
