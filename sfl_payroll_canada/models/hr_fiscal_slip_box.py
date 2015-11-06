@@ -101,7 +101,6 @@ class HrFiscalSlipBox(models.Model):
                 ('slip_id', 'in', payslip_ids),
                 ('salary_rule_id', 'in', rule_ids),
             ])
-
             return sum(
                 -line.total if line.slip_id.credit_note else line.total
                 for line in lines)

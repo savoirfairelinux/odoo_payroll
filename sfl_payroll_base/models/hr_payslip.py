@@ -421,44 +421,6 @@ class HrPayslip(models.Model):
         self.date_to = payslip_run.date_end
 
     @api.multi
-    def ytd_amount(self, code):
-        """
-        Get the total amount since the beginning of the year
-        of a given salary rule code.
-
-        :param code: salary rule code
-        :return: float
-        """
-        self.ensure_one()
-
-        date_slip = fields.Date.from_string(self.date_payment)
-        date_from = to_string(datetime(date_slip.year, 1, 1))
-
-        query = (
-            """SELECT sum(
-                case when p.credit_note then -pl.amount else pl.amount end)
-            FROM hr_payslip_line pl, hr_payslip p
-            WHERE pl.slip_id = p.id
-            AND p.employee_id = %(employee_id)s
-            AND p.company_id = %(company_id)s
-            AND p.state = 'done'
-            AND %(date_from)s <= p.date_payment
-            AND p.date_payment <= %(date_to)s
-            """
-        )
-
-        cr = self.env.cr
-
-        cr.execute(query, {
-            'date_from': date_from,
-            'date_to': self.date_payment,
-            'company_id': self.company_id.id,
-            'employee_id': self.employee_id.id,
-        })
-
-        return cr.fetchone()[0] or 0
-
-    @api.multi
     def get_pays_since_beginning(self, pays_per_year):
         """
         Get the number of pay periods since the beginning of the year.

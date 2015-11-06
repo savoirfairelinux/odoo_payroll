@@ -22,6 +22,8 @@ from datetime import datetime
 
 from openerp import api, fields, models
 
+to_string = fields.Date.to_string
+
 
 class HrPayslip(models.Model):
 
@@ -75,3 +77,43 @@ class HrPayslip(models.Model):
         for (line_id, amount_ytd) in res:
             line = line_model.browse(line_id)
             line.amount_ytd = amount_ytd
+
+    @api.multi
+    def ytd_amount(self, code):
+        """
+        Get the total amount since the beginning of the year
+        of a given salary rule code.
+
+        :param code: salary rule code
+        :return: float
+        """
+        self.ensure_one()
+
+        date_slip = fields.Date.from_string(self.date_payment)
+        date_from = to_string(datetime(date_slip.year, 1, 1))
+
+        query = (
+            """SELECT sum(
+                case when p.credit_note then -pl.amount else pl.amount end)
+            FROM hr_payslip_line pl, hr_payslip p
+            WHERE pl.slip_id = p.id
+            AND pl.code = %(code)s
+            AND p.employee_id = %(employee_id)s
+            AND p.company_id = %(company_id)s
+            AND p.state = 'done'
+            AND %(date_from)s <= p.date_payment
+            AND p.date_payment <= %(date_to)s
+            """
+        )
+
+        cr = self.env.cr
+
+        cr.execute(query, {
+            'date_from': date_from,
+            'date_to': self.date_payment,
+            'company_id': self.company_id.id,
+            'employee_id': self.employee_id.id,
+            'code': code,
+        })
+
+        return cr.fetchone()[0] or 0
