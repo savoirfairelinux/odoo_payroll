@@ -20,6 +20,7 @@
 ##############################################################################
 
 from openerp import api, fields, models
+import openerp.addons.decimal_precision as dp
 
 
 class HrPayslipWorkedDays(models.Model):
@@ -46,8 +47,21 @@ class HrPayslipWorkedDays(models.Model):
         'Hours Allowed',
     )
 
+    amount_requested = fields.Float(
+        'Amount Requested',
+        compute='_compute_amount_requested',
+        store=True,
+        digits_compute=dp.get_precision('Payroll'),
+    )
+
     _order = 'date,activity_id'
 
+    @api.model
+    def create(self, vals):
+        vals['number_of_hours_allowed'] = vals.get('number_of_hours')
+        return super(HrPayslipWorkedDays, self).create(vals)
+
+    @api.one
     @api.depends(
         'hourly_rate', 'number_of_hours', 'rate', 'number_of_hours_allowed')
     def _compute_total(self):
@@ -60,3 +74,9 @@ class HrPayslipWorkedDays(models.Model):
                 self.number_of_hours_allowed *
                 self.rate
             ) / 100
+
+    @api.one
+    @api.depends('hourly_rate', 'number_of_hours', 'rate')
+    def _compute_amount_requested(self):
+        self.amount_requested = (
+            self.hourly_rate * self.number_of_hours * self.rate) / 100

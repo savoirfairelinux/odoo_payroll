@@ -25,7 +25,7 @@ result = rule.sum_leave_accruals(payslip, in_cash=False)
                 ref('sfl_payroll_activity.activity_holiday_status_sl'),
             ])]"/>
             <field name="amount_python_compute">
-result = rule.sum_leaves(payslip, in_cash=False)
+result = rule.sum_leaves_requested(payslip, in_cash=False)
             </field>
         </record>
 
@@ -41,7 +41,7 @@ result = rule.sum_leaves(payslip, in_cash=False)
             ])]"/>
             <field name="leave_type_id" ref="hr_holidays.holiday_status_sl"/>
             <field name="amount_python_compute">
-requested_alw = rule.sum_leaves(payslip, in_cash=True)
+requested_alw = rule.sum_leaves_taken(payslip, in_cash=True)
 
 if SL_AVAIL >= SL_REQ or rule.allow_override_limit():
     result = requested_alw
@@ -49,7 +49,7 @@ elif SL_REQ > 0:
     reduction = SL_REQ - SL_AVAIL
     rule.reduce_leaves(payslip, reduction, in_cash=False)
 
-    result = rule.sum_leaves(payslip, in_cash=True)
+    result = rule.sum_leaves_taken(payslip, in_cash=True)
 else:
     result = 0
             </field>
@@ -67,7 +67,7 @@ else:
                 ref('activity_holiday_status_sl_unpaid'),
             ])]"/>
             <field name="amount_python_compute">
-result = rule.sum_leaves(payslip, in_cash=False)
+result = rule.sum_leaves_taken(payslip, in_cash=False)
             </field>
         </record>
 

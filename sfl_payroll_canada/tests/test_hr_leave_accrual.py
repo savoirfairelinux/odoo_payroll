@@ -51,7 +51,7 @@ class TestHrLeaveAccrual(common.TransactionCase):
 
         # Searching the employee accrual creates the accrual if
         # if does not exist
-        self.employee_model.get_leave_accrual_id(
+        self.employee_model.get_leave_accrual(
             cr, uid, self.employee_id,
             leave_type_id=self.ref(
                 'sfl_payroll_activity.holiday_status_vacation'),
@@ -109,7 +109,7 @@ class TestHrLeaveAccrual(common.TransactionCase):
                 'source': 'manual',
                 'is_refund': accrual_line[0],
                 'date': accrual_line[1],
-                'description': 'Test',
+                'name': 'Test',
                 # Change the amount to distinguish each leave type
                 'amount': accrual_line[2]
             }) for accrual_line in accrual_lines

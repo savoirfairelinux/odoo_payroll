@@ -65,6 +65,7 @@ class HrPayslipWorkedDays(models.Model):
         digits_compute=dp.get_precision('Payroll'),
     )
 
+    @api.one
     @api.depends('hourly_rate', 'number_of_hours', 'rate')
     def _compute_total(self):
         self.total = (

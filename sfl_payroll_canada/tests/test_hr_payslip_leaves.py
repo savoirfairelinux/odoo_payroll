@@ -47,27 +47,26 @@ class TestHrPayslipLeaves(TestPayrollStructureBase):
         })
 
         for line in [
-            # date_from, date_to, nb_hours, activity_id, hourly_rate, rate (%)
-            ('2014-01-01', '2014-01-01', 20, self.job_activity_id, 20, 100),
-            ('2014-01-02', '2014-01-10', 20, self.job_activity_id, 20, 100),
-            ('2014-01-31', '2014-01-31', 20, self.job_activity_id, 20, 100),
+            # date, nb_hours, activity_id, hourly_rate, rate (%)
+            ('2014-01-01', 20, self.job_activity_id, 20, 100),
+            ('2014-01-02', 20, self.job_activity_id, 20, 100),
+            ('2014-01-31', 20, self.job_activity_id, 20, 100),
 
-            ('2014-01-01', '2014-01-01', 20, self.sl_activity_id, 20, 100),
-            ('2014-01-02', '2014-01-10', 20, self.comp_activity_id, 20, 100),
-            ('2014-01-31', '2014-01-31', 20, self.public_activity_id, 20, 100),
+            ('2014-01-01', 20, self.sl_activity_id, 20, 100),
+            ('2014-01-02', 20, self.comp_activity_id, 20, 100),
+            ('2014-01-31', 20, self.public_activity_id, 20, 100),
 
-            ('2014-01-01', '2014-01-01', 11, self.vac_activity_id, 15, 90),
-            ('2014-01-02', '2014-01-10', 13, self.vac_activity_id, 10, 100),
-            ('2014-01-31', '2014-01-31', 17, self.vac_activity_id, 25, 150),
+            ('2014-01-01', 11, self.vac_activity_id, 15, 90),
+            ('2014-01-02', 13, self.vac_activity_id, 10, 100),
+            ('2014-01-31', 17, self.vac_activity_id, 25, 150),
 
         ]:
             self.worked_days_model.create(
                 cr, uid, {
-                    'date_from': line[0],
-                    'date_to': line[1],
+                    'date': line[0],
                     'number_of_hours': line[2],
                     'activity_id': line[3],
-                    'hourly': line[4],
+                    'hourly_rate': line[4],
                     'rate': line[5],
                     'payslip_id': self.payslip_id,
                 }, context=context)

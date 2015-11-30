@@ -58,19 +58,14 @@ class HrSalaryRule(models.Model):
 
         activities = self._get_leave_activities(cr, uid, ids, context=context)
 
-        default_unpaid_id = self.pool['ir.model.data'].get_object_reference(
-            cr, uid, 'sfl_payroll_activity',
-            'activity_holiday_status_unpaid')[1]
-
         worked_days = [
-            wd for wd in payslip.worked_days_line_ids
+            wd for wd in payslip.leave_days_line_ids
             if wd.activity_id in activities
         ]
 
-        worked_days.sort(key=lambda wd: wd.date_from)
+        worked_days.sort(key=lambda wd: wd.date)
         worked_days.reverse()
 
-        wd_obj = self.pool['hr.payslip.worked_days']
         for wd in worked_days:
             if reduction == 0:
                 break
@@ -81,24 +76,13 @@ class HrSalaryRule(models.Model):
             )
 
             # Get the maximum of reduction of the current worked day
-            current_reduction = min(wd.number_of_hours, current_reduction)
+            current_reduction = min(
+                wd.number_of_hours_allowed, current_reduction)
             current_reduction = max(current_reduction, 0)
 
             # Apply the reduction to the worked days line
-            number_of_hours = wd.number_of_hours - current_reduction
-            wd.write({'number_of_hours': number_of_hours})
-
-            unpaid_activity = wd.activity_id.unpaid_activity_id
-
-            # Create a worked days record to replace the previous wd
-            wd_data = wd_obj.copy_data(cr, uid, wd.id, context=context)
-            wd_data.update({
-                'number_of_hours': current_reduction,
-                'activity_id': unpaid_activity.id if unpaid_activity
-                else default_unpaid_id,
-                'hourly_rate': 0,
-            })
-            wd_obj.create(cr, uid, wd_data, context=context)
+            number_of_hours = wd.number_of_hours_allowed - current_reduction
+            wd.write({'number_of_hours_allowed': number_of_hours})
 
             # substract the amount reduced before next iteration
             reduction -= (
@@ -106,17 +90,13 @@ class HrSalaryRule(models.Model):
                 if in_cash else current_reduction
             )
 
-            if wd.number_of_hours == 0:
-                wd.unlink()
-
-    def sum_leaves(
+    def sum_leaves_requested(
         self, cr, uid, ids, payslip, in_cash=False, context=None
     ):
         """
         Used in salary rules to sum leave hours from worked_days
         e.g. sum over the hours of vacation (leave_code == 'VAC')
 
-        :param leave_code: a string or a list of string
         :param payslip: a payslip BrowsableObject or a browse_record
         :param in_cash: Whether to return an amount in cash of hours
 
@@ -125,7 +105,31 @@ class HrSalaryRule(models.Model):
         activities = self._get_leave_activities(cr, uid, ids, context=context)
 
         worked_days = [
-            wd for wd in payslip.worked_days_line_ids
+            wd for wd in payslip.leave_days_line_ids
+            if wd.activity_id in activities
+        ]
+
+        if in_cash:
+            return sum(wd.amount_requested for wd in worked_days)
+
+        return sum(wd.number_of_hours for wd in worked_days)
+
+    def sum_leaves_taken(
+        self, cr, uid, ids, payslip, in_cash=False, context=None
+    ):
+        """
+        Used in salary rules to sum leave hours from worked_days
+        e.g. sum over the hours of vacation (leave_code == 'VAC')
+
+        :param payslip: a payslip BrowsableObject or a browse_record
+        :param in_cash: Whether to return an amount in cash of hours
+
+        :return: the amount of allowance taken by the employee
+        """
+        activities = self._get_leave_activities(cr, uid, ids, context=context)
+
+        worked_days = [
+            wd for wd in payslip.leave_days_line_ids
             if wd.activity_id in activities
         ]
 

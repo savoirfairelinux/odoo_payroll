@@ -107,7 +107,7 @@ class HrPayslip(models.Model):
                         amount *= -1
 
                     if payslip_line.amount:
-                        accrual_line_obj.create({
+                        vals = {
                             'accrual_id': accrual.id,
                             'name': payslip_line.name,
                             'source': 'payslip',
@@ -117,4 +117,5 @@ class HrPayslip(models.Model):
                             'accrual_id': accrual.id,
                             'amount_type': line.amount_type,
                             'date': self.date_from,
-                        })
+                        }
+                        accrual_line_obj.create(vals)

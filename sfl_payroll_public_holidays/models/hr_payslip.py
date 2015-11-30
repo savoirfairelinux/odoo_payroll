@@ -28,11 +28,6 @@ class HrPayslip(models.Model):
     _inherit = 'hr.payslip'
 
     @api.multi
-    def compute_sheet(self):
-        self.check_employee_data()
-        super(HrPayslip, self).compute_sheet()
-
-    @api.multi
     @api.returns('hr.holidays.public.line')
     def get_public_holidays(self):
         """
@@ -44,6 +39,6 @@ class HrPayslip(models.Model):
                 'Insuffisant configuration. You must set the working address '
                 'for employee %s') % self.employee_id.name)
 
-        self.env['hr.holidays.public'].get_holidays_lines(
+        return self.env['hr.holidays.public'].get_holidays_lines(
             self.date_from, self.date_to,
             self.employee_id.address_id.id)

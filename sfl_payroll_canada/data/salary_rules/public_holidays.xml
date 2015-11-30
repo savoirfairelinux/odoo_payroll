@@ -37,7 +37,7 @@ else:
 if contract.salary_computation_method == 'yearly':
     result = 0
 else:
-    result = rule.sum_leaves(payslip, in_cash=True)
+    result = rule.sum_leaves_requested(payslip, in_cash=True)
             </field>
         </record>
 

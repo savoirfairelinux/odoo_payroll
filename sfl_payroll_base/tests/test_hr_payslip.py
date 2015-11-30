@@ -88,12 +88,7 @@ class TestHrPayslip(TestHrPayslipBase):
         self.assertNotIn(self.contract_5, res)
 
     def test_compute(self):
-        from time import time
-        t1 = time()
         self.payslip_1.compute_sheet()
-        t2 = time()
-
-        print 'TIME TAKEN: ', t2 - t1
 
         lines = {
             l.code: l.amount for l in

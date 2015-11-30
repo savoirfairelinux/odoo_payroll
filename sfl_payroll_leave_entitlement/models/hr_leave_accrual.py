@@ -78,12 +78,12 @@ class HrLeaveAccrual(models.Model):
             entitlement_date -= relativedelta(years=1)
 
         query = (
-            """SELECT l.amount
+            """SELECT sum(l.amount)
             FROM hr_leave_accrual a, hr_leave_accrual_line l
             WHERE a.id = %(accrual_id)s
-            AND l.date >= %(entitlement_date)s
+            AND l.date < %(entitlement_date)s
             AND l.accrual_id = a.id
-            AND (l.state = 'done' or l.source != 'payslip')
+            AND ((l.state = 'done') or (l.source != 'payslip'))
             AND l.amount_type = %(amount_type)s
             """
         )
@@ -95,6 +95,6 @@ class HrLeaveAccrual(models.Model):
             'amount_type': amount_type,
         })
 
-        res = cr.fetchone()
+        res = cr.fetchone()[0]
 
-        return res[0] if res else 0
+        return res or 0

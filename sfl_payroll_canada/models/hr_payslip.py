@@ -71,7 +71,7 @@ class HrPayslip(models.Model):
 
         # Get the last day of the week that precedes the leave day
         period_end = (
-            leave_day.date() - timedelta(days=(weekdays_passed + 1))
+            leave_day - timedelta(days=(weekdays_passed + 1))
         )
 
         # The periode start is 4 weeks before the period end
@@ -83,11 +83,11 @@ class HrPayslip(models.Model):
             FROM hr_payslip_worked_days wd, hr_payslip p
             WHERE p.employee_id = %(employee_id)s
             AND p.company_id = %(company_id)s
-            AND p.state = 'done'
-            AND p.date_from >= %(period_start)s
-            AND p.date_to <= %(period_end)s
+            AND p.id = wd.payslip_id
             AND wd.date >= %(period_start)s
             AND wd.date <= %(period_end)s
+            AND (p.state = 'done' or p.id = %(payslip_id)s)
+            AND wd.activity_type = 'job'
             """
         )
 
@@ -98,6 +98,12 @@ class HrPayslip(models.Model):
             'period_end': period_end,
             'company_id': self.company_id.id,
             'employee_id': self.employee_id.id,
+            'payslip_id': self.id,
         })
 
-        return cr.fetchone()[0]
+        res = cr.fetchone()[0]
+
+        print leave_date, period_start, period_end
+        print res
+
+        return res or 0

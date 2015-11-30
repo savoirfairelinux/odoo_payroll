@@ -38,7 +38,7 @@ result = rule.sum_leave_accruals(payslip, in_cash=False)
                 ref('sfl_payroll_activity.activity_holiday_status_comp'),
             ])]"/>
             <field name="amount_python_compute">
-result = rule.sum_leaves(payslip, in_cash=True)
+result = rule.sum_leaves_requested(payslip, in_cash=True)
             </field>
         </record>
 
@@ -78,7 +78,7 @@ else:
                 ref('activity_holiday_status_comp_unpaid'),
             ])]"/>
             <field name="amount_python_compute">
-result = rule.sum_leaves(payslip, in_cash=False)
+result = rule.sum_leaves_taken(payslip, in_cash=False)
             </field>
         </record>
 

@@ -78,7 +78,7 @@ class HrSalaryRule(models.Model):
         enough cash.
         """
         self.ensure_one()
-        return self.leave_accrual_id.limit
+        return self.leave_type_id.limit
 
     @api.multi
     def sum_payslip_input(self, payslip):
