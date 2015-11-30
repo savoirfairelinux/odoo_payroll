@@ -18,11 +18,7 @@
 #
 ##############################################################################
 
-import time
-
-from openerp.osv import orm, fields
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
-from openerp.tools.translate import _
+from openerp import api, fields, models, _
 
 
 def get_states(self, cr, uid, context=None):
@@ -34,67 +30,58 @@ def get_states(self, cr, uid, context=None):
     ]
 
 
-class HrFiscalSlip(orm.AbstractModel):
-    """
-    This model contains every standard fields on an employee's fiscal slip
-    in Canada
-    """
+class HrFiscalSlip(models.AbstractModel):
+    """Fiscal Slip"""
+
     _name = 'hr.fiscal_slip'
-    _description = 'Fiscal Slip'
+    _description = _(__doc__)
 
-    _columns = {
-        'company_id': fields.many2one(
-            'res.company',
-            'Company',
-            required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'address_home_id': fields.related(
-            'employee_id',
-            'address_home_id',
-            string='Home Address',
-            type="many2one",
-            relation="res.partner",
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'reference': fields.char(
-            'Reference',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'year': fields.integer(
-            'Fiscal Year',
-            required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'state': fields.selection(
-            get_states,
-            'Status',
-            type='char',
-            select=True,
-            required=True,
-        ),
-        'employee_id': fields.many2one(
-            'hr.employee',
-            'Employee',
-            required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'computed': fields.boolean(
-            'Computed',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-    }
+    company_id = fields.many2one(
+        'res.company',
+        'Company',
+        required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+        default=lambda self: self.env.user.company_id.id,
+    )
+    address_home_id = fields.related(
+        'employee_id',
+        'address_home_id',
+        string='Home Address',
+        type="many2one",
+        relation="res.partner",
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+    reference = fields.char(
+        'Reference',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+    year = fields.integer(
+        'Fiscal Year',
+        required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+        default=lambda self: fields.Date.today()[0:4],
+    )
+    state = fields.selection(
+        get_states,
+        'Status',
+        type='char',
+        select=True,
+        required=True,
+        default='draft',
+    )
+    employee_id = fields.many2one(
+        'hr.employee',
+        'Employee',
+        required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+    computed = fields.boolean(
+        'Computed',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
-    _defaults = {
-        'state': 'draft',
-        'company_id': lambda self, cr, uid, context:
-        self.pool.get('res.users').browse(
-            cr, uid, uid, context=context).company_id.id,
-        'year': lambda *a: int(time.strftime(
-            DEFAULT_SERVER_DATE_FORMAT)[0:4]) - 1,
-    }
-
-    def get_rpp_dpsp_rgst_nbr(self, cr, uid, payslip_ids, context=None):
+    @api.model
+    def get_rpp_dpsp_rgst_nbr(self, payslip_ids):
         """
         Find the RPP/DPSP registration number with the highest amount
         contributed in a list of payslips
@@ -102,14 +89,11 @@ class HrFiscalSlip(orm.AbstractModel):
         If the employee contributed, return the number with highest
         employee contribution, otherwise the highest employer contribution
         """
-        benefit_line_obj = self.pool['hr.payslip.benefit.line']
-        benefit_line_ids = benefit_line_obj.search(cr, uid, [
+        benefit_line_obj = self.env['hr.payslip.benefit.line']
+        benefit_lines = benefit_line_obj.search([
             ('payslip_id', 'in', payslip_ids),
             ('category_id.is_rpp_dpsp', '=', True),
-        ], context=context)
-
-        benefit_lines = benefit_line_obj.browse(
-            cr, uid, benefit_line_ids, context=context)
+        ])
 
         totals = {}
 
@@ -144,46 +128,42 @@ class HrFiscalSlip(orm.AbstractModel):
 
         return number
 
-    def get_amount(self, cr, uid, ids, code=None, xml_tag=None, context=None):
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-
-        assert len(ids) == 1, "Expected single record"
-
-        slip = self.browse(cr, uid, ids[0], context=context)
+    @api.multi
+    def get_amount(self, code=None, xml_tag=None):
+        self.ensure_one()
 
         if code:
             if isinstance(code, (int, long)):
                 code = str(code)
 
             amount = next(
-                (a for a in slip.amount_ids if a.box_id.code == code), False)
+                (a for a in self.amount_ids if a.box_id.code == code), False)
         else:
             amount = next(
-                (a for a in slip.amount_ids if a.box_id.xml_tag == xml_tag),
+                (a for a in self.amount_ids if a.box_id.xml_tag == xml_tag),
                 False)
 
         return amount.amount if amount else False
 
-    def get_other_amount(self, cr, uid, ids, index, context=None):
-        if isinstance(ids, (int, long)):
-            ids = [ids]
+    @api.multi
+    def get_other_amount(self, index):
+        self.ensure_one()
 
-        assert len(ids) == 1, "Expected single record"
-
-        slip = self.browse(cr, uid, ids[0], context=context)
-
-        amounts = slip.other_amount_ids
+        amounts = self.other_amount_ids
 
         if index >= len(amounts):
             return False
 
         return amounts[index]
 
-    def get_other_amount_value(self, cr, uid, ids, index, context=None):
-        amount = self.get_other_amount(cr, uid, ids, index, context=context)
+    @api.multi
+    def get_other_amount_value(self, index):
+        self.ensure_one()
+        amount = self.get_other_amount(index)
         return amount.amount if amount else ''
 
-    def get_other_amount_code(self, cr, uid, ids, index, context=None):
-        amount = self.get_other_amount(cr, uid, ids, index, context=context)
+    @api.multi
+    def get_other_amount_code(self, index):
+        self.ensure_one()
+        amount = self.get_other_amount(index)
         return amount.box_id.code if amount else ''

@@ -18,47 +18,47 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp import fields, models, _
 import openerp.addons.decimal_precision as dp
 
 
-class HrCRAT4Amount(orm.Model):
-    _name = 'hr.cra.t4.amount'
-    _description = 'CRA T4 Amount'
+class HrCRAT4Amount(models.Model):
+    """CRA T4 Amount"""
 
-    _columns = {
-        'slip_id': fields.many2one(
-            'hr.cra.t4', 'T4 Slip', required=True, ondelete='cascade',
-        ),
-        'box_id': fields.many2one(
-            'hr.cra.t4.box', 'T4 Box', required=True,
-        ),
-        'amount': fields.float(
-            'Amount',
-            digits_compute=dp.get_precision('Payroll'),
-            required=True,
-        ),
-        'is_other_amount': fields.related(
-            'box_id',
-            'is_other_amount',
-            type='boolean',
-            string='Is Other Amount',
-            readonly=True,
-        ),
-        'code': fields.related(
-            'box_id',
-            'code',
-            type='char',
-            string='Code',
-            readonly=True,
-        ),
-        'xml_tag': fields.related(
-            'box_id',
-            'xml_tag',
-            type='char',
-            string='XML Tag',
-            readonly=True,
-        ),
-    }
+    _name = 'hr.cra.t4.amount'
+    _description = _(__doc__)
+
+    slip_id = fields.Many2one(
+        'hr.cra.t4',
+        'T4 Slip',
+        required=True,
+        ondelete='cascade',
+    )
+    box_id = fields.Many2one(
+        'hr.cra.t4.box',
+        'T4 Box',
+        required=True,
+        ondelete='restrict',
+    )
+    amount = fields.Float(
+        'Amount',
+        digits_compute=dp.get_precision('Payroll'),
+        required=True,
+    )
+    is_other_amount = fields.Boolean(
+        'Is Other Amount',
+        related='box_id.is_other_amount',
+        readonly=True,
+    )
+    code = fields.Char(
+        'Code',
+        related='box_id.code',
+        readonly=True,
+    )
+    xml_tag = fields.Char(
+        'XML Tag',
+        related='box_id.xml_tag',
+        readonly=True,
+    )
 
     _order = 'box_id'

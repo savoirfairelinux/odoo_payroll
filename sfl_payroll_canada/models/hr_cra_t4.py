@@ -21,14 +21,16 @@
 
 from datetime import datetime, date
 
-from openerp.osv import orm, fields
+from openerp import api, fields, models, _
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
-class HrCraT4(orm.Model):
+class HrCraT4(models.Model):
+    """T4 Slip"""
+
     _name = 'hr.cra.t4'
     _inherit = 'hr.cra.fiscal_slip'
-    _description = 'T4 Slip'
+    _description = _(__doc__)
 
     def _get_other_amounts(
         self, cr, uid, ids, field_name, args=None, context=None
@@ -47,72 +49,69 @@ class HrCraT4(orm.Model):
 
         return res
 
-    _columns = {
-        'name': fields.char(
-            'Name', required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'rpp_dpsp_rgst_nbr': fields.integer(
-            'RPP/PRPP registration number',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
+    name = fields.Char(
+        'Name', required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+    rpp_dpsp_rgst_nbr = fields.Integer(
+        'RPP/PRPP registration number',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
-        'cpp_qpp_xmpt_cd': fields.boolean(
-            'CPP or QPP exempt',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
+    cpp_qpp_xmpt_cd = fields.Boolean(
+        'CPP or QPP exempt',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
-        'ei_xmpt_cd': fields.boolean(
-            'Employment Insurance exempt',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
+    ei_xmpt_cd = fields.Boolean(
+        'Employment Insurance exempt',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
-        'prov_pip_xmpt_cd': fields.boolean(
-            'Provincial parental insurance plan exempt',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
+    prov_pip_xmpt_cd = fields.Boolean(
+        'Provincial parental insurance plan exempt',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
-        'empt_cd': fields.char(
-            'Employment code',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
+    empt_cd = fields.Char(
+        'Employment code',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
-        'amount_ids': fields.one2many(
-            'hr.cra.t4.amount',
-            'slip_id',
-            'Box Amounts',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
+    amount_ids = fields.One2many(
+        'hr.cra.t4.amount',
+        'slip_id',
+        'Box Amounts',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
-        'other_amount_ids': fields.function(
-            _get_other_amounts,
-            type='one2many',
-            string='Other Amounts',
-            method=True,
-            relation="hr.cra.t4.amount",
-        ),
+    other_amount_ids = fields.One2many(
+        compute='_get_other_amounts',
+        string='Other Amounts',
+        method=True,
+        relation="hr.cra.t4.amount",
+    )
 
-        'child_ids': fields.one2many(
-            'hr.cra.t4', 'parent_id', 'Related T4 Slips',
-            readonly=True, states={'draft': [('readonly', False)]},
-            help="When an employee has more than 6 other amounts "
-            "to be written in his T4 slip, other T4 slips must be created."
-        ),
+    child_ids = fields.One2many(
+        'hr.cra.t4', 'parent_id', 'Related T4 Slips',
+        readonly=True, states={'draft': [('readonly', False)]},
+        help="When an employee has more than 6 other amounts "
+        "to be written in his T4 slip, other T4 slips must be created."
+    )
 
-        'parent_id': fields.many2one(
-            'hr.cra.t4',
-            'Parent T4',
-            ondelete='cascade',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
+    parent_id = fields.Many2one(
+        'hr.cra.t4',
+        'Parent T4',
+        ondelete='cascade',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
-        'summary_id': fields.many2one(
-            'hr.cra.t4.summary',
-            'Summary',
-            ondelete='cascade',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-    }
+    summary_id = fields.Many2one(
+        'hr.cra.t4.summary',
+        'Summary',
+        ondelete='cascade',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
     def _check_amounts(self, cr, uid, ids, context=None):
         for slip in self.browse(cr, uid, ids, context=context):

@@ -18,28 +18,24 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp import api, fields, models, _
 
 
-class HrCRAT4Box(orm.Model):
+class HrCRAT4Box(models.Model):
+    """CRA T4 Box"""
+
     _name = 'hr.cra.t4.box'
     _inherits = {'hr.fiscal_slip.box': 'fiscal_slip_box_id'}
-    _description = 'CRA T4 Box'
+    _description = _(__doc__)
 
-    _columns = {
-        'fiscal_slip_box_id': fields.many2one(
-            'hr.fiscal_slip.box', 'Fiscal Slip Box',
-            required=True, ondelete='cascade',
-        ),
-    }
+    fiscal_slip_box_id = fields.Many2one(
+        'hr.fiscal_slip.box',
+        'Fiscal Slip Box',
+        required=True,
+        ondelete='cascade',
+    )
 
-    def compute_amount(self, cr, uid, ids, payslip_ids, context=None):
-
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-
-        assert len(ids) == 1, "Expected single record"
-
-        box = self.browse(cr, uid, ids[0], context=context)
-
-        return box.fiscal_slip_box_id.compute_amount(payslip_ids)
+    @api.multi
+    def compute_amount(self, payslip_ids):
+        self.ensure_one()
+        return self.fiscal_slip_box_id.compute_amount(payslip_ids)
