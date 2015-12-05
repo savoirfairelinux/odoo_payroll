@@ -105,3 +105,15 @@ class HrPayrollPeriod(models.Model):
                 parent = child.parent_id
 
         return res
+
+    @api.multi
+    def get_children_recursively(self):
+        res = self
+        children = res.mapped('children_ids')
+
+        while children:
+            res += children
+            children = children.mapped('children_ids')
+            children -= res
+
+        return res

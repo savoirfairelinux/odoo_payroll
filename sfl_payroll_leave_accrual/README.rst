@@ -5,7 +5,7 @@ This module adds leave accruals on employees and a mechanism to compute these
 automaticaly.
 
 The amounts for a leave type can be accruded
-in monetary, in hours or both.
+in cash, in hours or both.
 
 
 Configuration

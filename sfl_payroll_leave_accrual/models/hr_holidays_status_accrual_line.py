@@ -43,9 +43,9 @@ class HrHolidaysStatusAccrualLine(models.Model):
     )
     amount_type = fields.Selection(
         [
-            ('monetary', 'Monetary'),
+            ('cash', 'Monetary'),
             ('hours', 'Hours'),
         ],
         string="Amount Type",
-        default='monetary',
+        default='cash',
     )

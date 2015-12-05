@@ -129,7 +129,7 @@ class HrPayslipRun(models.Model):
         payslip_run = self[0]
 
         view_ref = self.env['ir.model.data'].get_object_reference(
-            'hr_payroll', 'view_hr_payslip_by_employees')
+            'sfl_payroll_base', 'view_hr_payslip_by_employees')
 
         view_id = view_ref and view_ref[1] or False
 

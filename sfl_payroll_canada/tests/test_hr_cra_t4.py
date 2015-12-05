@@ -109,20 +109,19 @@ class TestHrCraT4Base(TestPayrollStructureBase):
 
         # Create the worked_days records
         for wd in [
-            # (date_from, date_to, payslip)
-            ('2014-01-01', '2014-01-31', 1),
-            ('2014-06-01', '2014-06-30', 2),
-            ('2014-12-01', '2014-12-31', 3),
-            ('2015-01-01', '2015-01-31', 4),
+            # (date_from, payslip)
+            ('2014-01-01', 1),
+            ('2014-06-01', 2),
+            ('2014-12-01', 3),
+            ('2015-01-01', 4),
         ]:
             self.worked_days_model.create(
                 cr, uid, {
-                    'date_from': wd[0],
-                    'date_to': wd[1],
+                    'date': wd[0],
                     'activity_id': self.job_activity_id,
                     'number_of_hours': 160,
-                    'hourly': 50,
-                    'payslip_id': self.payslip_ids[wd[2]],
+                    'hourly_rate': 50,
+                    'payslip_id': self.payslip_ids[wd[1]],
                 }, context=context)
 
         for payslip_id in self.payslip_ids.values():

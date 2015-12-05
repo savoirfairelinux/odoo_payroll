@@ -30,7 +30,7 @@
                             domain="[('activity_ids', '=', 0)]"
                         />
                         <field name="unpaid_activity_id"
-                            attrs="{'invisible': [('type', '!=', 'leave')]}"
+                            attrs="{'invisible': [('activity_type', '!=', 'leave')]}"
                             domain="[('leave_id.paid_leave', '=', True)]"
                         />
                     </group>

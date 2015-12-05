@@ -84,4 +84,4 @@ class HrPayslip(models.Model):
             period = payslip_run.hr_period_id
             self.hr_period_id = period.id
             self.name = _('Salary Slip of %s for %s') % (
-                self.employee.name, period.name)
+                self.employee_id.name, period.name)

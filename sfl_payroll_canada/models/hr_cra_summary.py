@@ -160,7 +160,7 @@ class HrCraSummary(orm.AbstractModel):
 
         t619 = etree.Element('T619')
         dict_to_etree(t619, t619_dict)
-        t619_xml = etree.to_string(t619, pretty_print=True, encoding=unicode)
+        t619_xml = etree.tostring(t619, pretty_print=True, encoding=unicode)
 
         return u"""<?xml version="1.0" encoding="UTF-8"?>
 <Submission xmlns:ccms="http://www.cra-arc.gc.ca/xmlns/ccms/1-0-0"

@@ -27,35 +27,41 @@ class HrFiscalSlipBox(models.Model):
     _name = 'hr.fiscal_slip.box'
     _description = _(__doc__)
 
-    name = fields.char(
+    name = fields.Char(
         'Name', required=True, translate=True,
     )
-    date_from = fields.date(
+    date_from = fields.Date(
         'Date From', required=True,
     )
-    date_to = fields.date(
+    date_to = fields.Date(
         'Date To',
     )
-    code = fields.char('Code'),
-    xml_tag = fields.char('XML Tag'),
-    is_other_amount = fields.boolean('Is Other Amount'),
-    salary_rule_ids = fields.many2many(
+    code = fields.Char(
+        'Code',
+    )
+    xml_tag = fields.Char(
+        'XML Tag',
+    )
+    is_other_amount = fields.Boolean(
+        'Is Other Amount',
+    )
+    salary_rule_ids = fields.Many2many(
         'hr.salary.rule',
         'hr_fiscal_slip_box_salary_rule_rel',
         string='Salary Rules',
         readonly=True,
     )
-    benefit_line_ids = fields.one2many(
+    benefit_line_ids = fields.One2many(
         'hr.fiscal_slip.box.benefit.line',
         'box_id',
         'Benefit Categories',
     )
-    deduction_line_ids = fields.one2many(
+    deduction_line_ids = fields.One2many(
         'hr.fiscal_slip.box.deduction.line',
         'box_id',
         'Deduction Categories',
     )
-    type = fields.selection(
+    type = fields.Selection(
         [
             ('salary_rule', 'Salary Rules'),
             ('benefit', 'Benefit Categories'),
@@ -64,13 +70,13 @@ class HrFiscalSlipBox(models.Model):
         string='Type',
         required=True,
     )
-    required = fields.boolean(
+    required = fields.Boolean(
         'Required',
         help="If box is required, it must have an amount "
         "even if it is null.",
     )
 
-    appears_on_summary = fields.boolean(
+    appears_on_summary = fields.Boolean(
         'Appear On Summary XML',
     )
 
@@ -102,7 +108,7 @@ class HrFiscalSlipBox(models.Model):
                 ('salary_rule_id', 'in', rule_ids),
             ])
             return sum(
-                -line.total if line.slip_id.credit_note else line.total
+                -line.amount if line.slip_id.credit_note else line.amount
                 for line in lines)
 
         total = 0

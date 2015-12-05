@@ -118,7 +118,7 @@ class TestLeaveAccrual(common.TransactionCase):
                 'name': 'Test',
                 'amount': 100,
                 'date': datetime.now(),
-                'amount_type': 'monetary',
+                'amount_type': 'cash',
             })],
         })
 

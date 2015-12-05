@@ -65,7 +65,7 @@ class HrPayslipLine(models.Model):
     )
     amount_type = fields.Selection(
         [
-            ('monetary', 'Monetary'),
+            ('cash', 'Monetary'),
             ('number', 'Number'),
         ],
         type='char',

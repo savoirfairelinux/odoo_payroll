@@ -76,8 +76,8 @@ class HrCraT4Summary(orm.Model):
             cr, uid, 'sfl_payroll_canada', 'hr_structure_ca_base')[1]
 
         structure_ids = self.pool['hr.payroll.structure'].\
-            get_children_ids_recursively(
-                cr, uid, [structure_id], context=context)
+            get_children_recursively(
+                cr, uid, [structure_id], context=context).ids
 
         payslip_obj = self.pool['hr.payslip']
         payslip_ids = payslip_obj.search(cr, uid, [
@@ -277,7 +277,7 @@ class HrCraT4Summary(orm.Model):
         return_dict['T4Summary'] = t4_summary_dict
         dict_to_etree(slip_return_xml, {'T4': return_dict})
 
-        slip_return_xml = etree.to_string(
+        slip_return_xml = etree.tostring(
             slip_return_xml, pretty_print=True, encoding=unicode)
 
         # This function creates the T619 xml structure.

@@ -53,17 +53,19 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
         self.comp_accrual_id = employee.get_leave_accrual(
             self.ref('hr_holidays.holiday_status_comp')).id
 
+        self.env['hr.holidays.status'].search([]).write({'limit': False})
+
         for line in [
-            (self.vac_accrual_id, 1500, '2014-12-31', 'monetary'),
-            (self.vac_accrual_id, -500, '2014-12-31', 'monetary'),
-            (self.vac_accrual_id, 1700, '2015-01-01', 'monetary'),
+            (self.vac_accrual_id, 1500, '2014-12-31', 'cash'),
+            (self.vac_accrual_id, -500, '2014-12-31', 'cash'),
+            (self.vac_accrual_id, 1700, '2015-01-01', 'cash'),
             (self.vac_accrual_id, 40, '2014-12-31', 'hours'),
             (self.vac_accrual_id, -10, '2014-12-31', 'hours'),
             (self.vac_accrual_id, 45, '2015-01-01', 'hours'),
             (self.sl_accrual_id, 20, '2014-12-31', 'hours'),
             (self.sl_accrual_id, -5, '2015-01-01', 'hours'),
-            (self.comp_accrual_id, 600, '2014-12-31', 'monetary'),
-            (self.comp_accrual_id, -200, '2015-01-01', 'monetary'),
+            (self.comp_accrual_id, 600, '2014-12-31', 'cash'),
+            (self.comp_accrual_id, -200, '2015-01-01', 'cash'),
         ]:
             self.accrual_line_model.create(
                 cr, uid, {
@@ -172,8 +174,8 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
             self.payslip_model.compute_sheet(
                 cr, uid, [payslip], context=context)
 
-            self.payslip_model.write(
-                cr, uid, [payslip], {'state': 'done'}, context=context)
+            self.payslip_model.process_sheet(
+                cr, uid, [payslip], context=context)
 
         payslip_1 = self.get_payslip_lines(payslips[1])
         payslip_2 = self.get_payslip_lines(payslips[2])
@@ -231,10 +233,10 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
 
         self.assertEqual(
             payslip_2['GROSSP'],
-            payslip_2['COMP_TAKEN'] + payslip_2['VAC_TAKEN']
-            + payslip_2['SL_TAKEN_CASH'] + payslip_2['PUBLIC_TAKEN'])
+            payslip_2['COMP_TAKEN'] + payslip_2['VAC_TAKEN'] +
+            payslip_2['SL_TAKEN_CASH'] + payslip_2['PUBLIC_TAKEN'])
 
-    def atest_leaves_in_payslip_worked_days_wage(self):
+    def test_leaves_in_payslip_worked_days_wage(self):
         """
         Test how the leaves in payslip worked days are computed in
         the Canada payroll structure when employee is paid by wage
@@ -252,8 +254,8 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
             self.payslip_model.compute_sheet(
                 cr, uid, [payslip], context=context)
 
-            self.payslip_model.write(
-                cr, uid, [payslip], {'state': 'done'}, context=context)
+            self.payslip_model.process_sheet(
+                cr, uid, [payslip], context=context)
 
         payslip_1 = self.get_payslip_lines(payslips[1])
         payslip_2 = self.get_payslip_lines(payslips[2])
@@ -272,8 +274,7 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
             round((4 * 8 + 20) * 40, 2))
 
         self.assertEqual(payslip_2['VAC_TAKEN'], payslip_2['VAC_AVAIL'])
-        self.assertEqual(
-            payslip_2['VAC_TAKEN_HOURS'], payslip_2['VAC_AVAIL_HOURS'])
+        self.assertEqual(payslip_2['VAC_TAKEN_HOURS'], 8 * 4 + 20)
 
         # Check Sick leaves
         self.assertEqual(payslip_2['SL_AVAIL'], 20 - 5)
@@ -295,7 +296,7 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
         self.assertEqual(payslip_2['COMP_REQ'], 4 * 8 * 40)
         self.assertEqual(payslip_2['COMP_TAKEN'], payslip_2['COMP_AVAIL'])
 
-    def atest_leaves_in_payslip_input(self):
+    def test_leaves_in_payslip_input(self):
         """
         Test how the leaves in payslip inputs are computed in
         the Canada payroll structure
@@ -307,9 +308,9 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
         payslips = self.payslip_ids
 
         for line in [
-            (self.vac_accrual_id, 2000, '2014-12-31', 'monetary'),
+            (self.vac_accrual_id, 2000, '2014-12-31', 'cash'),
             (self.vac_accrual_id, 50, '2014-12-31', 'hours'),
-            (self.comp_accrual_id, 1000, '2014-12-31', 'monetary'),
+            (self.comp_accrual_id, 1000, '2014-12-31', 'cash'),
         ]:
             self.accrual_line_model.create(
                 cr, uid, {
@@ -334,14 +335,12 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
                     'payslip_id': payslips[2],
                 }, context=context)
 
-        # Only compute payslip 2. The impact of payslip 1 is already
-        # tested in atest_leaves_in_payslip_worked_days
         for payslip in [payslips[2]]:
             self.payslip_model.compute_sheet(
                 cr, uid, [payslip], context=context)
 
-            self.payslip_model.write(
-                cr, uid, [payslip], {'state': 'done'}, context=context)
+            self.payslip_model.process_sheet(
+                cr, uid, [payslip], context=context)
 
         payslip_2 = self.get_payslip_lines(payslips[2])
 

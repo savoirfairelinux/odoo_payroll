@@ -55,7 +55,7 @@ class HrLeaveAccrual(models.Model):
             return super(HrLeaveAccrual, self).sum_leaves_available(
                 date, in_cash)
 
-        amount_type = 'monetary' if in_cash else 'hours'
+        amount_type = 'cash' if in_cash else 'hours'
 
         date_slip = from_string(date)
 
@@ -74,27 +74,45 @@ class HrLeaveAccrual(models.Model):
             int(entitlement.month_start),
             entitlement.day_start)
 
-        if entitlement_date >= date_slip:
+        if entitlement_date > date_slip:
             entitlement_date -= relativedelta(years=1)
 
-        query = (
-            """SELECT sum(l.amount)
+        current_year_end = entitlement_date + relativedelta(years=1)
+
+        main_query = """SELECT sum(
+                case when l.is_refund then -l.amount else l.amount end)
             FROM hr_leave_accrual a, hr_leave_accrual_line l
             WHERE a.id = %(accrual_id)s
-            AND l.date < %(entitlement_date)s
             AND l.accrual_id = a.id
-            AND ((l.state = 'done') or (l.source != 'payslip'))
+            AND ((l.state = 'done') OR (l.source != 'payslip'))
             AND l.amount_type = %(amount_type)s
-            """
-        )
+        """
 
-        cr = self.env.cr
-        cr.execute(query, {
+        # Leaves added and withdrawed before the entitlement date
+        query_1 = main_query + """
+            AND l.date < %(entitlement_date)s
+            """
+
+        # Leaves withdrawed in the current entitlement year
+        query_2 = main_query + """
+            AND l.date >= %(entitlement_date)s
+            AND l.date < %(current_year_end)s
+            AND l.amount < 0
+            """
+
+        query_vals = {
             'entitlement_date': entitlement_date,
             'accrual_id': self.id,
             'amount_type': amount_type,
-        })
+            'current_year_end': current_year_end,
+        }
 
-        res = cr.fetchone()[0]
+        cr = self.env.cr
 
-        return res or 0
+        cr.execute(query_1, query_vals)
+        res_1 = cr.fetchone()[0] or 0
+
+        cr.execute(query_2, query_vals)
+        res_2 = cr.fetchone()[0] or 0
+
+        return res_1 + res_2

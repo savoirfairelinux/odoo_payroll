@@ -23,7 +23,7 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
   <CNTC>
     <cntc_extn_nbr>1234</cntc_extn_nbr>
     <cntc_email_area>test@test.com</cntc_email_area>
-    <cntc_nm>John Doe</cntc_nm>
+    <cntc_nm>Doe John</cntc_nm>
     <cntc_phn_nbr>888-8888</cntc_phn_nbr>
     <cntc_area_cd>888</cntc_area_cd>
   </CNTC>
@@ -127,7 +127,7 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
       </EMPR_NM>
       <CNTC>
         <cntc_extn_nbr>1234</cntc_extn_nbr>
-        <cntc_nm>John Doe</cntc_nm>
+        <cntc_nm>Doe John</cntc_nm>
         <cntc_phn_nbr>888-8888</cntc_phn_nbr>
         <cntc_area_cd>888</cntc_area_cd>
       </CNTC>

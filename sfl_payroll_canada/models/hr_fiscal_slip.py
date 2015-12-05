@@ -21,7 +21,7 @@
 from openerp import api, fields, models, _
 
 
-def get_states(self, cr, uid, context=None):
+def get_states(self):
     return [
         ('cancelled', _('Cancelled')),
         ('draft', _('Draft')),
@@ -36,32 +36,30 @@ class HrFiscalSlip(models.AbstractModel):
     _name = 'hr.fiscal_slip'
     _description = _(__doc__)
 
-    company_id = fields.many2one(
+    company_id = fields.Many2one(
         'res.company',
         'Company',
         required=True,
         readonly=True, states={'draft': [('readonly', False)]},
         default=lambda self: self.env.user.company_id.id,
     )
-    address_home_id = fields.related(
-        'employee_id',
-        'address_home_id',
-        string='Home Address',
-        type="many2one",
-        relation="res.partner",
+    address_home_id = fields.Many2one(
+        'res.partner',
+        'Home Address',
+        related='employee_id.address_home_id',
         readonly=True, states={'draft': [('readonly', False)]},
     )
-    reference = fields.char(
+    reference = fields.Char(
         'Reference',
         readonly=True, states={'draft': [('readonly', False)]},
     )
-    year = fields.integer(
+    year = fields.Integer(
         'Fiscal Year',
         required=True,
         readonly=True, states={'draft': [('readonly', False)]},
         default=lambda self: fields.Date.today()[0:4],
     )
-    state = fields.selection(
+    state = fields.Selection(
         get_states,
         'Status',
         type='char',
@@ -69,13 +67,13 @@ class HrFiscalSlip(models.AbstractModel):
         required=True,
         default='draft',
     )
-    employee_id = fields.many2one(
+    employee_id = fields.Many2one(
         'hr.employee',
         'Employee',
         required=True,
         readonly=True, states={'draft': [('readonly', False)]},
     )
-    computed = fields.boolean(
+    computed = fields.Boolean(
         'Computed',
         readonly=True, states={'draft': [('readonly', False)]},
     )

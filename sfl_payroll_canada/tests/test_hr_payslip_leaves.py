@@ -19,8 +19,6 @@
 #
 ##############################################################################
 
-from openerp.osv import orm
-
 from .test_payroll_structure import TestPayrollStructureBase
 
 
@@ -64,36 +62,15 @@ class TestHrPayslipLeaves(TestPayrollStructureBase):
             self.worked_days_model.create(
                 cr, uid, {
                     'date': line[0],
-                    'number_of_hours': line[2],
-                    'activity_id': line[3],
-                    'hourly_rate': line[4],
-                    'rate': line[5],
+                    'number_of_hours': line[1],
+                    'activity_id': line[2],
+                    'hourly_rate': line[3],
+                    'rate': line[4],
                     'payslip_id': self.payslip_id,
                 }, context=context)
 
         self.salary_rule = self.rule_model.browse(
             cr, uid, self.ref('rule_ca_vac_taken'), context=context)
-
-    def test_check_max_leave_hours(self):
-        cr, uid, context = self.cr, self.uid, self.context
-
-        self.contract_model.write(
-            cr, uid, [self.contract_id], {
-                'salary_computation_method': 'yearly',
-            }, context=context)
-
-        # Already 101 leave hours
-        # We add 60, so the total equals 161 > worked_hours_per_pay_period
-        self.assertRaises(
-            orm.except_orm,
-            self.payslip_model.write,
-            cr, uid, [self.payslip_id], {
-                'worked_days_line_ids': [(0, 0, {
-                    'date_from': '2014-01-01', 'date_to': '2014-01-01',
-                    'number_of_hours': 60, 'activity_id': self.sl_activity_id,
-                    'hourly': 20, 'rate': 100,
-                })],
-            }, context=context)
 
     def test_sum_leave_category_nb_hours(self):
         cr, uid, context = self.cr, self.uid, self.context
@@ -101,7 +78,7 @@ class TestHrPayslipLeaves(TestPayrollStructureBase):
         payslip = self.payslip_model.browse(
             cr, uid, self.payslip_id, context=context)
 
-        res = self.salary_rule.sum_leaves(payslip, in_cash=False)
+        res = self.salary_rule.sum_leaves_taken(payslip, in_cash=False)
 
         self.assertEqual(res, 11 + 13 + 17)
 
@@ -111,30 +88,13 @@ class TestHrPayslipLeaves(TestPayrollStructureBase):
         payslip = self.payslip_model.browse(
             cr, uid, self.payslip_id, context=context)
 
-        res = self.salary_rule.sum_leaves(payslip, in_cash=True)
+        res = self.salary_rule.sum_leaves_taken(payslip, in_cash=True)
 
         self.assertEqual(
-            res, 11 * 15 * 0.90
-            + 13 * 10 * 1.0
-            + 17 * 25 * 1.5
+            res, 11 * 15 * 0.90 +
+            13 * 10 * 1.0 +
+            17 * 25 * 1.5
         )
-
-    def test_reduce_leave_hours(self):
-        """
-        Test reduce_leave_hours with divide_by_rate=False
-        """
-        cr, uid, context = self.cr, self.uid, self.context
-
-        payslip = self.payslip_model.browse(
-            cr, uid, self.payslip_id, context=context)
-
-        # Reduce the leave hours
-        self.salary_rule.reduce_leaves(payslip, 20, in_cash=False)
-
-        # Validate how many hours are left in the worked days
-        res = self.salary_rule.sum_leaves(payslip, in_cash=False)
-
-        self.assertEqual(res, 11 + 13 + 17 - 20)
 
     def test_reduce_leave_hours_cash(self):
         """
@@ -149,20 +109,11 @@ class TestHrPayslipLeaves(TestPayrollStructureBase):
         self.salary_rule.reduce_leaves(payslip, 700, in_cash=True)
 
         # Validate how much cash is left in the worked days
-        res = self.salary_rule.sum_leaves(payslip, in_cash=True)
+        res = self.salary_rule.sum_leaves_taken(payslip, in_cash=True)
 
         self.assertEqual(
-            res, 11 * 15 * 0.90
-            + 13 * 10 * 1.0
-            + 17 * 25 * 1.5
-            - 700
+            res, 11 * 15 * 0.90 +
+            13 * 10 * 1.0 +
+            17 * 25 * 1.5 -
+            700
         )
-
-        # Validate how many hours are left in the worked days
-        res = self.salary_rule.sum_leaves(payslip, in_cash=False)
-
-        # The method should reduce the worked days with the highest
-        # date first
-        reduction_jan_31 = 17 * 25 * 1.5
-        reduction = 17 + (700 - reduction_jan_31) / (10 * 1.0)
-        self.assertEqual(res, 11 + 13 + 17 - reduction)

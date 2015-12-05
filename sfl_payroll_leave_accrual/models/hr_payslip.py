@@ -99,7 +99,7 @@ class HrPayslip(models.Model):
                     payslip_line = payslip_line_dict[salary_rule_id]
 
                     amount = (
-                        payslip_line.amount if line.amount_type == 'monetary'
+                        payslip_line.amount if line.amount_type == 'cash'
                         else payslip_line.amount_precise
                     )
 

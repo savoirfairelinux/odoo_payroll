@@ -22,7 +22,10 @@
 from datetime import datetime, date
 
 from openerp import api, fields, models, _
+from openerp.exceptions import ValidationError
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
+
+to_string = fields.Date.to_string
 
 
 class HrCraT4(models.Model):
@@ -32,26 +35,10 @@ class HrCraT4(models.Model):
     _inherit = 'hr.cra.fiscal_slip'
     _description = _(__doc__)
 
-    def _get_other_amounts(
-        self, cr, uid, ids, field_name, args=None, context=None
-    ):
-        """
-        Get the list of amounts that will appear in the free boxes
-        of the releve 1
-        """
-        res = {}
-
-        for slip in self.browse(cr, uid, ids, context=context):
-
-            res[slip.id] = [
-                a.id for a in slip.amount_ids if a.box_id.is_other_amount
-            ]
-
-        return res
-
     name = fields.Char(
         'Name', required=True,
         readonly=True, states={'draft': [('readonly', False)]},
+        default=lambda self: self.env['ir.sequence'].get('hr.cra.t4')
     )
     rpp_dpsp_rgst_nbr = fields.Integer(
         'RPP/PRPP registration number',
@@ -86,10 +73,10 @@ class HrCraT4(models.Model):
     )
 
     other_amount_ids = fields.One2many(
-        compute='_get_other_amounts',
+        'hr.cra.t4.amount',
+        'slip_id',
+        domain=[('is_other_amount', '=', True)],
         string='Other Amounts',
-        method=True,
-        relation="hr.cra.t4.amount",
     )
 
     child_ids = fields.One2many(
@@ -113,173 +100,145 @@ class HrCraT4(models.Model):
         readonly=True, states={'draft': [('readonly', False)]},
     )
 
-    def _check_amounts(self, cr, uid, ids, context=None):
-        for slip in self.browse(cr, uid, ids, context=context):
+    @api.one
+    @api.constrains('amount_ids')
+    def _check_amounts(self):
+        # Check that their is maximum 6 amounts
+        if len(self.other_amount_ids) > 6:
+            raise ValidationError(
+                'You can enter a maximum of 6 other amounts.'
+            )
 
-            other_amounts = [a for a in slip.amount_ids if a.is_other_amount]
-
-            # Check that their is maximum 6 amounts
-            if len(other_amounts) > 6:
-                return False
-
-            # For each amount, the source must be different
-            boxes = [a.box_id for a in slip.amount_ids]
-            if len(set(boxes)) != len(boxes):
-                return False
+        # For each amount, the source must be different
+        boxes = [a.box_id for a in self.amount_ids]
+        if len(set(boxes)) != len(boxes):
+            raise ValidationError(
+                'All amounts must be different from each other.'
+            )
 
         return True
 
-    _constraints = [
-        (
-            _check_amounts,
-            "Error! You can enter a maximum of 6 other amounts "
-            "and all amounts must be different from each other.",
-            ['amount_ids']
-        ),
-    ]
+    @api.multi
+    def button_set_to_draft(self):
+        self.write({'state': 'draft'})
 
-    _defaults = {
-        'name': lambda self, cr, uid, c={}:
-        self.pool['ir.sequence'].get(cr, uid, 'hr.cra.t4'),
-    }
+    @api.multi
+    def button_confirm(self):
+        self.write({'state': 'confirmed'})
 
-    def button_set_to_draft(self, cr, uid, ids, context=None):
-        self.write(cr, uid, ids, {'state': 'draft'}, context=context)
+    @api.one
+    def compute_amounts(self):
+        self.write({'amount_ids': [(5, 0)]})
 
-    def button_confirm(self, cr, uid, ids, context=None):
-        self.write(cr, uid, ids, {'state': 'confirmed'}, context=context)
+        # Most times, a T4 has either 0 or 1 child
+        # Need to unlink these T4, because they will
+        # be recreated if required
+        self.child_ids.unlink()
+        self.refresh()
 
-    def compute_amounts(
-        self, cr, uid, ids, context=None
-    ):
-        box_obj = self.pool['hr.cra.t4.box']
-        data_obj = self.pool['ir.model.data']
+        # Get all payslip of the employee for the year
+        year = self.year
 
-        for slip in self.browse(cr, uid, ids, context=context):
+        date_from = to_string(datetime(year, 1, 1))
+        date_to = to_string(datetime(year, 12, 31))
 
-            slip.write({'amount_ids': [(5, 0)]})
+        payslip_ids = self.env['hr.payslip'].search([
+            ('employee_id', '=', self.employee_id.id),
+            ('date_payment', '>=', date_from),
+            ('date_payment', '<=', date_to),
+            ('state', '=', 'done'),
+        ]).ids
 
-            # Most times, a T4 has either 0 or 1 child
-            # Need to unlink these T4, because they will
-            # be recreated if required
-            for child in slip.child_ids:
-                child.unlink()
+        # Get all types of t4 box
+        boxes = self.env['hr.cra.t4.box'].search([])
 
-            slip.refresh()
+        # Create a list of all amounts to add to the slip
+        amounts = []
 
-            # Get all payslip of the employee for the year
-            year = slip.year
-            date_from = datetime(year, 1, 1).strftime(
-                DEFAULT_SERVER_DATE_FORMAT)
-            date_to = datetime(year, 12, 31).strftime(
-                DEFAULT_SERVER_DATE_FORMAT)
-            payslip_ids = self.pool['hr.payslip'].search(
-                cr, uid, [
-                    ('employee_id', '=', slip.employee_id.id),
-                    ('date_payment', '>=', date_from),
-                    ('date_payment', '<=', date_to),
-                    ('state', '=', 'done'),
-                ], context=context)
+        for box in boxes:
+            box_amount = box.compute_amount(payslip_ids)
 
-            # Get all types of t4 box
-            box_ids = box_obj.search(cr, uid, [], context=context)
-            boxes = box_obj.browse(cr, uid, box_ids, context=context)
-
-            # Create a list of all amounts to add to the slip
-            amounts = []
-
-            for box in boxes:
-                box_amount = box.compute_amount(payslip_ids)
-
-                if box_amount or box.required:
-                    amounts.append({
-                        'amount': box_amount,
-                        'box_id': box.id,
-                        'is_other_amount': box.is_other_amount,
-                    })
-
-            std_amounts = [
-                a for a in amounts if not a['is_other_amount']
-            ]
-
-            other_amounts = [
-                a for a in amounts if a['is_other_amount']
-            ]
-
-            slip.refresh()
-
-            employee = slip.employee_id
-            year_end = date(slip.year, 12, 31).strftime(
-                DEFAULT_SERVER_DATE_FORMAT)
-
-            def get_t4_amount(ref):
-                box_id = data_obj(cr, uid, 'sfl_payroll_canada', ref)[1]
-                return next((
-                    a.amount for a in amounts if a['box_id'] == box_id), False)
-
-            # T4 vals
-            slip.write({
-                'ei_xmpt_cd': employee.exempted_from('CA_EI', year_end)
-                and not get_t4_amount('t4_box_empe_eip_amt'),
-                'cpp_qpp_xmpt_cd': employee.exempted_from('CA_CPP', year_end)
-                and not get_t4_amount('t4_box_cpp_cntrb_amt')
-                and not get_t4_amount('t4_box_qpp_cntrb_amt'),
-                'prov_pip_xmpt_cd': employee.exempted_from('CA_PIP', year_end)
-                and not get_t4_amount('t4_box_prov_pip_amt')
-            })
-
-            rpp_dpsp_rgst_nbr = self.get_rpp_dpsp_rgst_nbr(
-                cr, uid, payslip_ids, context=context)
-
-            if rpp_dpsp_rgst_nbr:
-                slip.write({'rpp_dpsp_rgst_nbr': rpp_dpsp_rgst_nbr})
-
-            slip.write({'computed': True})
-
-            if len(other_amounts) > 6:
-                slip_vals = self.copy_data(cr, uid, slip.id, context=context)
-
-            # A T4 can not have more than 6 other amounts
-            # Otherwise, create a seperate T4
-            while(len(other_amounts) > 6):
-                other_slip_id = self.create(
-                    cr, uid, slip_vals, context=context)
-
-                other_slip = self.browse(
-                    cr, uid, other_slip_id, context=context)
-
-                other_slip.write({
-                    'amount_ids': [
-                        (0, 0, amount) for amount in other_amounts[6:12]
-                    ],
-                    'parent_id': slip.id,
+            if box_amount or box.required:
+                amounts.append({
+                    'amount': box_amount,
+                    'box_id': box.id,
+                    'is_other_amount': box.is_other_amount,
                 })
 
-                other_slip.refresh()
+        std_amounts = [
+            a for a in amounts if not a['is_other_amount']
+        ]
 
-                other_slip_boxes = [
-                    a.box_id for a in other_slip.amount_ids
-                ]
+        other_amounts = [
+            a for a in amounts if a['is_other_amount']
+        ]
 
-                # Add the missing mandatory boxes to the slip
-                required_boxes = [
-                    b for b in boxes
-                    if b.required and b not in other_slip_boxes
-                ]
+        self.refresh()
 
-                other_slip.write({
-                    'amount_ids': [
-                        (0, 0, {
-                            'box_id': b.id,
-                            'amount': 0,
-                        }) for b in required_boxes
-                    ],
-                })
+        employee = self.employee_id
+        year_end = date(self.year, 12, 31).strftime(
+            DEFAULT_SERVER_DATE_FORMAT)
 
-                other_amounts = other_amounts[0:6] + other_amounts[12:]
+        def get_t4_amount(ref):
+            box_id = self.env.ref('sfl_payroll_canada.%s' % ref).id
+            return next((
+                a.amount for a in amounts if a['box_id'] == box_id), False)
 
-            slip.write({
+        # T4 vals
+        self.write({
+            'ei_xmpt_cd': employee.exempted_from('CA_EI', year_end) and
+            not get_t4_amount('t4_box_empe_eip_amt'),
+            'cpp_qpp_xmpt_cd': employee.exempted_from('CA_CPP', year_end) and
+            not get_t4_amount('t4_box_cpp_cntrb_amt') and
+            not get_t4_amount('t4_box_qpp_cntrb_amt'),
+            'prov_pip_xmpt_cd': employee.exempted_from('CA_PIP', year_end) and
+            not get_t4_amount('t4_box_prov_pip_amt')
+        })
+
+        rpp_dpsp_rgst_nbr = self.get_rpp_dpsp_rgst_nbr(payslip_ids)
+
+        if rpp_dpsp_rgst_nbr:
+            self.write({'rpp_dpsp_rgst_nbr': rpp_dpsp_rgst_nbr})
+
+        self.write({'computed': True})
+
+        if len(other_amounts) > 6:
+            slip_vals = self.copy_data()[0]
+
+        # A T4 can not have more than 6 other amounts
+        # Otherwise, create a seperate T4
+        while(len(other_amounts) > 6):
+            other_slip = self.create(slip_vals)
+
+            other_slip.write({
                 'amount_ids': [
-                    (0, 0, amount) for amount in std_amounts + other_amounts
-                ]
+                    (0, 0, amount) for amount in other_amounts[6:12]
+                ],
+                'parent_id': self.id,
             })
+
+            other_slip.refresh()
+
+            other_slip_boxes = other_slip.amount_ids.mapped('box_id')
+
+            # Add the missing mandatory boxes to the slip
+            required_boxes = boxes.filtered(
+                lambda b: b.required and b not in other_slip_boxes
+            )
+
+            other_slip.write({
+                'amount_ids': [
+                    (0, 0, {
+                        'box_id': b.id,
+                        'amount': 0,
+                    }) for b in required_boxes
+                ],
+            })
+
+            other_amounts = other_amounts[0:6] + other_amounts[12:]
+
+        self.write({
+            'amount_ids': [
+                (0, 0, amount) for amount in std_amounts + other_amounts
+            ]
+        })

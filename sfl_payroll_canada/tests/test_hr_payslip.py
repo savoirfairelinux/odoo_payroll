@@ -265,11 +265,7 @@ class TestHrPayslip(TestPayslipBase):
                     'payslip_id': self.payslip_id,
                 }, context=context)
 
-<<<<<<< HEAD
     def test_get_pays_since_beginning(self):
-=======
-    def atest_get_pays_since_beginning(self):
->>>>>>> Add Canada Payroll
         """
         Test the get_pays_since_beginning method for different values
         of pays_per_year on contract
@@ -291,11 +287,7 @@ class TestHrPayslip(TestPayslipBase):
 
             self.assertEqual(res, case[1])
 
-<<<<<<< HEAD
     def test_sum_payslip_input(self):
-=======
-    def atest_sum_payslip_input(self):
->>>>>>> Add Canada Payroll
         cr, uid, context = self.cr, self.uid, self.context
         payslip = self.payslip_model.browse(
             cr, uid, self.payslip_id, context=context)

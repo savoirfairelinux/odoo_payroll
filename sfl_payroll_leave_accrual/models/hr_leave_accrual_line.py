@@ -56,12 +56,12 @@ class HrLeaveAccrualLine(models.Model):
     )
     amount_type = fields.Selection(
         [
-            ('monetary', 'monetary'),
+            ('cash', 'cash'),
             ('hours', 'Hours'),
         ],
         string="Amount Type",
         required=True,
-        default='monetary',
+        default='cash',
     )
 
     allocation_id = fields.Many2one(

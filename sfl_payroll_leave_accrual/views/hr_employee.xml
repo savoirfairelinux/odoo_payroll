@@ -12,7 +12,7 @@
                             <tree>
                                 <field name="leave_type_id"/>
                                 <field name="total_hours"/>
-                                <field name="total_monetary"/>
+                                <field name="total_cash"/>
                             </tree>
                         </field>
                     </page>

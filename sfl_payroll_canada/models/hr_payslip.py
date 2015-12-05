@@ -103,7 +103,4 @@ class HrPayslip(models.Model):
 
         res = cr.fetchone()[0]
 
-        print leave_date, period_start, period_end
-        print res
-
         return res or 0

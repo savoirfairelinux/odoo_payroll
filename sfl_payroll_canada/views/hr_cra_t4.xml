@@ -7,10 +7,10 @@
             <field name="arch" type="xml">
                 <form string="T4 Slip" version="7.0">
                     <header>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,sent"/>
                         <button string="Compute Amounts" name="compute_amounts" type="object" states="draft"/>
                         <button string="Confirm" name="button_confirm" type="object" states="draft" class="oe_highlight"/>
                         <button string="Set To Draft" name="button_set_to_draft" type="object" states="confirmed"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,sent"/>
                     </header>
                     <sheet>
                         <h1>

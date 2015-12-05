@@ -68,6 +68,8 @@ class HrPayslipEmployee(models.TransientModel):
             new_payslip = payslip_model.create({
                 'employee_id': employee.id,
                 'payslip_run_id': payslip_run.id,
+                'date_from': payslip_run.date_start,
+                'date_to': payslip_run.date_end,
             })
 
             new_payslip.onchange_payslip_run_id()

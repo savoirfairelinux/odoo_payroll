@@ -6,19 +6,19 @@
             <field name="leave_type_id" ref="sfl_payroll_activity.holiday_status_vacation"/>
             <field name="salary_rule_id" ref="rule_ca_vac_added"/>
             <field name="substract" eval="False"/>
-            <field name="amount_type">monetary</field>
+            <field name="amount_type">cash</field>
         </record>
         <record id="accrual_vacation_line_2" model="hr.holidays.status.accrual.line">
             <field name="leave_type_id" ref="sfl_payroll_activity.holiday_status_vacation"/>
             <field name="salary_rule_id" ref="rule_ca_vac_taken"/>
             <field name="substract" eval="True"/>
-            <field name="amount_type">monetary</field>
+            <field name="amount_type">cash</field>
         </record>
         <record id="accrual_vacation_line_3" model="hr.holidays.status.accrual.line">
             <field name="leave_type_id" ref="sfl_payroll_activity.holiday_status_vacation"/>
             <field name="salary_rule_id" ref="rule_ca_unused_vac_taken"/>
             <field name="substract" eval="True"/>
-            <field name="amount_type">monetary</field>
+            <field name="amount_type">cash</field>
         </record>
         <record id="accrual_vacation_line_4" model="hr.holidays.status.accrual.line">
             <field name="leave_type_id" ref="sfl_payroll_activity.holiday_status_vacation"/>
@@ -58,19 +58,19 @@
             <field name="leave_type_id" ref="hr_holidays.holiday_status_comp"/>
             <field name="salary_rule_id" ref="rule_ca_comp_added"/>
             <field name="substract" eval="False"/>
-            <field name="amount_type">monetary</field>
+            <field name="amount_type">cash</field>
         </record>
         <record id="accrual_compensatory_line_2" model="hr.holidays.status.accrual.line">
             <field name="leave_type_id" ref="hr_holidays.holiday_status_comp"/>
             <field name="salary_rule_id" ref="rule_ca_comp_taken"/>
             <field name="substract" eval="True"/>
-            <field name="amount_type">monetary</field>
+            <field name="amount_type">cash</field>
         </record>
         <record id="accrual_compensatory_line_3" model="hr.holidays.status.accrual.line">
             <field name="leave_type_id" ref="hr_holidays.holiday_status_comp"/>
             <field name="salary_rule_id" ref="rule_ca_unused_comp_taken"/>
             <field name="substract" eval="True"/>
-            <field name="amount_type">monetary</field>
+            <field name="amount_type">cash</field>
         </record>
         <record id="accrual_compensatory_line_4" model="hr.holidays.status.accrual.line">
             <field name="leave_type_id" ref="hr_holidays.holiday_status_comp"/>

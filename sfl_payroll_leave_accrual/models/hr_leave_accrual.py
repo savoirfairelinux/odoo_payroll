@@ -44,14 +44,19 @@ class HrLeaveAccrual(models.Model):
         'accrual_id',
         string='Accrual Lines',
     )
-    total_monetary = fields.Float(
-        'monetary Accruded',
+    total_cash = fields.Float(
+        'Cash Accruded',
         readonly=True,
     )
     total_hours = fields.Float(
         'Hours Accruded',
         readonly=True,
     )
+
+    @api.one
+    def name_get(self):
+        return (self.id, '%s - %s' % (
+            self.leave_type_id.name, self.employee_id.name))
 
     @api.one
     def update_totals(self):
@@ -67,7 +72,7 @@ class HrLeaveAccrual(models.Model):
             return
 
         total_hours = 0
-        total_monetary = 0
+        total_cash = 0
 
         query = (
             """SELECT l.amount_type, l.is_refund, sum(l.amount)
@@ -83,22 +88,24 @@ class HrLeaveAccrual(models.Model):
         for (amount_type, is_refund, amount) in cr.fetchall():
 
             if is_refund:
-                if amount_type == 'monetary':
-                    total_monetary -= amount
+                if amount_type == 'cash':
+                    total_cash -= amount
                 elif amount_type == 'hours':
                     total_hours -= amount
             else:
-                if amount_type == 'monetary':
-                    total_monetary += amount
+                if amount_type == 'cash':
+                    total_cash += amount
                 elif amount_type == 'hours':
                     total_hours += amount
 
         self.write({
             'total_hours': total_hours,
-            'total_monetary': total_monetary,
+            'total_cash': total_cash,
         })
+
+        self.refresh()
 
     @api.multi
     def sum_leaves_available(self, date, in_cash=False):
         self.ensure_one()
-        return self.total_monetary if in_cash else self.total_hours
+        return self.total_cash if in_cash else self.total_hours

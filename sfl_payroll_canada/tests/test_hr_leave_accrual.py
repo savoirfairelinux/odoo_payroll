@@ -83,35 +83,27 @@ class TestHrLeaveAccrual(common.TransactionCase):
         # Create lines to insert into leave accruals
         accrual_lines = [
             # Lines ignored
-            (True, '2014-06-01', -100),
-            (False, '2014-06-01', 200),
-            (True, '2014-06-01', 500),
-            (False, '2014-06-01', -700),
+            ('2015-05-15', 200),
+            ('2015-05-15', -700),
 
-            (True, '2014-05-31', -25),
-            (False, '2014-05-31', 30),
-            (True, '2014-05-31', 150),
-            (False, '2014-05-31', -75),
+            ('2014-05-31', 30),
+            ('2014-05-31', -75),
 
-            (True, '2014-05-15', -95),
-            (False, '2014-05-15', 70),
-            (True, '2014-05-15', 100),
-            (False, '2014-05-15', -110),
+            ('2014-05-15', 70),
+            ('2014-05-15', -110),
 
-            (False, '2014-05-14', -15),
-            (False, '2014-05-14', 270),
-            (False, '2012-01-01', -35),
-            (False, '2012-01-01', 290),
+            ('2014-05-14', -15),
+            ('2014-05-14', 270),
+            ('2012-01-01', -35),
+            ('2012-01-01', 290),
         ]
 
         line_ids = [
             (0, 0, {
                 'source': 'manual',
-                'is_refund': accrual_line[0],
-                'date': accrual_line[1],
+                'date': accrual_line[0],
                 'name': 'Test',
-                # Change the amount to distinguish each leave type
-                'amount': accrual_line[2]
+                'amount': accrual_line[1]
             }) for accrual_line in accrual_lines
         ]
         self.accrual.write({'line_ids': line_ids})
@@ -123,10 +115,9 @@ class TestHrLeaveAccrual(common.TransactionCase):
         """
         res = self.accrual.sum_leaves_available('2014-05-31', in_cash=True)
 
-        self.assertEqual(
-            # Current year taken: -110 + 100 - 75 + 150 = 65
-            # Previous ytd: -15 - 35 + 270 + 290 = 510
-            res, 575)
+        # Current year taken: -75 - 110 = -185
+        # Previous ytd: -15 + 270 - 35 + 290 = 510
+        self.assertEqual(res, 325)
 
     def test_sum_leaves_available_before_entitlement(self):
         """
@@ -135,10 +126,9 @@ class TestHrLeaveAccrual(common.TransactionCase):
         """
         res = self.accrual.sum_leaves_available('2014-05-14', in_cash=True)
 
-        self.assertEqual(
-            # Current year taken: -15
-            # Previous ytd: 290 - 35
-            res, 290 - 35 - 15)
+        # Current year taken: -15
+        # Previous ytd: -35 + 290
+        self.assertEqual(res, 290 - 35 - 15)
 
     def test_sum_leaves_available_at_entitlement(self):
         """
@@ -147,7 +137,6 @@ class TestHrLeaveAccrual(common.TransactionCase):
         """
         res = self.accrual.sum_leaves_available('2014-05-15', in_cash=True)
 
-        self.assertEqual(
-            # Current year taken: -110 + 100 = -10
-            # Previous ytd: -15 - 35 + 270 + 290 = 510
-            res, 500)
+        # Current year taken: -75 - 110 = -185
+        # Previous ytd: -15 - 35 + 270 + 290 = 510
+        self.assertEqual(res, 325)
