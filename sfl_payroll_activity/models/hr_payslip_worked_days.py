@@ -58,7 +58,8 @@ class HrPayslipWorkedDays(models.Model):
 
     @api.model
     def create(self, vals):
-        vals['number_of_hours_allowed'] = vals.get('number_of_hours')
+        if 'number_of_hours_allowed' not in vals:
+            vals['number_of_hours_allowed'] = vals.get('number_of_hours')
         return super(HrPayslipWorkedDays, self).create(vals)
 
     @api.one

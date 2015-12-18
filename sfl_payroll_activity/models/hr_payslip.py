@@ -54,7 +54,6 @@ class HrPayslip(models.Model):
     def count_paid_worked_days(self, in_cash=False):
         """
         Count paid worked days for a given payslip
-        :param in_cash: multiply hours by rate for overtime
         """
         self.ensure_one()
 
