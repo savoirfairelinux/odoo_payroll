@@ -19,14 +19,15 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
+from openerp import api, fields, models, _
+from openerp.exceptions import ValidationError
 
 
-class HrEmployee(orm.Model):
+class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    def check_personal_info(self, cr, uid, ids, context=None):
+    @api.multi
+    def check_personal_info(self):
         """
         Check the employee's personal data before creating
         a fiscal slip.
@@ -34,24 +35,21 @@ class HrEmployee(orm.Model):
         The employee must have a first name, an home address and the
         home address must contain the employee's SIN.
         """
-        for employee in self.browse(cr, uid, ids, context=context):
+        for employee in self:
             if not employee.firstname:
-                raise orm.except_orm(
-                    _("Error!"),
+                raise ValidationError(
                     _("The employee %s's first name is not set.") %
                     employee.name)
 
             if not employee.sin:
-                raise orm.except_orm(
-                    _("Error!"),
+                raise ValidationError(
                     _("The employee %s's social insurance number "
                         "is not set.") % employee.name)
 
             address = employee.address_home_id
 
             if not address:
-                raise orm.except_orm(
-                    _("Error!"),
+                raise ValidationError(
                     _("The employee %s's home address is not set.") %
                     employee.name)
 
@@ -62,8 +60,7 @@ class HrEmployee(orm.Model):
                 ('zip', _('Postal Code')),
             ]:
                 if not address[field[0]]:
-                    raise orm.except_orm(
-                        _("Error!"),
+                    raise ValidationError(
                         _("The employee %s's home address is incomplete. "
                             "The field %s is missing.") % (
                             employee.name, field[1]))
@@ -71,15 +68,13 @@ class HrEmployee(orm.Model):
             address_work = employee.address_id
 
             if not address_work:
-                raise orm.except_orm(
-                    _("Error!"),
+                raise ValidationError(
                     _("The employee %s's working address is not set.") %
                     employee.name)
 
             # The working province of the employee is required in the T4
             if not address_work.state_id:
-                raise orm.except_orm(
-                    _("Error!"),
+                raise ValidationError(
                     _("The employee %s's working address "
                         "has no province defined.") %
                     employee.name)
@@ -87,31 +82,26 @@ class HrEmployee(orm.Model):
             # The working country of the employee is required
             # to compute payslips
             if not address_work.country_id:
-                raise orm.except_orm(
-                    _("Error!"),
+                raise ValidationError(
                     _("The employee %s's working address "
                         "has no country defined.") %
                     employee.name)
 
-    _columns = {
-        # The two following fields are not mandatory.
-        # They must exist in the employee model so that the slips will
-        # compute properly.
-        'employee_number': fields.char(
-            'Employee Number',
-        ),
-        'lastname_initial': fields.char(
-            'Last Name initial',
-            size=1
-        ),
-        'sin': fields.float(
-            'Social Insurance Number',
-            digits=(9, 0),
-            groups="base.group_hr_manager",
-        ),
-    }
+    employee_number = fields.Char(
+        'Employee Number',
+    )
+    lastname_initial = fields.Char(
+        'Last Name initial',
+        size=1
+    )
+    sin = fields.Float(
+        'Social Insurance Number',
+        digits=(9, 0),
+        groups="base.group_hr_manager",
+    )
 
-    def onchange_sin(self, cr, uid, ids, sin, context=None):
+    @api.multi
+    def onchange_sin(self, sin):
         ret = {'value': 0}
 
         def digits_of(n):

@@ -19,14 +19,11 @@
 ##############################################################################
 
 import iso3166
-import time
-
 from collections import OrderedDict
 from lxml import etree
 
-from openerp.osv import orm, fields
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
-from openerp.tools.translate import _
+from openerp import api, fields, models, _
+from openerp.exceptions import ValidationError
 
 
 def dict_to_etree(element, d):
@@ -72,11 +69,14 @@ def get_states(self, cr, uid, context=None):
     ]
 
 
-class HrCraSummary(orm.AbstractModel):
-    _name = 'hr.cra.summary'
-    _description = 'CRA Summary'
+class HrCraSummary(models.AbstractModel):
+    """CRA Summary"""
 
-    def make_address_dict(self, cr, uid, address, context=None):
+    _name = 'hr.cra.summary'
+    _description = _(__doc__)
+
+    @api.model
+    def make_address_dict(self, address):
         """
         Create a dict to be parsed into XML when generating fiscal slips
         of Canada Revenu Agency such as T4 and T619.
@@ -91,8 +91,7 @@ class HrCraSummary(orm.AbstractModel):
             ('zip', _('Postal Code')),
         ]:
             if not address[field[0]]:
-                raise orm.except_orm(
-                    _('Error'),
+                raise ValidationError(
                     _('The field %s for %s is missing')
                     % (field[1], address.name)
                 )
@@ -111,7 +110,8 @@ class HrCraSummary(orm.AbstractModel):
             'pstl_cd': address.zip.replace(' ', ''),
         }
 
-    def make_t619_xml(self, cr, uid, slip_return_xml, summary, context=None):
+    @api.model
+    def make_t619_xml(self, slip_return_xml, summary):
         """
         Summary XML of fiscal slips to the Canada Revenu Agency
         requires a section containing the T619.
@@ -126,9 +126,7 @@ class HrCraSummary(orm.AbstractModel):
         transmitter = summary.company_id
 
         # The working address of the transmitter
-        transmitter_address_dict = self.make_address_dict(
-            cr, uid, transmitter, context=context
-        )
+        transmitter_address_dict = self.make_address_dict(transmitter)
 
         contact_dict = {
             'cntc_nm': summary.contact_id.name[0:22],
@@ -202,110 +200,105 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
 %s
 %s</Submission>""" % (t619_xml, slip_return_xml)
 
-    _columns = {
-        'xml': fields.text(
-            'XML Generated', readonly=True,
-        ),
-        # This field is intended be inherited in other modules as a functional
-        # field. It is used in method make_t619_xml.
-        'number_of_slips': fields.integer(
-            'Number of Slips', readonly=True,
-        ),
-        'sbmt_ref_id': fields.char(
-            'Submission Reference', required=True, size=8,
-            help="Number created by the company to identify the "
-            "summary. It should contain 6 numeric characters",
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'trnmtr_nbr': fields.char(
-            'Transmitter Number', required=True, size=8,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'lang_cd': fields.selection(
-            get_language_codes,
-            'Language of Communication',
-            required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'state': fields.selection(
-            get_states,
-            'Status',
-            select=True,
-            readonly=True,
-        ),
-        'year': fields.integer(
-            'Fiscal Year', required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'type': fields.selection(
-            get_type_codes,
-            'Summary Type', required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'company_id': fields.many2one(
-            'res.company', 'Company', required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-
-        'contact_id': fields.many2one(
-            'hr.employee', 'Contact', required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'contact_area_code': fields.integer(
-            'Contact Area Code', required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'contact_phone': fields.char(
-            'Contact Phone', required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'contact_extension': fields.integer(
-            'Contact Extension',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'contact_email': fields.char(
-            'Contact Email', size=60, required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-
-        'proprietor_1_id': fields.many2one(
-            'hr.employee', 'Proprietor', required=True,
-            help="The company's proprietor",
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'proprietor_2_id': fields.many2one(
-            'hr.employee', 'Second Proprietor',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-    }
-
-    def _get_default_contact(self, cr, uid, context):
-        user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
+    @api.model
+    def _get_default_contact(self):
+        user = self.env.user
 
         if user.employee_ids:
             return user.employee_ids[0].id
 
         return False
 
-    _defaults = {
-        'state': 'draft',
-        'lang_cd': 'E',
-        'trnmtr_nbr': 'MM555555',
-        'type': 'O',
-        'company_id': lambda self, cr, uid, context:
-        self.pool.get('res.users').browse(
-            cr, uid, uid, context=context).company_id.id,
-        'year': lambda *a: int(time.strftime(
-            DEFAULT_SERVER_DATE_FORMAT)[0:4]) - 1,
-        'contact_id': _get_default_contact,
-    }
+    xml = fields.text(
+        'XML Generated', readonly=True,
+    )
+    # This field is intended be inherited in other modules as a functional
+    # field. It is used in method make_t619_xml.
+    number_of_slips = fields.Integer(
+        'Number of Slips', readonly=True,
+    )
+    sbmt_ref_id = fields.Char(
+        'Submission Reference', required=True, size=8,
+        help="Number created by the company to identify the "
+        "summary. It should contain 6 numeric characters",
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+    trnmtr_nbr = fields.Char(
+        'Transmitter Number', required=True, size=8,
+        readonly=True, states={'draft': [('readonly', False)]},
+        default='MM555555',
+    )
+    lang_cd = fields.Selection(
+        get_language_codes,
+        'Language of Communication',
+        required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+        default='E',
+    )
+    state = fields.Selection(
+        get_states,
+        'Status',
+        select=True,
+        readonly=True,
+        default='draft',
+    )
+    year = fields.Integer(
+        'Fiscal Year', required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+        default=lambda *a: int(fields.Date.today()[0:4]) - 1,
+    )
+    type = fields.Selection(
+        get_type_codes,
+        'Summary Type', required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+        default='O',
+    )
+    company_id = fields.Many2one(
+        'res.company', 'Company', required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+        default=lambda self: self.env.user.company_id.id,
+    )
 
-    def _check_contact_phone(self, cr, uid, ids, context=None):
+    contact_id = fields.Many2one(
+        'hr.employee', 'Contact', required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+        default=_get_default_contact,
+    )
+    contact_area_code = fields.Integer(
+        'Contact Area Code', required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+    contact_phone = fields.Char(
+        'Contact Phone', required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+    contact_extension = fields.Integer(
+        'Contact Extension',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+    contact_email = fields.Char(
+        'Contact Email', size=60, required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+
+    proprietor_1_id = fields.Many2one(
+        'hr.employee', 'Proprietor', required=True,
+        help="The company's proprietor",
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+    proprietor_2_id = fields.Many2one(
+        'hr.employee', 'Second Proprietor',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+
+    @api.multi
+    @api.constrains('contact_area_code', 'contact_phone')
+    def _check_contact_phone(self):
         """
         Check that the given contact phone number has the format 888-8888
         and that the area code is a 3 digits number
         """
-        for summary in self.browse(cr, uid, ids, context=context):
+        for summary in self:
             phone = summary.contact_phone
             phone = phone.split('-')
             if(
@@ -315,37 +308,27 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
                 not phone[0].isdigit() or
                 not phone[1].isdigit()
             ):
-                return False
+                raise ValidationError(_(
+                    "The contact phone number must be in "
+                    "the following format: 123-1234"))
 
             area_code = summary.contact_area_code
             if len(str(area_code)) != 3:
-                return False
+                raise ValidationError(_(
+                    "The area code must have 3 digits."))
 
         return True
 
-    _constraints = [
-        (
-            _check_contact_phone,
-            "Error! The contact phone number must be in "
-            "the following format: 123-1234 and the area code must "
-            "have 3 digits",
-            ['contact_area_code', 'contact_phone']
-        ),
-    ]
-
-    def onchange_contact_id(
-        self, cr, uid, ids, contact_id, context=None
-    ):
+    @api.onchange('contact_id')
+    def onchange_contact_id(self):
         """
         Fill the contact's email address, phone and regional code
         """
-        res = {'value': {}}
-        if contact_id:
-            contact = self.pool['hr.employee'].browse(
-                cr, uid, contact_id, context=context)
+        if self.contact_id:
+            contact = self.contact_id
 
             if contact.work_email:
-                res['value']['contact_email'] = contact.work_email
+                self.contact_email = contact.work_email
 
             if contact.work_phone:
                 phone = ''.join(
@@ -356,10 +339,8 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
                     phone = ''.join([phone[0:3], phone[3:]])
 
                 elif len(phone) == 10:
-                    res['value']['contact_area_code'] = int(phone[0:3])
+                    self.contact_area_code = int(phone[0:3])
                     phone = ''.join([phone[3:6], phone[6:]])
 
-                res['value']['contact_phone'] = '-'.join([
+                self.contact_phone = '-'.join([
                     phone[0:3], phone[3:7]])
-
-        return res

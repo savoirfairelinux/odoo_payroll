@@ -19,39 +19,32 @@
 #
 ##############################################################################
 
-from datetime import datetime
-
-from openerp.osv import orm, fields
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
+from openerp import fields, models, _
 
 
-class HrFiscalSlipBoxDeductionLine(orm.Model):
+class HrFiscalSlipBoxDeductionLine(models.Model):
+    """Fiscal Slip Box Deduction Line"""
+
     _name = 'hr.fiscal_slip.box.deduction.line'
-    _decription = 'Fiscal Slip Box Deduction Line'
+    _decription = _(__doc__)
 
-    _columns = {
-        'box_id': fields.many2one(
-            'hr.fiscal_slip.box',
-            'Box',
-            required=True,
-            ondelete='cascade',
-        ),
-        'category_id': fields.many2one(
-            'hr.deduction.category',
-            'Deduction',
-            required=True,
-        ),
-        'date_from': fields.date(
-            'Date From', required=True,
-        ),
-        'date_to': fields.date(
-            'Date To',
-        ),
-    }
+    box_id = fields.Many2one(
+        'hr.fiscal_slip.box',
+        'Box',
+        required=True,
+        ondelete='cascade',
+    )
+    category_id = fields.Many2one(
+        'hr.deduction.category',
+        'Deduction',
+        required=True,
+    )
+    date_from = fields.Date(
+        'Date From', required=True,
+        default=lambda self: fields.Date.today(),
+    )
+    date_to = fields.Date(
+        'Date To',
+    )
 
     _order = 'date_to desc,date_from desc'
-
-    _defaults = {
-        'date_from': lambda self, cr, uid, c={}:
-        datetime.now().strftime(DEFAULT_SERVER_DATE_FORMAT),
-    }

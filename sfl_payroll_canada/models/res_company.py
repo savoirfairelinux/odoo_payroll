@@ -19,25 +19,22 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
+from openerp import fields, models
 
 
-class ResCompany(orm.Model):
+class ResCompany(models.Model):
     _inherit = 'res.company'
-    _columns = {
-        'cra_transmitter_number': fields.char(
-            'Canada Revenu Agency Transmitter Number',
-            help="The first time you send a T4 summary, you must use "
-            "the number MM000000. When the CRA receives your first summary, "
-            "they will create and send you a number to replace MM000000.",
-        ),
-        'cra_payroll_number': fields.char(
-            'CRA Payroll Number', size=15,
-            help="This number contains the buisness number followed by RP and "
-            "the payroll account number 4 digits"
-        ),
-    }
 
-    _defaults = {
-        'cra_transmitter_number': 'MM000000',
-    }
+    cra_transmitter_number = fields.Char(
+        'Canada Revenu Agency Transmitter Number',
+        help="The first time you send a T4 summary, you must use "
+        "the number MM000000. When the CRA receives your first summary, "
+        "they will create and send you a number to replace MM000000.",
+        default='MM000000',
+    )
+    cra_payroll_number = fields.Char(
+        'CRA Payroll Number',
+        size=15,
+        help="This number contains the buisness number followed by RP and "
+        "the payroll account number 4 digits",
+    )

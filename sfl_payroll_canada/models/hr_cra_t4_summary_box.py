@@ -18,29 +18,35 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp import api, fields, models, _
 
 
-class HrCRAT4SummaryBox(orm.Model):
+class HrCRAT4SummaryBox(models.Model):
+    """T4 Summary Box"""
+
     _name = 'hr.cra.t4.summary.box'
-    _description = 'T4 Summary Box'
+    _description = _(__doc__)
 
-    _columns = {
-        'name': fields.char('Name', required=True),
-        'active': fields.boolean('Active'),
-        'xml_tag': fields.char('XML Tag', required=True),
-        'child_ids': fields.many2many(
-            'hr.cra.t4.box',
-            'hr_t4_summary_total_box_rel',
-            string='Related T4 Boxes',
-        ),
-    }
+    name = fields.Char(
+        'Name',
+        required=True
+    )
+    active = fields.Boolean(
+        'Active',
+        default=True,
+    )
+    xml_tag = fields.Char(
+        'XML Tag',
+        required=True
+    )
+    child_ids = fields.Many2many(
+        'hr.cra.t4.box',
+        'hr_t4_summary_total_box_rel',
+        string='Related T4 Boxes',
+    )
 
-    _defaults = {
-        'active': True,
-    }
-
-    def compute_amount(self, cr, uid, ids, slip_ids, context=None):
+    @api.multi
+    def compute_amount(self, slip_ids):
         """
         Return the amount of a T4 Summary box from the given
         list of slips related to the summary
@@ -48,23 +54,13 @@ class HrCRAT4SummaryBox(orm.Model):
         :type slip_ids: hr.cra.t4 id list
         :rtype: float
         """
+        self.ensure_one()
 
-        if isinstance(ids, (int, long)):
-            ids = [ids]
+        child_boxes = self.child_ids
 
-        assert len(ids) == 1, "Expected single record"
-
-        child_amount_model = self.pool['hr.cra.t4.amount']
-
-        box = self.browse(cr, uid, ids[0], context=context)
-        child_box_ids = [b.id for b in box.child_ids]
-
-        child_amount_ids = child_amount_model.search(cr, uid, [
+        child_amounts = self.env['hr.cra.t4.amount'].search([
             ('slip_id', 'in', slip_ids),
-            ('box_id', 'in', child_box_ids),
-        ], context=context)
-
-        child_amounts = child_amount_model.browse(
-            cr, uid, child_amount_ids, context=context)
+            ('box_id', 'in', child_boxes.ids),
+        ])
 
         return sum(a.amount for a in child_amounts)

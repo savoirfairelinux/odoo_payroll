@@ -19,42 +19,34 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
+from openerp import api, fields, models, _
+from openerp.exceptions import ValidationError
 
 
-class HrEmployeeBenefitCategory(orm.Model):
+class HrEmployeeBenefitCategory(models.Model):
     _inherit = 'hr.employee.benefit.category'
-    _columns = {
-        'is_rpp_dpsp': fields.boolean(
-            'Is RPP or DPSP',
-            help="Whether the benefit is a Registered Pension Plan "
-            "or a Deferred Profit Sharing Plan",
-        ),
-    }
 
-    def _check_rpp_dpsp_number(
-        self, cr, uid, ids, context=None
-    ):
+    is_rpp_dpsp = fields.Boolean(
+        'Is RPP or DPSP',
+        help="Whether the benefit is a Registered Pension Plan "
+        "or a Deferred Profit Sharing Plan",
+    )
+
+    @api.one
+    @api.constrains('is_rpp_dpsp', 'reference')
+    def _check_rpp_dpsp_number(self):
         """
         Check rpp/dpsp registration numbers
         """
-        for benefit in self.browse(cr, uid, ids, context=context):
-            if benefit.is_rpp_dpsp:
-                ref = benefit.reference
-                if (
-                    not ref or
-                    len(ref) != 7 or
-                    not ref.isnumeric()
-                ):
-                    return False
-
-        return True
-
-    _constraints = [
-        (
-            _check_rpp_dpsp_number,
-            "RPP and DPSP benefits must have a valid registration number."
-            "In the field Reference, please enter the 7 digit number.",
-            ['is_rpp_dpsp', 'reference']
-        ),
-    ]
+        if self.is_rpp_dpsp:
+            ref = self.reference
+            if (
+                not ref or
+                len(ref) != 7 or
+                not ref.isnumeric()
+            ):
+                raise ValidationError(_(
+                    "RPP and DPSP benefits must have a valid registration "
+                    "number. In the field Reference, please enter the "
+                    "7 digit number.",
+                ))

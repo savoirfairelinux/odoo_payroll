@@ -19,11 +19,11 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
+from openerp import api, fields, models, _
 
 
-def get_province_codes(self, cr, uid, context=None):
+@api.model
+def get_province_codes(self):
     return [
         ('AB', _('Alberta')),
         ('BC', _('British Columbia')),
@@ -43,7 +43,8 @@ def get_province_codes(self, cr, uid, context=None):
     ]
 
 
-def get_type_codes(self, cr, uid, context=None):
+@api.model
+def get_type_codes(self):
     return [
         ('O', _('Original')),
         ('A', _('Amended')),
@@ -51,27 +52,22 @@ def get_type_codes(self, cr, uid, context=None):
     ]
 
 
-class HrCraFiscalSlip(orm.AbstractModel):
-    """
-    This class is a base for Canada Federal fiscal slips
-    """
+class HrCraFiscalSlip(models.AbstractModel):
+    """CRA Fiscal Slip"""
+
     _name = 'hr.cra.fiscal_slip'
     _inherit = 'hr.fiscal_slip'
-    _description = 'CRA Fiscal Slip'
-    _columns = {
-        'empt_prov_cd': fields.selection(
-            get_province_codes,
-            string='Province of employment',
-            required=True, type="char",
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'type': fields.selection(
-            get_type_codes, 'Type',
-            required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-    }
+    _description = _(__doc__)
 
-    _defaults = {
-        'type': 'O',
-    }
+    empt_prov_cd = fields.Selection(
+        get_province_codes,
+        string='Province of employment',
+        required=True, type="char",
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+    type = fields.Selection(
+        get_type_codes, 'Type',
+        required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+        default='O',
+    )

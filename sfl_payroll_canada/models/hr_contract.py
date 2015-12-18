@@ -19,42 +19,33 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
+from openerp import api, fields, models
 
 
-class HrContract(orm.Model):
+class HrContract(models.Model):
     _inherit = 'hr.contract'
 
-    def _get_hourly_rate_from_wage(
-        self, cr, uid, ids, field_name, arg=None, context=None
-    ):
+    @api.multi
+    def _get_hourly_rate_from_wage(self):
         """
         :param ids: ID of contract
         :return: The hourly rate computed from the wage of an employee.
         """
-        res = {}
-        for contract in self.browse(cr, uid, ids, context=context):
-            res[contract.id] = contract.wage / (
+        for contract in self:
+            contract.hourly_rate_from_wage = contract.wage / (
                 contract.pays_per_year * contract.worked_hours_per_pay_period
             )
-        return res
 
-    _columns = {
-        'weeks_of_vacation': fields.float(
-            'Number of weeks of vacation',
-        ),
-        'worked_hours_per_pay_period': fields.float(
-            'Worked Hours per Pay Period',
-        ),
-        'hourly_rate_from_wage': fields.function(
-            _get_hourly_rate_from_wage,
-            type="float",
-            method=True,
-            string="Estimated Hourly Rate",
-        ),
-    }
-
-    _defaults = {
-        'weeks_of_vacation': 2,
-        'worked_hours_per_pay_period': 40,
-    }
+    weeks_of_vacation = fields.Float(
+        'Number of weeks of vacation',
+        default=2,
+    )
+    worked_hours_per_pay_period = fields.Float(
+        'Worked Hours per Pay Period',
+        default=40,
+    )
+    hourly_rate_from_wage = fields.Float(
+        "Estimated Hourly Rate",
+        compute='_get_hourly_rate_from_wage',
+        readonly=True,
+    )
