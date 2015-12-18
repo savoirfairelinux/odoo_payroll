@@ -209,7 +209,7 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
 
         return False
 
-    xml = fields.text(
+    xml = fields.Text(
         'XML Generated', readonly=True,
     )
     # This field is intended be inherited in other modules as a functional
