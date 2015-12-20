@@ -46,7 +46,8 @@ def dict_to_etree(element, d):
 
 # Use functions to get the selection items, because otherwise, we get to
 # translate the fields for every inheriting classes
-def get_type_codes(self, cr, uid, context=None):
+@api.model
+def get_type_codes(self):
     return [
         ('O', _('Send Original Slips')),
         ('A', _('Send Amended Slips')),
@@ -54,14 +55,16 @@ def get_type_codes(self, cr, uid, context=None):
     ]
 
 
-def get_language_codes(self, cr, uid, context=None):
+@api.model
+def get_language_codes(self):
     return [
         ('E', _('English')),
         ('F', _('French')),
     ]
 
 
-def get_states(self, cr, uid, context=None):
+@api.model
+def get_states(self):
     return [
         ('cancelled', _('Cancelled')),
         ('draft', _('Draft')),

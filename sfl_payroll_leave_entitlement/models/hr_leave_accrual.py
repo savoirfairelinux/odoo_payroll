@@ -55,8 +55,6 @@ class HrLeaveAccrual(models.Model):
             return super(HrLeaveAccrual, self).sum_leaves_available(
                 date, in_cash)
 
-        amount_type = 'cash' if in_cash else 'hours'
-
         date_slip = from_string(date)
 
         # Get the date of entitlement
@@ -79,13 +77,22 @@ class HrLeaveAccrual(models.Model):
 
         current_year_end = entitlement_date + relativedelta(years=1)
 
-        main_query = """SELECT sum(
-                case when l.is_refund then -l.amount else l.amount end)
+        if in_cash:
+            select_clause = """SELECT sum(
+                case when l.is_refund
+                then -l.amount_cash else l.amount_cash end)
+                """
+        else:
+            select_clause = """SELECT sum(
+                case when l.is_refund
+                then -l.amount_hours else l.amount_hours end)
+                """
+
+        main_query = select_clause + """
             FROM hr_leave_accrual a, hr_leave_accrual_line l
             WHERE a.id = %(accrual_id)s
             AND l.accrual_id = a.id
             AND ((l.state = 'done') OR (l.source != 'payslip'))
-            AND l.amount_type = %(amount_type)s
         """
 
         # Leaves added and withdrawed before the entitlement date
@@ -103,7 +110,6 @@ class HrLeaveAccrual(models.Model):
         query_vals = {
             'entitlement_date': entitlement_date,
             'accrual_id': self.id,
-            'amount_type': amount_type,
             'current_year_end': current_year_end,
         }
 

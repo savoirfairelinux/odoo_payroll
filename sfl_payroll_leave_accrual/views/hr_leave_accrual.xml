@@ -22,9 +22,9 @@
                             <field name="payslip_id" invisible="1"/>
                             <field name="payslip_line_id"/>
                             <field name="state"/>
-                            <field name="amount_type"
+                            <field name="amount_cash"
                                 attrs="{'readonly': [('source', '!=', 'manual')]}"/>
-                            <field name="amount"
+                            <field name="amount_hours"
                                 attrs="{'readonly': [('source', '!=', 'manual')]}"/>
                             <field name="date"
                                 attrs="{

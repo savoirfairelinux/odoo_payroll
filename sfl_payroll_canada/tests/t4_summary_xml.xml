@@ -50,14 +50,14 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
   <T4>
     <T4Slip>
       <T4_AMT>
-        <itx_ddct_amt>2037.10</itx_ddct_amt>
+        <itx_ddct_amt>4076.86</itx_ddct_amt>
         <padj_amt>500.00</padj_amt>
-        <ei_insu_ern_amt>8208.00</ei_insu_ern_amt>
-        <cpp_qpp_ern_amt>8208.00</cpp_qpp_ern_amt>
-        <rpp_cntrb_amt>8.00</rpp_cntrb_amt>
-        <empt_incamt>8208.00</empt_incamt>
-        <empe_eip_amt>154.31</empe_eip_amt>
-        <cpp_cntrb_amt>402.96</cpp_cntrb_amt>
+        <ei_insu_ern_amt>16416.00</ei_insu_ern_amt>
+        <cpp_qpp_ern_amt>16416.00</cpp_qpp_ern_amt>
+        <rpp_cntrb_amt>16.00</rpp_cntrb_amt>
+        <empt_incamt>16416.00</empt_incamt>
+        <empe_eip_amt>308.62</empe_eip_amt>
+        <cpp_cntrb_amt>805.92</cpp_cntrb_amt>
       </T4_AMT>
       <OTH_INFO>
         <spcl_wrk_site_amt>200.00</spcl_wrk_site_amt>
@@ -80,20 +80,20 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
       </EMPE_ADDR>
       <EMPE_NM>
         <snm>Doe</snm>
-        <gvn_nm>Jane</gvn_nm>
+        <gvn_nm>John</gvn_nm>
       </EMPE_NM>
-      <sin>624842680</sin>
+      <sin>684242680</sin>
     </T4Slip>
     <T4Slip>
       <T4_AMT>
-        <itx_ddct_amt>4076.86</itx_ddct_amt>
+        <itx_ddct_amt>2037.10</itx_ddct_amt>
         <padj_amt>1500.00</padj_amt>
-        <ei_insu_ern_amt>16416.00</ei_insu_ern_amt>
-        <cpp_qpp_ern_amt>16416.00</cpp_qpp_ern_amt>
-        <rpp_cntrb_amt>16.00</rpp_cntrb_amt>
-        <empt_incamt>16416.00</empt_incamt>
-        <empe_eip_amt>308.62</empe_eip_amt>
-        <cpp_cntrb_amt>805.92</cpp_cntrb_amt>
+        <ei_insu_ern_amt>8208.00</ei_insu_ern_amt>
+        <cpp_qpp_ern_amt>8208.00</cpp_qpp_ern_amt>
+        <rpp_cntrb_amt>8.00</rpp_cntrb_amt>
+        <empt_incamt>8208.00</empt_incamt>
+        <empe_eip_amt>154.31</empe_eip_amt>
+        <cpp_cntrb_amt>402.96</cpp_cntrb_amt>
       </T4_AMT>
       <OTH_INFO/>
       <bn>123456789RP1234</bn>
@@ -113,9 +113,9 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
       </EMPE_ADDR>
       <EMPE_NM>
         <snm>Doe</snm>
-        <gvn_nm>John</gvn_nm>
+        <gvn_nm>Jane</gvn_nm>
       </EMPE_NM>
-      <sin>684242680</sin>
+      <sin>624842680</sin>
     </T4Slip>
     <T4Summary>
       <slp_cnt>2</slp_cnt>

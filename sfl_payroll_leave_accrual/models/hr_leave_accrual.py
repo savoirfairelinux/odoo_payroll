@@ -20,6 +20,7 @@
 ##############################################################################
 
 from openerp import api, fields, models, _
+import openerp.addons.decimal_precision as dp
 
 
 class HrLeaveAccrual(models.Model):
@@ -47,10 +48,12 @@ class HrLeaveAccrual(models.Model):
     total_cash = fields.Float(
         'Cash Accruded',
         readonly=True,
+        digits_compute=dp.get_precision('Payroll'),
     )
     total_hours = fields.Float(
         'Hours Accruded',
         readonly=True,
+        digits_compute=dp.get_precision('Payslip Line'),
     )
 
     @api.one
@@ -75,28 +78,24 @@ class HrLeaveAccrual(models.Model):
         total_cash = 0
 
         query = (
-            """SELECT l.amount_type, l.is_refund, sum(l.amount)
+            """SELECT l.is_refund, sum(l.amount_cash), sum(l.amount_hours)
             FROM hr_leave_accrual a, hr_leave_accrual_line l
             WHERE l.accrual_id = a.id AND a.id = %s
             AND (l.state = 'done' or l.source != 'payslip')
-            GROUP BY l.amount_type, l.is_refund
+            GROUP BY l.is_refund
             """)
 
         cr = self.env.cr
         cr.execute(query, (self.id, ))
 
-        for (amount_type, is_refund, amount) in cr.fetchall():
+        for (is_refund, amount_cash, amount_hours) in cr.fetchall():
 
             if is_refund:
-                if amount_type == 'cash':
-                    total_cash -= amount
-                elif amount_type == 'hours':
-                    total_hours -= amount
+                total_cash -= amount_cash or 0
+                total_hours -= amount_hours or 0
             else:
-                if amount_type == 'cash':
-                    total_cash += amount
-                elif amount_type == 'hours':
-                    total_hours += amount
+                total_cash += amount_cash or 0
+                total_hours += amount_hours or 0
 
         self.write({
             'total_hours': total_hours,

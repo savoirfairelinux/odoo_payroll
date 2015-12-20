@@ -1697,12 +1697,6 @@ msgid "PRPP - Employee Contribution"
 msgstr ""
 
 #. module: sfl_payroll_canada
-#: view:hr.holidays.entitlement:0
-#: model:ir.model,name:l10n_ca_sfl_payroll_canada.model_hr_holidays_entitlement
-msgid "Holidays Entitlement"
-msgstr ""
-
-#. module: sfl_payroll_canada
 #: report:t4_employee_copy:0
 msgid "RPP or DPSP registration number"
 msgstr ""

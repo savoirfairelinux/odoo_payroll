@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hsf_exempt" model="hr.income.tax.exemption">
+            <field name="name">Quebec Health Services Fund Exempt</field>
+        </record>
+        <record id="csst_exempt" model="hr.income.tax.exemption">
+            <field name="name">Quebec CSST Exempt</field>
+        </record>
+        <record id="wsdrf_exempt" model="hr.income.tax.exemption">
+            <field name="name">Quebec WSDRF Exempt</field>
+        </record>
+        <record id="cnt_exempt" model="hr.income.tax.exemption">
+            <field name="name">Quebec CNT Exempt</field>
+        </record>
+
+    </data>
+</openerp>

@@ -56,24 +56,23 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
         self.env['hr.holidays.status'].search([]).write({'limit': False})
 
         for line in [
-            (self.vac_accrual_id, 1500, '2014-12-31', 'cash'),
-            (self.vac_accrual_id, -500, '2014-12-31', 'cash'),
-            (self.vac_accrual_id, 1700, '2015-01-01', 'cash'),
-            (self.vac_accrual_id, 40, '2014-12-31', 'hours'),
-            (self.vac_accrual_id, -10, '2014-12-31', 'hours'),
-            (self.vac_accrual_id, 45, '2015-01-01', 'hours'),
-            (self.sl_accrual_id, 20, '2014-12-31', 'hours'),
-            (self.sl_accrual_id, -5, '2015-01-01', 'hours'),
-            (self.comp_accrual_id, 600, '2014-12-31', 'cash'),
-            (self.comp_accrual_id, -200, '2015-01-01', 'cash'),
+            (self.vac_accrual_id, 1500, '2014-12-31', 'amount_cash'),
+            (self.vac_accrual_id, -500, '2014-12-31', 'amount_cash'),
+            (self.vac_accrual_id, 1700, '2015-01-01', 'amount_cash'),
+            (self.vac_accrual_id, 40, '2014-12-31', 'amount_hours'),
+            (self.vac_accrual_id, -10, '2014-12-31', 'amount_hours'),
+            (self.vac_accrual_id, 45, '2015-01-01', 'amount_hours'),
+            (self.sl_accrual_id, 20, '2014-12-31', 'amount_hours'),
+            (self.sl_accrual_id, -5, '2015-01-01', 'amount_hours'),
+            (self.comp_accrual_id, 600, '2014-12-31', 'amount_cash'),
+            (self.comp_accrual_id, -200, '2015-01-01', 'amount_cash'),
         ]:
             self.accrual_line_model.create(
                 cr, uid, {
                     'accrual_id': line[0],
                     'source': 'manual',
-                    'amount': line[1],
+                    line[3]: line[1],
                     'date': line[2],
-                    'amount_type': line[3],
                     'name': 'Test',
                 })
 
@@ -381,5 +380,5 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
 
         self.assertEqual(
             payslip_2['OTHER_WAGE'],
-            payslip_2['VAC_UNUSED'] + payslip_2['COMP_UNUSED']
-            + payslip_2['SL_UNUSED_CASH'])
+            payslip_2['VAC_UNUSED'] + payslip_2['COMP_UNUSED'] +
+            payslip_2['SL_UNUSED_CASH'])

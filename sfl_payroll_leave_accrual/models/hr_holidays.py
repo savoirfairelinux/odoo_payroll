@@ -72,10 +72,9 @@ class HrHolidays(models.Model):
                 'accrual_line_id': [(0, 0, {
                     'name': self.name or _('Leave Allocation'),
                     'source': 'allocation',
-                    'amount': number_of_hours,
+                    'amount_hours': number_of_hours,
                     'accrual_id': accrual.id,
                     'date': fields.Date.today(),
-                    'amount_type': 'hours',
                 })]})
 
     def holidays_refuse(self, cr, uid, ids, context=None):

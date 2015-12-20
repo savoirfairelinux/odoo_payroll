@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="jurisdiction_quebec" model="hr.deduction.jurisdiction">
+            <field name="name">Quebec</field>
+        </record>
+
+    </data>
+</openerp>

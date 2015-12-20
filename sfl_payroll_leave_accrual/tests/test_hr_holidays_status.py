@@ -23,10 +23,10 @@ from openerp.tests import common
 from datetime import datetime
 
 
-class TestLeaveAccrual(common.TransactionCase):
+class TestHrHolidaysStatus(common.TransactionCase):
 
     def setUp(self):
-        super(TestLeaveAccrual, self).setUp()
+        super(TestHrHolidaysStatus, self).setUp()
 
         self.company_model = self.env['res.company']
         self.employee_model = self.env['hr.employee']
@@ -116,9 +116,8 @@ class TestLeaveAccrual(common.TransactionCase):
         accrual.write({
             'line_ids': [(0, 0, {
                 'name': 'Test',
-                'amount': 100,
+                'amount_cash': 100,
                 'date': datetime.now(),
-                'amount_type': 'cash',
             })],
         })
 

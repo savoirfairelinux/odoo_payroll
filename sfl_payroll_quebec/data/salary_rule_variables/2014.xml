@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- QUEBEC PENSION PLAN -->
+        <!-- QPP - Employee Contribution (QPP_EE_C) -->
+        <record id="rule_qc_qpp_ee_c_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_qpp_ee_c"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">{'rate': 0.05175, 'max_annual': 2535.75, 'basic_exempt': 3500}</field>
+        </record>
+        <!-- QPP - Employee Contribution (QPP_EE_C) -->
+        <record id="rule_qc_qpp_ee_maxie_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_qpp_ee_maxie"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">{'max_annual': 52500}</field>
+        </record>
+
+        <!-- QUEBEC PARENTAL INSURANCE PLAN -->
+        <!-- QPIP - Employee - Maximum annual QPIP premium (PPIP_EE_M) -->
+        <record id="rule_qc_ppip_ee_maxie_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_ppip_ee_maxie"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">{'max_annual': 69000}</field>
+        </record>
+        <!-- QPIP - Employee Contribution (PPIP_EE_C) -->
+        <record id="rule_qc_ppip_ee_c_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_ppip_ee_c"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">{'rate': 0.00559, 'max_annual': 385.71}</field>
+        </record>
+        <!-- QPIP - Employer Contribution (PPIP_ER_C) -->
+        <record id="rule_qc_ppip_er_c_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_ppip_er_c"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">{'rate': 0.00782, 'max_annual': 539.58}</field>
+        </record>
+
+
+        <!-- QUEBEC INCOME TAX -->
+        <!-- QIT - Deduction for employment income (QIT_H) -->
+        <record id="rule_qc_qit_h_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_qit_h"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">{'rate': 0.06, 'max_annual': 1110}</field>
+        </record>
+        <!-- QIT - Personal Tax Credit (QIT_E) -->
+        <record id="rule_qc_qit_e_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_qit_e"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">{'default_amount': 11305}</field>
+        </record>
+
+        <!-- QIT - Health contribution based on estimated annual net income (QIT_Z) -->
+        <record id="rule_qc_qit_z_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_qit_z"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">
+{
+    'brackets': [
+        {'min': 0, 'max': 18175, 'Z': 0},
+        {'min': 18175, 'max': 40390, 'Z': min(100.0, 0.05 * (QIT_R - 18175))},
+        {'min': 40390, 'max': 131260, 'Z': min(200.0, 100 + 0.05 * (QIT_R - 40390))},
+        {'min': 131260, 'max': 10**15, 'Z': min(1000.0, 200 + 0.04 * (QIT_R - 131260))}
+    ]
+}
+            </field>
+        </record>
+        <record id="rule_qc_qit_z_other_wage_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_qit_z_other_wage"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">
+{
+    'brackets': [
+        {'min': 0, 'max': 18175, 'Z': 0},
+        {'min': 18175, 'max': 40390, 'Z': min(100.0, 0.05 * (QIT_R - 18175))},
+        {'min': 40390, 'max': 131260, 'Z': min(200.0, 100 + 0.05 * (QIT_R - 40390))},
+        {'min': 131260, 'max': 10**15, 'Z': min(1000.0, 200 + 0.04 * (QIT_R - 131260))}
+    ]
+}
+            </field>
+        </record>
+
+        <!-- QIT - Quebec Income tax for the year (QIT_Y) -->
+        <record id="rule_qc_qit_y_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_qit_y"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">
+{
+    'brackets': [
+        {'min': 0, 'max': 41495, 'T': 0.16, 'K': 0},
+        {'min': 41495, 'max': 82985, 'T': 0.20, 'K': 1659},
+        {'min': 82985, 'max': 100970, 'T': 0.24, 'K': 4979},
+        {'min': 100970, 'max': 10**15, 'T': 0.2575, 'K': 6746}
+    ],
+    'rates': {
+        'K1': 0.15,
+        'Q': 0.15,
+        'Q1': 0.25,
+        'E': 0.20,
+    }
+}
+            </field>
+        </record>
+
+        <!-- QIT - Quebec Income tax for the pay period (QIT_A) -->
+        <record id="rule_qc_qit_a_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_qit_a"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">
+{
+    'brackets': [
+        {'min': 0, 'max': 41495, 'T': 0.16, 'K': 0},
+        {'min': 41495, 'max': 82985, 'T': 0.20, 'K': 1659},
+        {'min': 82985, 'max': 100970, 'T': 0.24, 'K': 4979},
+        {'min': 100970, 'max': 10**15, 'T': 0.2575, 'K': 6746}
+    ],
+}
+            </field>
+        </record>
+
+        <!-- FEDERAL INCOME TAX -->
+        <!-- FIT - Federal income tax (FIT_T1) -->
+        <record id="rule_qc_fit_t1_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_fit_t1"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">{'abatement': 0.165}</field>
+        </record>
+
+        <record id="rule_qc_fit_k2q_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_fit_k2q"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">{'max_deductions': {'EI': 743.58, 'PPIP': 385.71, 'QPP': 2535.75}}</field>
+        </record>
+
+        <!-- EMPLOYMENT INSURANCE -->
+        <!-- EI - Insurable earnings in Quebec (EI_EE_MAXIE) -->
+        <record id="rule_qc_ei_ee_maxie_q_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_ei_ee_maxie_q"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">{'max_annual': 48600}</field>
+        </record>
+        <!-- EI - Employee Contribution (EI_EE_C) -->
+        <record id="rule_qc_ei_ee_c_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_ei_ee_c"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">{'rate': 0.0153, 'max_annual': 743.58}</field>
+        </record>
+        <!-- EI - Employer Contribution (EI_ER_C) -->
+        <record id="rule_qc_ei_er_c_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_ei_er_c"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">{'contribution_ratio': 1.4, 'max_annual': 1041.01}</field>
+        </record>
+
+        <!-- CNT -->
+        <record id="rule_qc_cnt_ee_s_2014" model="hr.salary.rule.variable">
+            <field name="salary_rule_id" ref="rule_qc_cnt_ee_s"/>
+            <field name="date_from">2014-01-01</field>
+            <field name="date_to">2014-12-31</field>
+            <field name="variable_type">python</field>
+            <field name="fixed_amount"></field>
+            <field name="python_code">{'max_annual': 69000}</field>
+        </record>
+
+    </data>
+</openerp>

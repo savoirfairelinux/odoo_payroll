@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="summary_box_qpp_amount_ee" model="hr.releve_1.summary.box">
+            <field name="name">Total QPP Employee Contribution</field>
+            <field name="child_ids" eval="[(6, 0, [ref('releve_1_box_b_cotisation_rrq')])]"/>
+        </record>
+
+        <record id="summary_box_qpip_amount_ee" model="hr.releve_1.summary.box">
+            <field name="name">Total QPIP Employee Contribution</field>
+            <field name="child_ids" eval="[(6, 0, [ref('releve_1_box_h_cotisation_rqap')])]"/>
+        </record>
+
+        <record id="summary_box_qit_amount_1" model="hr.releve_1.summary.box">
+            <field name="name">Total Quebec Income Tax</field>
+            <field name="child_ids" eval="[(6, 0, [ref('releve_1_box_e_impot_que')])]"/>
+        </record>
+
+        <record id="summary_box_qpp_amount_er" model="hr.releve_1.summary.box">
+            <field name="name">Total QPP Employer Contribution</field>
+            <field name="child_ids" eval="[(6, 0, [ref('releve_1_box_qpp_amount_er')])]"/>
+        </record>
+
+        <record id="summary_box_qpip_amount_er" model="hr.releve_1.summary.box">
+            <field name="name">Total QPIP Employer Contribution</field>
+            <field name="child_ids" eval="[(6, 0, [ref('releve_1_box_qpip_amount_er')])]"/>
+        </record>
+
+        <record id="summary_box_wsdrf_salaries" model="hr.releve_1.summary.box">
+            <field name="name">Total WSDRF Eligible Salaries</field>
+            <field name="child_ids" eval="[(6, 0, [ref('releve_1_box_wsdrf_salaries')])]"/>
+        </record>
+
+        <record id="summary_box_cnt_salaries" model="hr.releve_1.summary.box">
+            <field name="name">Total CNT Eligible Salaries</field>
+            <field name="child_ids" eval="[(6, 0, [ref('releve_1_box_cnt_salaries')])]"/>
+        </record>
+
+        <record id="summary_box_hsf_salaries" model="hr.releve_1.summary.box">
+            <field name="name">Total HSF Eligible Salaries</field>
+            <field name="child_ids" eval="[(6, 0, [ref('releve_1_box_hsf_salaries')])]"/>
+        </record>
+
+        <record id="summary_box_total_pay" model="hr.releve_1.summary.box">
+            <field name="name">Total Employee Remunaration</field>
+            <field name="child_ids" eval="[(6, 0, [ref('releve_1_box_total_pay')])]"/>
+        </record>
+
+        <record id="summary_box_hsf_amount_er" model="hr.releve_1.summary.box">
+            <field name="name">Total HSF Employer Contribution</field>
+            <field name="child_ids" eval="[(6, 0, [ref('releve_1_box_hsf_amount_er')])]"/>
+        </record>
+
+    </data>
+</openerp>

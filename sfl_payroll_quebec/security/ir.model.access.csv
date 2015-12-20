@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_qc_rate,access_hr_qc_rate,model_hr_qc_rate,base.group_hr_manager,1,1,1,1
+access_hr_releve_1,access_hr_releve_1,model_hr_releve_1,base.group_hr_manager,1,1,1,1
+access_hr_releve_1_box,access_hr_releve_1_box,model_hr_releve_1_box,base.group_hr_manager,1,1,1,1
+access_hr_releve_1_amount,access_hr_releve_1_amount,model_hr_releve_1_amount,base.group_hr_manager,1,1,1,1
+access_hr_releve_1_summary,access_hr_releve_1_summary,model_hr_releve_1_summary,base.group_hr_manager,1,1,1,1
+access_hr_releve_1_summary_box,access_hr_releve_1_summary_box,model_hr_releve_1_summary_box,base.group_hr_manager,1,1,1,1
+access_hr_releve_1_summary_total,access_hr_releve_1_summary_total,model_hr_releve_1_summary_total,base.group_hr_manager,1,1,1,1
+
+access_hr_releve_1_base,access_hr_releve_1_base,model_hr_releve_1,base.group_user,1,0,0,0
+access_hr_releve_1_box_base,access_hr_releve_1_box_base,model_hr_releve_1_box,base.group_user,1,0,0,0
+access_hr_releve_1_amount_base,access_hr_releve_1_amount_base,model_hr_releve_1_amount,base.group_user,1,0,0,0

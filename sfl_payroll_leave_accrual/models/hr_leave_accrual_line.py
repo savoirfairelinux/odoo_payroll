@@ -20,6 +20,7 @@
 ##############################################################################
 
 from openerp import api, fields, models, _
+import openerp.addons.decimal_precision as dp
 
 
 class HrLeaveAccrualLine(models.Model):
@@ -39,9 +40,13 @@ class HrLeaveAccrualLine(models.Model):
         ondelete='restrict',
         required=True,
     )
-    amount = fields.Float(
-        'Amount',
-        required=True,
+    amount_cash = fields.Float(
+        'Amount Cash',
+        digits_compute=dp.get_precision('Payroll'),
+    )
+    amount_hours = fields.Float(
+        'Amount Hours',
+        digits_compute=dp.get_precision('Payslip Line'),
     )
     source = fields.Selection(
         [
@@ -53,15 +58,6 @@ class HrLeaveAccrualLine(models.Model):
         string="Source",
         required=True,
         default='manual',
-    )
-    amount_type = fields.Selection(
-        [
-            ('cash', 'cash'),
-            ('hours', 'Hours'),
-        ],
-        string="Amount Type",
-        required=True,
-        default='cash',
     )
 
     allocation_id = fields.Many2one(
@@ -97,6 +93,7 @@ class HrLeaveAccrualLine(models.Model):
     date = fields.Date(
         'Date',
         required=True,
+        default=fields.Date.today,
     )
 
     _order = 'date desc'

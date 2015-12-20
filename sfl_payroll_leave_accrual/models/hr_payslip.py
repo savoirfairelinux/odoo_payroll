@@ -98,13 +98,19 @@ class HrPayslip(models.Model):
                 if salary_rule_id in payslip_line_dict:
                     payslip_line = payslip_line_dict[salary_rule_id]
 
-                    amount = (
-                        payslip_line.amount if line.amount_type == 'cash'
-                        else payslip_line.amount_precise
-                    )
+                    if line.amount_type == 'cash':
+                        amount_cash = payslip_line.amount
+                        amount_hours = 0
 
-                    if line.substract:
-                        amount *= -1
+                        if line.substract:
+                            amount_cash *= -1
+
+                    if line.amount_type == 'hours':
+                        amount_cash = 0
+                        amount_hours = payslip_line.amount_precise
+
+                        if line.substract:
+                            amount_hours *= -1
 
                     if payslip_line.amount:
                         vals = {
@@ -113,9 +119,9 @@ class HrPayslip(models.Model):
                             'source': 'payslip',
                             'payslip_id': self.id,
                             'payslip_line_id': payslip_line.id,
-                            'amount': amount,
+                            'amount_cash': amount_cash,
+                            'amount_hours': amount_hours,
                             'accrual_id': accrual.id,
-                            'amount_type': line.amount_type,
                             'date': self.date_from,
                         }
                         accrual_line_obj.create(vals)
