@@ -25,28 +25,32 @@ import unicodedata
 from datetime import datetime
 from elaphe.datamatrix import DataMatrix
 
-from openerp.osv import fields, orm
+from openerp import api, fields, models, _
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
-from openerp.tools.translate import _
+import openerp.addons.decimal_precision as dp
+from openerp.exceptions import ValidationError
 
 from .hr_qc_summary import get_type_codes
 
 
-class HrReleve1(orm.Model):
+class HrReleve1(models.Model):
+    """Relevé 1"""
+
     _name = 'hr.releve_1'
     _inherit = 'hr.fiscal_slip'
-    _description = 'Relevé 1'
+    _description = _(__doc__)
 
-    def set_to_draft(self, cr, uid, ids, employee_ids, context=None):
-        self.write(cr, uid, ids, {'state': 'draft'}, context=context)
+    @api.multi
+    def set_to_draft(self):
+        self.write({'state': 'draft'})
 
-    def button_confirm(self, cr, uid, ids, employee_ids, context=None):
-        self.write(cr, uid, ids, {'state': 'confirmed'}, context=context)
+    @api.multi
+    def button_confirm(self):
+        self.write({'state': 'confirmed'})
 
-    def compute_amounts(self, cr, uid, ids, context=None):
-        box_obj = self.pool['hr.releve_1.box']
-
-        for slip in self.browse(cr, uid, ids, context=context):
+    @api.multi
+    def compute_amounts(self):
+        for slip in self:
 
             slip.write({'amount_ids': [(5, 0)]})
 
@@ -64,23 +68,21 @@ class HrReleve1(orm.Model):
                 DEFAULT_SERVER_DATE_FORMAT)
             date_to = datetime(year, 12, 31).strftime(
                 DEFAULT_SERVER_DATE_FORMAT)
-            payslip_ids = self.pool['hr.payslip'].search(
-                cr, uid, [
-                    ('employee_id', '=', slip.employee_id.id),
-                    ('date_payment', '>=', date_from),
-                    ('date_payment', '<=', date_to),
-                    ('state', '=', 'done'),
-                ], context=context)
+            payslips = self.pool['hr.payslip'].search([
+                ('employee_id', '=', slip.employee_id.id),
+                ('date_payment', '>=', date_from),
+                ('date_payment', '<=', date_to),
+                ('state', '=', 'done'),
+            ])
 
             # Get all types of Releve 1 box
-            box_ids = box_obj.search(cr, uid, [], context=context)
-            boxes = box_obj.browse(cr, uid, box_ids, context=context)
+            boxes = self.pool['hr.releve_1.box'].search([])
 
             # Create a list of all amounts to add to the slip
             amounts = []
 
             for box in boxes:
-                box_amount = box.compute_amount(payslip_ids)
+                box_amount = box.compute_amount(payslips.ids)
 
                 if box_amount or box.required:
                     amounts.append({
@@ -119,16 +121,12 @@ class HrReleve1(orm.Model):
             slip.write({'computed': True})
 
             if len(other_amounts) > 4:
-                slip_vals = self.copy_data(cr, uid, slip.id, context=context)
+                slip_vals = slip.copy_data()
 
             # A Releve 1 can not have more than 4 other amounts
             # Otherwise, create a seperate Releve 1
             while(len(other_amounts) > 4):
-                other_slip_id = self.create(
-                    cr, uid, slip_vals, context=context)
-
-                other_slip = self.browse(
-                    cr, uid, other_slip_id, context=context)
+                other_slip = self.create(slip_vals)
 
                 other_slip.write({
                     'amount_ids': [
@@ -166,28 +164,23 @@ class HrReleve1(orm.Model):
                 ]
             })
 
-        self.make_sequential_number(cr, uid, ids, context=context)
-        self.make_dtmx_barcode(cr, uid, ids, context=context)
-        self.write(cr, uid, ids, {'computed': True}, context=context)
+        self.make_sequential_number()
+        self.make_dtmx_barcode()
+        self.write({'computed': True})
 
-    def make_sequential_number(
-        self, cr, uid, ids, context=None
-    ):
-        for slip in self.browse(cr, uid, ids, context=context):
+    @api.multi
+    def make_sequential_number(self):
+        for slip in self:
             # If the slip as no number, assign one
             if not slip.number:
                 number = self.pool['res.company'].\
                     get_next_rq_sequential_number(
-                        cr, uid, 'hr.releve_1', slip.company_id.id, slip.year,
-                        context=context)
+                        'hr.releve_1', slip.company_id.id, slip.year)
 
-                self.write(
-                    cr, uid, [slip.id], {'number': number}, context=context)
+                self.write({'number': number})
 
-    def _dtmx_field(
-        self, cr, uid, ids, value, nb_chars,
-        mandatory=False, field_name=False, context=None
-    ):
+    @api.model
+    def _dtmx_field(self, value, nb_chars, mandatory=False, field_name=False):
         """
         This function transform a unicode, int or float into
         an ascii string of a precise length
@@ -197,8 +190,8 @@ class HrReleve1(orm.Model):
         # Empty fields
         if not value:
             if mandatory:
-                raise orm.except_orm(
-                    _('Error'), _('The field %s is missing') %
+                raise ValidationError(
+                    _('The field %s is missing') %
                     field_name,
                 )
             res = ' ' * nb_chars
@@ -223,21 +216,14 @@ class HrReleve1(orm.Model):
 
         # We check that the field is the proper size
         if len(res) > nb_chars:
-            raise orm.except_orm(
-                _('Error'), _('The value %s is too long') % res)
+            raise ValidationError(
+                _('The value %s is too long') % res)
 
         return res
 
-    def _dtmx_address(
-        self, cr, uid, ids, address, context=None
-    ):
-
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-
-        assert len(ids) == 1, 'Expected singleton'
-
-        slip = self.browse(cr, uid, ids[0], context=context)
+    @api.multi
+    def _dtmx_address(self, address):
+        self.ensure_one()
 
         res = ""
 
@@ -251,27 +237,28 @@ class HrReleve1(orm.Model):
             field = field_detail[0]
             field = field and field[0:30]
 
-            res += slip._dtmx_field(
+            res += self._dtmx_field(
                 value=field, nb_chars=30,
                 mandatory=field_detail[1], field_name=field_detail[2])
 
         # Province - 2 chars
-        res += slip._dtmx_field(
+        res += self._dtmx_field(
             address.state_id.code, 2,
             mandatory=True, field_name=_('Province'))
 
         # Postal Code - 6 chars
-        res += slip._dtmx_field(
+        res += self._dtmx_field(
             address.zip, 6,
             mandatory=True, field_name=_('Zip Code'))
 
         return res
 
-    def make_dtmx_barcode(self, cr, uid, ids, context=None):
+    @api.multi
+    def make_dtmx_barcode(self):
         """
         Create the DataMatrix Codebar
         """
-        for slip in self.browse(cr, uid, ids, context=context):
+        for slip in self:
             slip.employee_id.check_personal_info()
 
             # Code related to the slip type
@@ -392,44 +379,28 @@ class HrReleve1(orm.Model):
             # Remove the temp file
             os.remove(filename)
 
-    def _get_other_amounts(
-        self, cr, uid, ids, field_name, args=None, context=None
-    ):
+    def _get_other_amounts(self):
         """
         Get the list of amounts that will appear in the free boxes
         of the releve 1
         """
-        res = {}
+        other_amounts = self.amount_ids.filtered(
+            lambda a: a.box_id.is_other_amount)
 
-        for slip in self.browse(cr, uid, ids, context=context):
+        box_o_amounts = other_amounts.filtered(
+            lambda a: a.box_id.is_box_o_amount)
 
-            other_amounts = [
-                a for a in slip.amount_ids
-                if a.box_id.is_other_amount
-            ]
+        # Special case when there is exactly one other amount related
+        # to Box O. The amount's code will be written directly in
+        # the Box O and will not make use of the free boxes in
+        # the Releve 1.
+        if len(box_o_amounts) == 1:
+            other_amounts = other_amounts.filtered(
+                lambda a: a != box_o_amounts[0])
 
-            box_o_amounts = [
-                a for a in other_amounts
-                if a.box_id.is_box_o_amount
-            ]
+        self.other_amount_ids = other_amounts.ids
 
-            # Special case when there is exactly one other amount related
-            # to Box O. The amount's code will be written directly in
-            # the Box O and will not make use of the free boxes in
-            # the Releve 1.
-            if len(box_o_amounts) == 1:
-                other_amounts = [
-                    a for a in other_amounts
-                    if a != box_o_amounts[0]
-                ]
-
-            res[slip.id] = [a.id for a in other_amounts]
-
-        return res
-
-    def _get_box_o(
-        self, cr, uid, ids, field_names, args=None, context=None
-    ):
+    def _get_box_o(self):
         """
         The box O on the Releve 1 contains an other amount as do
         the free spaces in the bottom of the slip.
@@ -439,174 +410,150 @@ class HrReleve1(orm.Model):
         will be RZ to indicate that.
         """
         res = {}
-        for slip in self.browse(cr, uid, ids, context=context):
-            box_o_amounts = [
-                a for a in slip.amount_ids
-                if a.box_id.is_box_o_amount
-            ]
+        box_o_amounts = self.amount_ids.filtered(
+            lambda a: a.box_id.is_box_o_amount)
 
-            if len(box_o_amounts) > 1:
-                # 2 amounts or more
-                # The Box O will contain the sum of the amounts.
-                amount = sum(a.amount for a in box_o_amounts)
+        if len(box_o_amounts) > 1:
+            # 2 amounts or more
+            # The Box O will contain the sum of the amounts.
+            amount = sum(a.amount for a in box_o_amounts)
 
-                res[slip.id] = {
-                    'box_o_amount': amount,
-                    'box_o_amount_code': 'RZ',
-                }
+            self.box_o_amount = amount
+            self.box_o_amount_code = 'RZ'
 
-            elif len(box_o_amounts) == 1:
-                # One amount, the box is filled with this amount
-                amount = box_o_amounts[0]
+        elif len(box_o_amounts) == 1:
+            # One amount, the box is filled with this amount
+            amount = box_o_amounts[0]
 
-                res[slip.id] = {
-                    'box_o_amount': amount.amount,
-                    'box_o_amount_code': amount.box_id.code,
-                }
+            self.box_o_amount = amount.amount
+            self.box_o_amount_code = amount.box_id.code
 
-            else:
-                # No amount, the box is empty
-                res[slip.id] = {
-                    'box_o_amount': False,
-                    'box_o_amount_code': False,
-                }
+        else:
+            # No amount, the box is empty
+            self.box_o_amount = False
+            self.box_o_amount_code = False
 
         return res
 
-    _columns = {
-        'slip_type': fields.selection(
-            get_type_codes,
-            'Type',
-            required=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'number': fields.integer(
-            'Sequential Number',
-            select=True,
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'previous_number': fields.related(
-            'amended_slip',
-            'number',
-            type="integer",
-            string='Previous Sequential Number',
-            readonly=True,
-        ),
-        'amended_slip': fields.many2one(
-            'hr.releve_1', 'Amended Slip',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
+    slip_type = fields.Selection(
+        get_type_codes,
+        'Type',
+        required=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+        default='R',
+    )
+    number = fields.Integer(
+        'Sequential Number',
+        select=True,
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+    previous_number = fields.Integer(
+        'Previous Sequential Number',
+        related='amended_slip.number',
+        readonly=True,
+    )
+    amended_slip = fields.Many2one(
+        'hr.releve_1', 'Amended Slip',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
-        'amount_ids': fields.one2many(
-            'hr.releve_1.amount',
-            'slip_id',
-            'Box Amounts',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
+    amount_ids = fields.One2many(
+        'hr.releve_1.amount',
+        'slip_id',
+        'Box Amounts',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
-        'child_ids': fields.one2many(
-            'hr.releve_1', 'parent_id', 'Related Releves 1',
-            readonly=True, states={'draft': [('readonly', False)]},
-            help="When an employee has more than 4 other amounts "
-            "to be written in his Releve 1, other Releves 1 must be created."
-        ),
+    child_ids = fields.One2many(
+        'hr.releve_1', 'parent_id', 'Related Releves 1',
+        readonly=True, states={'draft': [('readonly', False)]},
+        help="When an employee has more than 4 other amounts "
+        "to be written in his Releve 1, other Releves 1 must be created."
+    )
 
-        'parent_id': fields.many2one(
-            'hr.releve_1',
-            'Parent Releve 1',
-            ondelete='cascade',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
+    parent_id = fields.Many2one(
+        'hr.releve_1',
+        'Parent Releve 1',
+        ondelete='cascade',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
-        'summary_id': fields.many2one(
-            'hr.releve_1.summary',
-            'Summary',
-            ondelete='cascade',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
+    summary_id = fields.Many2one(
+        'hr.releve_1.summary',
+        'Summary',
+        ondelete='cascade',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
-        'box_o_amount': fields.function(
-            _get_box_o,
-            type='float',
-            string='Box O Amount',
-            method=True,
-            multi=True,
-            readonly=True,
-        ),
-        'box_o_amount_code': fields.function(
-            _get_box_o,
-            type='char',
-            digits=(9, 2),
-            string='Box O Amount',
-            method=True,
-            multi=True,
-            readonly=True,
-        ),
-        'other_amount_ids': fields.function(
-            _get_other_amounts,
-            type='one2many',
-            relation='hr.releve_1.amount',
-            string='Other Amounts',
-            method=True,
-            readonly=True,
-        ),
+    box_o_amount = fields.Float(
+        compute='_get_box_o',
+        string='Box O Amount',
+        readonly=True,
+        digits_compute=dp.get_precision('Payroll'),
+    )
+    box_o_amount_code = fields.Char(
+        compute='_get_box_o',
+        string='Box O Amount',
+        readonly=True,
+    )
+    other_amount_ids = fields.One2many(
+        compute='_get_other_amounts',
+        relation='hr.releve_1.amount',
+        string='Other Amounts',
+        readonly=True,
+    )
 
-        'dtmx_barcode_string': fields.text(
-            'Datamatrix String', readonly=True),
+    dtmx_barcode_string = fields.Text(
+        'Datamatrix String', readonly=True
+    )
 
-        'dtmx_barcode_image': fields.binary(
-            'DataMatrix Bar Code', readonly=True),
+    dtmx_barcode_image = fields.Binary(
+        'DataMatrix Bar Code', readonly=True
+    )
 
-    }
-    _defaults = {
-        'slip_type': 'R',
-    }
-
-    def _check_other_info(self, cr, uid, ids, context=None):
-        for slip in self.browse(cr, uid, ids, context=context):
+    @api.multi
+    @api.constrains('amount_ids')
+    def _check_other_info(self):
+        for slip in self:
 
             if len(slip.other_amount_ids) > 4:
-                return False
+                raise ValidationError(_(
+                    "Error. You can enter a maximum of 4 other amounts."
+                ))
 
         return True
 
-    def _check_unique_amount_type(self, cr, uid, ids, context=None):
-        for slip in self.browse(cr, uid, ids, context=context):
-            boxes = [a.box_id.id for a in slip.amount_ids]
+    @api.multi
+    @api.constrains('amount_ids')
+    def _check_unique_amount_type(self):
+        for slip in self:
+            boxes = slip.mapped('amount_ids.box_id')
             # import ipdb
             # ipdb.set_trace()
-            if len(set(boxes)) != len(boxes):
-                return False
+            if len(slip.amount_ids) != len(boxes):
+                raise ValidationError(_(
+                    "Error. For each amount, the source must be different."
+                ))
 
         return True
 
-    _constraints = [
-        (
-            _check_other_info,
-            "Error. You can enter a maximum of 4 other amounts.",
-            ['amount_ids']
-        ),
-        (
-            _check_unique_amount_type,
-            "Error. For each amount, the source must be different.",
-            ['amount_ids']
-        ),
-    ]
-
-    def name_get(self, cr, uid, ids, context=None):
+    @api.multi
+    def name_get(self):
         return [
             (slip.id, "%s - %s - %s" % (
                 slip.employee_id.name, slip.year, slip.number))
-            for slip in self.browse(cr, uid, ids, context=context)
+            for slip in self
         ]
 
-    def get_other_amount_code(self, cr, uid, ids, index, context=None):
+    @api.multi
+    def get_other_amount_code(self, index):
         """
         Override the method get_other_amount_code from hr.fiscal_slip
         so that it adds RZ- before the code if the amount is related to
         the releve 1 box O.
         """
-        amount = self.get_other_amount(cr, uid, ids, index, context=context)
+        self.ensure_one()
+        amount = self.get_other_amount(index)
 
         if not amount:
             return ''
