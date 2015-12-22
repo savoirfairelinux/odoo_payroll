@@ -18,38 +18,34 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp import fields, models, _
 import openerp.addons.decimal_precision as dp
 
 
-class HrReleve1Amount(orm.Model):
-    _name = 'hr.releve_1.amount'
-    _description = 'Releve 1 Amount'
+class HrReleve1Amount(models.Model):
+    """Releve 1 Amount"""
 
-    _columns = {
-        'slip_id': fields.many2one(
-            'hr.releve_1', 'Releve 1', required=True, ondelete='cascade',
-        ),
-        'box_id': fields.many2one(
-            'hr.releve_1.box', 'Fiscal Slip Box', required=True,
-        ),
-        'amount': fields.float(
-            'Amount',
-            digits_compute=dp.get_precision('Payroll'),
-            required=True,
-        ),
-        'is_other_amount': fields.related(
-            'box_id',
-            'is_other_amount',
-            type='boolean',
-            store=True,
-            string='Is Other Amount'
-        ),
-        'is_box_o_amount': fields.related(
-            'box_id',
-            'is_box_o_amount',
-            type='boolean',
-            store=True,
-            string='Is Box O Revenue'
-        ),
-    }
+    _name = 'hr.releve_1.amount'
+    _description = _(__doc__)
+
+    slip_id = fields.Many2one(
+        'hr.releve_1', 'Releve 1', required=True, ondelete='cascade',
+    )
+    box_id = fields.Many2one(
+        'hr.releve_1.box', 'Fiscal Slip Box', required=True,
+    )
+    amount = fields.Float(
+        'Amount',
+        digits_compute=dp.get_precision('Payroll'),
+        required=True,
+    )
+    is_other_amount = fields.Boolean(
+        'Is Other Amount',
+        related='box_id.is_other_amount',
+        store=True,
+    )
+    is_box_o_amount = fields.Boolean(
+        'Is Box O Revenue',
+        related='box_id.is_box_o_amount',
+        store=True,
+    )

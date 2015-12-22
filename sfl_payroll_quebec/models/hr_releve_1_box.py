@@ -18,29 +18,24 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp import api, fields, models, _
 
 
-class HrReleve1Box(orm.Model):
+class HrReleve1Box(models.Model):
+    """Releve 1 Box"""
+
     _name = 'hr.releve_1.box'
     _inherits = {'hr.fiscal_slip.box': 'fiscal_slip_box_id'}
-    _description = 'Releve 1 Box'
+    _description = _(__doc__)
 
-    _columns = {
-        'fiscal_slip_box_id': fields.many2one(
-            'hr.fiscal_slip.box', 'Fiscal Slip Box',
-            required=True, ondelete='cascade',
-        ),
-        'is_box_o_amount': fields.boolean('Is Box O Revenue'),
-    }
+    fiscal_slip_box_id = fields.many2one(
+        'hr.fiscal_slip.box', 'Fiscal Slip Box',
+        required=True, ondelete='cascade',
+    ),
+    is_box_o_amount = fields.boolean('Is Box O Revenue'),
 
-    def compute_amount(self, cr, uid, ids, payslip_ids, context=None):
+    @api.multi
+    def compute_amount(self, payslip_ids):
+        self.ensure_one()
 
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-
-        assert len(ids) == 1
-
-        box = self.browse(cr, uid, ids[0], context=context)
-
-        return box.fiscal_slip_box_id.compute_amount(payslip_ids)
+        return self.fiscal_slip_box_id.compute_amount(payslip_ids)
