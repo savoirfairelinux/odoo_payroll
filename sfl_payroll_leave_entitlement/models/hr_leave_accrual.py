@@ -104,8 +104,12 @@ class HrLeaveAccrual(models.Model):
         query_2 = main_query + """
             AND l.date >= %(entitlement_date)s
             AND l.date < %(current_year_end)s
-            AND l.amount < 0
             """
+
+        if in_cash:
+            query_2 += "AND l.amount_cash < 0"
+        else:
+            query_2 += "AND l.amount_hours < 0"
 
         query_vals = {
             'entitlement_date': entitlement_date,

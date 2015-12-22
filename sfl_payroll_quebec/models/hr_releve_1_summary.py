@@ -58,9 +58,10 @@ class HrReleve1Summary(orm.Model):
             get_children_recursively(
                 cr, uid, [structure_id], context=context)
 
-        date_from = datetime(summary.year, 1, 1).strftime(
+        year = int(summary.year)
+        date_from = datetime(year, 1, 1).strftime(
             DEFAULT_SERVER_DATE_FORMAT)
-        date_to = datetime(summary.year, 12, 31).strftime(
+        date_to = datetime(year, 12, 31).strftime(
             DEFAULT_SERVER_DATE_FORMAT)
 
         payslip_obj = self.pool['hr.payslip']

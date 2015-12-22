@@ -176,7 +176,7 @@ class HrCraT4(models.Model):
         self.refresh()
 
         employee = self.employee_id
-        year_end = date(self.year, 12, 31).strftime(
+        year_end = date(int(self.year), 12, 31).strftime(
             DEFAULT_SERVER_DATE_FORMAT)
 
         def get_t4_amount(ref):

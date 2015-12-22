@@ -19,10 +19,4 @@
 #
 ##############################################################################
 
-from . import (
-    test_deduction,
-)
-
-checks = [
-    test_deduction,
-]
+from . import test_deduction

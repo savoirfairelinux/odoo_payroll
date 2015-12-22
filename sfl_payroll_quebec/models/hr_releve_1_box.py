@@ -28,14 +28,13 @@ class HrReleve1Box(models.Model):
     _inherits = {'hr.fiscal_slip.box': 'fiscal_slip_box_id'}
     _description = _(__doc__)
 
-    fiscal_slip_box_id = fields.many2one(
+    fiscal_slip_box_id = fields.Many2one(
         'hr.fiscal_slip.box', 'Fiscal Slip Box',
         required=True, ondelete='cascade',
-    ),
-    is_box_o_amount = fields.boolean('Is Box O Revenue'),
+    )
+    is_box_o_amount = fields.Boolean('Is Box O Revenue')
 
     @api.multi
     def compute_amount(self, payslip_ids):
         self.ensure_one()
-
         return self.fiscal_slip_box_id.compute_amount(payslip_ids)

@@ -30,7 +30,6 @@ class TestQuebecPayrollStructure(TestPayrollStructureBase):
 
         cr, uid, context = self.cr, self.uid, self.context
 
-        # Create an employee and all his deductions
         self.employee_id = self.employee_model.create(cr, uid, {
             'firstname': 'john',
             'lastname': 'doe',

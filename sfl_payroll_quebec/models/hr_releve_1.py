@@ -50,25 +50,22 @@ class HrReleve1(models.Model):
 
     @api.multi
     def compute_amounts(self):
+        self.write({'amount_ids': [(5, 0)]})
+        # Most times, a Releve 1 has either 0 or 1 child
+        # Need to unlink these Releve 1, because they will
+        # be recreated if required
+        self.mapped('child_ids').unlink()
+        self.refresh()
+
         for slip in self:
-
-            slip.write({'amount_ids': [(5, 0)]})
-
-            # Most times, a Releve 1 has either 0 or 1 child
-            # Need to unlink these Releve 1, because they will
-            # be recreated if required
-            for child in slip.child_ids:
-                child.unlink()
-
-            slip.refresh()
-
             # Get all payslip of the employee for the year
-            year = slip.year
+            year = int(slip.year)
             date_from = datetime(year, 1, 1).strftime(
                 DEFAULT_SERVER_DATE_FORMAT)
             date_to = datetime(year, 12, 31).strftime(
                 DEFAULT_SERVER_DATE_FORMAT)
-            payslips = self.pool['hr.payslip'].search([
+
+            payslips = self.env['hr.payslip'].search([
                 ('employee_id', '=', slip.employee_id.id),
                 ('date_payment', '>=', date_from),
                 ('date_payment', '<=', date_to),
@@ -76,7 +73,7 @@ class HrReleve1(models.Model):
             ])
 
             # Get all types of Releve 1 box
-            boxes = self.pool['hr.releve_1.box'].search([])
+            boxes = self.env['hr.releve_1.box'].search([])
 
             # Create a list of all amounts to add to the slip
             amounts = []
@@ -173,7 +170,7 @@ class HrReleve1(models.Model):
         for slip in self:
             # If the slip as no number, assign one
             if not slip.number:
-                number = self.pool['res.company'].\
+                number = self.env['res.company'].\
                     get_next_rq_sequential_number(
                         'hr.releve_1', slip.company_id.id, slip.year)
 
@@ -384,21 +381,22 @@ class HrReleve1(models.Model):
         Get the list of amounts that will appear in the free boxes
         of the releve 1
         """
-        other_amounts = self.amount_ids.filtered(
-            lambda a: a.box_id.is_other_amount)
+        for slip in self:
+            other_amounts = slip.amount_ids.filtered(
+                lambda a: a.box_id.is_other_amount)
 
-        box_o_amounts = other_amounts.filtered(
-            lambda a: a.box_id.is_box_o_amount)
+            box_o_amounts = other_amounts.filtered(
+                lambda a: a.box_id.is_box_o_amount)
 
-        # Special case when there is exactly one other amount related
-        # to Box O. The amount's code will be written directly in
-        # the Box O and will not make use of the free boxes in
-        # the Releve 1.
-        if len(box_o_amounts) == 1:
-            other_amounts = other_amounts.filtered(
-                lambda a: a != box_o_amounts[0])
+            # Special case when there is exactly one other amount related
+            # to Box O. The amount's code will be written directly in
+            # the Box O and will not make use of the free boxes in
+            # the Releve 1.
+            if len(box_o_amounts) == 1:
+                other_amounts = other_amounts.filtered(
+                    lambda a: a != box_o_amounts[0])
 
-        self.other_amount_ids = other_amounts.ids
+            slip.other_amount_ids = other_amounts.ids
 
     def _get_box_o(self):
         """
@@ -409,31 +407,29 @@ class HrReleve1(models.Model):
         each individual amount will use a free box and the box O's code
         will be RZ to indicate that.
         """
-        res = {}
-        box_o_amounts = self.amount_ids.filtered(
-            lambda a: a.box_id.is_box_o_amount)
+        for slip in self:
+            box_o_amounts = slip.amount_ids.filtered(
+                lambda a: a.box_id.is_box_o_amount)
 
-        if len(box_o_amounts) > 1:
-            # 2 amounts or more
-            # The Box O will contain the sum of the amounts.
-            amount = sum(a.amount for a in box_o_amounts)
+            if len(box_o_amounts) > 1:
+                # 2 amounts or more
+                # The Box O will contain the sum of the amounts.
+                amount = sum(a.amount for a in box_o_amounts)
 
-            self.box_o_amount = amount
-            self.box_o_amount_code = 'RZ'
+                slip.box_o_amount = amount
+                slip.box_o_amount_code = 'RZ'
 
-        elif len(box_o_amounts) == 1:
-            # One amount, the box is filled with this amount
-            amount = box_o_amounts[0]
+            elif len(box_o_amounts) == 1:
+                # One amount, the box is filled with this amount
+                amount = box_o_amounts[0]
 
-            self.box_o_amount = amount.amount
-            self.box_o_amount_code = amount.box_id.code
+                slip.box_o_amount = amount.amount
+                slip.box_o_amount_code = amount.box_id.code
 
-        else:
-            # No amount, the box is empty
-            self.box_o_amount = False
-            self.box_o_amount_code = False
-
-        return res
+            else:
+                # No amount, the box is empty
+                slip.box_o_amount = False
+                slip.box_o_amount_code = False
 
     slip_type = fields.Selection(
         get_type_codes,
@@ -497,9 +493,10 @@ class HrReleve1(models.Model):
         readonly=True,
     )
     other_amount_ids = fields.One2many(
+        'hr.releve_1.amount',
+        'slip_id',
+        'Other Amounts',
         compute='_get_other_amounts',
-        relation='hr.releve_1.amount',
-        string='Other Amounts',
         readonly=True,
     )
 
@@ -515,7 +512,6 @@ class HrReleve1(models.Model):
     @api.constrains('amount_ids')
     def _check_other_info(self):
         for slip in self:
-
             if len(slip.other_amount_ids) > 4:
                 raise ValidationError(_(
                     "Error. You can enter a maximum of 4 other amounts."

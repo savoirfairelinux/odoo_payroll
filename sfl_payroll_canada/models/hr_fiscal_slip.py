@@ -19,6 +19,7 @@
 ##############################################################################
 
 from openerp import api, fields, models, _
+from openerp.exceptions import ValidationError
 
 
 def get_states(self):
@@ -53,7 +54,7 @@ class HrFiscalSlip(models.AbstractModel):
         'Reference',
         readonly=True, states={'draft': [('readonly', False)]},
     )
-    year = fields.Integer(
+    year = fields.Char(
         'Fiscal Year',
         required=True,
         readonly=True, states={'draft': [('readonly', False)]},
@@ -165,3 +166,11 @@ class HrFiscalSlip(models.AbstractModel):
         self.ensure_one()
         amount = self.get_other_amount(index)
         return amount.box_id.code if amount else ''
+
+    @api.multi
+    @api.constrains('year')
+    def _check_year(self):
+        for slip in self:
+            if not slip.year.isdigit():
+                raise ValidationError(_(
+                    'The year is not set properly'))
