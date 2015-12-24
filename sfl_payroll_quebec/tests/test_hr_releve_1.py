@@ -127,7 +127,7 @@ class TestHrReleve1Base(TestHrCraT4Base):
 
 class TestHrReleve1(TestHrReleve1Base):
 
-    def test_compute_amounts(self):
+    def test_01_compute_amounts(self):
         """Test that the compute_amounts method on releve_1
         sums over the payslipsamounts properly"""
         cr, uid, context = self.cr, self.uid, self.context
@@ -140,7 +140,7 @@ class TestHrReleve1(TestHrReleve1Base):
 
         self.check_releve_1_values()
 
-    def test_check_other_info_same_source(self):
+    def test_02_check_other_info_same_source(self):
         """Test _check_other_info raises an error when 2 other amounts
         have the same source"""
         cr, uid, context = self.cr, self.uid, self.context
@@ -162,7 +162,7 @@ class TestHrReleve1(TestHrReleve1Base):
             }
         )
 
-    def test_check_other_info_too_many_sources_1(self):
+    def test_03_check_other_info_too_many_sources_1(self):
         cr, uid, context = self.cr, self.uid, self.context
         self.create_releve_1()
 
@@ -188,7 +188,7 @@ class TestHrReleve1(TestHrReleve1Base):
             }
         )
 
-    def test_check_other_info_too_many_sources_2(self):
+    def test_04_check_other_info_too_many_sources_2(self):
         cr, uid, context = self.cr, self.uid, self.context
         self.create_releve_1()
 
@@ -220,7 +220,7 @@ class TestHrReleve1(TestHrReleve1Base):
             }
         )
 
-    def test_check_other_info_too_many_sources_3(self):
+    def test_05_check_other_info_too_many_sources_3(self):
         cr, uid, context = self.cr, self.uid, self.context
         self.create_releve_1()
 
@@ -252,7 +252,7 @@ class TestHrReleve1(TestHrReleve1Base):
 
         self.assertEqual(len(releve_1.other_amount_ids), 4)
 
-    def test_make_dtmx_barcode(self):
+    def test_06_make_dtmx_barcode(self):
         """Test make_dtmx_barcode method computes without error
         and creates a datamatrix string with the proper size"""
         cr, uid, context = self.cr, self.uid, self.context

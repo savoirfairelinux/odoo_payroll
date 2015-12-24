@@ -20,515 +20,473 @@
 
 from datetime import datetime
 
-from openerp.osv import orm, fields
+from openerp import api, fields, models, _
+from openerp.exceptions import ValidationError
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
-from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
-
-
-# Use dicts of parameters to avoid redundance and errors
-FUNCTION_PARAM = {
-    'readonly': True,
-    'states': {'draft': [('readonly', False)]},
-    'method': True,
-    'multi': True,
-}
 
 
 FLOAT_PARAM = {
     'readonly': True,
     'states': {'draft': [('readonly', False)]},
     'digits_compute': dp.get_precision('Payroll'),
+    'default': 0,
+}
+
+FUNCTION_PARAM = {
+    'readonly': True,
+    'digits_compute': dp.get_precision('Payroll'),
+    'default': 0,
+    'store': True,
 }
 
 
-class HrReleve1Summary(orm.Model):
+class HrReleve1Summary(models.Model):
+    """Relevé 1 Summary"""
+
     _name = 'hr.releve_1.summary'
-    _description = 'Relevé 1 Summary'
+    _description = _(__doc__)
 
     _inherit = 'hr.qc.summary'
 
-    def _get_payslip_ids(self, cr, uid, ids, browse=False, context=None):
-        summary = self.browse(cr, uid, ids[0], context=context)
+    @api.multi
+    def get_payslips(self):
+        self.ensure_one()
 
-        structure_id = self.pool['ir.model.data'].get_object_reference(
-            cr, uid, 'sfl_payroll_quebec', 'hr_structure_qc')[1]
+        structure = self.env.ref('sfl_payroll_quebec.hr_structure_qc')
+        structure_ids = structure.get_children_recursively().ids
 
-        structures = self.pool['hr.payroll.structure'].\
-            get_children_recursively(
-                cr, uid, [structure_id], context=context)
-
-        year = int(summary.year)
+        year = int(self.year)
         date_from = datetime(year, 1, 1).strftime(
             DEFAULT_SERVER_DATE_FORMAT)
         date_to = datetime(year, 12, 31).strftime(
             DEFAULT_SERVER_DATE_FORMAT)
 
-        payslip_obj = self.pool['hr.payslip']
-        payslip_ids = payslip_obj.search(cr, uid, [
+        return self.env['hr.payslip'].search([
             ('date_payment', '>=', date_from),
             ('date_payment', '<=', date_to),
-            ('company_id', '=', summary.company_id.id),
-            ('struct_id', 'in', structures.ids),
+            ('company_id', '=', self.company_id.id),
+            ('struct_id', 'in', structure_ids),
             ('state', '=', 'done'),
-        ], context=context)
+        ])
 
-        if not browse:
-            return payslip_ids
+    @api.depends('qpp_amount_ee', 'qpp_amount_er')
+    def _compute_qpp_amount_total(self):
+        for s in self:
+            s.qpp_amount_total = s.qpp_amount_ee + s.qpp_amount_er
 
-        return payslip_obj.browse(cr, uid, payslip_ids, context=context)
+    @api.depends('qpip_amount_ee', 'qpip_amount_er')
+    def _compute_qpip_amount_total(self):
+        for s in self:
+            s.qpip_amount_total = s.qpip_amount_ee + s.qpip_amount_er
 
-    def _compute_amounts(
-        self, cr, uid, ids, field_names, args=None, context=None
-    ):
-        res = {}
+    @api.depends('qit_amount_1', 'qit_amount_2')
+    def _compute_qit_amount_total(self):
+        for s in self:
+            s.qit_amount_total = s.qit_amount_1 + s.qit_amount_2
 
-        for summary in self.browse(cr, uid, ids, context=context):
+    @api.depends('qpp_amount_total', 'qpip_amount_total', 'qit_amount_total')
+    def _compute_sub_total_contribution(self):
+        for s in self:
+            s.sub_total_contribution = (
+                s.qpp_amount_total + s.qpip_amount_total + s.qit_amount_total)
 
-            qpp_amount_total = summary.qpp_amount_ee + summary.qpp_amount_er
-            qpip_amount_total = summary.qpip_amount_ee + summary.qpip_amount_er
-            qit_amount_total = summary.qit_amount_1 + summary.qit_amount_2
+    @api.depends('sub_total_contribution', 'sub_total_remitted')
+    def _compute_sub_total_payable(self):
+        for s in self:
+            s.sub_total_payable = (
+                s.sub_total_contribution - s.sub_total_remitted)
 
-            sub_total_contribution = (
-                qpp_amount_total + qpip_amount_total + qit_amount_total)
+    @api.depends(
+        'hsf_salaries', 'hsf_exemption_amount', 'hsf_contribution_rate')
+    def _compute_hsf_amount_before_reduction(self):
+        for s in self:
+            s.hsf_amount_before_reduction = (
+                s.hsf_salaries - s.hsf_exemption_amount
+            ) * s.hsf_contribution_rate / 100
 
-            sub_total_payable = sub_total_contribution - \
-                summary.sub_total_remitted
+    @api.depends('hsf_reduction_basis', 'hsf_reduction_rate')
+    def _compute_hsf_reduction_amount(self):
+        for s in self:
+            s.hsf_reduction_amount = (
+                s.hsf_reduction_basis * s.hsf_reduction_rate / 100)
 
-            hsf_amount_before_reduction = (
-                summary.hsf_salaries - summary.hsf_exemption_amount
-            ) * summary.hsf_contribution_rate / 100
+    @api.depends(
+        'hsf_amount_before_reduction',
+        'hsf_reduction_amount', 'hsf_amount_remitted')
+    def _compute_hsf_amount_payable(self):
+        for s in self:
+            s.hsf_amount_payable = (
+                s.hsf_amount_before_reduction - s.hsf_reduction_amount -
+                s.hsf_amount_remitted)
 
-            hsf_reduction_amount = (
-                summary.hsf_reduction_basis * summary.hsf_reduction_rate / 100)
+    @api.depends('cnt_salaries', 'cnt_rate')
+    def _compute_cnt_amount_payable(self):
+        for s in self:
+            s.cnt_amount_payable = (
+                s.cnt_salaries * s.cnt_rate / 100)
 
-            hsf_amount_payable = (
-                hsf_amount_before_reduction - hsf_reduction_amount -
-                summary.hsf_amount_remitted)
+    @api.depends('wsdrf_salaries', 'wsdrf_rate')
+    def _compute_wsdrf_amount_before_expenses(self):
+        for s in self:
+            s.wsdrf_amount_before_expenses = (
+                s.wsdrf_salaries * s.wsdrf_rate / 100)
 
-            cnt_amount_payable = (
-                summary.cnt_salaries * summary.cnt_rate / 100)
+    @api.depends('wsdrf_previous_reported', 'wsdrf_expenses_current')
+    def _compute_wsdrf_expenses_available(self):
+        for s in self:
+            s.wsdrf_expenses_available = (
+                s.wsdrf_previous_reported +
+                s.wsdrf_expenses_current)
 
-            wsdrf_amount_before_expenses = (
-                summary.wsdrf_salaries * summary.wsdrf_rate / 100)
+    @api.depends('wsdrf_expenses_available', 'wsdrf_expenses')
+    def _compute_wsdrf_reported(self):
+        for s in self:
+            s.wsdrf_reported = s.wsdrf_expenses_available - s.wsdrf_expenses
 
-            wsdrf_expenses_available = (
-                summary.wsdrf_previous_reported +
-                summary.wsdrf_expenses_current)
+    @api.depends('wsdrf_amount_before_expenses', 'wsdrf_expenses')
+    def _compute_wsdrf_contribution(self):
+        for s in self:
+            s.wsdrf_contribution = (
+                s.wsdrf_amount_before_expenses - s.wsdrf_expenses)
 
-            wsdrf_reported = wsdrf_expenses_available - summary.wsdrf_expenses
+    @api.depends(
+        'sub_total_payable', 'hsf_amount_payable',
+        'cnt_amount_payable', 'wsdrf_contribution')
+    def _compute_total_balance(self):
+        for s in self:
+            s.total_balance = (
+                s.sub_total_payable + s.hsf_amount_payable +
+                s.cnt_amount_payable + s.wsdrf_contribution)
 
-            wsdrf_contribution = (
-                wsdrf_amount_before_expenses - summary.wsdrf_expenses)
+            s.total_receivable = s.total_balance < 0 and -s.total_balance or 0
+            s.total_payable = s.total_balance > 0 and s.total_balance or 0
 
-            total_balance = (
-                sub_total_payable + hsf_amount_payable +
-                cnt_amount_payable + wsdrf_contribution)
+    releve_1_ids = fields.One2many(
+        'hr.releve_1', 'summary_id', 'Relevés 1',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
 
-            total_receivable = total_balance < 0 and -total_balance or 0
-            total_payable = total_balance > 0 and total_balance or 0
+    total_ids = fields.One2many(
+        'hr.releve_1.summary.total', 'summary_id', 'Totals',
+        readonly=True, states={'draft': [('readonly', False)]},
+    )
+    qpp_amount_ee = fields.Float(
+        'Source Deduction', required=True,
+        help="Relevés 1 (box B)",
+        **FLOAT_PARAM
+    )
+    qpp_amount_er = fields.Float(
+        'Employer Contributions', required=True,
+        **FLOAT_PARAM
+    )
+    qpp_amount_total = fields.Float(
+        'Total Contribution',
+        compute='_compute_qpp_amount_total',
+        **FUNCTION_PARAM
+    )
 
-            res[summary.id] = {
-                'qpp_amount_total': qpp_amount_total,
-                'qpip_amount_total': qpip_amount_total,
-                'qit_amount_total': qit_amount_total,
-                'sub_total_contribution': sub_total_contribution,
-                'sub_total_payable': sub_total_payable,
-                'hsf_amount_before_reduction': hsf_amount_before_reduction,
-                'hsf_reduction_amount': hsf_reduction_amount,
-                'hsf_amount_payable': hsf_amount_payable,
-                'cnt_amount_payable': cnt_amount_payable,
-                'wsdrf_amount_before_expenses': wsdrf_amount_before_expenses,
-                'wsdrf_expenses_available': wsdrf_expenses_available,
-                'wsdrf_reported': wsdrf_reported,
-                'wsdrf_contribution': wsdrf_contribution,
-                'total_balance': total_balance,
-                'total_receivable': total_receivable,
-                'total_payable': total_payable,
-            }
+    qpip_amount_ee = fields.Float(
+        'Source Deduction', required=True,
+        help="Relevés 1 (box H)",
+        **FLOAT_PARAM
+    )
+    qpip_amount_er = fields.Float(
+        'Employer Contributions', required=True,
+        **FLOAT_PARAM
+    )
+    qpip_amount_total = fields.Float(
+        'Total Contribution',
+        compute='_compute_qpip_amount_total',
+        **FUNCTION_PARAM
+    )
 
-        return res
+    qit_amount_1 = fields.Float(
+        'Relevés 1 and 25', required=True,
+        help="Relevés 1 (box E) et relevés 25 (box I)",
+        **FLOAT_PARAM
+    )
+    qit_amount_2 = fields.Float(
+        'Relevés 2',
+        help="Relevés 2 (box J)",
+        **FLOAT_PARAM
+    )
+    qit_amount_total = fields.Float(
+        'Total Contribution',
+        compute='_compute_qit_amount_total',
+        **FUNCTION_PARAM
+    )
 
-    _columns = {
-        'releve_1_ids': fields.one2many(
-            'hr.releve_1', 'summary_id', string='Relevés 1',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
+    sub_total_contribution = fields.Float(
+        'Sub Total',
+        compute='_compute_sub_total_contribution',
+        **FUNCTION_PARAM
+    )
 
-        'total_ids': fields.one2many(
-            'hr.releve_1.summary.total',
-            'summary_id',
-            'Totals',
-            readonly=True, states={'draft': [('readonly', False)]},
-        ),
-        'qpp_amount_ee': fields.float(
-            'Source Deduction', required=True,
-            help="Relevés 1 (box B)",
-            **FLOAT_PARAM
-        ),
-        'qpp_amount_er': fields.float(
-            'Employer Contributions', required=True,
-            **FLOAT_PARAM
-        ),
-        'qpp_amount_total': fields.function(
-            _compute_amounts,
-            string='Total Contribution',
-            **FUNCTION_PARAM
-        ),
+    sub_total_remitted = fields.Float(
+        'Contributions Remitted', required=True,
+        help="Source deductions and employer contributions "
+        "remitted over the year for the QPP, QPIP "
+        "and Quebec income tax (with forms TPZ-1015.R.14).",
+        **FLOAT_PARAM
+    )
+    sub_total_payable = fields.Float(
+        'QPP, QPIP and Income Tax to Pay',
+        compute='_compute_sub_total_payable',
+        **FUNCTION_PARAM
+    )
 
-        'qpip_amount_ee': fields.float(
-            'Source Deduction', required=True,
-            help="Relevés 1 (box H)",
-            **FLOAT_PARAM
-        ),
-        'qpip_amount_er': fields.float(
-            'Employer Contributions', required=True,
-            **FLOAT_PARAM
-        ),
-        'qpip_amount_total': fields.function(
-            _compute_amounts,
-            string='Total Contribution',
-            **FUNCTION_PARAM
-        ),
+    hsf_total_wage_bill = fields.Float(
+        'Total Wage Bill', required=True,
+        help="Refer to guide RL-1.G",
+        **FLOAT_PARAM
+    )
+    hsf_salaries = fields.Float(
+        'Salaries Eligible', required=True,
+        **FLOAT_PARAM
+    )
+    hsf_exemption_code = fields.Selection(
+        [('06', '06 - Investment Project in Quebec')],
+        'Exemption Code',
+        help="Let blank if no exemption. Otherwise, refer to guide RL-1.G."
+    )
+    hsf_exemption_amount = fields.Float(
+        'Amount Exempted',
+        **FLOAT_PARAM
+    )
+    hsf_contribution_rate = fields.Float(
+        'Contribution Rate', digits=(1, 2), required=True,
+        default=0,
+        help="Refer to guide RL-1.G.",
+    )
+    hsf_amount_before_reduction = fields.Float(
+        'Contribution Before Reduction',
+        compute='_compute_hsf_amount_before_reduction',
+        **FUNCTION_PARAM
+    )
 
-        'qit_amount_1': fields.float(
-            'Relevés 1 and 25', required=True,
-            help="Relevés 1 (box E) et relevés 25 (box I)",
-            **FLOAT_PARAM
-        ),
-        'qit_amount_2': fields.float(
-            'Relevés 2',
-            help="Relevés 2 (box J)",
-            **FLOAT_PARAM
-        ),
-        'qit_amount_total': fields.function(
-            _compute_amounts,
-            string='Total Contribution',
-            **FUNCTION_PARAM
-        ),
+    hsf_reduction_basis = fields.Float(
+        'Amount Admissible for the Reduction',
+        **FLOAT_PARAM
+    )
+    hsf_reduction_rate = fields.Float(
+        'Reduction Rate',
+        **FLOAT_PARAM
+    )
+    hsf_reduction_amount = fields.Float(
+        'Reduction of the Contribution',
+        compute='_compute_hsf_reduction_amount',
+        **FUNCTION_PARAM
+    )
 
-        'sub_total_contribution': fields.function(
-            _compute_amounts,
-            string='Sub Total',
-            **FUNCTION_PARAM
-        ),
+    hsf_amount_remitted = fields.Float(
+        'Contributions Remitted', required=True,
+        help="The HSF contributions already remitted during "
+        "the year.",
+        **FLOAT_PARAM
+    )
+    hsf_amount_payable = fields.Float(
+        'Contribution to Pay',
+        compute='_compute_hsf_amount_payable',
+        **FUNCTION_PARAM
+    )
 
-        'sub_total_remitted': fields.float(
-            'Contributions Remitted', required=True,
-            help="Source deductions and employer contributions "
-            "remitted over the year for the QPP, QPIP "
-            "and Quebec income tax (with forms TPZ-1015.R.14).",
-            **FLOAT_PARAM
-        ),
-        'sub_total_payable': fields.function(
-            _compute_amounts,
-            string='QPP, QPIP and Income Tax to Pay',
-            **FUNCTION_PARAM
-        ),
+    cnt_salaries = fields.Float(
+        'CNT - Salaries Eligible', required=True,
+        **FLOAT_PARAM
+    )
+    cnt_rate = fields.Float(
+        'Rate', digits=(1, 2), required=True, readonly=True,
+        default=0,
+    )
+    cnt_amount_payable = fields.Float(
+        'CNT - Contribution',
+        compute='_compute_cnt_amount_payable',
+        **FUNCTION_PARAM
+    )
 
-        'hsf_total_wage_bill': fields.float(
-            'Total Wage Bill', required=True,
-            help="Refer to guide RL-1.G",
-            **FLOAT_PARAM
-        ),
-        'hsf_salaries': fields.float(
-            'Salaries Eligible', required=True,
-            **FLOAT_PARAM
-        ),
-        'hsf_exemption_code': fields.selection(
-            [('06', '06 - Investment Project in Quebec')],
-            string='Exemption Code',
-            help="Let blank if no exemption. Otherwise, refer to guide RL-1.G."
-        ),
-        'hsf_exemption_amount': fields.float(
-            'Amount Exempted',
-            **FLOAT_PARAM
-        ),
-        'hsf_contribution_rate': fields.float(
-            'Contribution Rate', digits=(1, 2), required=True,
-            help="Refer to guide RL-1.G.",
-        ),
-        'hsf_amount_before_reduction': fields.function(
-            _compute_amounts,
-            string='Contribution Before Reduction',
-            **FUNCTION_PARAM
-        ),
+    wsdrf_salaries = fields.Float(
+        'Salares Eligible', required=True,
+        help="The eligible salaries under the wsdrf "
+        "if greater than 1,000,000 $"
+        "Otherwise, 0.",
+        **FLOAT_PARAM
+    )
+    wsdrf_rate = fields.Float(
+        'Rate', digits=(1, 2), required=True, readonly=True,
+        default=0,
+    )
+    wsdrf_amount_before_expenses = fields.Float(
+        'Amount Before Expenses',
+        compute='_compute_wsdrf_amount_before_expenses',
+        **FUNCTION_PARAM
+    )
 
-        'hsf_reduction_basis': fields.float(
-            'Amount Admissible for the Reduction',
-            **FLOAT_PARAM
-        ),
-        'hsf_reduction_rate': fields.float(
-            'Reduction Rate',
-            **FLOAT_PARAM
-        ),
-        'hsf_reduction_amount': fields.function(
-            _compute_amounts,
-            string='Reduction of the Contribution',
-            **FUNCTION_PARAM
-        ),
+    wsdrf_previous_reported = fields.Float(
+        'Previous Year Balance',
+        help="The amount of expenses that were "
+        "reported from previous years.",
+        **FLOAT_PARAM
+    )
+    wsdrf_expenses_current = fields.Float(
+        'Expenses Current Year', required=True,
+        help="The amount of eligible training expenses that were "
+        "engaged in the year of reference.",
+        **FLOAT_PARAM
+    )
+    wsdrf_expenses_available = fields.Float(
+        'Expenses Available',
+        compute='_compute_wsdrf_expenses_available',
+        **FUNCTION_PARAM
+    )
+    wsdrf_expenses = fields.Float(
+        'Expenses Deduced', required=True,
+        help="The amount of expenses "
+        "used to reduce the contribution",
+        **FLOAT_PARAM
+    )
+    wsdrf_reported = fields.Float(
+        'Expenses Reported',
+        compute='_compute_wsdrf_reported',
+        help="The amount of expenses to be "
+        "reported to further years.",
+        **FLOAT_PARAM
+    )
 
-        'hsf_amount_remitted': fields.float(
-            'Contributions Remitted', required=True,
-            help="The HSF contributions already remitted during "
-            "the year.",
-            **FLOAT_PARAM
-        ),
-        'hsf_amount_payable': fields.function(
-            _compute_amounts,
-            string='Contribution to Pay',
-            **FUNCTION_PARAM
-        ),
+    wsdrf_contribution = fields.Float(
+        'Contribution',
+        compute='_compute_wsdrf_contribution',
+        **FUNCTION_PARAM
+    )
 
-        'cnt_salaries': fields.float(
-            'CNT - Salaries Eligible', required=True,
-            **FLOAT_PARAM
-        ),
-        'cnt_rate': fields.float(
-            'Rate', digits=(1, 2), required=True, readonly=True,
-        ),
-        'cnt_amount_payable': fields.function(
-            _compute_amounts,
-            string='CNT - Contribution',
-            **FUNCTION_PARAM
-        ),
+    total_balance = fields.Float(
+        'Total Balance',
+        compute='_compute_total_balance',
+        **FUNCTION_PARAM
+    )
+    total_receivable = fields.Float(
+        'Total Receivable',
+        compute='_compute_total_balance',
+        **FUNCTION_PARAM
+    )
+    total_payable = fields.Float(
+        'Total Payable',
+        compute='_compute_total_balance',
+        **FUNCTION_PARAM
+    )
 
-        'wsdrf_salaries': fields.float(
-            'Salares Eligible', required=True,
-            help="The eligible salaries under the wsdrf "
-            "if greater than 1,000,000 $"
-            "Otherwise, 0.",
-            **FLOAT_PARAM
-        ),
-        'wsdrf_rate': fields.float(
-            'Rate', digits=(1, 2), required=True, readonly=True,
-        ),
-        'wsdrf_amount_before_expenses': fields.function(
-            _compute_amounts,
-            string='Amount Before Expenses',
-            **FUNCTION_PARAM
-        ),
-
-        'wsdrf_previous_reported': fields.float(
-            'Previous Year Balance',
-            help="The amount of expenses that were "
-            "reported from previous years.",
-            **FLOAT_PARAM
-        ),
-        'wsdrf_expenses_current': fields.float(
-            'Expenses Current Year', required=True,
-            help="The amount of eligible training expenses that were "
-            "engaged in the year of reference.",
-            **FLOAT_PARAM
-        ),
-        'wsdrf_expenses_available': fields.function(
-            _compute_amounts,
-            string='Expenses Available',
-            **FUNCTION_PARAM
-        ),
-        'wsdrf_expenses': fields.float(
-            'Expenses Deduced', required=True,
-            help="The amount of expenses "
-            "used to reduce the contribution",
-            **FLOAT_PARAM
-        ),
-        'wsdrf_reported': fields.function(
-            _compute_amounts,
-            string='Expenses Reported',
-            help="The amount of expenses to be "
-            "reported to further years.",
-            **FUNCTION_PARAM
-        ),
-
-        'wsdrf_contribution': fields.function(
-            _compute_amounts,
-            string='Contribution',
-            **FUNCTION_PARAM
-        ),
-
-        'total_balance': fields.function(
-            _compute_amounts,
-            string='Total Balance',
-            **FUNCTION_PARAM
-        ),
-        'total_receivable': fields.function(
-            _compute_amounts,
-            string='Total Receivable',
-            **FUNCTION_PARAM
-        ),
-        'total_payable': fields.function(
-            _compute_amounts,
-            string='Total Payable',
-            **FUNCTION_PARAM
-        ),
-    }
-
-    def _check_employees(self, cr, uid, ids, context=None):
+    @api.multi
+    @api.constrains('releve_1_ids')
+    def _check_employees(self):
         """
         A summary can not have more than one Relevé 1 per employee
         """
-        for summary in self.browse(cr, uid, ids, context=context):
+        for summary in self:
 
             slips = summary.releve_1_ids
+            employees = slips.mapped('employee_id')
 
-            employee_ids = {
-                slip.employee_id.id for slip in slips
-            }
-
-            if not len(employee_ids) == len(slips):
-                return False
+            if len(employees) != len(slips):
+                raise ValidationError(
+                    "Error! You can only have one Relevé 1 per employee "
+                    "in a summary")
 
         return True
 
-    def _check_wsdrf_amount_deduced(self, cr, uid, ids, context=None):
+    @api.multi
+    @api.constrains(
+        'wsdrf_salaries', 'wsdrf_previous_reported',
+        'wsdrf_expenses_current', 'wsdrf_expenses',
+    )
+    def _check_wsdrf_amount_deduced(self):
         """
         A summary can not have more than one Relevé 1 per employee
         """
-        for summary in self.browse(cr, uid, ids, context=context):
+        for summary in self:
 
             if summary.wsdrf_contribution < 0:
-                return False
+                raise ValidationError(
+                    "Error! You can not deduce more training expenses than "
+                    "the amount of contribution. The balance must be reported "
+                    "to the next year")
 
         return True
 
-    _constraints = [
-        (
-            _check_employees,
-            "Error! You can only have one Relevé 1 per employee "
-            "in a summary",
-            ['releve_1_ids']
-        ),
-        (
-            _check_wsdrf_amount_deduced,
-            "Error! You can not deduce more training expenses than "
-            "the amount of contribution. The balance must be reported "
-            "to the next year",
-            [
-                'wsdrf_salaries', 'wsdrf_previous_reported',
-                'wsdrf_expenses_current', 'wsdrf_expenses',
-            ]
-        ),
-    ]
+    @api.multi
+    def generate_slips(self):
+        self.ensure_one()
 
-    _defaults = {
-        'cnt_rate': 0.08,
-        'wsdrf_rate': 1.0,
-        'qpp_amount_ee': 0.0,
-        'qpp_amount_er': 0.0,
-        'qpip_amount_ee': 0.0,
-        'qpip_amount_er': 0.0,
-        'qit_amount_1': 0.0,
-        'sub_total_remitted': 0.0,
-        'hsf_total_wage_bill': 0.0,
-        'hsf_salaries': 0.0,
-        'hsf_contribution_rate': 0.0,
-        'hsf_amount_remitted': 0.0,
-        'cnt_salaries': 0.0,
-        'wsdrf_salaries': 0.0,
-        'wsdrf_expenses_current': 0.0,
-        'wsdrf_expenses': 0.0,
-    }
-
-    def generate_slips(self, cr, uid, ids, context=None):
-        summary = self.browse(cr, uid, ids[0], context=context)
-
-        payslips = summary._get_payslip_ids(browse=True)
-
-        employees = {payslip.employee_id for payslip in payslips}
-
-        slips = summary.releve_1_ids
-        slip_obj = self.pool['hr.releve_1']
+        payslips = self.get_payslips()
+        employees = payslips.mapped('employee_id')
+        slips = self.releve_1_ids
 
         for employee in employees:
 
             employee.check_personal_info()
 
             slip = next(
-                (s for s in slips if s.employee_id == employee), False)
+                (s for s in slips if s.employee_id == employee), None)
 
-            if not slip:
-                slip_id = slip_obj.create(cr, uid, {
+            if slip is None:
+                slip = self.env['hr.releve_1'].create({
+                    'summary_id': self.id,
                     'employee_id': employee.id,
-                    'company_id': summary.company_id.id,
-                    'slip_type': summary.slip_type,
-                    'year': summary.year,
-                }, context=context)
-
-                summary.write({'releve_1_ids': [(4, slip_id)]})
-
-                slip = slip_obj.browse(cr, uid, slip_id, context=context)
+                    'company_id': self.company_id.id,
+                    'slip_type': self.slip_type,
+                    'year': self.year,
+                })
 
             if not slip.computed:
                 slip.compute_amounts()
 
-        summary.compute_totals()
+        self.compute_totals()
 
-    def _get_total(self, cr, uid, ids, ref_list, context=None):
+    @api.multi
+    def _get_total(self, ref):
         """
         Get the summary total record given the reference of the summary box
-
-        :param ref_list: list of xml reference of summary boxes
-        or single reference
         """
-        if isinstance(ids, (int, long)):
-            ids = [ids]
+        self.ensure_one()
 
-        assert len(ids) == 1
+        box = self.env.ref('sfl_payroll_quebec.%s' % ref)
+        return sum((a.amount for a in self.total_ids if a.box_id == box), 0.0)
 
-        summary = self.browse(cr, uid, ids[0], context=context)
+    @api.multi
+    def compute_totals(self):
+        self.ensure_one()
 
-        box_id = self.pool['ir.model.data'].get_object_reference(
-            cr, uid, 'sfl_payroll_quebec', ref_list)[1]
+        self.write({'total_ids': [(5, 0)]})
 
-        box = self.pool['hr.releve_1.summary.box'].browse(
-            cr, uid, box_id, context=context)
-
-        return sum(
-            (a.amount for a in summary.total_ids if a.box_id == box), 0.0)
-
-    def compute_totals(self, cr, uid, ids, context=None):
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-
-        assert len(ids) == 1
-
-        summary = self.browse(cr, uid, ids[0], context=context)
-
-        summary.write({'total_ids': [(5, 0)]})
-
-        slip_ids = [s.id for s in summary.releve_1_ids]
-
-        box_obj = self.pool['hr.releve_1.summary.box']
+        slip_ids = self.releve_1_ids.ids
 
         # Get all types of releve 1 summary box
-        box_ids = box_obj.search(cr, uid, [], context=context)
-        boxes = box_obj.browse(cr, uid, box_ids, context=context)
+        boxes = self.env['hr.releve_1.summary.box'].search([])
 
-        summary.write({
+        self.write({
             'total_ids': [(0, 0, {
                 'amount': box.compute_amount(slip_ids),
                 'box_id': box.id,
             }) for box in boxes]
         })
 
-        qpp_amount_ee = summary._get_total('summary_box_qpp_amount_ee')
-        qpip_amount_ee = summary._get_total('summary_box_qpip_amount_ee')
-        qit_amount_1 = summary._get_total('summary_box_qit_amount_1')
-        qpp_amount_er = summary._get_total('summary_box_qpp_amount_er')
-        qpip_amount_er = summary._get_total('summary_box_qpip_amount_er')
+        qpp_amount_ee = self._get_total('summary_box_qpp_amount_ee')
+        qpip_amount_ee = self._get_total('summary_box_qpip_amount_ee')
+        qit_amount_1 = self._get_total('summary_box_qit_amount_1')
+        qpp_amount_er = self._get_total('summary_box_qpp_amount_er')
+        qpip_amount_er = self._get_total('summary_box_qpip_amount_er')
 
         sub_total_remitted = (
             qpp_amount_ee + qpip_amount_ee + qit_amount_1 +
             qpp_amount_er + qpip_amount_er)
 
-        hsf_salaries = summary._get_total('summary_box_hsf_salaries')
-        hsf_amount_er = summary._get_total('summary_box_hsf_amount_er')
-        total_pay = summary._get_total('summary_box_total_pay')
+        hsf_salaries = self._get_total('summary_box_hsf_salaries')
+        hsf_amount_er = self._get_total('summary_box_hsf_amount_er')
+        total_pay = self._get_total('summary_box_total_pay')
 
-        cnt_salaries = summary._get_total('summary_box_cnt_salaries')
-        wsdrf_salaries = summary._get_total('summary_box_wsdrf_salaries')
+        cnt_salaries = self._get_total('summary_box_cnt_salaries')
+        wsdrf_salaries = self._get_total('summary_box_wsdrf_salaries')
 
-        summary.write({
+        self.write({
             'qpp_amount_ee': qpp_amount_ee,
             'qpip_amount_ee': qpip_amount_ee,
             'qit_amount_1': qit_amount_1,
@@ -545,37 +503,29 @@ class HrReleve1Summary(orm.Model):
             if wsdrf_salaries >= 10 ** 7 else 0,
         })
 
-    def button_cancel(self, cr, uid, ids, context=None):
-        for summary in self.browse(cr, uid, ids, context=context):
+    @api.multi
+    def button_cancel(self):
+        for summary in self:
             for slip in summary.releve_1_ids:
                 slip.write({'state': 'cancelled'})
-            summary.write({'state': 'cancelled'})
+        self.write({'state': 'cancelled'})
 
-    def button_confirm_slips(self, cr, uid, ids, context=None):
-        summary = self.browse(cr, uid, ids[0], context=context)
+    @api.multi
+    def button_confirm_slips(self):
+        for summary in self:
+            slips = summary.releve_1_ids.filtered(lambda s: s.state == 'draft')
+            slips.write({'state': 'confirmed'})
 
-        slip_ids = [
-            slip.id for slip in summary.releve_1_ids
-            if slip.state == 'draft'
-        ]
+    @api.multi
+    def button_confirm(self):
+        for summary in self:
+            for slip in summary.releve_1_ids:
+                if slip.state in ['draft', 'cancelled']:
+                    raise ValidationError(
+                        _("Error"),
+                        _("Every Relevé 1 must be confirmed before sending "
+                          "the summary. Slip for employee %s is not "
+                          "confirmed.") % slip.employee_id.name)
 
-        self.pool['hr.releve_1'].write(cr, uid, slip_ids, {
-            'state': 'confirmed'}, context=context)
-
-    def button_confirm(self, cr, uid, ids, context=None):
-        summary = self.browse(cr, uid, ids[0], context=context)
-        summary.write({'state': 'sent'})
-
-        for slip in summary.releve_1_ids:
-            if slip.state in ['draft', 'cancelled']:
-                raise orm.except_orm(
-                    _("Error"),
-                    _("Every Relevé 1 must be confirmed before sending the "
-                        "summary. Slip for employee %s is not confirmed.") %
-                    slip.employee_id.name
-                )
-
-        slip_ids = [slip.id for slip in summary.releve_1_ids]
-
-        self.pool['hr.releve_1'].write(cr, uid, slip_ids, {
-            'state': 'sent'}, context=context)
+        self.write({'state': 'sent'})
+        self.mapped('releve_1_ids').write({'state': 'sent'})

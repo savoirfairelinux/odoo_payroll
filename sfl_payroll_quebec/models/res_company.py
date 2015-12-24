@@ -19,79 +19,80 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
-from openerp.tools.translate import _
+from openerp import api, fields, models, _
+from openerp.exceptions import ValidationError
 from itertools import permutations
 
 
-class ResCompany(orm.Model):
+class ResCompany(models.Model):
     _inherit = 'res.company'
-    _columns = {
-        'rq_payroll_id': fields.char(
-            'Revenu Québec Identification Number',
-            help="Must contain 10 numeric caracters."),
 
-        'rq_payroll_file_number': fields.char(
-            'Revenu Québec File Number',
-            help="Must contain 4 numeric caracters."),
+    rq_payroll_id = fields.Char(
+        'Revenu Québec Identification Number',
+        help="Must contain 10 numeric caracters.",
+    )
 
-        'rq_first_slip_number': fields.integer(
-            'First Sequencial Number'),
+    rq_payroll_file_number = fields.Char(
+        'Revenu Québec File Number',
+        help="Must contain 4 numeric caracters.",
+    )
 
-        'rq_last_slip_number': fields.integer(
-            'Last Sequencial Number'),
+    rq_first_slip_number = fields.Integer(
+        'First Sequencial Number',
+    )
 
-        'slip_transmission_type': fields.selection(
-            [('post', 'Send By Post')],
-            required=True,
-            type="char",
-            string="Slip Transmission Type"),
+    rq_last_slip_number = fields.Integer(
+        'Last Sequencial Number',
+    )
 
-        'rq_preparator_number': fields.char(
-            'Revenu Québec Preparator Number'),
+    slip_transmission_type = fields.Selection(
+        [('post', 'Send By Post')],
+        required=True,
+        type="char",
+        string="Slip Transmission Type",
+        default='post',
+    )
 
-        'csst_rate_ids': fields.one2many(
-            'hr.qc.rate',
-            'company_id',
-            string="CSST Rates",
-            domain=[('contribution_type', '=', 'csst')],
-        ),
-        'hsf_rate_ids': fields.one2many(
-            'hr.qc.rate',
-            'company_id',
-            string="HSF Rates",
-            domain=[('contribution_type', '=', 'hsf')],
-        ),
-    }
+    rq_preparator_number = fields.Char(
+        'Revenu Québec Preparator Number',
+    )
 
-    def _check_overlapping_csst_hsf_rates(self, cr, uid, ids, context=None):
+    csst_rate_ids = fields.One2many(
+        'hr.qc.rate',
+        'company_id',
+        string="CSST Rates",
+        domain=[('contribution_type', '=', 'csst')],
+    )
+    hsf_rate_ids = fields.One2many(
+        'hr.qc.rate',
+        'company_id',
+        string="HSF Rates",
+        domain=[('contribution_type', '=', 'hsf')],
+    )
+
+    @api.constrains('csst_rate_ids', 'hsf_rate_ids')
+    def _check_overlapping_csst_hsf_rates(self):
         """
         Checks if a class has two rates that overlap in time.
         """
-        for company in self.browse(cr, uid, ids, context):
+        for company in self:
             for rate_list in [company.csst_rate_ids, company.hsf_rate_ids]:
                 for r1, r2 in permutations(rate_list, 2):
-                    if r1.date_to and (
-                            r1.date_from <= r2.date_from <= r1.date_to):
-                        return False
-                    elif not r1.date_to and (r1.date_from <= r2.date_from):
-                        return False
+                    if (
+                        r1.date_to and
+                        r1.date_from <= r2.date_from <= r1.date_to
+                    ) or (
+                        not r1.date_to and
+                        r1.date_from <= r2.date_from
+                    ):
+                        raise ValidationError(
+                            "You cannot have overlapping CSST or HSF rates"
+                        )
 
         return True
 
-    _constraints = [(
-        _check_overlapping_csst_hsf_rates,
-        'Error! You cannot have overlapping CSST or HSF rates',
-        ['csst_rate_ids', 'hsf_rate_ids']
-    )]
-
-    _defaults = {
-        'slip_transmission_type': 'post',
-    }
-
-    def get_next_rq_sequential_number(
-        self, cr, uid, model, company_id, year, context=None
-    ):
+    @api.multi
+    def get_next_rq_sequential_number(self, slip_model, year):
         """
         Create a sequential number as required by Revenu Québec.
 
@@ -100,42 +101,32 @@ class ResCompany(orm.Model):
         The range of number is defined in the company model.
         It is assigned to the company by Revenu Québec.
         """
-        company = self.browse(
-            cr, uid, company_id, context=context)
+        self.ensure_one()
 
-        first_number = company.rq_first_slip_number
-        last_number = company.rq_last_slip_number
+        first_number = self.rq_first_slip_number
+        last_number = self.rq_last_slip_number
 
         if not first_number or not last_number:
-            raise orm.except_orm(
-                _('Error'),
-                _("Your sequence number range for Revenu Québec "
-                    "is incorrectly set")
-            )
+            raise ValidationError(_(
+                "Your sequence number range for Revenu Québec "
+                "is incorrectly set"))
 
         # Get the model of the required fiscal slip
-        slip_obj = self.pool[model]
-
-        slip_ids = slip_obj.search(
-            cr, uid, [
-                ('company_id', '=', company.id),
-                ('year', '=', year),
-                ('number', '!=', False),
-            ],
-            context=context)
+        slips = self.env[slip_model].search([
+            ('company_id', '=', self.id),
+            ('year', '=', year),
+            ('number', '!=', False),
+        ])
 
         number = first_number
 
-        if slip_ids:
-            if isinstance(slip_ids, (int, long)):
-                slip_ids = [slip_ids]
-
+        if slips:
             assigned_numbers = [
                 # we get the first 8 digits of the number
                 # the ninth digit is a validation digit
                 # so we remove it
                 int((float(slip.number) / 10) // 1) for slip in
-                slip_obj.browse(cr, uid, slip_ids, context=context)
+                slips
             ]
 
             while number in assigned_numbers:
@@ -143,11 +134,9 @@ class ResCompany(orm.Model):
                 number += 1
 
                 if number > last_number:
-                    raise orm.except_orm(
-                        _('Error'),
-                        _("You have already used all your sequential "
-                            "numbers assigned by Revenu Québec")
-                    )
+                    raise ValidationError(_(
+                        "You have already used all your sequential "
+                        "numbers assigned by Revenu Québec"))
 
         num_a = float(number) / 7
         # Here, we need 2 decimals
@@ -159,16 +148,14 @@ class ResCompany(orm.Model):
 
         return number * 10 + int(num_c)
 
-    def get_qc_rate(self, cr, uid, ids, date, ttype, context=None):
-        """
-        :type date: string date
-        """
-        company = self.browse(cr, uid, ids[0], context=context)
+    @api.multi
+    def get_qc_rate(self, date, contribution_type):
+        self.ensure_one()
 
-        if ttype == 'csst':
-            rates = company.csst_rate_ids
-        elif ttype == 'hsf':
-            rates = company.hsf_rate_ids
+        if contribution_type == 'csst':
+            rates = self.csst_rate_ids
+        elif contribution_type == 'hsf':
+            rates = self.hsf_rate_ids
 
         for rate in rates:
             if rate.date_from <= date <= rate.date_to:

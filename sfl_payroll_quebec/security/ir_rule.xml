@@ -6,7 +6,7 @@
             <field name="name">Access Employee own Relevé 1</field>
             <field name="model_id" ref="model_hr_releve_1"/>
             <field name="domain_force">[
-                ('employee_id', 'in', [ee.id for ee in user.employee_ids]),
+                ('employee_id', 'in', user.employee_ids.ids),
                 ('state', '=', 'sent'),
             ]
             </field>
