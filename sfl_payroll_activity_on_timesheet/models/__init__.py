@@ -19,7 +19,6 @@
 #
 ##############################################################################
 
-from . import hr_analytic_timesheet
-from . import hr_activity
-from . import hr_contract
 from . import account_analytic_account
+from . import hr_activity
+from . import hr_analytic_timesheet

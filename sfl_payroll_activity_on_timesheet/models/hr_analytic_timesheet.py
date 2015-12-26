@@ -19,28 +19,25 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
+from openerp import api, fields, models
 
 
-class hr_analytic_timesheet(orm.Model):
+class HrAnalyticTimesheet(models.Model):
     _inherit = 'hr.analytic.timesheet'
-    _columns = {
-        'activity_id': fields.many2one(
-            'hr.activity',
-            'Activity',
-            required=True,
-        ),
-    }
+    activity_id = fields.Many2one(
+        'hr.activity',
+        'Activity',
+        required=True,
+    )
 
+    @api.multi
     def on_change_account_id(
-        self, cr, uid, ids,
-        account_id, user_id=False, activity_id=False,
-        context=None
+        self, account_id, user_id=False, activity_id=False
     ):
         # on_change_account_id in module hr_timesheet_invoice does
         # not accept the context argument, so we don't pass it with super
-        res = super(hr_analytic_timesheet, self).on_change_account_id(
-            cr, uid, ids, account_id, user_id=user_id)
+        res = super(HrAnalyticTimesheet, self).on_change_account_id(
+            account_id, user_id=user_id)
 
         if 'value' not in res:
             res['value'] = {}
@@ -52,21 +49,18 @@ class hr_analytic_timesheet(orm.Model):
             res['value']['activity_id'] = False
 
         elif account_id:
-            account_data = self.pool['account.analytic.account'].read(
-                cr, uid, account_id, [
-                    'authorized_activity_ids', 'activity_type'],
-                context=context)
+            account = self.env['account.analytic.account'].browse(account_id)
 
-            auth_act_ids = account_data['authorized_activity_ids']
-            activity_type = account_data['activity_type']
+            auth_activities = account.authorized_activity_ids
+            activity = self.env['hr.activity'].browse(activity_id)
 
-            activity = self.pool['hr.activity'].browse(
-                cr, uid, activity_id, context=context)
-
-            if activity_id in auth_act_ids or (
-                not auth_act_ids and activity_type == activity.type
+            if activity in auth_activities or (
+                not auth_activities and
+                account.activity_type == activity.activity_type
             ):
                 res['value']['activity_id'] = activity_id
+            elif auth_activities:
+                res['value']['activity_id'] = auth_activities[0].id
             else:
                 res['value']['activity_id'] = False
 

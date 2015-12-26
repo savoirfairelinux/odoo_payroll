@@ -23,151 +23,110 @@ from openerp.tests import common
 
 
 class test_activity_on_timesheet(common.TransactionCase):
-    def get_activity_id(self, job_id):
-        job = self.job_model.browse(
-            self.cr, self.uid, job_id, context=self.context)
-        return job.activity_ids[0].id
-
     def setUp(self):
         super(test_activity_on_timesheet, self).setUp()
-        self.employee_model = self.registry('hr.employee')
-        self.user_model = self.registry("res.users")
-        self.contract_model = self.registry("hr.contract")
-        self.job_model = self.registry("hr.job")
-        self.activity_model = self.registry("hr.activity")
-        self.account_model = self.registry("account.analytic.account")
-        self.timesheet_model = self.registry("hr.analytic.timesheet")
-        self.context = self.user_model.context_get(self.cr, self.uid)
+        self.employee_model = self.env['hr.employee']
+        self.user_model = self.env["res.users"]
+        self.contract_model = self.env["hr.contract"]
+        self.job_model = self.env["hr.job"]
+        self.activity_model = self.env["hr.activity"]
+        self.account_model = self.env["account.analytic.account"]
+        self.timesheet_model = self.env["hr.analytic.timesheet"]
 
-        cr, uid, context = self.cr, self.uid, self.context
+        self.user = self.user_model.create({
+            'name': 'User 1',
+            'login': 'test',
+            'password': 'test',
+        })
 
-        # Create a user
-        self.user_id = self.user_model.create(
-            cr, uid, {
-                'name': 'User 1',
-                'login': 'test',
-                'password': 'test',
-            }, context=context)
+        self.employee = self.employee_model.create({
+            'name': 'Employee 1',
+            'user_id': self.user.id,
+        })
 
-        # Create an employee
-        self.employee_id = self.employee_model.create(
-            cr, uid, {
-                'name': 'Employee 1',
-                'user_id': self.user_id
-            }, context=context)
+        self.job = self.job_model.create({'name': 'Job 1'})
+        self.job_2 = self.job_model.create({'name': 'Job 2'})
+        self.job_3 = self.job_model.create({'name': 'Job 3'})
 
-        # Create 3 jobs
-        self.job_id = self.job_model.create(
-            cr, uid, {'name': 'Job 1'}, context=context)
-
-        self.job_2_id = self.job_model.create(
-            cr, uid, {'name': 'Job 2'}, context=context)
-
-        self.job_3_id = self.job_model.create(
-            cr, uid, {'name': 'Job 3'}, context=context)
-
-        # Vacations activity
         self.vac_activity_id = self.ref(
             'sfl_payroll_activity.activity_holiday_status_vacation')
-
-        # Sick leaves activity
         self.sl_activity_id = self.ref(
             'sfl_payroll_activity.activity_holiday_status_sl')
 
-        # Create a contract
-        self.contract_id = self.contract_model.create(
-            self.cr, self.uid, {
-                'employee_id': self.employee_id,
-                'name': 'Contract 1',
-                'wage': 50000,
-                'date_start': '2014-01-01',
-                'contract_job_ids': [
-                    (0, 0, {
-                        'job_id': self.job_id,
-                        'is_main_job': False,
-                    }),
-                    (0, 0, {
-                        'job_id': self.job_2_id,
-                        'is_main_job': True,
-                    }),
-                ],
-            }, context=context)
+        self.contract = self.contract_model.create({
+            'employee_id': self.employee.id,
+            'name': 'Contract 1',
+            'wage': 50000,
+            'date_start': '2014-01-01',
+            'contract_job_ids': [
+                (0, 0, {
+                    'job_id': self.job.id,
+                    'is_main_job': False,
+                }),
+                (0, 0, {
+                    'job_id': self.job_2.id,
+                    'is_main_job': True,
+                }),
+            ],
+        })
 
-        self.account_id = self.account_model.create(
-            self.cr, self.uid, {
-                'type': 'normal',
-                'use_timesheets': True,
-                'name': 'Account 1',
-                'activity_type': 'job',
-                'authorized_activity_ids': [(6, 0, [
-                    self.get_activity_id(self.job_2_id),
-                    self.get_activity_id(self.job_3_id),
-                ])],
-            }, context=context)
+        self.account = self.account_model.create({
+            'type': 'normal',
+            'use_timesheets': True,
+            'name': 'Account 1',
+            'activity_type': 'job',
+            'authorized_activity_ids': [(6, 0, [
+                self.job_2.activity_ids.id,
+                self.job_3.activity_ids.id,
+            ])],
+        })
 
-    def test_on_change_account_id_not_authorized(self):
+    def test_01_on_change_account_id_not_authorized(self):
         """
         Test on_change_account_id when the given activity
         is not authorized on the analytic account
         """
-        cr, uid, context = self.cr, self.uid, self.context
-
-        activity_id = self.get_activity_id(self.job_id)
+        activity_id = self.job.activity_ids.id
 
         res = self.timesheet_model.on_change_account_id(
-            cr, uid, [self.account_id], self.account_id,
-            user_id=self.user_id, activity_id=activity_id,
-            context=context)
+            self.account.id, user_id=self.user.id, activity_id=activity_id)
 
-        self.assertEqual(res['value']['activity_id'], False)
+        self.assertNotEqual(res['value']['activity_id'], activity_id)
 
-    def test_on_change_account_id_authorized(self):
+    def test_02_on_change_account_id_authorized(self):
         """
         Test on_change_account_id when the given activity
         is authorized on the analytic account
         """
-        cr, uid, context = self.cr, self.uid, self.context
-
-        activity_id = self.get_activity_id(self.job_2_id)
+        activity_id = self.job_2.activity_ids.id
 
         res = self.timesheet_model.on_change_account_id(
-            cr, uid, [self.account_id], self.account_id,
-            user_id=self.user_id, activity_id=activity_id,
-            context=context)
+            self.account.id, user_id=self.user.id, activity_id=activity_id)
 
         self.assertEqual(res['value']['activity_id'], activity_id)
 
-    def test_on_change_account_id_no_activity(self):
+    def test_03_on_change_account_id_no_activity(self):
         """
         Test on_change_account_id when no activity is given in parameter
         """
-        cr, uid, context = self.cr, self.uid, self.context
-
         res = self.timesheet_model.on_change_account_id(
-            cr, uid, [self.account_id], self.account_id,
-            user_id=self.user_id, activity_id=False,
-            context=context)
+            self.account.id, user_id=self.user.id, activity_id=False)
 
         self.assertEqual(res['value']['activity_id'], False)
 
-    def test_search_activities(self):
+    def test_04_search_activities(self):
         """
         Test the method _search_activities_from_user on activity model.
 
         It returns a domain [('id', 'in', [...])] to filter activities on view
         """
-        cr, uid, = self.cr, self.uid
+        res = self.activity_model.with_context({
+            'user_id': self.user.id, 'account_id': self.account.id
+        })._search_activities_from_user()[0][2]
 
-        res = self.activity_model._search_activities_from_user(
-            cr, uid,
-            obj=self.activity_model,
-            field_name='authorized_user_ids',
-            context={'user_id': self.user_id, 'account_id': self.account_id}
-        )[0][2]
-
-        activity_id = self.get_activity_id(self.job_id)
-        activity_2_id = self.get_activity_id(self.job_2_id)
-        activity_3_id = self.get_activity_id(self.job_3_id)
+        activity_id = self.job.activity_ids.id
+        activity_2_id = self.job_2.activity_ids.id
+        activity_3_id = self.job_3.activity_ids.id
 
         self.assertIn(activity_2_id, res)
 
@@ -180,32 +139,26 @@ class test_activity_on_timesheet(common.TransactionCase):
         self.assertNotIn(self.vac_activity_id, res)
         self.assertNotIn(self.sl_activity_id, res)
 
-    def test_search_activities_leaves(self):
+    def test_05_search_activities_leaves(self):
         """
         Test the method _search_activities_from_user with leave types
         authorized on the analytic account
         It returns a domain [('id', 'in', [...])] to filter activities on view
         """
-        cr, uid, context = self.cr, self.uid, self.context
+        self.account.write({
+            'activity_type': 'leave',
+            'authorized_activity_ids': [(6, 0, [
+                self.vac_activity_id
+            ])]
+        })
 
-        self.account_model.write(
-            cr, uid, [self.account_id], {
-                'activity_type': 'leave',
-                'authorized_activity_ids': [(6, 0, [
-                    self.vac_activity_id
-                ])]
-            }, context=context)
+        res = self.activity_model.with_context({
+            'user_id': self.user.id, 'account_id': self.account.id
+        })._search_activities_from_user()[0][2]
 
-        res = self.activity_model._search_activities_from_user(
-            cr, uid,
-            obj=self.activity_model,
-            field_name='authorized_user_ids',
-            context={'user_id': self.user_id, 'account_id': self.account_id}
-        )[0][2]
-
-        activity_id = self.get_activity_id(self.job_id)
-        activity_2_id = self.get_activity_id(self.job_2_id)
-        activity_3_id = self.get_activity_id(self.job_3_id)
+        activity_id = self.job.activity_ids.id
+        activity_2_id = self.job_2.activity_ids.id
+        activity_3_id = self.job_3.activity_ids.id
 
         self.assertIn(self.vac_activity_id, res)
 
@@ -217,31 +170,25 @@ class test_activity_on_timesheet(common.TransactionCase):
         self.assertNotIn(activity_2_id, res)
         self.assertNotIn(activity_3_id, res)
 
-    def test_search_activities_no_activity_on_account(self):
+    def test_06_search_activities_no_activity_on_account(self):
         """
         Test the method _search_activities_from_user on activity model
         with no authorized activities on the analytic account
 
         It returns a domain [('id', 'in', [...])] to filter activities on view
         """
-        cr, uid, context = self.cr, self.uid, self.context
+        self.account.write({
+            'activity_type': 'job',
+            'authorized_activity_ids': [(6, 0, [])],
+        })
 
-        self.account_model.write(
-            cr, uid, [self.account_id], {
-                'activity_type': 'job',
-                'authorized_activity_ids': [(6, 0, [])],
-            }, context=context)
+        res = self.activity_model.with_context({
+            'user_id': self.user.id, 'account_id': self.account.id
+        })._search_activities_from_user()[0][2]
 
-        res = self.activity_model._search_activities_from_user(
-            cr, uid,
-            obj=self.activity_model,
-            field_name='authorized_user_ids',
-            context={'user_id': self.user_id, 'account_id': self.account_id}
-        )[0][2]
-
-        activity_id = self.get_activity_id(self.job_id)
-        activity_2_id = self.get_activity_id(self.job_2_id)
-        activity_3_id = self.get_activity_id(self.job_3_id)
+        activity_id = self.job.activity_ids.id
+        activity_2_id = self.job_2.activity_ids.id
+        activity_3_id = self.job_3.activity_ids.id
 
         self.assertIn(activity_id, res)
         self.assertIn(activity_2_id, res)

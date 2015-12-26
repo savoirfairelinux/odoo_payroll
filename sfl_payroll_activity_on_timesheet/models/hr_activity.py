@@ -19,122 +19,101 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from datetime import datetime
+
+from openerp import fields, models
+from openerp.exceptions import ValidationError
 from openerp.tools.translate import _
 
 
-class hr_activity(orm.Model):
+to_string = fields.Date.to_string
+
+
+class HrActivity(models.Model):
     _inherit = 'hr.activity'
 
-    def _get_authorized_user_ids(
-        self, cr, uid, ids, field_name, args=None, context=None
-    ):
+    def _get_authorized_user_ids(self):
         """
         Get the ids of users related to an employee that occupies a job
         position related to an activity.
         """
-        now = datetime.now().strftime(DEFAULT_SERVER_DATE_FORMAT)
-        res = {}
-        for activity in self.browse(cr, uid, ids, context=context):
-            if activity.type != 'job':
-                # In this case, we dont need the list of users.
-                res[activity.id] = False
+        now = to_string(datetime.now())
+
+        for activity in self:
+            if activity.activity_type != 'job':
+                activity.authorized_user_ids = False
+
             else:
-                contract_jobs = activity.job_id.contract_job_ids
-                # Get the list of authorized employees.
-                # (employees with a contract that contains a job)
-                employees = [
-                    j.contract_id.employee_id
-                    for j in contract_jobs
-                    if j.contract_id.date_start <= now and (
+                contract_jobs = activity.job_id.contract_job_ids.filtered(
+                    lambda j: j.contract_id.date_start <= now and (
                         not j.contract_id.date_end or
-                        now <= j.contract_id.date_end)
-                ]
+                        now <= j.contract_id.date_end
+                    ))
 
-                # Get the list of authorized users from authorized
-                # employees.
-                res[activity.id] = [
-                    employee.user_id.id
-                    for employee in employees
-                    if employee.user_id
-                ]
-        return res
+                users = contract_jobs.mapped('contract_id.employee_id.user_id')
+                activity.authorized_user_ids = users.ids
 
-    def _search_activities_from_user(
-        self, cr, uid, obj, field_name, args=None, context=None
-    ):
+    def _search_activities_from_user(self):
         """
         Search the activities from a given user id
 
         This method is called by a view to get the job positions of
         an employee
         """
-        if not context:
-            return []
+        context = self.env.context
 
         # The context should contain the user id of the employee
         # to whom the timesheet belongs
         if 'user_id' in context:
-            user = self.pool['res.users'].browse(
-                cr, uid, context['user_id'], context=context
-            )
+            user = self.env['res.users'].browse(context['user_id'])
+            if not user.employee_ids:
+                return []
+
             employee = user.employee_ids[0]
         else:
             return []
 
         if not employee.contract_id:
-            raise orm.except_orm(
-                _("Error"),
-                _("There is no available contract for employee %s.")
-                % employee.name)
+            raise ValidationError(_(
+                "There is no available contract for employee %s." %
+                employee.name))
 
-        activity_ids = []
+        activities = self.env['hr.activity']
 
-        account = context.get('account_id', False) and \
-            self.pool['account.analytic.account'].browse(
-                cr, uid, context.get('account_id'), context=context)
+        account_model = self.env['account.analytic.account']
+        account = (
+            account_model.browse(context['account_id'])
+            if 'account_id' in context else None
+        )
 
         # Get the activities related to the jobs
         # on the employee's contract
         if not account or account.activity_type == 'job':
-            activity_ids += [
-                contract_job.job_id.activity_ids[0].id
-                for contract_job in employee.contract_id.contract_job_ids
-                if contract_job.job_id.activity_ids
-            ]
+            activities += employee.contract_id.contract_job_ids.mapped(
+                'job_id.activity_ids')
 
         if not account or account.activity_type == 'leave':
-            activity_ids += self.pool['hr.activity'].search(
-                cr, uid, [('activity_type', '=', 'leave')], context=context)
+            activities += self.env['hr.activity'].search(
+                [('activity_type', '=', 'leave')])
 
         # Return all activities if no account was given in context
         if not account or not account.authorized_activity_ids:
-            return [('id', 'in', activity_ids)]
+            return [('id', 'in', activities.ids)]
 
-        auth_activities = [act.id for act in account.authorized_activity_ids]
+        auth_activities = activities & account.authorized_activity_ids
 
-        activity_ids = [
-            act_id for act_id in activity_ids
-            if act_id in auth_activities]
+        return [('id', 'in', auth_activities.ids)]
 
-        return [('id', 'in', activity_ids)]
-
-    _columns = {
-        'authorized_user_ids': fields.function(
-            _get_authorized_user_ids,
-            fnct_search=_search_activities_from_user,
-            method=True,
-            relation='res.users',
-            type="many2many",
-            string="Authorized Users",
-        ),
-        'authorized_account_ids': fields.many2many(
-            'account.analytic.account',
-            'account_analytic_activity_rel',
-            'activity_id',
-            'analytic_account_id',
-            'Authorized Accounts',
-        )
-    }
+    authorized_user_ids = fields.Many2many(
+        compute='_get_authorized_user_ids',
+        search='_search_activities_from_user',
+        comodel_name='res.users',
+        string='Authorized Users',
+    )
+    authorized_account_ids = fields.Many2many(
+        'account.analytic.account',
+        'account_analytic_activity_rel',
+        'activity_id',
+        'analytic_account_id',
+        'Authorized Accounts',
+    )
