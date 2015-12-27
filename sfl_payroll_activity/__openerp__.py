@@ -27,6 +27,7 @@
     'website': 'https://www.savoirfairelinux.com/',
     'depends': [
         'sfl_payroll_base',
+        'hr_contract_hourly_rate',
     ],
     'data': [
         'data/hr_holiday_status.xml',

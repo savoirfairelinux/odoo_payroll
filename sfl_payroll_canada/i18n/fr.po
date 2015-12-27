@@ -680,11 +680,6 @@ msgid "Include Employee Contribution"
 msgstr "AE - Contribution de l'employé"
 
 #. module: sfl_payroll_canada
-#: field:hr.contract,hourly_rate_from_wage:0
-msgid "Estimated Hourly Rate"
-msgstr "Taux horaire estimé"
-
-#. module: sfl_payroll_canada
 #: view:hr.payslip.run:0
 msgid "Confirm Payslips"
 msgstr "Confirmer les bulletins de paie"
@@ -910,11 +905,6 @@ msgstr "Envoyer des feuillets originaux"
 #: model:hr.fiscal_slip.box,name:l10n_ca_sfl_payroll_canada.other_amount_source_38_hr_fiscal_slip_box
 msgid "38 - Security options benefits"
 msgstr "38 – Avantages liés aux options d'achat de titres"
-
-#. module: sfl_payroll_canada
-#: field:hr.contract,worked_hours_per_pay_period:0
-msgid "Worked Hours per Pay Period"
-msgstr "Heures travaillées par période de paie"
 
 #. module: sfl_payroll_canada
 #: report:t4_employee_copy:0

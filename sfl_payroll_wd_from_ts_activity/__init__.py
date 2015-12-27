@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2015 Savoir-faire Linux All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -19,10 +19,4 @@
 #
 ##############################################################################
 
-from . import hr_activity
-from . import hr_contract
-from . import hr_payslip
-from . import hr_payslip_worked_days
-from . import hr_holiday_status
-from . import hr_job
-from . import hr_salary_rule
+from . import models

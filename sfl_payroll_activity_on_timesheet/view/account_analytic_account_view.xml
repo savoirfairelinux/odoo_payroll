@@ -12,7 +12,7 @@
                             <field name="activity_type"/>
                         </group>
                         <separator string="Authorized Activities"/>
-                        <field name="authorized_activity_ids" domain="[('type', '=', activity_type)]"/>
+                        <field name="authorized_activity_ids" domain="[('activity_type', '=', activity_type)]"/>
                     </page>
                 </page>
             </field>

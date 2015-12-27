@@ -5,8 +5,7 @@
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
-#    by
-#    the Free Software Foundation, either version 3 of the License, or
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -19,10 +18,18 @@
 #
 ##############################################################################
 
-from . import hr_activity
-from . import hr_contract
-from . import hr_payslip
-from . import hr_payslip_worked_days
-from . import hr_holiday_status
-from . import hr_job
-from . import hr_salary_rule
+{
+    'name': 'Worked Days From Timesheet With Activities',
+    'version': '8.0.1.0.0',
+    'license': 'AGPL-3',
+    'category': 'Human Resources',
+    'author': "Savoir-faire Linux",
+    'website': 'https://www.savoirfairelinux.com',
+    'depends': [
+        'sfl_payroll_activity_on_timesheet',
+        'sfl_payroll_wd_from_ts',
+    ],
+    'data': [],
+    'installable': True,
+    'auto_install': True,
+}

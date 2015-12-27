@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2015 Savoir-faire Linux All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -19,10 +19,22 @@
 #
 ##############################################################################
 
-from . import hr_activity
-from . import hr_contract
-from . import hr_payslip
-from . import hr_payslip_worked_days
-from . import hr_holiday_status
-from . import hr_job
-from . import hr_salary_rule
+from openerp import api, models
+
+
+class HrTimesheet(models.Model):
+
+    _inherit = 'hr.analytic.timesheet'
+
+    @api.multi
+    def worked_days_mapping(self):
+        """
+        This method is entended to be inherited.
+
+        It maps a single timesheet record to a dict of field values
+        that would be used to generate a worked_days record.
+        """
+        self.ensure_one()
+        res = super(HrTimesheet, self).worked_days_mapping()
+        res['activity_id'] = self.activity_id.id
+        return res

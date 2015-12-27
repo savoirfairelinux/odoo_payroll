@@ -1,6 +1,6 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* hr_worked_days_activity
+#	* sfl_payroll_activity
 #
 msgid ""
 msgstr ""
@@ -15,81 +15,81 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: hr_worked_days_activity
+#. module: sfl_payroll_activity
 #: view:hr.activity:0
-#: model:ir.actions.act_window,name:hr_worked_days_activity.open_tree_activity
-#: model:ir.ui.menu,name:hr_worked_days_activity.menu_hr_activity_tree
+#: model:ir.actions.act_window,name:sfl_payroll_activity.open_tree_activity
+#: model:ir.ui.menu,name:sfl_payroll_activity.menu_hr_activity_tree
 msgid "Activities"
 msgstr ""
 
-#. module: hr_worked_days_activity
+#. module: sfl_payroll_activity
 #: field:hr.activity,code:0
 msgid "Code"
 msgstr ""
 
-#. module: hr_worked_days_activity
+#. module: sfl_payroll_activity
 #: help:hr.activity,code:0
 msgid "Used for payslip computation"
 msgstr ""
 
-#. module: hr_worked_days_activity
-#: model:ir.model,name:hr_worked_days_activity.model_hr_payslip_worked_days
+#. module: sfl_payroll_activity
+#: model:ir.model,name:sfl_payroll_activity.model_hr_payslip_worked_days
 msgid "Payslip Worked Days"
 msgstr ""
 
-#. module: hr_worked_days_activity
+#. module: sfl_payroll_activity
 #: field:hr.activity,type:0
 msgid "Activity Type"
 msgstr ""
 
-#. module: hr_worked_days_activity
+#. module: sfl_payroll_activity
 #: view:hr.holidays.status:0
 msgid "Payroll"
 msgstr ""
 
-#. module: hr_worked_days_activity
+#. module: sfl_payroll_activity
 #: field:hr.activity,leave_id:0
-#: model:ir.model,name:hr_worked_days_activity.model_hr_holidays_status
+#: model:ir.model,name:sfl_payroll_activity.model_hr_holidays_status
 msgid "Leave Type"
 msgstr ""
 
-#. module: hr_worked_days_activity
-#: model:hr.holidays.status,name:hr_worked_days_activity.holiday_status_vacation
+#. module: sfl_payroll_activity
+#: model:hr.holidays.status,name:sfl_payroll_activity.holiday_status_vacation
 msgid "Vacation"
 msgstr ""
 
-#. module: hr_worked_days_activity
-#: model:ir.model,name:hr_worked_days_activity.model_hr_job
+#. module: sfl_payroll_activity
+#: model:ir.model,name:sfl_payroll_activity.model_hr_job
 msgid "Job Description"
 msgstr ""
 
-#. module: hr_worked_days_activity
+#. module: sfl_payroll_activity
 #: field:hr.activity,name:0
 msgid "Activity Name"
 msgstr ""
 
-#. module: hr_worked_days_activity
+#. module: sfl_payroll_activity
 #: field:hr.activity,job_id:0
 #: selection:hr.activity,type:0
 msgid "Job"
 msgstr ""
 
-#. module: hr_worked_days_activity
-#: model:ir.model,name:hr_worked_days_activity.model_hr_activity
+#. module: sfl_payroll_activity
+#: model:ir.model,name:sfl_payroll_activity.model_hr_activity
 msgid "Employee Activities"
 msgstr ""
 
-#. module: hr_worked_days_activity
+#. module: sfl_payroll_activity
 #: view:hr.holidays.status:0
 msgid "Leave Paiement"
 msgstr ""
 
-#. module: hr_worked_days_activity
+#. module: sfl_payroll_activity
 #: help:hr.holidays.status,paid_leave:0
 msgid "Whether this leave is paid or not"
 msgstr ""
 
-#. module: hr_worked_days_activity
+#. module: sfl_payroll_activity
 #: view:hr.activity:0
 #: field:hr.holidays.status,activity_ids:0
 #: field:hr.job,activity_ids:0
@@ -97,14 +97,28 @@ msgstr ""
 msgid "Activity"
 msgstr ""
 
-#. module: hr_worked_days_activity
+#. module: sfl_payroll_activity
 #: selection:hr.activity,type:0
 #: view:hr.activity:0
 msgid "Leave"
 msgstr ""
 
-#. module: hr_worked_days_activity
+#. module: sfl_payroll_activity
 #: field:hr.holidays.status,paid_leave:0
 msgid "Is Paid Leave"
 msgstr ""
 
+#. module: sfl_payroll_activity
+#: field:hr.contract,worked_hours_per_pay_period:0
+msgid "Worked Hours per Pay Period"
+msgstr ""
+
+#. module: sfl_payroll_canada
+#: field:hr.contract,hourly_rate_from_wage:0
+msgid "Estimated Hourly Rate"
+msgstr ""
+
+#. module: sfl_payroll_canada
+#: field:hr.contract,weeks_of_vacation:0
+msgid "Number of weeks of vacation"
+msgstr ""

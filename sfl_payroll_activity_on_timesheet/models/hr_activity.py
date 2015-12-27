@@ -53,7 +53,7 @@ class HrActivity(models.Model):
                 users = contract_jobs.mapped('contract_id.employee_id.user_id')
                 activity.authorized_user_ids = users.ids
 
-    def _search_activities_from_user(self):
+    def _search_activities_from_user(self, operator=None, value=None):
         """
         Search the activities from a given user id
 

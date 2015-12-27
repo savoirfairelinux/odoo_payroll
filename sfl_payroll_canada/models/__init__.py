@@ -19,7 +19,6 @@
 #
 ##############################################################################
 
-from . import hr_contract
 from . import hr_fiscal_slip
 from . import hr_fiscal_slip_box
 from . import hr_fiscal_slip_box_benefit_line

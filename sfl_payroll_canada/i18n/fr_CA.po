@@ -254,11 +254,6 @@ msgid "Code Z"
 msgstr ""
 
 #. module: sfl_payroll_canada
-#: field:hr.contract,weeks_of_vacation:0
-msgid "Number of weeks of vacation"
-msgstr "Nombre de semaines de vacances"
-
-#. module: sfl_payroll_canada
 #: view:hr.employee:0
 msgid "Claim Codes"
 msgstr ""
