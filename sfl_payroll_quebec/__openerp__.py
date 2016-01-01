@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2010 - 2014 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2010 - 2016 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -19,7 +19,7 @@
 ##############################################################################
 
 {
-    'name': 'Canada - Quebec - Payroll',
+    'name': 'Quebec - Payroll',
     'category': 'Localization',
     'version': '1.0',
     'license': 'AGPL-3',
@@ -57,7 +57,7 @@ Contributors
         'data/salary_rules/wsdrf.xml',
         'data/hr_deduction_jurisdiction.xml',
         'data/hr_deduction_category.xml',
-        'data/public_holidays/2015.xml',
+        'data/public_holidays/2016.xml',
         'data/hr_holidays_entitlement.xml',
         'data/hr_structure.xml',
         'data/hr_cra_t4_box.xml',
@@ -66,6 +66,7 @@ Contributors
         'data/hr_releve_1_summary_box.xml',
         'data/salary_rule_variables/2014.xml',
         'data/salary_rule_variables/2015.xml',
+        'data/salary_rule_variables/2016.xml',
         'views/res_company.xml',
         'views/hr_employee.xml',
         'views/hr_releve_1.xml',

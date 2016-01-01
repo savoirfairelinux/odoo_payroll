@@ -34,11 +34,13 @@ class TestHrPayslipRunBase(TestHrContractBase):
 
         self.date_from = datetime.now()
         self.date_to = self.date_from + relativedelta(weeks=1, days=-1)
+        self.date_payment = self.date_from + relativedelta(weeks=2, days=-1)
 
         self.run_1 = self.run_model.create({
             'name': 'Test',
             'date_start': self.date_from,
             'date_end': self.date_to,
+            'date_payment': self.date_payment,
         })
 
 

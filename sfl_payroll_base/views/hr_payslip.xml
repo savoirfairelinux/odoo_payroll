@@ -14,6 +14,7 @@
                     <field name="name"/>
                     <field name="date_from"/>
                     <field name="date_to"/>
+                    <field name="date_payment"/>
                     <field name="state"/>
                     <field name="company_id" groups="base.group_multi_company" widget="selection"/>
                     <field name="payslip_run_id" invisible="1"/>
@@ -54,10 +55,9 @@
                         <h1><field name="employee_id"/></h1>
                     </div>
                     <group col="4">
-                        <label for="date_from" string="Period"/>
-                        <div>
-                            <field name="date_from" class="oe_inline"/> - <field name="date_to" class="oe_inline"/>
-                        </div>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="date_payment"/>
                         <field name="contract_id" domain="[('employee_id','=',employee_id),('date_start','&lt;=',date_to),'|',('date_end','&gt;=',date_from),('date_end','=',False)]" context="{'default_employee_id': employee_id}"/>
                         <field name="number"/>
                         <field name="struct_id" attrs="{'required':[('contract_id','&lt;&gt;',False)]}"/>
@@ -150,6 +150,7 @@
                 <search string="Search Payslips">
                     <field name="name" string="Payslips" filter_domain="['|',('name','ilike',self),('number','ilike',self)]"/>
                     <field name="date_from"/>
+                    <field name="date_payment"/>
                     <filter icon="terp-document-new" string="Draft" domain="[('state','=','draft')]" help="Draft Slip"/>
                     <filter icon="terp-camera_test" string="Done" domain="[('state','=','done')]" help="Done Slip"/>
                     <field name="employee_id"/>
@@ -159,6 +160,7 @@
                         <filter string="PaySlip Batch" name="payslip_run_id" icon="terp-folder-orange" context="{'group_by':'payslip_run_id'}"/>
                         <filter string="Companies" name="company_id" groups="base.group_multi_company" icon="terp-go-home" context="{'group_by':'company_id'}"/>
                         <filter string="States" name="state" icon="terp-stock_effects-object-colorize" context="{'group_by':'state'}"/>
+                        <filter string="Payment Date" name="date_payment" context="{'group_by':'date_payment'}"/>
                     </group>
                 </search>
             </field>

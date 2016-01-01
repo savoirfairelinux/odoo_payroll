@@ -91,6 +91,7 @@ class TestHrCraT4Base(TestPayrollStructureBase):
                 'contract_id': self.contract_id,
                 'date_from': payslip[1],
                 'date_to': payslip[2],
+                'date_payment': payslip[2],
                 'struct_id': self.structure_id,
             }) for payslip in [
                 (1, '2014-01-01', '2014-01-31',

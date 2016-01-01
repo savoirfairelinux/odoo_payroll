@@ -19,12 +19,12 @@
 #
 ##############################################################################
 
-# from . import test_hr_payslip
-# from . import test_payroll_structure
+from . import test_hr_payslip
+from . import test_payroll_structure
 from . import test_hr_cra_t4_summary
-# from . import test_hr_cra_t4
-# from . import test_hr_cra_t4_box
-# from . import test_hr_leave_accrual
-# from . import test_hr_payslip_leaves
-# from . import test_4_weeks_of_gross
-# from . import test_payroll_structure_leaves
+from . import test_hr_cra_t4
+from . import test_hr_cra_t4_box
+from . import test_hr_leave_accrual
+from . import test_hr_payslip_leaves
+from . import test_4_weeks_of_gross
+from . import test_payroll_structure_leaves

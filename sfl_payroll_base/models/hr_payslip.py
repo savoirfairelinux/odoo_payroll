@@ -88,6 +88,14 @@ class HrPayslip(models.Model):
         default=lambda self: datetime.now() +
         relativedelta(months=+1, days=-1),
     )
+    date_payment = fields.Date(
+        'Date of Payment',
+        readonly=True,
+        required=True,
+        states={'draft': [('readonly', False)]},
+        default=lambda self: datetime.now() +
+        relativedelta(months=+1, days=-1),
+    )
     state = fields.Selection(
         [
             ('draft', 'Draft'),
@@ -369,8 +377,9 @@ class HrPayslip(models.Model):
                     'code': rule.code,
                     'name': rule.name,
                     'appears_on_payslip': rule.appears_on_payslip,
-                    'amount_precise': amount,
+                    'amount_hours': amount,
                     'amount_type': rule.amount_type,
+                    'register_id': rule.register_id.id,
                 }
 
         return [(0, 0, line) for line in result_dict.values()]

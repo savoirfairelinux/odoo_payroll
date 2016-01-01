@@ -37,21 +37,26 @@
                 <form string="Payslips Batches">
                 <header>
                     <button name="close_payslip_run" type="object" string="Close" states="draft" class="oe_highlight"/>
-                    <button name="%(action_hr_payslip_by_employees)d" type="action" states="draft" string="Generate Payslips" class="oe_highlight"/>
+                    <button name="get_payslip_employees_wizard" type="object" states="draft" string="Generate Payslips" class="oe_highlight"/>
                     <button name="button_confirm_slips" type="object" string="Confirm Payslips" states="draft"/>
                     <button string="Set to Draft" name="draft_payslip_run" type="object" states="close" />
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <label for="name" class="oe_edit_only"/>
-                    <h1>
+                    <h1 name="header_name">
                         <field name="name"/>
                     </h1>
+                    <label for="company_id" groups="base.group_multi_company"/>
+                    <h3 name="header_multi_company">
+                        <field name="company_id"
+                            groups="base.group_multi_company"
+                            required="1"/>
+                    </h3>
                     <group col="4">
-                        <label for="date_start" string="Period"/>
-                         <div>
-                               <field name="date_start" class="oe_inline"/> - <field name="date_end" class="oe_inline"/>
-                         </div>
+                        <field name="date_start" class="oe_inline"/>
+                        <field name="date_end" class="oe_inline"/>
+                        <field name="date_payment"/>
                         <field name="credit_note"/>
                     </group>
                     <separator string="Payslips"/>

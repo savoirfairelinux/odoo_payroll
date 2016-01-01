@@ -17,7 +17,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields, api, _
+
+from openerp import models, fields, api
 from openerp.exceptions import Warning as UserError
 
 from .hr_fiscal_year import get_schedules
@@ -26,27 +27,9 @@ from .hr_fiscal_year import get_schedules
 class HrPayslipRun(models.Model):
     _inherit = 'hr.payslip.run'
 
-    name = fields.Char(
-        'Name',
-        required=True,
-        readonly=True,
-        states={'draft': [('readonly', False)]},
-        default=lambda obj: obj.env['ir.sequence']
-        .get('hr.payslip.run')
-    )
-    company_id = fields.Many2one(
-        'res.company',
-        'Company',
-        states={'close': [('readonly', True)]},
-        default=lambda obj: obj.env.user.company_id
-    )
     hr_period_id = fields.Many2one(
         'hr.period',
         string='Period',
-        states={'close': [('readonly', True)]}
-    )
-    date_payment = fields.Date(
-        'Date of Payment',
         states={'close': [('readonly', True)]}
     )
     schedule_pay = fields.Selection(
@@ -96,8 +79,12 @@ class HrPayslipRun(models.Model):
     @api.onchange('company_id', 'schedule_pay')
     @api.one
     def onchange_company_id(self):
-        schedule_pay = self.schedule_pay or \
+        super(HrPayslipRun, self).onchange_company_id()
+
+        schedule_pay = (
+            self.schedule_pay or
             self.get_default_schedule(self.company_id.id)
+        )
 
         if len(self.company_id) and schedule_pay:
             period = self.env['hr.period'].get_next_period(self.company_id.id,
@@ -112,52 +99,18 @@ class HrPayslipRun(models.Model):
             self.date_payment = self.hr_period_id.date_payment
             self.schedule_pay = self.hr_period_id.schedule_pay
 
-    @api.model
-    def create(self, vals):
-        """
-        Keep compatibility between modules
-        """
-        if vals.get('date_end') and not vals.get('date_payment'):
-            vals.update({'date_payment': vals['date_end']})
-        return super(HrPayslipRun, self).create(vals)
+    @api.multi
+    @api.returns('hr.employee')
+    def get_employees(self):
+        res = super(HrPayslipRun, self).get_employees()
+        return res.filtered(
+            lambda e: e.contract_id.schedule_pay == self.schedule_pay)
 
     @api.multi
     def get_payslip_employees_wizard(self):
-        """ Replace the static action used to call the wizard
-        """
-        self.ensure_one()
-        payslip_run = self[0]
-
-        view_ref = self.env['ir.model.data'].get_object_reference(
-            'sfl_payroll_base', 'view_hr_payslip_by_employees')
-
-        view_id = view_ref and view_ref[1] or False
-
-        company = payslip_run.company_id
-
-        employee_obj = self.env['hr.employee']
-
-        employees = employee_obj.search([('company_id', '=', company.id)])
-
-        employee_ids = [
-            emp.id for emp in employees
-            if emp.contract_id.schedule_pay == payslip_run.schedule_pay
-        ]
-
-        return {
-            'type': 'ir.actions.act_window',
-            'name': _('Generate Payslips'),
-            'res_model': 'hr.payslip.employees',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'view_id': view_id,
-            'target': 'new',
-            'context': {
-                'default_company_id': company.id,
-                'default_schedule_pay': payslip_run.schedule_pay,
-                'default_employee_ids': [(6, 0, employee_ids)],
-            }
-        }
+        res = super(HrPayslipRun, self).get_payslip_employees_wizard()
+        res['context']['default_schedule_pay'] = self.schedule_pay
+        return res
 
     @api.multi
     def close_payslip_run(self):

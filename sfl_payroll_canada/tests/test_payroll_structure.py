@@ -141,6 +141,7 @@ class TestPayrollStructureBase(TestPayslipBase):
             'contract_id': self.contract_id,
             'date_from': '2014-01-01',
             'date_to': '2014-01-07',
+            'date_payment': '2014-01-07',
             'struct_id': self.structure_id,
         }
 
@@ -298,6 +299,7 @@ class TestCanadaPayrollStructure(TestPayrollStructureBase):
                 'contract_id': self.contract_id,
                 'date_from': ps[1],
                 'date_to': ps[2],
+                'date_payment': ps[2],
                 'struct_id': self.structure_id,
             }) for ps in [
                 (1, '2014-01-01', '2014-03-31'),

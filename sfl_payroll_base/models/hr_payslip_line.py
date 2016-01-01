@@ -30,6 +30,8 @@ class HrPayslipLine(models.Model):
     _name = 'hr.payslip.line'
     _description = _(__doc__)
 
+    _order = 'sequence'
+
     name = fields.Char(
         'Name',
         required=True,
@@ -59,9 +61,9 @@ class HrPayslipLine(models.Model):
         'Amount',
         digits_compute=dp.get_precision('Payroll'),
     )
-    amount_precise = fields.Float(
+    amount_hours = fields.Float(
         'Amount',
-        digits_compute=dp.get_precision('Payslip Line'),
+        digits_compute=dp.get_precision('Payroll Hours'),
     )
     amount_type = fields.Selection(
         [
@@ -96,4 +98,10 @@ class HrPayslipLine(models.Model):
         'Appears on Payslip',
         help="Used to display the salary rule on payslip.",
         default=True,
+    )
+    register_id = fields.Many2one(
+        'hr.contribution.register',
+        'Contribution Register',
+        help="Eventual third party involved in the salary payment of "
+        "the employees.",
     )

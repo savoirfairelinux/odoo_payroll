@@ -79,7 +79,7 @@
                                     </group>
 
                                     <group string="Exemption">
-                                        <field name="hsf_exemption_code"/>
+                                        <field name="hsf_exemption_code" attrs="{'required': [('hsf_exemption_amount', '>', 0)]}"/>
                                         <field name="hsf_exemption_amount"/>
                                     </group>
 

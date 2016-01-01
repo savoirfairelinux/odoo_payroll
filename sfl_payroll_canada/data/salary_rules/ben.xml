@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <!-- Employee benefits excluding pension plans !-->
         <record id="rule_ca_ben_ee_c" model="hr.salary.rule">
             <field name="name">Employee Benefits - Employee Contribution</field>
             <field name="sequence" eval="255"/>
@@ -10,6 +9,7 @@
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
+            <field name="sum_all_benefits" eval="0"/>
             <field name="amount_python_compute">
 result = rule.sum_benefits(payslip)
             </field>
@@ -23,6 +23,7 @@ result = rule.sum_benefits(payslip)
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
+            <field name="sum_all_benefits" eval="0"/>
             <field name="amount_python_compute">
 result = rule.sum_benefits(payslip, employer=True)
             </field>

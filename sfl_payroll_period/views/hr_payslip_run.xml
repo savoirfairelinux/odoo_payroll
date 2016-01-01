@@ -7,49 +7,21 @@
             <field name="model">hr.payslip.run</field>
             <field name="inherit_id" ref="sfl_payroll_base.hr_payslip_run_form"/>
             <field name="arch" type="xml">
-                <h1 position="after">
-                    <label for="company_id" groups="base.group_multi_company"/>
+                <h3 name="header_multi_company" position="after">
                     <h3>
-                        <field name="company_id"
-                            groups="base.group_multi_company"
-                            required="1"/>
+                        <label for="hr_period_id"/>
+                        <field name="hr_period_id"
+                        domain="[
+                            ('state', '=', 'open'),
+                            ('company_id', '=', company_id),
+                        ]"/>
                     </h3>
-                    <h3>
-                        <group>
-	                        <group>
-	                            <field name="hr_period_id"
-	                            domain="[
-	                                ('state', '=', 'open'),
-	                                ('company_id', '=', company_id),
-	                            ]"/>
-	                        </group>
-	                        <group>
-	                        </group>
-                        </group>
-                    </h3>
-                    <group>
-                        <group>
-                            <field name="schedule_pay"/>
-                        </group>
-                        <group>
-                            <field name="date_payment" required="1"/>
-                        </group>
-                    </group>
-                </h1>
+                </h3>
                 
-                <label string="Period" position="replace">
-                    <label for="date_start" string="Date"/>
-                </label>
-
-                <button string="Generate Payslips" position="replace">
-                    <button
-                        name="get_payslip_employees_wizard"
-                        type="object"
-                        states="draft"
-                        string="Generate Payslips"
-                        class="oe_highlight"/>
-                </button>
-
+                <field name="date_start" position="before">
+                    <field name="schedule_pay"/>
+                    <newline/>
+                </field>
             </field>
         </record>
 

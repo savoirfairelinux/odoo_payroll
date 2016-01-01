@@ -296,7 +296,7 @@ class HrReleve1Summary(models.Model):
         **FLOAT_PARAM
     )
     cnt_rate = fields.Float(
-        'Rate', digits=(1, 2), required=True, readonly=True,
+        'Rate', digits=(1, 2), required=True,
         default=0,
     )
     cnt_amount_payable = fields.Float(
@@ -313,7 +313,7 @@ class HrReleve1Summary(models.Model):
         **FLOAT_PARAM
     )
     wsdrf_rate = fields.Float(
-        'Rate', digits=(1, 2), required=True, readonly=True,
+        'Rate', digits=(1, 2), required=True,
         default=0,
     )
     wsdrf_amount_before_expenses = fields.Float(

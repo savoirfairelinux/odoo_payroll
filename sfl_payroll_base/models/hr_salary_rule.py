@@ -112,6 +112,12 @@ class HrSalaryRule(models.Model):
         'hr_payslip_input_salary_rule_rel',
         string='Payslip Inputs',
     )
+    register_id = fields.Many2one(
+        'hr.contribution.register',
+        'Contribution Register',
+        help="Eventual third party involved in the salary payment of "
+        "the employees.",
+    )
 
     @api.multi
     def compute_rule(self, localdict):

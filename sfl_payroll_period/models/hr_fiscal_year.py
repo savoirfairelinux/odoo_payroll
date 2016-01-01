@@ -17,14 +17,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from datetime import datetime
-strftime = datetime.strptime
 from dateutil.relativedelta import relativedelta
 
 from openerp import models, fields, api, _
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from openerp.exceptions import Warning as UserError
 
+strftime = datetime.strptime
 
 INTERVALS = {
     'annually': (relativedelta(months=12), 1),
@@ -34,7 +35,6 @@ INTERVALS = {
     'monthly': (relativedelta(months=1), 12),
     'bi-weekly': (relativedelta(weeks=2), 26),
     'weekly': (relativedelta(weeks=1), 52),
-    'daily': (relativedelta(days=1), 365),
 }
 
 
@@ -49,7 +49,6 @@ def get_schedules(self):
         ('semi-monthly', _('Semi-monthly (24)')),
         ('bi-weekly', _('Bi-weekly (26)')),
         ('weekly', _('Weekly (52)')),
-        ('daily', _('Daily (365)')),
     ]
 
 

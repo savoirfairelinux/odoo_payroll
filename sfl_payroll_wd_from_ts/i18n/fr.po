@@ -62,10 +62,10 @@ msgstr "Bulletin de paie"
 #: code:addons/hr_worked_days_from_timesheet/hr_payslip.py:109
 #, python-format
 msgid ""
-"Sorry, but there is no approved Timesheets for the entire Payslip period"
+"Sorry, but there is no approved Timesheets for the entire Payslip period for employee %s."
 msgstr ""
 "Désolé, mais il n'y a aucune feuille de temps approuvée pour la période "
-"entrée."
+"entrée pour l'employé %s."
 
 #. module: hr_worked_days_from_timesheet
 #: model:ir.model,name:hr_worked_days_from_timesheet.model_hr_payslip_worked_days

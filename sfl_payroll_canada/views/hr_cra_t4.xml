@@ -19,6 +19,7 @@
                         <group name="slip_info">
                             <field name="employee_id" domain="[('company_id', '=', company_id)]"/>
                             <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="cra_payroll_number" groups="base.group_hr_manager"/>
                             <field name="year"/>
                             <field name="reference"/>
                             <field name="type"/>

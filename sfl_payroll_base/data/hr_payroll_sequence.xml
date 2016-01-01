@@ -12,6 +12,18 @@
             <field name="prefix">SLIP/</field>
             <field name="padding">3</field>
         </record>
-      
+
+        <record id="seq_code_payslip_run" model="ir.sequence.type">
+            <field name="name">Payslip Batch</field>
+            <field name="code">hr.payslip.run</field>
+        </record>
+
+        <record id="seq_payslip_run" model="ir.sequence">
+            <field name="name">Payslip Batch</field>
+            <field name="code">hr.payslip.run</field>
+            <field name="padding" eval="5"/>
+            <field name="prefix">PAY</field>
+        </record>
+
     </data>
 </openerp>

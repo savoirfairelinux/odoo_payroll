@@ -60,7 +60,7 @@ msgstr ""
 #. module: hr_worked_days_from_timesheet
 #: code:addons/hr_worked_days_from_timesheet/hr_payslip.py:109
 #, python-format
-msgid "Sorry, but there is no approved Timesheets for the entire Payslip period"
+msgid "Sorry, but there is no approved Timesheets for the entire Payslip period for employee %s."
 msgstr ""
 
 #. module: hr_worked_days_from_timesheet

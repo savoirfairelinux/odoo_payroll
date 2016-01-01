@@ -46,7 +46,7 @@ class HrLeaveAccrualLine(models.Model):
     )
     amount_hours = fields.Float(
         'Amount Hours',
-        digits_compute=dp.get_precision('Payslip Line'),
+        digits_compute=dp.get_precision('Payroll Hours'),
     )
     source = fields.Selection(
         [

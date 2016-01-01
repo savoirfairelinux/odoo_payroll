@@ -92,4 +92,5 @@ class HrTimesheet(models.Model):
         self.ensure_one()
         return {
             'name': _('Imported From Timesheet'),
+            'date': self.date,
         }

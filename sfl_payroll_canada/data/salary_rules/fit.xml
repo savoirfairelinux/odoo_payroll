@@ -279,7 +279,6 @@ result = FIT_T3
             <field name="code">FIT_T</field>
             <field name="category_id" ref="SDED"/>
             <field name="appears_on_payslip" eval="1"/>
-            <field name="include_in_payroll_analysis" eval="True"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="exemption_id" ref="fit_exempt"/>

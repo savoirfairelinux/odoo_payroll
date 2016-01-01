@@ -53,6 +53,7 @@ class Test4WeeksOfGross(TestPayslipBase):
                 'contract_id': line[2],
                 'date_from': line[3],
                 'date_to': line[4],
+                'date_payment': line[4],
             }) for line in [
                 (1, self.employee_id, self.contract_id,
                     '2014-01-01', '2014-01-15'),
@@ -131,7 +132,7 @@ class Test4WeeksOfGross(TestPayslipBase):
         # Amounts in payslips no 2 and 3 are multiplied by -1
         self.assertEqual(
             res,
-            -13 * 20 * 1.1 +
-            -17 * 25 * 0.9 +
+            (-13) * 20 * 1.1 +
+            (-17) * 25 * 0.9 +
             21 * 35 * 0.7
         )

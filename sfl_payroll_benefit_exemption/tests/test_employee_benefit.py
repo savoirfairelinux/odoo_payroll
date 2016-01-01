@@ -47,8 +47,14 @@ class TestEmployeeBenefit(TestEmployeeBenefitBase):
         })
 
     def remove_categories(self):
-        self.rule.write({'employee_benefit_ids': [(5, 0)]})
-        self.rule_2.write({'employee_benefit_ids': [(5, 0)]})
+        self.rule.write({
+            'employee_benefit_ids': [(5, 0)],
+            'sum_all_benefits': True,
+        })
+        self.rule_2.write({
+            'employee_benefit_ids': [(5, 0)],
+            'sum_all_benefits': True,
+        })
 
     def test_rule_with_categories(self):
         """ Test exemptions on rules linked to benefit categories

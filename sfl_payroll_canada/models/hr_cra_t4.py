@@ -137,7 +137,7 @@ class HrCraT4(models.Model):
         self.refresh()
 
         # Get all payslip of the employee for the year
-        year = self.year
+        year = int(self.year)
 
         date_from = to_string(datetime(year, 1, 1))
         date_to = to_string(datetime(year, 12, 31))

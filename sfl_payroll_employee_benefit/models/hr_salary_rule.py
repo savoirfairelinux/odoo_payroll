@@ -31,6 +31,13 @@ class HrSalaryRule(models.Model):
         'salary_rule_id', 'benefit_id', 'Salary Rules',
     )
 
+    sum_all_benefits = fields.Boolean(
+        'Include All Employee Benefits',
+        default=True,
+        help="If checked, the salary rule will sum over all employee "
+        "benefits.",
+    )
+
     @api.multi
     def sum_benefits(self, payslip, **kwargs):
         """
@@ -80,9 +87,7 @@ class HrSalaryRule(models.Model):
             return benefits.filtered(
                 lambda b: b.category_id.code in codes)
 
-        # If the salary rule is linked to no benefit category,
-        # by default it accepts every categories.
-        if self.employee_benefit_ids:
+        if not self.sum_all_benefits:
             return benefits.filtered(
                 lambda b: b.category_id in self.employee_benefit_ids)
 

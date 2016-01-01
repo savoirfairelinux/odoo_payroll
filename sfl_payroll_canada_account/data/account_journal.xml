@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="payroll_journal" model="account.journal">
+            <field name="name">Payroll Journal</field>
+            <field name="code">PAYJ</field>
+            <field name="type">general</field>
+        </record>
+
+    </data>
+</openerp>

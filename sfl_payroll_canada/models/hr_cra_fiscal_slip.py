@@ -71,3 +71,8 @@ class HrCraFiscalSlip(models.AbstractModel):
         readonly=True, states={'draft': [('readonly', False)]},
         default='O',
     )
+    cra_payroll_number = fields.Char(
+        'Payroll Account Number',
+        related='company_id.cra_payroll_number',
+        readonly=True,
+    )

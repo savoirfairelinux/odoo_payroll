@@ -336,7 +336,6 @@ result = employee.qc_additional_source_deduction or 0
             <field name="code">QIT_A</field>
             <field name="category_id" ref="sfl_payroll_canada.SDED"/>
             <field name="appears_on_payslip" eval="1"/>
-            <field name="include_in_payroll_analysis" eval="True"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="exemption_id" ref="sfl_payroll_canada.pit_exempt"/>

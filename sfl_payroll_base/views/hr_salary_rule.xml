@@ -2,8 +2,6 @@
 <openerp>
     <data>
 
-        <!-- Salary Rules -->
-
         <record id="hr_salary_rule_list" model="ir.ui.view">
             <field name="name">hr.salary.rule.list</field>
             <field name="model">hr.salary.rule</field>
@@ -13,6 +11,7 @@
                     <field name="code"/>
                     <field name="category_id"/>
                     <field name="sequence" invisible="1"/>
+                    <field name="register_id" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -28,6 +27,7 @@
                     <field name="code"/>
                     <field name="category_id" invisible="True"/>
                     <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                    <field name="register_id" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -46,6 +46,7 @@
                        <field name="sequence"/>
                        <field name="active"/>
                        <field name="appears_on_payslip"/>
+                       <field name="register_id"/>
                        <field name="company_id" widget="selection" groups="base.group_multi_company"/>
                     </group>
 

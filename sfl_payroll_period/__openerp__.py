@@ -29,7 +29,6 @@
         'sfl_payroll_base',
     ],
     'data': [
-        'data/ir_sequence.xml',
         'security/ir.model.access.csv',
         'views/hr_period.xml',
         'views/hr_fiscalyear.xml',

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="holidays_public_canada_2016" model="hr.holidays.public">
+            <field name="country_id" ref="base.ca"/>
+            <field name="year">2016</field>
+        </record>
+
+        <record id="holidays_good_friday_2016" model="hr.holidays.public.line">
+            <field name="holidays_id" ref="holidays_public_canada_2016"/>
+            <field name="date">2016-03-25</field>
+            <field name="name">Good Friday</field>
+        </record>
+
+        <record id="holidays_canada_day_2016" model="hr.holidays.public.line">
+            <field name="holidays_id" ref="holidays_public_canada_2016"/>
+            <field name="date">2016-07-01</field>
+            <field name="name">Canada Day</field>
+        </record>
+
+        <record id="holidays_chrismas_2016" model="hr.holidays.public.line">
+            <field name="holidays_id" ref="holidays_public_canada_2016"/>
+            <field name="date">2016-12-25</field>
+            <field name="name">Christmas</field>
+        </record>
+
+    </data>
+</openerp>

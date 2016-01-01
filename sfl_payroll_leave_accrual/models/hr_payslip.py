@@ -107,7 +107,7 @@ class HrPayslip(models.Model):
 
                     if line.amount_type == 'hours':
                         amount_cash = 0
-                        amount_hours = payslip_line.amount_precise
+                        amount_hours = payslip_line.amount_hours
 
                         if line.substract:
                             amount_hours *= -1

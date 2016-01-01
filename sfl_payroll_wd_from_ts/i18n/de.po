@@ -61,15 +61,6 @@ msgid "Pay Slip"
 msgstr "Lohnnachweis"
 
 #. module: hr_worked_days_from_timesheet
-#: code:addons/hr_worked_days_from_timesheet/hr_payslip.py:109
-#, python-format
-msgid ""
-"Sorry, but there is no approved Timesheets for the entire Payslip period"
-msgstr ""
-"Entschuldigen Sie: Es gibt für die Lohnabrechnungsperiode keine genehmigten "
-"Zeitnachweise"
-
-#. module: hr_worked_days_from_timesheet
 #: model:ir.model,name:hr_worked_days_from_timesheet.model_hr_payslip_worked_days
 msgid "Payslip Worked Days"
 msgstr "Arbeitstage auf Lohnzettel"

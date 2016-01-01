@@ -124,6 +124,7 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
                 'contract_id': self.contract_id,
                 'date_from': ps[1],
                 'date_to': ps[2],
+                'date_payment': ps[2],
                 'struct_id': self.structure_id,
             }) for ps in [
                 (1, '2014-12-01', '2014-12-31'),
@@ -307,18 +308,17 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
         payslips = self.payslip_ids
 
         for line in [
-            (self.vac_accrual_id, 2000, '2014-12-31', 'cash'),
-            (self.vac_accrual_id, 50, '2014-12-31', 'hours'),
-            (self.comp_accrual_id, 1000, '2014-12-31', 'cash'),
+            (self.vac_accrual_id, 2000, '2014-12-31', 'amount_cash'),
+            (self.vac_accrual_id, 50, '2014-12-31', 'amount_hours'),
+            (self.comp_accrual_id, 1000, '2014-12-31', 'amount_cash'),
         ]:
             self.accrual_line_model.create(
                 cr, uid, {
                     'accrual_id': line[0],
                     'name': 'test',
                     'source': 'manual',
-                    'amount': line[1],
                     'date': line[2],
-                    'amount_type': line[3],
+                    line[3]: line[1],
                 })
 
         for input_line in [

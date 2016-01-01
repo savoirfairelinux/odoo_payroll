@@ -47,10 +47,10 @@ class HrQcSummary(models.AbstractModel):
         readonly=True,
         default='draft',
     )
-    year = fields.Integer(
+    year = fields.Char(
         'Fiscal Year', required=True,
         readonly=True, states={'draft': [('readonly', False)]},
-        default=lambda self: int(fields.Date.today()[0:4]),
+        default=lambda *a: int(fields.Date.today()[0:4]) - 1,
     )
     slip_type = fields.Selection(
         get_type_codes,

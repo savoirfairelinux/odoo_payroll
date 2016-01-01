@@ -18,7 +18,7 @@
                         <notebook>
                             <page name="salary_rules" string="Salary Rules">
                                 <label for="salary_rule_ids"/>
-                                <field name="salary_rule_ids" no_label="1"/>
+                                <field name="salary_rule_ids" no_label="1" domain="[('sum_all_benefits', '=', False)]"/>
                             </page>
                             <page name="benefit_rates" string="Benefit Rates">
                                 <label for="rate_ids"/>

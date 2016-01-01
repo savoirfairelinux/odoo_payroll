@@ -58,7 +58,7 @@ class HrFiscalSlip(models.AbstractModel):
         'Fiscal Year',
         required=True,
         readonly=True, states={'draft': [('readonly', False)]},
-        default=lambda self: fields.Date.today()[0:4],
+        default=lambda self: int(fields.Date.today()[0:4]) - 1,
     )
     state = fields.Selection(
         get_states,

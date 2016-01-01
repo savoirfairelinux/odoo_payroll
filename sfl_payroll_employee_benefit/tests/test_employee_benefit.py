@@ -48,6 +48,7 @@ class TestEmployeeBenefitBase(common.TransactionCase):
             'sequence': 1,
             'code': 'RULE_1',
             'category_id': self.category.id,
+            'sum_all_benefits': False,
             'amount_python_compute': """
 payslip.compute_benefits()
 result = rule.sum_benefits(payslip)
@@ -59,6 +60,7 @@ result = rule.sum_benefits(payslip)
             'sequence': 2,
             'code': 'RULE_2',
             'category_id': self.category.id,
+            'sum_all_benefits': False,
             'amount_python_compute': """
 result = rule.sum_benefits(payslip, employer=True)
 """
@@ -232,10 +234,12 @@ result = rule.sum_benefits(payslip, codes=['BEN_1', 'BEN_2'], employer=True)
         employee benefit
         """
         self.rule.write({
+            'sum_all_benefits': True,
             'employee_benefit_ids': [(5, 0)],
         })
 
         self.rule_2.write({
+            'sum_all_benefits': True,
             'employee_benefit_ids': [(5, 0)],
         })
 

@@ -31,19 +31,6 @@ class HrPayslip(models.Model):
         readonly=True,
         states={'draft': [('readonly', False)]}
     )
-    date_payment = fields.Date(
-        'Date of Payment',
-        readonly=True,
-        required=True,
-        states={'draft': [('readonly', False)]}
-    )
-
-    @api.model
-    def create(self, vals):
-        if 'date_payment' not in vals:
-            vals['date_payment'] = vals.get('date_to')
-
-        return super(HrPayslip, self).create(vals)
 
     @api.one
     @api.constrains('hr_period_id', 'company_id')
@@ -83,5 +70,6 @@ class HrPayslip(models.Model):
         if payslip_run:
             period = payslip_run.hr_period_id
             self.hr_period_id = period.id
-            self.name = _('Salary Slip of %s for %s') % (
-                self.employee_id.name, period.name)
+            if period:
+                self.name = _('Salary Slip of %s for %s') % (
+                    self.employee_id.name, period.name)

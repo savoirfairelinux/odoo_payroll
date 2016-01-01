@@ -103,7 +103,7 @@ class TestHrLeaveAccrual(common.TransactionCase):
                 'source': 'manual',
                 'date': accrual_line[0],
                 'name': 'Test',
-                'amount': accrual_line[1]
+                'amount_cash': accrual_line[1]
             }) for accrual_line in accrual_lines
         ]
         self.accrual.write({'line_ids': line_ids})

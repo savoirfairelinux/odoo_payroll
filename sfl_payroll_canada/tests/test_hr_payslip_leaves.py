@@ -42,6 +42,7 @@ class TestHrPayslipLeaves(TestPayrollStructureBase):
             'contract_id': self.contract_id,
             'date_from': '2014-01-01',
             'date_to': '2014-01-31',
+            'date_payment': '2014-01-31',
         })
 
         for line in [

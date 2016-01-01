@@ -31,7 +31,6 @@ result = max(result, 0)
             <field name="code">CPP_EE_C</field>
             <field name="category_id" ref="SDED"/>
             <field name="appears_on_payslip" eval="1"/>
-            <field name="include_in_payroll_analysis" eval="True"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="exemption_id" ref="cpp_exempt"/>
@@ -52,7 +51,6 @@ result = max(result, 0)
             <field name="code">CPP_ER_C</field>
             <field name="category_id" ref="EMP"/>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="include_in_payroll_analysis" eval="True"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="exemption_id" ref="cpp_exempt"/>

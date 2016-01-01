@@ -77,7 +77,7 @@
         </record>
 
         <record forcecreate="True" id="decimal_payslip_line" model="decimal.precision">
-            <field name="name">Payslip Line</field>
+            <field name="name">Payroll Hours</field>
             <field name="digits">4</field>
         </record>
 

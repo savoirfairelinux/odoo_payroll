@@ -120,12 +120,6 @@ msgid ""
 msgstr ""
 
 #. module: hr_period
-#: code:addons/hr_period/models/hr_fiscal_year.py:55
-#, python-format
-msgid "Daily (365)"
-msgstr "Journalier (365)"
-
-#. module: hr_period
 #: view:hr.fiscalyear:0
 msgid "Fiscalyear"
 msgstr "Année Fiscale"

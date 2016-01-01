@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="base.main_company" model="res.company">
+
+            <field name="qc_cnt_debit_account" model="account.account" search="[('code', 'like', '512313')]"/>
+            <field name="qc_cnt_credit_account" model="account.account" search="[('code', 'like', '21425')]"/>
+
+        </record>
+
+    </data>
+</openerp>

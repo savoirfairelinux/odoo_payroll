@@ -171,7 +171,7 @@ class HrReleve1(models.Model):
             # If the slip as no number, assign one
             if not slip.number:
                 number = self.company_id.get_next_rq_sequential_number(
-                    'hr.releve_1', slip.year)
+                    'hr.releve_1', int(slip.year))
 
                 self.write({'number': number})
 

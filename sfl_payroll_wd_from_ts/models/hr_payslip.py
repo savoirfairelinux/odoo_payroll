@@ -28,7 +28,7 @@ class HrPayslip(models.Model):
     _inherit = 'hr.payslip'
 
     @api.one
-    def import_worked_days(self):
+    def import_worked_days(self, raise_exception=True):
         """
         Retrieve the employee's timesheets for a payslip period
         and create worked days records from the imported timesheets
@@ -50,6 +50,7 @@ class HrPayslip(models.Model):
             ('employee_id', '=', employee.id),
             ('state', '=', 'done'),
             '|',
+            '|',
             '&',
             ('date_from', '>=', date_from),
             ('date_from', '<=', date_to),
@@ -61,10 +62,12 @@ class HrPayslip(models.Model):
             ('date_to', '<=', date_to),
         ])
 
-        if not sheets:
-            raise ValidationError(
-                _("There is no approved Timesheets for "
-                  "the entire Payslip period"))
+        if not sheets and raise_exception:
+            raise ValidationError(_(
+                "There is no approved Timesheets for "
+                "the entire Payslip period for employee %s." %
+                employee.name
+            ))
 
         timesheets = sheets.mapped('timesheet_ids').filtered(
             lambda t: date_from <= t.date <= date_to)

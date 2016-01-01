@@ -247,6 +247,7 @@ class TestHrPayslip(TestPayslipBase):
             'contract_id': self.contract_id,
             'date_from': '2014-11-17',
             'date_to': '2014-11-30',
+            'date_payment': '2014-11-30',
         })
 
         for line in [

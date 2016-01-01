@@ -31,6 +31,7 @@ class TestHrPayslipBase(TestHrContractBase):
 
         self.date_from = datetime.now()
         self.date_to = self.date_from + relativedelta(weeks=1, days=-1)
+        self.date_payment = self.date_from + relativedelta(weeks=2, days=-1)
 
         self.payslip_1 = self.env['hr.payslip'].create({
             'employee_id': self.employee_1.id,
@@ -38,6 +39,7 @@ class TestHrPayslipBase(TestHrContractBase):
             'struct_id': self.structure_4.id,
             'date_from': self.date_from,
             'date_to': self.date_to,
+            'date_payment': self.date_payment,
         })
 
 

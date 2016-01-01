@@ -53,7 +53,7 @@ class HrLeaveAccrual(models.Model):
     total_hours = fields.Float(
         'Hours Accruded',
         readonly=True,
-        digits_compute=dp.get_precision('Payslip Line'),
+        digits_compute=dp.get_precision('Payroll Hours'),
     )
 
     @api.one

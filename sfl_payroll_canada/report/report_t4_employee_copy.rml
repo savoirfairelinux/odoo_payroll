@@ -223,7 +223,7 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td><para style="input"></para></td>
+                    <td><para style="input">[[ o.cra_payroll_number ]]</para></td>
                   </tr>
                 </blockTable>
               </td>

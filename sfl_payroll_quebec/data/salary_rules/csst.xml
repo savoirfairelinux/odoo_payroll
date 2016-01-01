@@ -24,7 +24,6 @@ result = benefits + GROSSP + OTHER_WAGE
             <field name="code">CSST_ER_C</field>
             <field name="category_id" ref="sfl_payroll_canada.EMP"/>
             <field name="appears_on_payslip" eval="0"/>
-            <field name="include_in_payroll_analysis" eval="True"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="exemption_id" ref="csst_exempt"/>

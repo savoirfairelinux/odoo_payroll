@@ -33,7 +33,6 @@ result = max(result, 0)
             <field name="appears_on_payslip" eval="1"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field> 
-            <field name="include_in_payroll_analysis" eval="True"/>
             <field name="exemption_id" ref="ei_exempt"/>
             <field name="amount_python_compute">
 variable = rule.variable(payslip.date_payment)
@@ -54,7 +53,6 @@ result = max(result, 0)
             <field name="appears_on_payslip" eval="0"/>
             <field name="active" eval="1"/>
             <field name="condition_select">none</field> 
-            <field name="include_in_payroll_analysis" eval="True"/>
             <field name="exemption_id" ref="ei_exempt"/>
             <field name="amount_python_compute">
 previous_ytd = payslip.ytd_amount('EI_ER_C')

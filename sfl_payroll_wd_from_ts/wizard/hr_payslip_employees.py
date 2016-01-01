@@ -37,6 +37,10 @@ class HrPayslipEmployees(models.TransientModel):
         res = super(HrPayslipEmployees, self).action_before_computing_sheets()
 
         if self.import_from_timesheet:
-            self.payslip_ids.import_worked_days()
+            self.import_timesheets()
 
         return res
+
+    @api.multi
+    def import_timesheets(self):
+        self.payslip_ids.import_worked_days()

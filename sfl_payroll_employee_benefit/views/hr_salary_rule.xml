@@ -8,7 +8,8 @@
             <field name="arch" type="xml">
                 <notebook position="inside">
                     <page string="Employee Benefits">
-                        <field name="employee_benefit_ids"/>
+                        <field name="sum_all_benefits"/>
+                        <field name="employee_benefit_ids" attrs="{'invisible': [('sum_all_benefits', '=', False)]}"/>
                     </page>
                 </notebook>
             </field>

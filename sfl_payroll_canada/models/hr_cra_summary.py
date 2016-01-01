@@ -245,7 +245,7 @@ xsi:noNamespaceSchemaLocation="layout-topologie.xsd">
         readonly=True,
         default='draft',
     )
-    year = fields.Integer(
+    year = fields.Char(
         'Fiscal Year', required=True,
         readonly=True, states={'draft': [('readonly', False)]},
         default=lambda *a: int(fields.Date.today()[0:4]) - 1,
