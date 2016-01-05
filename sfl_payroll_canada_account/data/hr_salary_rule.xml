@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data>
+    <data noupdate="1">
 
         <record id="sfl_payroll_canada.rule_ca_net" model="hr.salary.rule">
             <field name="account_debit" model="account.account" search="[('code', 'like', '512101')]"/>

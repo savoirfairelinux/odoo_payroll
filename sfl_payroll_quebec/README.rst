@@ -39,10 +39,7 @@ Contributors
    :alt: Savoir-faire Linux
    :target: http://www.savoirfairelinux.com
 
-* Jonatan Cloutier <jonatan.cloutier@savoirfairelinux.com>
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
-* Mathieu Benoit <mathieu.benoit@savoirfairelinux.com>
-* Sandy Carter <sandy.carter@savoirfairelinux.com>
 * Pierre Lamarche <pierre.lamarche@savoirfairelinux.com>
 * David Dufresne <david.dufresne@savoirfairelinux.com>
 

@@ -339,6 +339,7 @@ result = employee.qc_additional_source_deduction or 0
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="exemption_id" ref="sfl_payroll_canada.pit_exempt"/>
+            <field name="register_id" ref="register_revenu_quebec"/>
             <field name="amount_python_compute">
 result = QIT_Y / P + QIT_L + QIT_Z + QIT_Z_OTHER_WAGE
 

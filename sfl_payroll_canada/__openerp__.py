@@ -52,6 +52,7 @@
         'views/hr_cra_t4_box.xml',
         'views/hr_cra_t4_summary.xml',
         'views/hr_employee_benefit_category.xml',
+        'data/hr_contribution_register.xml',
         'data/hr_holidays_entitlement.xml',
         'data/hr_deduction_jurisdiction.xml',
         'data/hr_income_tax_exemption.xml',

@@ -88,7 +88,7 @@ class HrPayslip(models.Model):
             else:
                 period = slip.period_id
 
-            default_partner = slip.employee_id.address_home_id
+            employee_partner = slip.employee_id.address_home_id
             name = _('Payslip of %s') % (slip.employee_id.name)
             move_vals = {
                 'narration': name,
@@ -104,7 +104,7 @@ class HrPayslip(models.Model):
                     continue
 
                 rule = line.salary_rule_id
-                partner = rule.register_id.partner_id
+                register_partner = rule.register_id.partner_id
 
                 debit_account_id = line.salary_rule_id.account_debit.id
                 credit_account_id = line.salary_rule_id.account_credit.id
@@ -113,16 +113,22 @@ class HrPayslip(models.Model):
 
                 if debit_account_id:
 
-                    if(
-                        not partner and
-                        rule.account_debit.type in ['receivable', 'payable']
+                    if (
+                        rule.account_debit.type not in
+                        ['receivable', 'payable']
                     ):
-                        partner = default_partner
+                        partner_debit = self.env['res.partner']
+
+                    elif register_partner:
+                        partner_debit = register_partner
+
+                    else:
+                        partner_debit = employee_partner
 
                     debit_line = (0, 0, {
                         'name': line.name,
                         'date': timenow,
-                        'partner_id': partner.id,
+                        'partner_id': partner_debit.id,
                         'account_id': debit_account_id,
                         'journal_id': slip.journal_id.id,
                         'period_id': period.id,
@@ -139,10 +145,22 @@ class HrPayslip(models.Model):
 
                 if credit_account_id:
 
+                    if (
+                        rule.account_credit.type not in
+                        ['receivable', 'payable']
+                    ):
+                        partner_credit = self.env['res.partner']
+
+                    elif register_partner:
+                        partner_credit = register_partner
+
+                    else:
+                        partner_credit = employee_partner
+
                     credit_line = (0, 0, {
                         'name': line.name,
                         'date': timenow,
-                        'partner_id': partner.id,
+                        'partner_id': partner_credit.id,
                         'account_id': credit_account_id,
                         'journal_id': slip.journal_id.id,
                         'period_id': period.id,

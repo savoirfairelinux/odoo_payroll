@@ -34,6 +34,7 @@ result = max(result, 0)
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="exemption_id" ref="cpp_exempt"/>
+            <field name="register_id" ref="register_cra"/>
             <field name="amount_python_compute">
 variable = rule.variable(payslip.date_payment)
 
@@ -54,6 +55,7 @@ result = max(result, 0)
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="exemption_id" ref="cpp_exempt"/>
+            <field name="register_id" ref="register_cra"/>
             <field name="amount_python_compute">
 result = CPP_EE_C
             </field>

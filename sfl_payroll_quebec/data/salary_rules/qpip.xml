@@ -34,6 +34,7 @@ result = max(result, 0)
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="exemption_id" ref="sfl_payroll_canada.pip_exempt"/>
+            <field name="register_id" ref="register_revenu_quebec"/>
             <field name="amount_python_compute">
 variable = rule.variable(payslip.date_payment)
 rate = variable['rate']
@@ -56,6 +57,7 @@ result = max(result, 0)
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="exemption_id" ref="sfl_payroll_canada.pip_exempt"/>
+            <field name="register_id" ref="register_revenu_quebec"/>
             <field name="amount_python_compute">
 variable = rule.variable(payslip.date_payment)
 rate = variable['rate']

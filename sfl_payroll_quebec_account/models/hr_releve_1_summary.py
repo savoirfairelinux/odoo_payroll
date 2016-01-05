@@ -49,6 +49,9 @@ class HrReleve1Summary(models.Model):
     @api.multi
     def _create_account_move(self):
 
+        revenu_quebec = self.env.ref(
+            'sfl_payroll_quebec.partner_revenu_quebec')
+
         for summary in self:
             company = summary.company_id
             if not company.payroll_journal_id:
@@ -91,6 +94,7 @@ class HrReleve1Summary(models.Model):
                 (0, 0, {
                     'name': hsf_entry_name,
                     'account_id': hsf_credit.id,
+                    'partner_id': revenu_quebec.id,
                     'debit': -hsf_payable if hsf_payable < 0 else 0,
                     'credit': hsf_payable if hsf_payable > 0 else 0,
                 }),
@@ -103,6 +107,7 @@ class HrReleve1Summary(models.Model):
                 (0, 0, {
                     'name': cnt_entry_name,
                     'account_id': cnt_credit.id,
+                    'partner_id': revenu_quebec.id,
                     'debit': -cnt_payable if cnt_payable < 0 else 0,
                     'credit': cnt_payable if cnt_payable > 0 else 0,
                 }),
@@ -140,6 +145,7 @@ class HrReleve1Summary(models.Model):
                     (0, 0, {
                         'name': wsdrf_entry_name,
                         'account_id': wsdrf_credit.id,
+                        'partner_id': revenu_quebec.id,
                         'debit': -wsdrf_payable if wsdrf_payable < 0 else 0,
                         'credit': wsdrf_payable if wsdrf_payable > 0 else 0,
                     }),

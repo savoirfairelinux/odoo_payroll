@@ -27,6 +27,7 @@ result = 0
             <field name="active" eval="1"/>
             <field name="condition_select">none</field>
             <field name="exemption_id" ref="sfl_payroll_canada.cpp_exempt"/>
+            <field name="register_id" ref="sfl_payroll_canada.register_cra"/>
             <field name="amount_python_compute">
 result = 0
             </field>

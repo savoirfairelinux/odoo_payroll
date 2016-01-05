@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="partner_cra" model="res.partner">
+            <field name="name">Canada Revenu Agency</field>
+        </record>
+
+        <record id="register_cra" model="hr.contribution.register">
+            <field name="name">Canada Revenu Agency</field>
+            <field name="partner_id" ref="partner_cra"/>
+        </record>
+
+    </data>
+</openerp>

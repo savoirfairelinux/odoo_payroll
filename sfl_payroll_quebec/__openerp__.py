@@ -44,6 +44,7 @@ Contributors
         'sfl_payroll_canada',
     ],
     'data': [
+        'data/hr_contribution_register.xml',
         'data/hr_income_tax_exemption.xml',
         'data/salary_rules/cpp.xml',
         'data/salary_rules/ei.xml',

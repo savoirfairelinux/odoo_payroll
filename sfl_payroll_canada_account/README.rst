@@ -8,7 +8,6 @@ the Canada account chart.
 
 Contributors
 ------------
-* Sandy Carter <sandy.carter@savoirfairelinux.com>
 * Pierre Lamarche <pierre.lamarche@savoirfairelinux.com>
 * Maxime Chambreuil <maxime.chambreuil@savoirfairelinux.com>
 * David Dufresne <david.dufresne@savoirfairelinux.com>

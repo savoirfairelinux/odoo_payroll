@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="partner_revenu_quebec" model="res.partner">
+            <field name="name">Revenu Québec</field>
+        </record>
+
+        <record id="register_revenu_quebec" model="hr.contribution.register">
+            <field name="name">Revenu Québec</field>
+            <field name="partner_id" ref="partner_revenu_quebec"/>
+        </record>
+
+    </data>
+</openerp>
