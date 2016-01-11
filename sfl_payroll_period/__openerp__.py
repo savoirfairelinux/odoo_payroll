@@ -30,6 +30,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'views/menu.xml',
         'views/hr_period.xml',
         'views/hr_fiscalyear.xml',
         'views/hr_payslip.xml',

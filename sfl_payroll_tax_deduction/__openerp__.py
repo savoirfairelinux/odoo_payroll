@@ -30,6 +30,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'views/menu.xml',
         'views/hr_deduction_category.xml',
         'views/hr_deduction_jurisdiction.xml',
         'views/hr_employee.xml',

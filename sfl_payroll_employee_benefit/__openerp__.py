@@ -30,6 +30,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'views/menu.xml',
         'views/hr_contract.xml',
         'views/hr_employee_benefit_category.xml',
         'views/hr_employee_benefit_rate.xml',

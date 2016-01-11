@@ -80,7 +80,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="menu_action_hr_fiscalyear" action="action_hr_fiscalyear" parent="sfl_payroll_base.payroll_configure" sequence="25"/>
+        <menuitem id="menu_action_hr_fiscalyear" action="action_hr_fiscalyear" parent="hr_period_configure" sequence="25"/>
 
     </data>
 </openerp>

@@ -47,7 +47,7 @@
             <field name="search_view_id" ref="view_hr_deduction_jurisdiction_filter"/>
         </record>
 
-        <menuitem id="menu_action_hr_deduction_jurisdiction_list" action="action_hr_deduction_jurisdiction_list" parent="sfl_payroll_base.payroll_configure" sequence="18"/>
+        <menuitem id="menu_action_hr_deduction_jurisdiction_list" action="action_hr_deduction_jurisdiction_list" parent="hr_deduction_configure" sequence="18"/>
 
     </data>
 </openerp>
