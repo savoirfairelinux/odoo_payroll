@@ -20,14 +20,13 @@
 
 {
     'name': 'Canada - Payroll',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'license': 'AGPL-3',
     'author': "Savoir-faire Linux",
     'website': 'https://savoirfairelinux.com',
     'depends': [
         'document',
         'hr_contract_hourly_rate',
-        'hr_employee_firstname',
         'l10n_ca_toponyms',
         'sfl_payroll_period',
         'sfl_payroll_employee_exemption',
@@ -42,6 +41,7 @@
         'sfl_payroll_activity',
         'sfl_payroll_tax_deduction',
         'sfl_payroll_leave_entitlement',
+        'sfl_payroll_employee_firstname',
     ],
     'data': [
         'views/menu.xml',

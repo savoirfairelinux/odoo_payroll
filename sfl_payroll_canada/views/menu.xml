@@ -12,7 +12,9 @@
             id="menu_canada_payroll_configuration"
             name="Canada Payroll"
             parent="hr.menu_hr_configuration"
-            groups="base.group_hr_manager"/>
+            groups="base.group_hr_manager"
+            sequence="46"
+        />
 
         <record id="sfl_payroll_base.menu_department_tree" model="ir.ui.menu">
             <field name="groups_id" eval="[(6, 0, [ref('base.group_user')])]"/>

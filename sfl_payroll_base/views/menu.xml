@@ -22,6 +22,23 @@
             name="Payroll"
             groups="base.group_hr_manager"
         />
+        <menuitem
+            id="menu_hr_payroll_reporting"
+            parent="hr.menu_hr_reporting"
+            name="Leaves"
+            groups="base.group_hr_manager"
+        />
+
+        <menuitem
+            id="leaves_configure" 
+            parent="hr.menu_hr_configuration"
+            name="Leaves"
+            groups="base.group_hr_manager"
+            sequence="40"
+        />
+        <record id="hr_holidays.menu_open_view_holiday_status" model="ir.ui.menu">
+            <field name="parent_id" ref="leaves_configure"/>
+        </record>
 
     </data>
 </openerp>
