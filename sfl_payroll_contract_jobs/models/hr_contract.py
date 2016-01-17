@@ -22,7 +22,7 @@
 from openerp import models, fields, api, exceptions, _
 
 
-class hr_contract(models.Model):
+class HrContract(models.Model):
     _inherit = 'hr.contract'
 
     @api.one

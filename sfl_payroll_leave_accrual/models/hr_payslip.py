@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2016 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -26,10 +26,16 @@ class HrPayslip(models.Model):
 
     _inherit = 'hr.payslip'
 
-    leave_accrual_line_ids = fields.One2many(
-        'hr.leave.accrual.line',
+    accrual_line_hours_ids = fields.One2many(
+        'hr.leave.accrual.line.hours',
         'payslip_id',
-        'Leave Accrual Lines',
+        'Accruded Leaves in Cash',
+    )
+
+    accrual_line_cash_ids = fields.One2many(
+        'hr.leave.accrual.line.cash',
+        'payslip_id',
+        'Accruded Leaves in Hours',
     )
 
     @api.multi
@@ -37,6 +43,7 @@ class HrPayslip(models.Model):
         res = super(HrPayslip, self).compute_sheet()
 
         self = self.with_context({'disable_leave_accrual_update': True})
+        self.remove_accrual_lines()
         self.compute_leave_accrual_lines()
         self = self.with_context({'disable_leave_accrual_update': False})
 
@@ -45,18 +52,19 @@ class HrPayslip(models.Model):
     @api.multi
     def process_sheet(self):
         res = super(HrPayslip, self).process_sheet()
-
         self.mapped('employee_id.leave_accrual_ids').update_totals()
-
         return res
 
     @api.multi
     def cancel_sheet(self):
         res = super(HrPayslip, self).cancel_sheet()
-
         self.mapped('employee_id.leave_accrual_ids').update_totals()
-
         return res
+
+    @api.multi
+    def remove_accrual_lines(self):
+        self.mapped('accrual_line_hours_ids').unlink()
+        self.mapped('accrual_line_cash_ids').unlink()
 
     @api.one
     def compute_leave_accrual_lines(self):
@@ -90,7 +98,9 @@ class HrPayslip(models.Model):
             if line.salary_rule_id in required_rules
         }
 
-        accrual_line_obj = self.env['hr.leave.accrual.line']
+        hours_line_obj = self.env['hr.leave.accrual.line.hours']
+        cash_line_obj = self.env['hr.leave.accrual.line.cash']
+
         for accrual in accruals:
             for line in accrual.leave_type_id.accrual_line_ids:
                 salary_rule_id = line.salary_rule_id.id
@@ -99,29 +109,26 @@ class HrPayslip(models.Model):
                     payslip_line = payslip_line_dict[salary_rule_id]
 
                     if line.amount_type == 'cash':
-                        amount_cash = payslip_line.amount
-                        amount_hours = 0
+                        accrual_line_obj = cash_line_obj
+                        amount = payslip_line.amount
+                    else:
+                        accrual_line_obj = hours_line_obj
+                        amount = payslip_line.amount_hours
 
-                        if line.substract:
-                            amount_cash *= -1
+                    if line.substract:
+                        amount *= -1
 
-                    if line.amount_type == 'hours':
-                        amount_cash = 0
-                        amount_hours = payslip_line.amount_hours
-
-                        if line.substract:
-                            amount_hours *= -1
+                    if self.credit_note:
+                        amount *= -1
 
                     if payslip_line.amount:
-                        vals = {
+                        accrual_line_obj.create({
                             'accrual_id': accrual.id,
                             'name': payslip_line.name,
                             'source': 'payslip',
                             'payslip_id': self.id,
                             'payslip_line_id': payslip_line.id,
-                            'amount_cash': amount_cash,
-                            'amount_hours': amount_hours,
+                            'amount': amount,
                             'accrual_id': accrual.id,
                             'date': self.date_from,
-                        }
-                        accrual_line_obj.create(vals)
+                        })

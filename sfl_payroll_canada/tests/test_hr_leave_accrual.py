@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2016 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -103,10 +103,10 @@ class TestHrLeaveAccrual(common.TransactionCase):
                 'source': 'manual',
                 'date': accrual_line[0],
                 'name': 'Test',
-                'amount_cash': accrual_line[1]
+                'amount': accrual_line[1]
             }) for accrual_line in accrual_lines
         ]
-        self.accrual.write({'line_ids': line_ids})
+        self.accrual.write({'line_cash_ids': line_ids})
 
     def test_sum_leaves_available(self):
         """
