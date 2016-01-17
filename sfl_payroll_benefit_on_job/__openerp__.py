@@ -26,7 +26,7 @@
     'author': "Savoir-faire Linux",
     'website': 'https://www.savoirfairelinux.com',
     'depends': [
-        'hr_contract_multi_jobs',
+        'sfl_payroll_contract_jobs',
         'sfl_payroll_employee_benefit',
         'sfl_payroll_activity',
     ],

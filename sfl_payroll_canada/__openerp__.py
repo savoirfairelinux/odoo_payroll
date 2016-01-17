@@ -26,7 +26,7 @@
     'website': 'https://savoirfairelinux.com',
     'depends': [
         'document',
-        'hr_contract_hourly_rate',
+        'sfl_payroll_hourly_rate',
         'l10n_ca_toponyms',
         'sfl_payroll_period',
         'sfl_payroll_employee_exemption',

@@ -19,4 +19,4 @@
 #
 ##############################################################################
 
-from . import test_hr_contract_hourly_rates
+from . import test_sfl_payroll_hourly_rates

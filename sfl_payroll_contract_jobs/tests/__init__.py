@@ -1,1 +1,1 @@
-from . import test_hr_contract_multi_jobs
+from . import test_sfl_payroll_contract_jobs

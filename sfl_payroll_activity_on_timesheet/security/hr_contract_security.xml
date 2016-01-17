@@ -15,7 +15,7 @@
 
         <record id="property_rule_contract_job_employee" model="ir.rule">
             <field name="name">Employee Own Contract Job</field>
-            <field name="model_id" ref="hr_contract_multi_jobs.model_hr_contract_job"/>
+            <field name="model_id" ref="sfl_payroll_contract_jobs.model_hr_contract_job"/>
             <field name="domain_force">
                 [(
                     'contract_id', 'in',
@@ -34,7 +34,7 @@
 
         <record id="property_rule_contract_job_employee" model="ir.rule">
             <field name="name">HR Manager All Contract Jobs</field>
-            <field name="model_id" ref="hr_contract_multi_jobs.model_hr_contract_job"/>
+            <field name="model_id" ref="sfl_payroll_contract_jobs.model_hr_contract_job"/>
             <field name="domain_force">[]</field>
             <field name="groups" eval="[(4,ref('base.group_hr_manager'))]"/>
         </record>

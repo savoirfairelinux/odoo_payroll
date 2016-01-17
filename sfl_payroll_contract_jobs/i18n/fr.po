@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * hr_contract_multi_jobs
+# * sfl_payroll_contract_jobs
 # 
 # Translators:
 msgid ""
@@ -17,74 +17,74 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#. module: hr_contract_multi_jobs
+#. module: sfl_payroll_contract_jobs
 #: field:hr.contract.job,contract_id:0
-#: model:ir.model,name:hr_contract_multi_jobs.model_hr_contract
+#: model:ir.model,name:sfl_payroll_contract_jobs.model_hr_contract
 msgid "Contract"
 msgstr "Contrat"
 
-#. module: hr_contract_multi_jobs
+#. module: sfl_payroll_contract_jobs
 #: field:hr.job,contract_job_ids:0
 msgid "Contract Jobs"
 msgstr "Postes de contrat"
 
-#. module: hr_contract_multi_jobs
+#. module: sfl_payroll_contract_jobs
 #: field:hr.contract.job,create_uid:0
 msgid "Created by"
 msgstr "Créé par"
 
-#. module: hr_contract_multi_jobs
+#. module: sfl_payroll_contract_jobs
 #: field:hr.contract.job,create_date:0
 msgid "Created on"
 msgstr "Créé le"
 
-#. module: hr_contract_multi_jobs
+#. module: sfl_payroll_contract_jobs
 #: field:hr.contract.job,id:0
 msgid "ID"
 msgstr "ID"
 
-#. module: hr_contract_multi_jobs
+#. module: sfl_payroll_contract_jobs
 #: field:hr.contract.job,job_id:0
 msgid "Job"
 msgstr "Poste"
 
-#. module: hr_contract_multi_jobs
-#: model:ir.model,name:hr_contract_multi_jobs.model_hr_job
+#. module: sfl_payroll_contract_jobs
+#: model:ir.model,name:sfl_payroll_contract_jobs.model_hr_job
 msgid "Job Position"
 msgstr "Poste"
 
-#. module: hr_contract_multi_jobs
-#: view:hr.contract:hr_contract_multi_jobs.hr_contract_view_form
+#. module: sfl_payroll_contract_jobs
+#: view:hr.contract:sfl_payroll_contract_jobs.hr_contract_view_form
 msgid "Job Positions"
 msgstr "Postes"
 
-#. module: hr_contract_multi_jobs
+#. module: sfl_payroll_contract_jobs
 #: field:hr.contract,contract_job_ids:0
 msgid "Jobs"
 msgstr "Postes"
 
-#. module: hr_contract_multi_jobs
+#. module: sfl_payroll_contract_jobs
 #: field:hr.contract.job,write_uid:0
 msgid "Last Updated by"
 msgstr "Dernière modification par"
 
-#. module: hr_contract_multi_jobs
+#. module: sfl_payroll_contract_jobs
 #: field:hr.contract.job,write_date:0
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
-#. module: hr_contract_multi_jobs
+#. module: sfl_payroll_contract_jobs
 #: field:hr.contract.job,is_main_job:0
 msgid "Main Job Position"
 msgstr "Poste Principal"
 
-#. module: hr_contract_multi_jobs
-#: model:ir.model,name:hr_contract_multi_jobs.model_hr_contract_job
+#. module: sfl_payroll_contract_jobs
+#: model:ir.model,name:sfl_payroll_contract_jobs.model_hr_contract_job
 msgid "Relational object between contract and job"
 msgstr "Relation entre un contrat et un poste"
 
-#. module: hr_contract_multi_jobs
-#: code:addons/hr_contract_multi_jobs/models/hr_contract.py:62
+#. module: sfl_payroll_contract_jobs
+#: code:addons/sfl_payroll_contract_jobs/models/hr_contract.py:62
 #, python-format
 msgid "You must assign one and only one job position as main job position."
 msgstr "Vous devez indiquer un poste comme étant le poste principal."
