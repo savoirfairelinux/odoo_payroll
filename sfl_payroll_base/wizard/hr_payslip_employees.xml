@@ -24,7 +24,7 @@
                         />
                     </group>
                     <group colspan="4" >
-                        <separator string="Employees" colspan="4"/>
+                        <separator name="employees" string="Employees" colspan="4"/>
                         <newline/>
                         <field name="employee_ids" nolabel="1"/>
                     </group>

@@ -68,7 +68,7 @@
         <menuitem
             action="open_tree_activity"
             id="menu_hr_activity_tree"
-            parent="hr.menu_hr_configuration"
+            parent="sfl_payroll_base.menu_payroll_configure"
             sequence="12"
         />
     </data>

@@ -11,7 +11,7 @@
         <menuitem
             id="menu_canada_payroll_configuration"
             name="Canada Payroll"
-            parent="hr.menu_hr_configuration"
+            parent="sfl_payroll_base.menu_payroll_configure"
             groups="base.group_hr_manager"
             sequence="46"
         />

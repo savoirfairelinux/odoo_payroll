@@ -4,7 +4,7 @@
         <record id="view holidays_status_form" model="ir.ui.view">
             <field name="name">hr.holidays.status.form</field>
             <field name="model">hr.holidays.status</field>
-            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="inherit_id" ref="sfl_payroll_base.view_holidays_status_form"/>
             <field name="arch" type="xml">
                 <notebook position="inside">
                     <page name="leave_accruals" string="Leave Accruals">

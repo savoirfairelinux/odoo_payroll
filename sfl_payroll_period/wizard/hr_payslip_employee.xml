@@ -7,7 +7,7 @@
             <field name="model">hr.payslip.employees</field>
             <field name="inherit_id" ref="sfl_payroll_base.view_hr_payslip_by_employees"/>
             <field name="arch" type="xml">
-                <separator string="Employees" position="before">
+                <separator name="employees" position="before">
                     <field name="company_id" groups="base.group_multi_company"/>
                     <field name="schedule_pay"/>
                 </separator>

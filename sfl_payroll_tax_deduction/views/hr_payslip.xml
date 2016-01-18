@@ -7,7 +7,7 @@
             <field name="model">hr.payslip</field>
             <field name="inherit_id" ref="sfl_payroll_base.view_hr_payslip_form"/>
             <field name="arch" type="xml">
-                <page string="Salary Computation" position="before">
+                <page name="salary_computation" position="before">
                     <page string="Income Tax Deductions">
                         <group name="employee_deduction">
                             <field name="deduction_line_ids" col="2" nolabel="1">

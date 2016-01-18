@@ -4,7 +4,7 @@
 
         <menuitem
             id="employee_benefit_configure"
-            parent="hr.menu_hr_configuration"
+            parent="sfl_payroll_base.menu_payroll_configure"
             name="Employee Benefits"
             groups="base.group_hr_manager"
             sequence="50"

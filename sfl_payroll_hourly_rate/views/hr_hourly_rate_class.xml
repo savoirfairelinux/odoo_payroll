@@ -55,7 +55,7 @@
         <menuitem
             action="open_module_tree_hourly_rate_class"
             id="menu_hr_hourly_rate_class_tree"
-            parent="hr.menu_hr_configuration"
+            parent="sfl_payroll_base.menu_payroll_configure"
             sequence="6"
         />
 

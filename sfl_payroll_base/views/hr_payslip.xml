@@ -92,7 +92,7 @@
                                 </form>
                             </field>
                         </page>
-                        <page string="Salary Computation" >
+                        <page string="Salary Computation" name="salary_computation">
                             <field name="line_ids" colspan="4" nolabel="1">
                                 <tree string="Salary Structure" editable="bottom" colors="blue:amount == 0">
                                     <field name="name"/>

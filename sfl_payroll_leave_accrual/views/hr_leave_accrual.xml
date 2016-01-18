@@ -100,7 +100,13 @@
             <field name="search_view_id" ref="view_hr_leave_accrual_filter"/>
         </record>
 
-        <menuitem action="action_view_leave_accrual_tree" id="leave_accrual_menu_item" parent="hr_holidays.menu_open_ask_holidays" groups="base.group_user" sequence="50"/>
+        <menuitem
+            action="action_view_leave_accrual_tree"
+            id="leave_accrual_menu_item"
+            parent="sfl_payroll_base.menu_payroll_usage"
+            groups="base.group_user"
+            sequence="70"
+        />
 
     </data>
 </openerp>
