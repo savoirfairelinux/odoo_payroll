@@ -12,44 +12,50 @@
                         <field name="total_cash"/>
                         <label for="line_ids" string="Leave Accrual Lines" colspan="4"/>
                     </group>
-                    <field name="line_cash_ids" nolabel="1" colspan="4">
-                        <tree editable="top">
-                            <field name="name" attrs="{
-                                'readonly': [('source', '!=', 'manual')],
-                                'required': [('source', '=', 'manual')]
-                            }"/>
-                            <field name="source"/>
-                            <field name="payslip_id" invisible="1"/>
-                            <field name="payslip_line_id"/>
-                            <field name="state"/>
-                            <field name="amount"
-                                attrs="{'readonly': [('source', '!=', 'manual')]}"/>
-                            <field name="date"
-                                attrs="{
-                                'readonly': [('source', '!=', 'manual')],
-                                'required': [('source', '=', 'manual')]
-                            }"/>
-                        </tree>
-                    </field>
-                    <field name="line_hours_ids" nolabel="1" colspan="4">
-                        <tree editable="top">
-                            <field name="name" attrs="{
-                                'readonly': [('source', '!=', 'manual')],
-                                'required': [('source', '=', 'manual')]
-                            }"/>
-                            <field name="source"/>
-                            <field name="payslip_id" invisible="1"/>
-                            <field name="payslip_line_id"/>
-                            <field name="state"/>
-                            <field name="amount"
-                                attrs="{'readonly': [('source', '!=', 'manual')]}"/>
-                            <field name="date"
-                                attrs="{
-                                'readonly': [('source', '!=', 'manual')],
-                                'required': [('source', '=', 'manual')]
-                            }"/>
-                        </tree>
-                    </field>
+                    <notebook>
+                        <page string="Cash Accruded" name="cash_accruded">
+                            <field name="line_cash_ids" nolabel="1" colspan="4">
+                                <tree editable="top">
+                                    <field name="name" attrs="{
+                                        'readonly': [('source', '!=', 'manual')],
+                                        'required': [('source', '=', 'manual')]
+                                    }"/>
+                                    <field name="source" readonly="1"/>
+                                    <field name="payslip_id" invisible="1"/>
+                                    <field name="payslip_line_id"/>
+                                    <field name="state"/>
+                                    <field name="amount"
+                                        attrs="{'readonly': [('source', '!=', 'manual')]}"/>
+                                    <field name="date"
+                                        attrs="{
+                                        'readonly': [('source', '!=', 'manual')],
+                                        'required': [('source', '=', 'manual')]
+                                    }"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Hours Accruded" name="hours_accruded">
+                            <field name="line_hours_ids" nolabel="1" colspan="4">
+                                <tree editable="top">
+                                    <field name="name" attrs="{
+                                        'readonly': [('source', '!=', 'manual')],
+                                        'required': [('source', '=', 'manual')]
+                                    }"/>
+                                    <field name="source" readonly="1"/>
+                                    <field name="payslip_id" invisible="1"/>
+                                    <field name="payslip_line_id"/>
+                                    <field name="state"/>
+                                    <field name="amount"
+                                        attrs="{'readonly': [('source', '!=', 'manual')]}"/>
+                                    <field name="date"
+                                        attrs="{
+                                        'readonly': [('source', '!=', 'manual')],
+                                        'required': [('source', '=', 'manual')]
+                                    }"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </form>
             </field>
         </record>

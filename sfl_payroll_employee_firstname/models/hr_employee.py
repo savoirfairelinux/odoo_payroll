@@ -54,8 +54,7 @@ class HrEmployee(models.Model):
             )
 
             partners.write({
-                'firstname': employee.firstname,
-                'lastname': employee.lastname,
+                'name': employee.firstname,
             })
 
     @api.model
@@ -81,9 +80,7 @@ class HrEmployee(models.Model):
             vals['firstname'] = firstname
             vals['lastname'] = lastname
 
-        res = super(HrEmployee, self).create(vals)
-        res.update_partner_firstname()
-        return res
+        return super(HrEmployee, self).create(vals)
 
     @api.multi
     def write(self, vals):
@@ -97,9 +94,4 @@ class HrEmployee(models.Model):
             vals['firstname'] = firstname
             vals['lastname'] = lastname
 
-        res = super(HrEmployee, self).write(vals)
-
-        if vals.get('firstname') or vals.get('lastname') or vals.get('name'):
-            self.update_partner_firstname()
-
-        return res
+        return super(HrEmployee, self).write(vals)

@@ -6,13 +6,13 @@
             <field name="name">hr.payslip.line.tree</field>
             <field name="model">hr.payslip.line</field>
             <field name="arch" type="xml">
-                <tree string="Salary Structure" editable="bottom" colors="blue:amount == 0">
-                    <field name="category_id"/>
-                    <field name="employee_id" invisible="1"/>
-                    <field name="sequence"/>
+                <tree string="Salary Structure" editable="bottom" colors="blue:total == 0">
                     <field name="name"/>
+                    <field name="employee_id"/>
                     <field name="code"/>
-                    <field name="amount"/>
+                    <field name="category_id"/>
+                    <field name="register_id"/>
+                    <field name="total"/>
                 </tree>
             </field>
         </record>
@@ -32,6 +32,7 @@
                     </group>
                     <group string="Calculations">
                         <field name="category_id"/>
+                        <field name="register_id"/>
                         <field name="sequence"/>
                     </group>
                 </group>
@@ -46,13 +47,30 @@
                 <search string="Search Payslip Lines">
                     <field name="name" string="Payslip Lines" filter_domain="['|',('name','ilike',self),('code','ilike',self)]"/>
                     <field name="slip_id"/>
-                    <group col="8" colspan="4" expand="0" string="Group By">
-                        <filter string="Salary Rule Category" icon="terp-camera_test" name="category_id" context="{'group_by':'category_id'}"/>
-                        <filter string="Employees" name="employee_id" icon="terp-personal" context="{'group_by':'employee_id'}"/>
+                    <group name="group_by" col="8" colspan="4" expand="0" string="Group By">
+                        <filter string="Salary Rule" name="salary_rule_id" context="{'group_by':'salary_rule_id'}"/>
+                        <filter string="Salary Rule Category" name="category_id" context="{'group_by':'category_id'}"/>
+                        <filter string="Employees" name="employee_id" context="{'group_by':'employee_id'}"/>
+                        <filter string="Contribution Register" name="register_id" context="{'group_by':'register_id'}"/>
                     </group>
                 </search>
             </field>
         </record>
+
+        <record id="action_view_hr_payslip_line_form" model="ir.actions.act_window">
+            <field name="name">Payslip Lines</field>
+            <field name="res_model">hr.payslip.line</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_hr_payslip_line_tree"/>
+            <field name="search_view_id" ref="view_hr_payslip_line_filter"/>
+        </record>
+
+        <menuitem
+            action="action_view_hr_payslip_line_form"
+            id="menu_payslip_line"
+            parent="menu_hr_root_payroll"
+            groups="base.group_hr_user"
+        />
 
     </data>
 </openerp>

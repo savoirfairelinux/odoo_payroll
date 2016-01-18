@@ -20,7 +20,6 @@
 #
 ##############################################################################
 
-
 import time
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
@@ -224,12 +223,12 @@ class HrPayslip(models.Model):
     @api.multi
     def refund_sheet(self):
         for payslip in self:
-            id_copy = self.copy(payslip.id, {
+            id_copy = payslip.copy({
                 'credit_note': True,
                 'name': _('Refund: ') + payslip.name
             })
-            self.signal_workflow([id_copy], 'hr_verify_sheet')
-            self.signal_workflow([id_copy], 'process_sheet')
+            id_copy.signal_workflow('hr_verify_sheet')
+            id_copy.signal_workflow('process_sheet')
 
         return {
             'name': _("Refund Payslip"),
@@ -240,7 +239,7 @@ class HrPayslip(models.Model):
             'type': 'ir.actions.act_window',
             'nodestroy': True,
             'target': 'current',
-            'domain': "[('id', 'in', %s)]" % [id_copy],
+            'domain': "[('id', 'in', %s)]" % [id_copy.id],
             'context': {}
         }
 

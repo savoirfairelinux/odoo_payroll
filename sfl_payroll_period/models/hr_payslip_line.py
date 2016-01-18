@@ -18,4 +18,16 @@
 #
 ##############################################################################
 
-from . import test_employee_benefit
+from openerp import models, fields
+
+
+class HrPayslipLine(models.Model):
+    _inherit = 'hr.payslip.line'
+
+    hr_period_id = fields.Many2one(
+        'hr.period',
+        related='slip_id.hr_period_id',
+        string='Period',
+        store=True,
+        readonly=True,
+    )

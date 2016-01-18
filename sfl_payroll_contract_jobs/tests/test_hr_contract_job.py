@@ -5,8 +5,7 @@
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
-#    by
-#    the Free Software Foundation, either version 3 of the License, or
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -55,7 +54,19 @@ class TestContractMultiJob(TransactionCase):
         and check job_id is False.
         """
         self.contract_id.write({'contract_job_ids': []})
-        self.assertFalse(self.contract_id.job_id is False)
+        self.assertEqual(self.contract_id.job_id, self.env['hr.job'])
+
+        self.contract_id.write({'job_id': self.job_id.id})
+        self.assertEqual(len(self.contract_id.contract_job_ids), 1)
+        self.assertEqual(self.contract_id.job_id, self.job_id)
+
+        self.contract_id.write({'job_id': self.job_2_id.id})
+        self.assertEqual(len(self.contract_id.contract_job_ids), 2)
+        self.assertEqual(self.contract_id.job_id, self.job_2_id)
+
+        self.contract_id.write({'job_id': self.job_id.id})
+        self.assertEqual(len(self.contract_id.contract_job_ids), 2)
+        self.assertEqual(self.contract_id.job_id, self.job_id)
 
     def test_one_main_jobs(self):
         """
