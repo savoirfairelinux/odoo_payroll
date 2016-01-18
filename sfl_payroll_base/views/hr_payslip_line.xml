@@ -68,7 +68,7 @@
         <menuitem
             action="action_view_hr_payslip_line_form"
             id="menu_payslip_line"
-            parent="menu_hr_root_payroll"
+            parent="menu_payroll_usage"
             groups="base.group_hr_user"
         />
 

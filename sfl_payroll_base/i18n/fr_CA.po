@@ -732,7 +732,7 @@ msgstr ""
 
 #. module: sfl_payroll_base
 #: model:ir.ui.menu,name:sfl_payroll_base.menu_hr_payroll_reporting
-#: model:ir.ui.menu,name:sfl_payroll_base.menu_hr_root_payroll
+#: model:ir.ui.menu,name:sfl_payroll_base.menu_payroll_usage
 #: model:ir.ui.menu,name:sfl_payroll_base.menu_payroll_structure_configure
 msgid "Payroll"
 msgstr ""

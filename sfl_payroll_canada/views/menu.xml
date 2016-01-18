@@ -4,7 +4,7 @@
         <menuitem
             id="menu_fiscal_slips"
             name="Canada Fiscal Slips"
-            parent="sfl_payroll_base.menu_hr_root_payroll"
+            parent="sfl_payroll_base.menu_payroll_usage"
             groups="base.group_user"
             sequence="45"/>
 

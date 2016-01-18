@@ -4,7 +4,7 @@
         <!-- Root Menus -->
 
         <menuitem
-            id="menu_hr_root_payroll"
+            id="menu_payroll_usage"
             parent="hr.menu_hr_root"
             name="Payroll"
             sequence="30"
