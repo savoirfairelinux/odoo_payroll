@@ -72,7 +72,7 @@
         <menuitem
             id="menu_hr_payroll_structure_view"
             action="action_view_hr_payroll_structure_list_form"
-            parent="payroll_configure"
+            parent="menu_payroll_structure_configure"
             sequence="2"
         />
         <record id="action_view_hr_payroll_structure_tree" model="ir.actions.act_window">
@@ -85,7 +85,7 @@
         <menuitem
             id="menu_hr_payroll_structure_tree"
             action="action_view_hr_payroll_structure_tree"
-            parent="payroll_configure"
+            parent="menu_payroll_structure_configure"
             sequence="2"
             icon="STOCK_INDENT"
         />

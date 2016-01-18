@@ -51,7 +51,7 @@
         <menuitem
             action="open_public_holidays_view"
             id="menu_public_holidays_view"
-            parent="sfl_payroll_base.leaves_configure"
+            parent="sfl_payroll_base.menu_payroll_leaves_configure"
             sequence="20"
         />
 
