@@ -108,7 +108,7 @@ msgstr "Identification du fichier"
 #. module: sfl_payroll_canada
 #: selection:hr.holidays.entitlement,month_start:0
 msgid "May"
-msgstr "Lundi"
+msgstr "Mai"
 
 #. module: sfl_payroll_canada
 #: code:addons/sfl_payroll_canada/models/hr_employee.py:47
