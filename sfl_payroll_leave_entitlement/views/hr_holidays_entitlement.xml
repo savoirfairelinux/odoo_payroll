@@ -52,7 +52,8 @@
         <menuitem
             action="open_tree_holidays_entitlement"
             id="menu_hr_holidays_entitlement_tree"
-            parent="hr.menu_hr_configuration"
+            parent="sfl_payroll_base.menu_payroll_leaves_configure"
+            sequence="30"
         />
 
     </data>

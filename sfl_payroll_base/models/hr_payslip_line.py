@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
+#    Odoo, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>)
 #    Copyright (C) 2015 Savoir-faire Linux
 #
@@ -20,7 +20,7 @@
 #
 ##############################################################################
 
-from openerp import fields, models, _
+from openerp import api, fields, models, _
 import openerp.addons.decimal_precision as dp
 
 
@@ -65,6 +65,13 @@ class HrPayslipLine(models.Model):
         'Amount',
         digits_compute=dp.get_precision('Payroll Hours'),
     )
+    total = fields.Float(
+        'Amount',
+        digits_compute=dp.get_precision('Payroll'),
+        compute='_compute_total',
+        store=True,
+        help='Amount displayed for contribution registers.'
+    )
     amount_type = fields.Selection(
         [
             ('cash', 'Monetary'),
@@ -82,17 +89,20 @@ class HrPayslipLine(models.Model):
     employee_id = fields.Many2one(
         'hr.employee',
         'Employee',
-        related='slip_id',
+        related='slip_id.employee_id',
+        store=True,
     )
     company_id = fields.Many2one(
         'res.company',
         'Company',
-        related='slip_id',
+        related='slip_id.company_id',
+        store=True,
     )
     contract_id = fields.Many2one(
         'hr.contract',
         'Contract',
-        related='slip_id',
+        related='slip_id.contract_id',
+        store=True,
     )
     appears_on_payslip = fields.Boolean(
         'Appears on Payslip',
@@ -105,3 +115,13 @@ class HrPayslipLine(models.Model):
         help="Eventual third party involved in the salary payment of "
         "the employees.",
     )
+
+    @api.one
+    @api.depends('amount')
+    def _compute_total(self):
+        total = self.amount
+
+        if self.slip_id.credit_note:
+            total *= -1
+
+        self.total = total

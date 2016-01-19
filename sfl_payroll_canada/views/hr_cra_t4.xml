@@ -76,7 +76,7 @@
             <field name="search_view_id" ref="view_t4_filter"/>
         </record>
 
-        <menuitem id="menu_fiscal_slips" name="Canada Fiscal Slips" parent="sfl_payroll_base.menu_hr_root_payroll" groups="base.group_user" sequence="45"/>
+        <menuitem id="menu_fiscal_slips" name="Canada Fiscal Slips" parent="sfl_payroll_base.menu_payroll_usage" groups="base.group_user" sequence="45"/>
         <menuitem action="action_view_t4_tree" id="t4_slip_menu_item" parent="menu_fiscal_slips" groups="base.group_user" sequence="10"/>
     </data>
 </openerp>

@@ -1,12 +1,11 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2016 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
-#    by
-#    the Free Software Foundation, either version 3 of the License, or
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -33,6 +32,7 @@ class HrLeaveAccrual(models.Model):
         'hr.holidays.status',
         string='Leave Type',
         ondelete='restrict',
+        required=True,
     )
     employee_id = fields.Many2one(
         'hr.employee',
@@ -40,10 +40,15 @@ class HrLeaveAccrual(models.Model):
         required=True,
         ondelete='cascade',
     )
-    line_ids = fields.One2many(
-        'hr.leave.accrual.line',
+    line_cash_ids = fields.One2many(
+        'hr.leave.accrual.line.cash',
         'accrual_id',
-        string='Accrual Lines',
+        string='Cash Accruded',
+    )
+    line_hours_ids = fields.One2many(
+        'hr.leave.accrual.line.hours',
+        'accrual_id',
+        string='Hours Accruded',
     )
     total_cash = fields.Float(
         'Cash Accruded',
@@ -61,7 +66,7 @@ class HrLeaveAccrual(models.Model):
         return (self.id, '%s - %s' % (
             self.leave_type_id.name, self.employee_id.name))
 
-    @api.one
+    @api.multi
     def update_totals(self):
         """
         Compute the total of the leave accrual.
@@ -71,36 +76,46 @@ class HrLeaveAccrual(models.Model):
         in a payslip run. This is why we defere the action when the
         payslip is computing leave accruals.
         """
+        self.update_total_cash()
+        self.update_total_hours()
+
+    @api.one
+    def update_total_cash(self):
         if self.env.context.get('disable_leave_accrual_update'):
             return
 
-        total_hours = 0
-        total_cash = 0
-
         query = (
-            """SELECT l.is_refund, sum(l.amount_cash), sum(l.amount_hours)
-            FROM hr_leave_accrual a, hr_leave_accrual_line l
+            """SELECT sum(l.amount)
+            FROM hr_leave_accrual a, hr_leave_accrual_line_cash l
             WHERE l.accrual_id = a.id AND a.id = %s
             AND (l.state = 'done' or l.source != 'payslip')
-            GROUP BY l.is_refund
             """)
 
         cr = self.env.cr
         cr.execute(query, (self.id, ))
 
-        for (is_refund, amount_cash, amount_hours) in cr.fetchall():
+        res = cr.fetchone()
+        self.total_cash = res[0] if res else 0
 
-            if is_refund:
-                total_cash -= amount_cash or 0
-                total_hours -= amount_hours or 0
-            else:
-                total_cash += amount_cash or 0
-                total_hours += amount_hours or 0
+        self.refresh()
 
-        self.write({
-            'total_hours': total_hours,
-            'total_cash': total_cash,
-        })
+    @api.one
+    def update_total_hours(self):
+        if self.env.context.get('disable_leave_accrual_update'):
+            return
+
+        query = (
+            """SELECT sum(l.amount)
+            FROM hr_leave_accrual a, hr_leave_accrual_line_hours l
+            WHERE l.accrual_id = a.id AND a.id = %s
+            AND (l.state = 'done' or l.source != 'payslip')
+            """)
+
+        cr = self.env.cr
+        cr.execute(query, (self.id, ))
+
+        res = cr.fetchone()
+        self.total_hours = res[0] if res else 0
 
         self.refresh()
 

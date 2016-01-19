@@ -1,12 +1,11 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2016 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
-#    by
-#    the Free Software Foundation, either version 3 of the License, or
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -21,6 +20,8 @@
 
 from . import hr_leave_accrual
 from . import hr_leave_accrual_line
+from . import hr_leave_accrual_line_hours
+from . import hr_leave_accrual_line_cash
 from . import hr_holidays
 from . import hr_holidays_status
 from . import hr_holidays_status_accrual_line

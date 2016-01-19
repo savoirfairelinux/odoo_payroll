@@ -98,7 +98,7 @@
 
         <menuitem id="menu_action_hr_salary_rule_form"
             action="action_salary_rule_form"
-            parent="payroll_configure"
+            parent="menu_payroll_structure_configure"
             sequence="12"/>
 
     </data>

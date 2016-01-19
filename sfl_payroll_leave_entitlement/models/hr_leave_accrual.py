@@ -1,12 +1,11 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2016 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
-#    by
-#    the Free Software Foundation, either version 3 of the License, or
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -78,22 +77,19 @@ class HrLeaveAccrual(models.Model):
         current_year_end = entitlement_date + relativedelta(years=1)
 
         if in_cash:
-            select_clause = """SELECT sum(
-                case when l.is_refund
-                then -l.amount_cash else l.amount_cash end)
-                """
+            select_clause = """SELECT sum(amount)
+            FROM hr_leave_accrual a, hr_leave_accrual_line_cash l
+            """
         else:
-            select_clause = """SELECT sum(
-                case when l.is_refund
-                then -l.amount_hours else l.amount_hours end)
-                """
+            select_clause = """SELECT sum(amount)
+            FROM hr_leave_accrual a, hr_leave_accrual_line_hours l
+            """
 
         main_query = select_clause + """
-            FROM hr_leave_accrual a, hr_leave_accrual_line l
             WHERE a.id = %(accrual_id)s
             AND l.accrual_id = a.id
             AND ((l.state = 'done') OR (l.source != 'payslip'))
-        """
+            """
 
         # Leaves added and withdrawed before the entitlement date
         query_1 = main_query + """
@@ -104,12 +100,11 @@ class HrLeaveAccrual(models.Model):
         query_2 = main_query + """
             AND l.date >= %(entitlement_date)s
             AND l.date < %(current_year_end)s
+            AND (
+                (l.is_refund AND l.amount > 0) or
+                (not l.is_refund AND l.amount < 0)
+            )
             """
-
-        if in_cash:
-            query_2 += "AND l.amount_cash < 0"
-        else:
-            query_2 += "AND l.amount_hours < 0"
 
         query_vals = {
             'entitlement_date': entitlement_date,

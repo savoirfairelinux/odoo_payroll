@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
+#    Odoo, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>)
 #    Copyright (C) 2015 Savoir-faire Linux
 #
@@ -19,7 +19,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 
 import time
 from datetime import datetime, date
@@ -224,12 +223,12 @@ class HrPayslip(models.Model):
     @api.multi
     def refund_sheet(self):
         for payslip in self:
-            id_copy = self.copy(payslip.id, {
+            id_copy = payslip.copy({
                 'credit_note': True,
                 'name': _('Refund: ') + payslip.name
             })
-            self.signal_workflow([id_copy], 'hr_verify_sheet')
-            self.signal_workflow([id_copy], 'process_sheet')
+            id_copy.signal_workflow('hr_verify_sheet')
+            id_copy.signal_workflow('process_sheet')
 
         return {
             'name': _("Refund Payslip"),
@@ -240,7 +239,7 @@ class HrPayslip(models.Model):
             'type': 'ir.actions.act_window',
             'nodestroy': True,
             'target': 'current',
-            'domain': "[('id', 'in', %s)]" % [id_copy],
+            'domain': "[('id', 'in', %s)]" % [id_copy.id],
             'context': {}
         }
 

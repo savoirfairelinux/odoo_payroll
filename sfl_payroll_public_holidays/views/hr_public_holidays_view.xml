@@ -48,10 +48,12 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem action="open_public_holidays_view"
-                  id="menu_public_holidays_view"
-                  parent="hr.menu_hr_configuration"
-                  sequence="20"/>
+        <menuitem
+            action="open_public_holidays_view"
+            id="menu_public_holidays_view"
+            parent="sfl_payroll_base.menu_payroll_leaves_configure"
+            sequence="20"
+        />
 
     </data>
 </openerp>

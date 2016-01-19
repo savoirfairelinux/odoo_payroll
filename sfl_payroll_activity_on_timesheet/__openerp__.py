@@ -28,7 +28,7 @@
     'depends': [
         'sfl_payroll_activity',
         'hr_timesheet_sheet',
-        'hr_contract_multi_jobs',
+        'sfl_payroll_contract_jobs',
     ],
     'data': [
         'security/ir.model.access.csv',

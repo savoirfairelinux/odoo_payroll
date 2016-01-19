@@ -38,7 +38,7 @@
         <menuitem
             id="menu_action_hr_income_tax_exemption_list"
             action="action_hr_income_tax_exemption_list"
-            parent="sfl_payroll_base.payroll_configure"
+            parent="sfl_payroll_base.menu_payroll_structure_configure"
             sequence="15"
         />
 

@@ -4,14 +4,7 @@
         <!-- Root Menus -->
 
         <menuitem
-            id="payroll_configure" 
-            parent="hr.menu_hr_configuration"
-            name="Payroll Structure"
-            groups="base.group_hr_manager"
-            sequence="45"
-        />
-        <menuitem
-            id="menu_hr_root_payroll"
+            id="menu_payroll_usage"
             parent="hr.menu_hr_root"
             name="Payroll"
             sequence="30"
@@ -22,6 +15,23 @@
             name="Payroll"
             groups="base.group_hr_manager"
         />
+        <menuitem
+            id="menu_payroll_structure_configure"
+            parent="hr.menu_hr_configuration"
+            name="Payroll Structure"
+            groups="base.group_hr_manager"
+            sequence="45"
+        />
+        <menuitem
+            id="menu_payroll_leaves_configure" 
+            parent="hr.menu_hr_configuration"
+            name="Leaves"
+            groups="base.group_hr_manager"
+            sequence="40"
+        />
+        <record id="hr_holidays.menu_open_view_holiday_status" model="ir.ui.menu">
+            <field name="parent_id" ref="menu_payroll_leaves_configure"/>
+        </record>
 
     </data>
 </openerp>

@@ -51,7 +51,7 @@
             <field name="search_view_id" ref="view_hr_salary_rule_variable_filter"/>
         </record>
 
-        <menuitem id="menu_action_hr_salary_rule_variable_list" action="action_hr_salary_rule_variable_list" parent="sfl_payroll_base.payroll_configure" sequence="17"/>
+        <menuitem id="menu_action_hr_salary_rule_variable_list" action="action_hr_salary_rule_variable_list" parent="sfl_payroll_base.menu_payroll_structure_configure" sequence="17"/>
 
     </data>
 </openerp>

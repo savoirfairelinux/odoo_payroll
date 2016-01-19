@@ -1,12 +1,11 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2016 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
-#    by
-#    the Free Software Foundation, either version 3 of the License, or
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -31,7 +30,10 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
     def setUp(self):
         super(TestPayrollStructureLeaves, self).setUp()
         self.accrual_model = self.registry("hr.leave.accrual")
-        self.accrual_line_model = self.registry("hr.leave.accrual.line")
+        self.accrual_line_cash_model = self.registry(
+            "hr.leave.accrual.line.cash")
+        self.accrual_line_hours_model = self.registry(
+            "hr.leave.accrual.line.hours")
         self.public_holidays_model = self.registry("hr.holidays.public")
 
         cr, uid, context = self.cr, self.uid, self.context
@@ -56,22 +58,33 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
         self.env['hr.holidays.status'].search([]).write({'limit': False})
 
         for line in [
-            (self.vac_accrual_id, 1500, '2014-12-31', 'amount_cash'),
-            (self.vac_accrual_id, -500, '2014-12-31', 'amount_cash'),
-            (self.vac_accrual_id, 1700, '2015-01-01', 'amount_cash'),
-            (self.vac_accrual_id, 40, '2014-12-31', 'amount_hours'),
-            (self.vac_accrual_id, -10, '2014-12-31', 'amount_hours'),
-            (self.vac_accrual_id, 45, '2015-01-01', 'amount_hours'),
-            (self.sl_accrual_id, 20, '2014-12-31', 'amount_hours'),
-            (self.sl_accrual_id, -5, '2015-01-01', 'amount_hours'),
-            (self.comp_accrual_id, 600, '2014-12-31', 'amount_cash'),
-            (self.comp_accrual_id, -200, '2015-01-01', 'amount_cash'),
+            (self.vac_accrual_id, 1500, '2014-12-31'),
+            (self.vac_accrual_id, -500, '2014-12-31'),
+            (self.vac_accrual_id, 1700, '2015-01-01'),
+            (self.comp_accrual_id, 600, '2014-12-31'),
+            (self.comp_accrual_id, -200, '2015-01-01'),
         ]:
-            self.accrual_line_model.create(
+            self.accrual_line_cash_model.create(
                 cr, uid, {
                     'accrual_id': line[0],
                     'source': 'manual',
-                    line[3]: line[1],
+                    'amount': line[1],
+                    'date': line[2],
+                    'name': 'Test',
+                })
+
+        for line in [
+            (self.vac_accrual_id, 40, '2014-12-31'),
+            (self.vac_accrual_id, -10, '2014-12-31'),
+            (self.vac_accrual_id, 45, '2015-01-01'),
+            (self.sl_accrual_id, 20, '2014-12-31'),
+            (self.sl_accrual_id, -5, '2015-01-01'),
+        ]:
+            self.accrual_line_hours_model.create(
+                cr, uid, {
+                    'accrual_id': line[0],
+                    'source': 'manual',
+                    'amount': line[1],
                     'date': line[2],
                     'name': 'Test',
                 })
@@ -308,11 +321,22 @@ class TestPayrollStructureLeaves(TestPayrollStructureBase):
         payslips = self.payslip_ids
 
         for line in [
-            (self.vac_accrual_id, 2000, '2014-12-31', 'amount_cash'),
-            (self.vac_accrual_id, 50, '2014-12-31', 'amount_hours'),
-            (self.comp_accrual_id, 1000, '2014-12-31', 'amount_cash'),
+            (self.vac_accrual_id, 2000, '2014-12-31', 'amount'),
+            (self.comp_accrual_id, 1000, '2014-12-31', 'amount'),
         ]:
-            self.accrual_line_model.create(
+            self.accrual_line_cash_model.create(
+                cr, uid, {
+                    'accrual_id': line[0],
+                    'name': 'test',
+                    'source': 'manual',
+                    'date': line[2],
+                    line[3]: line[1],
+                })
+
+        for line in [
+            (self.vac_accrual_id, 50, '2014-12-31', 'amount'),
+        ]:
+            self.accrual_line_hours_model.create(
                 cr, uid, {
                     'accrual_id': line[0],
                     'name': 'test',

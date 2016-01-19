@@ -1,12 +1,11 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2016 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
-#    by
-#    the Free Software Foundation, either version 3 of the License, or
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -26,8 +25,8 @@ class HrHolidays(models.Model):
 
     _inherit = 'hr.holidays'
 
-    accrual_line_id = fields.One2many(
-        'hr.leave.accrual.line',
+    accrual_line_ids = fields.One2many(
+        'hr.leave.accrual.line.hours',
         'allocation_id',
         'Leave Accrual Line',
     )
@@ -45,13 +44,13 @@ class HrHolidays(models.Model):
         self.sudo().compute_leave_accrual_lines()
         self = self.with_context({'disable_leave_accrual_update': False})
 
-        self.sudo().mapped('accrual_line_id.accrual_id').update_totals()
+        self.sudo().mapped('accrual_line_ids.accrual_id').update_totals()
 
         return res
 
     @api.multi
     def cancel_leave_accrual_lines(self):
-        self.mapped('accrual_line_id').unlink()
+        self.mapped('accrual_line_ids').unlink()
 
     @api.one
     def compute_leave_accrual_lines(self):
@@ -69,10 +68,10 @@ class HrHolidays(models.Model):
                 employee.company_id.holidays_hours_per_day)
 
             self.write({
-                'accrual_line_id': [(0, 0, {
+                'accrual_line_ids': [(0, 0, {
                     'name': self.name or _('Leave Allocation'),
                     'source': 'allocation',
-                    'amount_hours': number_of_hours,
+                    'amount': number_of_hours,
                     'accrual_id': accrual.id,
                     'date': fields.Date.today(),
                 })]})

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2016 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -34,6 +34,7 @@
         'views/hr_period.xml',
         'views/hr_fiscalyear.xml',
         'views/hr_payslip.xml',
+        'views/hr_payslip_line.xml',
         'views/hr_payslip_run.xml',
         'wizard/hr_payslip_employee.xml',
     ],

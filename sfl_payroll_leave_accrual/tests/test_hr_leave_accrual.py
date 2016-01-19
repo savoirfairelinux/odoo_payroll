@@ -1,12 +1,11 @@
 # -*- coding:utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2015 Savoir-faire Linux. All Rights Reserved.
+#    Copyright (C) 2016 Savoir-faire Linux. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
-#    by
-#    the Free Software Foundation, either version 3 of the License, or
+#    by the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
@@ -38,22 +37,22 @@ class TestHrLeaveAccrual(common.TransactionCase):
         self.accrual = self.employee.get_leave_accrual(self.leave_type.id)
 
     def test_accrual_amount_precision(self):
-        self.env['hr.leave.accrual.line'].create({
+        self.env['hr.leave.accrual.line.hours'].create({
             'accrual_id': self.accrual.id,
-            'amount_hours': 1.2345,
+            'amount': 1.2345,
             'name': 'Test',
         })
 
-        self.env['hr.leave.accrual.line'].create({
+        self.env['hr.leave.accrual.line.cash'].create({
             'accrual_id': self.accrual.id,
-            'amount_cash': 1.25,
+            'amount': 1.25,
             'name': 'Test',
         })
 
         self.assertEquals(self.accrual.total_hours, 1.2345)
         self.assertEquals(self.accrual.total_cash, 1.25)
 
-    def test_accrual_is_refund(self):
+    def test_accrual_from_payslip(self):
 
         self.contract = self.env['hr.contract'].create({
             'employee_id': self.employee.id,
@@ -69,31 +68,37 @@ class TestHrLeaveAccrual(common.TransactionCase):
             'credit_note': True,
         })
 
-        self.env['hr.leave.accrual.line'].create({
+        self.env['hr.leave.accrual.line.hours'].create({
             'accrual_id': self.accrual.id,
-            'amount_hours': 7,
+            'amount': 7,
             'name': 'Test',
         })
 
-        self.env['hr.leave.accrual.line'].create({
+        self.env['hr.leave.accrual.line.hours'].create({
             'accrual_id': self.accrual.id,
-            'amount_hours': 3,
-            'name': 'Test',
-            'payslip_id': self.payslip.id,
-        })
-
-        self.env['hr.leave.accrual.line'].create({
-            'accrual_id': self.accrual.id,
-            'amount_cash': 5,
-            'name': 'Test',
-        })
-
-        self.env['hr.leave.accrual.line'].create({
-            'accrual_id': self.accrual.id,
-            'amount_cash': 2,
+            'amount': -3,
             'name': 'Test',
             'payslip_id': self.payslip.id,
+            'source': 'payslip',
         })
 
+        self.env['hr.leave.accrual.line.cash'].create({
+            'accrual_id': self.accrual.id,
+            'amount': 5,
+            'name': 'Test',
+        })
+
+        self.env['hr.leave.accrual.line.cash'].create({
+            'accrual_id': self.accrual.id,
+            'amount': -2,
+            'name': 'Test',
+            'payslip_id': self.payslip.id,
+            'source': 'payslip',
+        })
+
+        self.assertEquals(self.accrual.total_hours, 7)
+        self.assertEquals(self.accrual.total_cash, 5)
+        self.payslip.write({'state': 'done'})
+        self.accrual.update_totals()
         self.assertEquals(self.accrual.total_hours, 4)
         self.assertEquals(self.accrual.total_cash, 3)
