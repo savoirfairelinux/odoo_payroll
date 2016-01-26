@@ -33,6 +33,9 @@ class TestHrPublicHolidays(common.TransactionCase):
         self.holidays_model = self.env['hr.holidays.public']
         self.line_model = self.env['hr.holidays.public.line']
 
+        self.holidays_model.search(
+            [('country_id.code', 'in', ['CA', 'USD'])]).unlink()
+
         self.country_1 = self.country_model.search([
             ('code', '=', 'CA'),
         ])

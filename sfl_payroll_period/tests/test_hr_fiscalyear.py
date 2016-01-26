@@ -32,7 +32,10 @@ class TestHrFiscalyear(common.TransactionCase):
         self.fy_model = self.env['hr.fiscalyear']
         self.period_model = self.env['hr.period']
 
-        self.company_id = self.company_model.create({'name': 'Company 1'})
+        self.company_id = self.company_model.create({
+            'name': 'Company 1',
+            'currency_id': self.env.ref('base.CAD').id,
+        })
 
         self.today = datetime.now().date()
 

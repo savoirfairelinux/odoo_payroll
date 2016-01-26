@@ -298,7 +298,7 @@ class HrPayslip(models.Model):
         sequence_obj = self.env['ir.sequence']
 
         for payslip in self:
-            number = payslip.number or sequence_obj.get('salary.slip')
+            number = payslip.number or sequence_obj.next_by_code('salary.slip')
 
             payslip.details_by_salary_rule_category.unlink()
 

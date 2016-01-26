@@ -54,28 +54,35 @@ class TestHrPayslip(TestHrPayslipBase):
             'wage': 50000,
         }
 
-        vals.update({
+        vals_2 = vals.copy()
+        vals_3 = vals.copy()
+        vals_4 = vals.copy()
+        vals_5 = vals.copy()
+
+        vals_2.update({
             'date_start': self.date_from - relativedelta(months=6),
             'date_end': self.date_from - relativedelta(days=1),
         })
-        self.contract_2 = self.contract_model.create(vals)
+        self.contract_2 = self.contract_model.create(vals_2)
 
-        vals.update({
+        vals_3.update({
             'date_start': self.date_to + relativedelta(days=1),
             'date_end': self.date_to + relativedelta(months=6),
         })
-        self.contract_3 = self.contract_model.create(vals)
+        self.contract_3 = self.contract_model.create(vals_3)
 
-        vals.update({
+        vals_4.update({
             'date_start': self.date_from,
             'date_end': self.date_to,
         })
-        self.contract_4 = self.contract_model.create(vals)
+        self.contract_4 = self.contract_model.create(vals_4)
 
-        vals.update({
+        vals_5.update({
+            'date_start': self.date_from,
+            'date_end': self.date_to,
             'employee_id': self.employee_2.id,
         })
-        self.contract_5 = self.contract_model.create(vals)
+        self.contract_5 = self.contract_model.create(vals_5)
 
     def test_get_contract(self):
         self.create_other_contracts()

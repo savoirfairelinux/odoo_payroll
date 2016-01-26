@@ -37,8 +37,8 @@ class HrPayslipRun(models.Model):
         required=True,
         readonly=True,
         states={'draft': [('readonly', False)]},
-        default=lambda obj: obj.env['ir.sequence']
-        .get('hr.payslip.run')
+        default=lambda self: self.env['ir.sequence'].next_by_code(
+            'hr.payslip.run')
     )
     slip_ids = fields.One2many(
         'hr.payslip',
@@ -93,7 +93,7 @@ class HrPayslipRun(models.Model):
         'res.company',
         'Company',
         states={'close': [('readonly', True)]},
-        default=lambda obj: obj.env.user.company_id
+        default=lambda self: self.env.user.company_id
     )
 
     @api.multi

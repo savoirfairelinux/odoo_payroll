@@ -285,7 +285,8 @@ class HrCraT4Summary(models.Model):
     name = fields.Char(
         'Name',
         required=True,
-        default=lambda self: self.env['ir.sequence'].get('hr.cra.t4.summary'),
+        default=lambda self: self.env['ir.sequence'].next_by_code(
+            'hr.cra.t4.summary'),
     )
     t4_slip_ids = fields.One2many(
         'hr.cra.t4',
