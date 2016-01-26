@@ -70,6 +70,7 @@ class TestPayslipBase(common.TransactionCase):
         # Create a company
         self.company_id = self.company_model.create(cr, uid, {
             'name': 'Company 1',
+            'currency_id': self.env.ref('base.CAD').id,
             'street': 'test',
             'street2': 'test',
             'city': 'Regina',

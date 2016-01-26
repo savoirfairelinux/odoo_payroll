@@ -32,6 +32,7 @@ class TestHrStructureBase(common.TransactionCase):
 
         self.company_1 = self.env['res.company'].create({
             'name': 'Company 1',
+            'currency_id': self.env.ref('base.CAD').id,
         })
 
         self.rule_category_1 = self.rule_category_model.create({

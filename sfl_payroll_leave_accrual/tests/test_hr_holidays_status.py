@@ -35,6 +35,7 @@ class TestHrHolidaysStatus(common.TransactionCase):
 
         self.company = self.company_model.create({
             'name': 'Company Test',
+            'currency_id': self.env.ref('base.CAD').id,
             'holidays_hours_per_day': 7.5,
         })
 

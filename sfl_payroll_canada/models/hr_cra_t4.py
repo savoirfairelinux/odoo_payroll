@@ -38,7 +38,8 @@ class HrCraT4(models.Model):
     name = fields.Char(
         'Name', required=True,
         readonly=True, states={'draft': [('readonly', False)]},
-        default=lambda self: self.env['ir.sequence'].get('hr.cra.t4')
+        default=lambda self: self.env['ir.sequence'].next_by_code(
+            'hr.cra.t4')
     )
     rpp_dpsp_rgst_nbr = fields.Integer(
         'RPP/PRPP registration number',
