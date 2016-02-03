@@ -110,7 +110,7 @@ msgid "Job Description"
 msgstr "Description du poste"
 
 #. module: sfl_payroll_activity_on_timesheet
-#: model:ir.model,name:sfl_payroll_activity_on_timesheet.model_hr_analytic_timesheet
+#: model:ir.model,name:sfl_payroll_activity_on_timesheet.model_account_analytic_line
 msgid "Timesheet Line"
 msgstr "Entrée de feuille de temps"
 

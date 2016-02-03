@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <templates>
-    <t t-name="hr_timesheet_sheet.WeeklyTimesheet">
+    <t t-name="sfl_payroll_activity_on_timesheet.WeeklyTimesheet">
         <div class="oe_timesheet_weekly">
             <table>
                 <tr>
                     <th class="oe_timesheet_first_col">Analytic Account</th>
                     <th class="oe_timesheet_snd_col">Activity</th>
                     <t t-foreach="widget.dates" t-as="date">
-                        <th t-att-class="'oe_timesheet_weekly_date_head' + (Date.compare(date, Date.today()) === 0 ? ' oe_timesheet_weekly_today' : '')">
-                            <t t-esc="date.toString('ddd')"/><br />
-                            <t t-esc="date.toString('MMM d')"/>
+                        <th t-att-class="'oe_timesheet_weekly_date_head' + (moment().format('DD-MM-YYYY') === moment(date).format('DD-MM-YYYY') ? ' oe_timesheet_weekly_today' : '')">
+                            <t t-esc="moment(date).format('ddd')"/><br/>
+                            <t t-esc="moment(date).format('MMM d')"/>
                         </th>
                     </t>
                     <th class="oe_timesheet_weekly_date_head">Total</th>
@@ -29,7 +29,7 @@
                         </td>
                         <t t-set="day_count" t-value="0"/>
                         <t t-foreach="activity.days" t-as="day">
-                            <td t-att-class="(Date.compare(day.day, Date.today()) === 0 ? 'oe_timesheet_weekly_today' : '')">
+                            <td t-att-class="moment().format('DD-MM-YYYY') === moment(day.day).format('DD-MM-YYYY') ? 'oe_timesheet_weekly_today' : ''">
                                 <input t-if="!widget.get('effective_readonly')"
                                     type="text"
                                     class="oe_timesheet_weekly_input"
@@ -53,30 +53,33 @@
                     <td>Select Account and Activity</td>
                 </tr>
                 <tr class="oe_timesheet_weekly_add_row" style="display: none">
-                    <td t-att-colspan="widget.dates.length + 2">
-                        <button class="oe_highlight">Add</button>
-                    </td>
-                </tr>
-                <tr class="oe_timesheet_total">
+                    <td class="oe_timesheet_account_many2one"></td>
+                    <td class="oe_timesheet_activity_many2one"></td>
                     <td>
-                        <div class="oe_timesheet_weekly_adding_tot">
-                            <div t-if="!widget.get('effective_readonly')" class="oe_timesheet_weekly_cancel" style="display: none">
-                                <button class="oe_highlight">Cancel</button>
-                            </div>
-                            <div t-if="!widget.get('effective_readonly')" class="oe_timesheet_weekly_adding"><button class="oe_timesheet_button_add">Add a Line</button></div>
-                            <div class="oe_timesheet_weekly_tottot"><span>Total</span></div>
+                        <button class="btn btn-sm btn-primary oe_edit_only">Add</button>
+                    </td>
+                    <t t-set="day_count" t-value="0"/>
+                    <t t-foreach="widget.dates" t-as="date"><td></td></t>
+                    <td/>
+                </tr>
+                <tr>
+                    <td class="o_add_timesheet_line">
+                        <div>
+                            <button class="btn btn-sm btn-primary oe_edit_only oe_timesheet_weekly_cancel">Cancel</button>
+                            <button t-if="!widget.get('effective_readonly')" class="btn btn-sm btn-primary oe_edit_only oe_timesheet_button_add">Add a Line</button>
                         </div>
                     </td>
-                    <td></td>
+                    <td class="oe_timesheet_total">
+                        Total
+                    </td>
                     <t t-set="day_count" t-value="0"/>
                     <t t-foreach="widget.dates" t-as="date">
                         <td class="oe_timesheet_total">
-                            <span class="oe_timesheet_weekly_box" t-att-data-day-total="day_count">
-                            </span>
+                            <span class="oe_timesheet_weekly_box" t-att-data-day-total="day_count"/>
                             <t t-set="day_count" t-value="day_count + 1"/>
                         </td>
                     </t>
-                    <td class="oe_timesheet_weekly_supertotal oe_timesheet_total"> </td>
+                    <td class="oe_timesheet_weekly_supertotal oe_timesheet_total"/>
                 </tr>
             </table>
             <div t-if="widget.accounts.length == 0">

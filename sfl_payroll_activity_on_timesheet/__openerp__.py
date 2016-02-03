@@ -33,9 +33,9 @@
     'data': [
         'security/ir.model.access.csv',
         'security/hr_contract_security.xml',
-        # 'view/hr_analytic_timesheet_view.xml',
-        # 'view/hr_timesheet_sheet_view.xml',
-        'view/account_analytic_account_view.xml',
+        'views/account_analytic_line.xml',
+        'views/hr_timesheet_sheet.xml',
+        'views/account_analytic_account.xml',
         'data/account_analytic_account_data.xml',
     ],
     'test': [],

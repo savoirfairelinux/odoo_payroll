@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from . import hr_payslip
+from . import account_analytic_line
 from . import hr_employee
+from . import hr_payslip
 from . import hr_payslip_worked_days
-from . import hr_timesheet

@@ -19,4 +19,4 @@
 #
 ##############################################################################
 
-from . import hr_timesheet
+from . import account_analytic_line

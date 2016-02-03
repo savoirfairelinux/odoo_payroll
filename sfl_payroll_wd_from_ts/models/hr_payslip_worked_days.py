@@ -27,7 +27,7 @@ class HrPayslipWorkedDays(models.Model):
     _inherit = 'hr.payslip.worked_days'
 
     timesheet_ids = fields.One2many(
-        'hr.analytic.timesheet',
+        'account.analytic.line',
         'worked_days_id',
         'Origin Timesheets',
     )

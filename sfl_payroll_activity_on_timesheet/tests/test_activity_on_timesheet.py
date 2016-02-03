@@ -70,7 +70,6 @@ class test_activity_on_timesheet(common.TransactionCase):
         })
 
         self.account = self.account_model.create({
-            'use_timesheets': True,
             'name': 'Account 1',
             'activity_type': 'job',
             'authorized_activity_ids': [(6, 0, [
@@ -86,7 +85,7 @@ class test_activity_on_timesheet(common.TransactionCase):
         """
         activity_id = self.job.activity_ids.id
 
-        res = self.timesheet_model.onchange_activity_id(
+        res = self.timesheet_model.onchange_account_id(
             self.account.id, user_id=self.user.id, activity_id=activity_id)
 
         self.assertNotEqual(res['value']['activity_id'], activity_id)
@@ -98,7 +97,7 @@ class test_activity_on_timesheet(common.TransactionCase):
         """
         activity_id = self.job_2.activity_ids.id
 
-        res = self.timesheet_model.onchange_activity_id(
+        res = self.timesheet_model.onchange_account_id(
             self.account.id, user_id=self.user.id, activity_id=activity_id)
 
         self.assertEqual(res['value']['activity_id'], activity_id)
@@ -107,7 +106,7 @@ class test_activity_on_timesheet(common.TransactionCase):
         """
         Test on_change_activity_id when no activity is given in parameter
         """
-        res = self.timesheet_model.onchange_activity_id(
+        res = self.timesheet_model.onchange_account_id(
             self.account.id, user_id=self.user.id, activity_id=False)
 
         self.assertEqual(res['value']['activity_id'], False)

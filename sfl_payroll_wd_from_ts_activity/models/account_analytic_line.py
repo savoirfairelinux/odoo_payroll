@@ -22,19 +22,13 @@
 from openerp import api, models
 
 
-class HrTimesheet(models.Model):
+class AccountAnalyticLine(models.Model):
 
-    _inherit = 'hr.analytic.timesheet'
+    _inherit = 'account.analytic.line'
 
     @api.multi
     def worked_days_mapping(self):
-        """
-        This method is entended to be inherited.
-
-        It maps a single timesheet record to a dict of field values
-        that would be used to generate a worked_days record.
-        """
         self.ensure_one()
-        res = super(HrTimesheet, self).worked_days_mapping()
+        res = super(AccountAnalyticLine, self).worked_days_mapping()
         res['activity_id'] = self.activity_id.id
         return res

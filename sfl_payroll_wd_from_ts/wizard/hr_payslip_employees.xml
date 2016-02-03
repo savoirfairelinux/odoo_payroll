@@ -6,7 +6,7 @@
             <field name="model">hr.payslip.employees</field>
             <field name="inherit_id" ref="sfl_payroll_base.view_hr_payslip_by_employees"/>
             <field name="arch" type="xml">
-                <separator string="Employees" position="before">
+                <separator name="employees" position="before">
                     <field name="import_from_timesheet"/>
                 </separator>
             </field>

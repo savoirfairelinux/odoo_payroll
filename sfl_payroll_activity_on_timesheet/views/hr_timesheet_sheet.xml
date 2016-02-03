@@ -9,34 +9,35 @@
 
                 <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='name']" position="before">
                     <field name="activity_id"
-                        domain="[('authorized_user_ids', '=', user_id), ('authorized_user_ids', '!=', False)]"
                         context="{'user_id': user_id, 'account_id': account_id}"
+                        required="1"
                     />
                 </xpath>
 
                 <xpath expr="//field[@name='timesheet_ids']/form/field[@name='name']" position="before">
                     <field name="activity_id"
-                        domain="[('authorized_user_ids', '=', user_id), ('authorized_user_ids', '!=', False)]"
                         context="{'user_id': user_id, 'account_id': account_id}"
+                        required="1"
                     />
                 </xpath>
 
                 <!-- Add activity_id argument to on_change_account_id -->
                 <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='account_id']" position="attributes">
-                    <attribute name="on_change">on_change_account_id(account_id, user_id, activity_id)</attribute>
+                    <attribute name="on_change">onchange_account_id(account_id, user_id, activity_id)</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='timesheet_ids']/form/field[@name='account_id']" position="attributes">
-                    <attribute name="on_change">on_change_account_id(account_id, user_id, activity_id)</attribute>
+                    <attribute name="on_change">onchange_account_id(account_id, user_id, activity_id)</attribute>
                 </xpath>
-                
+
             </field>
         </record>
 
-        <delete id="hr_timesheet_sheet.assets_backend" model="ir.actions.report.xml"/>
-        <template id="assets_backend" name="hr_timesheet_sheet assets" inherit_id="web.assets_backend">
-            <xpath expr="." position="inside">
+        <template id="assets_backend" name="hr_timesheet_sheet assets" inherit_id="hr_timesheet_sheet.assets_backend">
+            <xpath expr="//link[@href='/hr_timesheet_sheet/static/src/less/timesheet.less']" position="after">
                 <link rel="stylesheet" href="/sfl_payroll_activity_on_timesheet/static/src/css/timesheet.css"/>
+            </xpath>
+            <xpath expr="//script[@src='/hr_timesheet_sheet/static/src/js/timesheet.js']" position="replace">
                 <script type="text/javascript" src="/sfl_payroll_activity_on_timesheet/static/src/js/timesheet.js"></script>
             </xpath>
         </template>

@@ -21,13 +21,13 @@
 
 from itertools import groupby
 
-from openerp import api, fields, models, _
+from openerp import _, api, fields, models
 from openerp.exceptions import ValidationError
 
 
-class HrTimesheet(models.Model):
+class AccountAnalyticLine(models.Model):
 
-    _inherit = 'hr.analytic.timesheet'
+    _inherit = 'account.analytic.line'
 
     worked_days_id = fields.Many2one(
         'hr.payslip.worked_days',
@@ -43,10 +43,14 @@ class HrTimesheet(models.Model):
         For each timesheets that map exactly to the same worked days
         field values, only one record is created.
         """
+        if self.filtered(lambda ts: not ts.is_timesheet):
+            raise ValidationError(_(
+                'Only timesheets can be exported to worked days'))
+
         if self.sudo().mapped('worked_days_id'):
-            raise ValidationError(
+            raise ValidationError(_(
                 'You are attempting to export a timesheet that was already '
-                'exported to a payslip')
+                'exported to a payslip'))
 
         # Map every single timesheet
         mapped_timesheets = []
@@ -77,16 +81,14 @@ class HrTimesheet(models.Model):
             # be modified when it's state is done.
             cr = self.env.cr
             cr.execute(
-                """UPDATE hr_analytic_timesheet
+                """UPDATE account_analytic_line
                 SET worked_days_id = %s WHERE id in %s
                 """, (new_worked_days.id, timesheet_ids, ))
 
     @api.multi
     def worked_days_mapping(self):
         """
-        This method is entended to be inherited.
-
-        It maps a single timesheet record to a dict of field values
+        Map a single timesheet record to a dict of field values
         that would be used to generate a worked_days record.
         """
         self.ensure_one()

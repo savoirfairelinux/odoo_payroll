@@ -66,7 +66,10 @@
                     </group>
                     <notebook>
                         <page string="Worked Days &amp; Inputs">
-                            <separator string="Worked Days"/>
+                            <group>
+                                <separator string="Worked Days"/>
+                                <div name="worked_days_buttons" class="oe_right oe_button_box"></div>
+                            </group>
                             <field name="worked_days_line_ids">
                                 <tree string="Worked Days" editable="bottom">
                                     <field name="date"/>

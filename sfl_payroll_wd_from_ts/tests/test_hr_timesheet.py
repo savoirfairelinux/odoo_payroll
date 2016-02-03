@@ -31,7 +31,6 @@ class TestHrTimesheet(common.TransactionCase):
         self.contract_model = self.env["hr.contract"]
         self.timesheet_model = self.env['hr_timesheet_sheet.sheet']
         self.account_model = self.env['account.analytic.account']
-        self.journal_model = self.env['account.analytic.journal']
         self.wizard_model = self.env['hr.payslip.employees']
         self.run_model = self.env['hr.payslip.run']
 
@@ -40,11 +39,8 @@ class TestHrTimesheet(common.TransactionCase):
             'login': 'test_user',
         })
 
-        self.journal = self.journal_model.search([], limit=1)
-
         self.employee = self.employee_model.create({
             'name': 'Employee 1',
-            'journal_id': self.journal.id,
             'user_id': self.user_1.id,
         })
 
@@ -54,9 +50,10 @@ class TestHrTimesheet(common.TransactionCase):
             'wage': 50000,
         })
 
-        self.account = self.account_model.search([
-            ('type', '!=', 'view'),
-        ], limit=1)
+        self.account = self.account_model.create({
+            'name': 'Test timesheets',
+            'uses_timesheets': True,
+        })
 
         self.timesheet_1 = self.timesheet_model.create({
             'employee_id': self.employee.id,
@@ -68,24 +65,24 @@ class TestHrTimesheet(common.TransactionCase):
                     'unit_amount': 8,
                     'date': '2015-02-15',
                     'account_id': self.account.id,
-                    'journal_id': self.journal.id,
                     'name': 'Test',
+                    'is_timesheet': True,
                 }),
                 (0, 0, {
                     'user_id': self.user_1.id,
                     'unit_amount': 5,
                     'date': '2015-02-15',
                     'account_id': self.account.id,
-                    'journal_id': self.journal.id,
                     'name': 'Test',
+                    'is_timesheet': True,
                 }),
                 (0, 0, {
                     'user_id': self.user_1.id,
                     'unit_amount': 7,
                     'date': '2015-02-28',
                     'account_id': self.account.id,
-                    'journal_id': self.journal.id,
                     'name': 'Test',
+                    'is_timesheet': True,
                 }),
             ],
         })
@@ -100,8 +97,8 @@ class TestHrTimesheet(common.TransactionCase):
                     'unit_amount': 8,
                     'date': '2015-02-01',
                     'account_id': self.account.id,
-                    'journal_id': self.journal.id,
                     'name': 'Test',
+                    'is_timesheet': True,
                 }),
             ],
         })
