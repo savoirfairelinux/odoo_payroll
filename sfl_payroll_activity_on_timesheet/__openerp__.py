@@ -20,7 +20,7 @@
 
 {
     'name': 'Activity on Timesheet',
-    'version': '8.0.1.0.0',
+    'version': '1.0.0',
     'license': 'AGPL-3',
     'category': 'Generic Modules/Human Resources',
     'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
@@ -33,8 +33,8 @@
     'data': [
         'security/ir.model.access.csv',
         'security/hr_contract_security.xml',
-        'view/hr_analytic_timesheet_view.xml',
-        'view/hr_timesheet_sheet_view.xml',
+        # 'view/hr_analytic_timesheet_view.xml',
+        # 'view/hr_timesheet_sheet_view.xml',
         'view/account_analytic_account_view.xml',
         'data/account_analytic_account_data.xml',
     ],

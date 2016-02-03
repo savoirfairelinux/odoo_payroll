@@ -20,7 +20,7 @@
 {
     'name': 'Canada - Payroll Accounting',
     'category': 'Localization',
-    'version': '8.0.1.0.0',
+    'version': '1.0.0',
     'license': 'AGPL-3',
     'author': "Savoir-faire Linux",
     'website': 'https://savoirfairelinux.com/',

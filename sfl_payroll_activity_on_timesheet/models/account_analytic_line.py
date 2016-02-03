@@ -22,7 +22,7 @@ from openerp import api, fields, models
 
 
 class HrAnalyticTimesheet(models.Model):
-    _inherit = 'hr.analytic.timesheet'
+    _inherit = 'account.analytic.line'
     activity_id = fields.Many2one(
         'hr.activity',
         'Activity',
@@ -30,16 +30,10 @@ class HrAnalyticTimesheet(models.Model):
     )
 
     @api.multi
-    def on_change_account_id(
+    def onchange_activity_id(
         self, account_id, user_id=False, activity_id=False
     ):
-        # on_change_account_id in module hr_timesheet_invoice does
-        # not accept the context argument, so we don't pass it with super
-        res = super(HrAnalyticTimesheet, self).on_change_account_id(
-            account_id, user_id=user_id)
-
-        if 'value' not in res:
-            res['value'] = {}
+        res = {'value': {}}
 
         # If an activity and an account are given, check if the activity
         # is authorized for the account. If the activity is authorized,

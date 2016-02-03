@@ -30,7 +30,7 @@ class test_activity_on_timesheet(common.TransactionCase):
         self.job_model = self.env["hr.job"]
         self.activity_model = self.env["hr.activity"]
         self.account_model = self.env["account.analytic.account"]
-        self.timesheet_model = self.env["hr.analytic.timesheet"]
+        self.timesheet_model = self.env["account.analytic.line"]
 
         self.user = self.user_model.create({
             'name': 'User 1',
@@ -70,7 +70,6 @@ class test_activity_on_timesheet(common.TransactionCase):
         })
 
         self.account = self.account_model.create({
-            'type': 'normal',
             'use_timesheets': True,
             'name': 'Account 1',
             'activity_type': 'job',
@@ -80,35 +79,35 @@ class test_activity_on_timesheet(common.TransactionCase):
             ])],
         })
 
-    def test_01_on_change_account_id_not_authorized(self):
+    def test_01_on_change_activity_id_not_authorized(self):
         """
-        Test on_change_account_id when the given activity
+        Test on_change_activity_id when the given activity
         is not authorized on the analytic account
         """
         activity_id = self.job.activity_ids.id
 
-        res = self.timesheet_model.on_change_account_id(
+        res = self.timesheet_model.onchange_activity_id(
             self.account.id, user_id=self.user.id, activity_id=activity_id)
 
         self.assertNotEqual(res['value']['activity_id'], activity_id)
 
-    def test_02_on_change_account_id_authorized(self):
+    def test_02_on_change_activity_id_authorized(self):
         """
-        Test on_change_account_id when the given activity
+        Test on_change_activity_id when the given activity
         is authorized on the analytic account
         """
         activity_id = self.job_2.activity_ids.id
 
-        res = self.timesheet_model.on_change_account_id(
+        res = self.timesheet_model.onchange_activity_id(
             self.account.id, user_id=self.user.id, activity_id=activity_id)
 
         self.assertEqual(res['value']['activity_id'], activity_id)
 
-    def test_03_on_change_account_id_no_activity(self):
+    def test_03_on_change_activity_id_no_activity(self):
         """
-        Test on_change_account_id when no activity is given in parameter
+        Test on_change_activity_id when no activity is given in parameter
         """
-        res = self.timesheet_model.on_change_account_id(
+        res = self.timesheet_model.onchange_activity_id(
             self.account.id, user_id=self.user.id, activity_id=False)
 
         self.assertEqual(res['value']['activity_id'], False)
