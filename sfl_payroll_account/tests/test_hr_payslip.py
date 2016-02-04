@@ -20,6 +20,7 @@
 ##############################################################################
 
 from datetime import datetime
+
 from dateutil.relativedelta import relativedelta
 
 from openerp.addons.sfl_payroll_base.tests.test_hr_contract import (
@@ -32,41 +33,29 @@ class TestHrPayslip(TestHrContractBase):
         super(TestHrPayslip, self).setUp()
 
         account_model = self.env['account.account']
-        acc_view = account_model.create({
-            'name': 'Account View',
-            'code': '100000',
-            'type': 'view',
-            'user_type': self.ref('account.data_account_type_view'),
-        })
 
         acc_payable = account_model.create({
-            'name': 'Account Pyable',
+            'name': 'Account Payable',
             'code': '100001',
-            'type': 'payable',
-            'user_type': self.ref('account.data_account_type_payable'),
-            'parent_id': acc_view.id,
+            'user_type_id': self.ref('account.data_account_type_payable'),
+            'reconcile': True,
         })
 
         acc_liquidity = account_model.create({
             'name': 'Account Liquidity',
             'code': '100002',
-            'type': 'liquidity',
-            'user_type': self.ref('account.data_account_type_asset'),
-            'parent_id': acc_view.id,
+            'user_type_id': self.ref('account.data_account_type_liquidity'),
         })
 
         acc_expense = account_model.create({
             'name': 'Account Expense',
             'code': '100003',
-            'type': 'other',
-            'user_type': self.ref('account.data_account_type_expense'),
-            'parent_id': acc_view.id,
+            'user_type_id': self.ref('account.data_account_type_expenses'),
         })
 
         analytic_acc = self.env['account.analytic.account'].create({
             'name': 'Payroll Analytic Account',
             'code': '100000',
-            'type': 'normal',
         })
 
         self.rule_1.write({
@@ -104,4 +93,4 @@ class TestHrPayslip(TestHrContractBase):
 
         self.assertEqual(move.date, self.payslip_1.date_payment)
 
-        self.assertEqual(len(move.line_id), 4)
+        self.assertEqual(len(move.line_ids), 4)

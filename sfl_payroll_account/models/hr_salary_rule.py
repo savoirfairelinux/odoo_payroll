@@ -31,10 +31,6 @@ class HrSalaryRule(models.Model):
         'account.analytic.account',
         'Analytic Account',
     )
-    account_tax_id = fields.Many2one(
-        'account.tax.code',
-        'Tax Code',
-    )
     account_debit = fields.Many2one(
         'account.account',
         'Debit Account',

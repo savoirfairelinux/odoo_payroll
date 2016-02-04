@@ -22,7 +22,8 @@
 ##############################################################################
 
 import time
-from openerp import api, fields, models, _
+
+from openerp import _, api, fields, models
 from openerp.exceptions import ValidationError
 from openerp.tools import float_is_zero, float_compare
 
@@ -30,14 +31,6 @@ from openerp.tools import float_is_zero, float_compare
 class HrPayslip(models.Model):
     _inherit = 'hr.payslip'
 
-    period_id = fields.Many2one(
-        'account.period',
-        'Force Period',
-        readonly=True,
-        states={'draft': [('readonly', False)]},
-        domain=[('state', '!=', 'done')],
-        help="Keep empty to use the period of the validation(Payslip) date."
-    )
     journal_id = fields.Many2one(
         'account.journal',
         'Salary Journal',
@@ -73,7 +66,6 @@ class HrPayslip(models.Model):
     @api.multi
     def process_sheet(self):
         move_pool = self.env['account.move']
-        period_pool = self.env['account.period']
         precision = self.env['decimal.precision'].precision_get('Payroll')
         timenow = time.strftime('%Y-%m-%d')
 
@@ -82,12 +74,6 @@ class HrPayslip(models.Model):
             debit_sum = 0.0
             credit_sum = 0.0
 
-            if not slip.period_id:
-                search_periods = period_pool.find(slip.date_to)
-                period = search_periods[0]
-            else:
-                period = slip.period_id
-
             employee_partner = slip.employee_id.address_home_id
             name = _('Payslip of %s') % (slip.employee_id.name)
             move_vals = {
@@ -95,7 +81,6 @@ class HrPayslip(models.Model):
                 'date': timenow,
                 'ref': slip.number,
                 'journal_id': slip.journal_id.id,
-                'period_id': period.id,
             }
             for line in slip.details_by_salary_rule_category:
                 amt = -line.amount if slip.credit_note else line.amount
@@ -109,12 +94,11 @@ class HrPayslip(models.Model):
                 debit_account_id = line.salary_rule_id.account_debit.id
                 credit_account_id = line.salary_rule_id.account_credit.id
                 analytic_account = rule.analytic_account_id
-                account_tax = rule.account_tax_id
 
                 if debit_account_id:
 
                     if (
-                        rule.account_debit.type not in
+                        rule.account_debit.internal_type not in
                         ['receivable', 'payable']
                     ):
                         partner_debit = self.env['res.partner']
@@ -131,12 +115,9 @@ class HrPayslip(models.Model):
                         'partner_id': partner_debit.id,
                         'account_id': debit_account_id,
                         'journal_id': slip.journal_id.id,
-                        'period_id': period.id,
                         'debit': amt > 0.0 and amt or 0.0,
                         'credit': amt < 0.0 and -amt or 0.0,
                         'analytic_account_id': analytic_account.id,
-                        'tax_code_id': account_tax.id,
-                        'tax_amount': amt if account_tax else 0.0,
                     })
                     line_ids.append(debit_line)
                     debit_sum += (
@@ -146,7 +127,7 @@ class HrPayslip(models.Model):
                 if credit_account_id:
 
                     if (
-                        rule.account_credit.type not in
+                        rule.account_credit.internal_type not in
                         ['receivable', 'payable']
                     ):
                         partner_credit = self.env['res.partner']
@@ -163,12 +144,9 @@ class HrPayslip(models.Model):
                         'partner_id': partner_credit.id,
                         'account_id': credit_account_id,
                         'journal_id': slip.journal_id.id,
-                        'period_id': period.id,
                         'debit': amt < 0.0 and -amt or 0.0,
                         'credit': amt > 0.0 and amt or 0.0,
                         'analytic_account_id': analytic_account.id,
-                        'tax_code_id': account_tax.id,
-                        'tax_amount': amt if account_tax else 0.0,
                     })
                     line_ids.append(credit_line)
                     credit_sum += (
@@ -190,7 +168,6 @@ class HrPayslip(models.Model):
                     'partner_id': False,
                     'account_id': acc_id,
                     'journal_id': slip.journal_id.id,
-                    'period_id': period.id,
                     'debit': 0.0,
                     'credit': debit_sum - credit_sum,
                 })
@@ -211,17 +188,13 @@ class HrPayslip(models.Model):
                     'partner_id': False,
                     'account_id': acc_id,
                     'journal_id': slip.journal_id.id,
-                    'period_id': period.id,
                     'debit': credit_sum - debit_sum,
                     'credit': 0.0,
                 })
                 line_ids.append(adjust_debit)
 
-            move_vals.update({'line_id': line_ids})
+            move_vals.update({'line_ids': line_ids})
             move = move_pool.create(move_vals)
-            slip.write({'move_id': move.id, 'period_id': period.id})
-
-            if slip.journal_id.entry_posted:
-                move.post()
+            slip.write({'move_id': move.id})
 
         return super(HrPayslip, self).process_sheet()
