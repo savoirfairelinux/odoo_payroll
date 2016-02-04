@@ -72,10 +72,14 @@ class HrEmployeeDeduction(models.Model):
         readonly=True,
     )
 
-    @api.onchange('category_id')
-    def onchange_category_id(self):
-        if self.category_id:
-            category = self.category_id
-            self.amount = self.amount or category.default_amount
-            self.amount_type = category.amount_type
-            self.jurisdiction_id = category.jurisdiction_id.id
+    @api.multi
+    def onchange_category_id(self, category_id, amount):
+        if not category_id:
+            return {}
+
+        category = self.env['hr.deduction.category'].browse(category_id)
+        return {
+            'amount': amount or category.default_amount,
+            'amount_type': category.amount_type,
+            'jurisdiction_id': category.jurisdiction_id.id,
+        }
