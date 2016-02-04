@@ -86,17 +86,17 @@ class TestHrReleve1SummaryAccount(TestHrReleve1SummaryBase):
     def create_account(self, account_type, code):
         return self.env['account.account'].create({
             'name': 'Test',
-            'type': account_type,
             'code': code,
-            'user_type': self.ref('account.data_account_type_payable')
+            'user_type_id': self.ref('account.data_account_type_payable')
             if account_type == 'payable'
-            else self.ref('account.data_account_type_expense'),
+            else self.ref('account.data_account_type_expenses'),
             'company_id': self.company_id,
+            'reconcile': True if account_type == 'payable' else False,
         })
 
     def get_account_move_line(self, move, account):
         lines = [
-            line for line in move.line_id
+            line for line in move.line_ids
             if line.account_id == account
         ]
 

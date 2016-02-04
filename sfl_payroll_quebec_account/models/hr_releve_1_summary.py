@@ -157,16 +157,12 @@ class HrReleve1Summary(models.Model):
                     }),
                 ]
 
-            period = self.env['account.period'].with_context({
-                'company_id': company.id}).find(summary.date)[0]
-
             move = self.env['account.move'].create({
                 'company_id': company.id,
                 'journal_id': company.payroll_journal_id.id,
-                'period_id': period.id,
                 'ref': _("Summary 1 - Year %s") % summary.year,
                 'date': summary.date,
-                'line_id': move_lines,
+                'line_ids': move_lines,
             })
 
             summary.write({'move_id': move.id})
