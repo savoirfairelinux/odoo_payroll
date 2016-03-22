@@ -1,0 +1,1208 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * payroll_quebec
+# 
+# Translators:
+# Loic <loic.richard2@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: l10n-canada (7.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-29 10:37+0000\n"
+"PO-Revision-Date: 2015-07-27 23:55+0000\n"
+"Last-Translator: Loic <loic.richard2@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/oca/OCA-l10n-canada-7-0/language/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: payroll_quebec
+#: model:ir.model,name:payroll_quebec.model_hr_employee
+msgid "Employee"
+msgstr ""
+
+#. module: payroll_quebec
+#: help:hr.employee,tp10153:0
+msgid "Source Deductions Return"
+msgstr ""
+
+#. module: payroll_quebec
+#: field:hr.employee,tp10153:0
+msgid "Source Deductions Return (TP-1015.3)"
+msgstr "Source du retour de la déduction (TP-1015.3)"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Labour Standards"
+msgstr "Normes du Travail"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,other_amount_ids:0
+msgid "Other Amounts"
+msgstr "Autres montants"
+
+#. module: payroll_quebec
+#: model:ir.actions.report.xml,name:payroll_quebec.releve_1_report_copy_2
+msgid "Relevé 1 - Copy 2 (Employee)"
+msgstr "Relevé 1 - Copie 2 (Employé)"
+
+#. module: payroll_quebec
+#: field:res.company,rq_payroll_id:0
+msgid "Revenu Québec Identification Number"
+msgstr "Numéro d'identification de Revenu Québec"
+
+#. module: payroll_quebec
+#: help:hr.employee,qc_additional_source_deduction:0
+msgid ""
+"Additional source deduction of income tax requested by the individual per "
+"pay period. Put a positive amount."
+msgstr ""
+"Déduction à la source additionnelle demandée par l'individu par période de "
+"paie et autorisée par Revenu Québec. Inscrire un montant positif."
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,total_payable:0
+msgid "Total Payable"
+msgstr "Total à payer"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "QPP Contributions"
+msgstr "Contributions au RRQ"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.box:0
+msgid "Group By..."
+msgstr "Grouper par..."
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "V- Nourriture et logement"
+msgstr "V- Nourriture et logement"
+
+#. module: payroll_quebec
+#: model:ir.model,name:payroll_quebec.model_hr_qc_rate
+msgid "Quebec Contribution Rate"
+msgstr "Taux de contribution du Québec"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "Numéro d'assurance sociale du particulier"
+msgstr "Numéro d'assurance sociale du particulier"
+
+#. module: payroll_quebec
+#: field:res.company,csst_rate_ids:0
+msgid "CSST Rates"
+msgstr "Taux de contribution à la CSST"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.box:0
+msgid "Salary Rules"
+msgstr "Règles de salaire"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Quebec Income Tax"
+msgstr "Impôt du Québec"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Health Service Fund"
+msgstr "Fonds des Services de Santé"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_releve_1.py:261
+#, python-format
+msgid "Province"
+msgstr "Province"
+
+#. module: payroll_quebec
+#: view:hr.releve_1:0
+msgid "Inputs"
+msgstr "Entrées"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,box_o_amount:0 field:hr.releve_1,box_o_amount_code:0
+msgid "Box O Amount"
+msgstr "Montant de la case O"
+
+#. module: payroll_quebec
+#: field:hr.qc.rate,company_id:0 field:hr.qc.summary,company_id:0
+#: field:hr.releve_1,company_id:0 field:hr.releve_1.summary,company_id:0
+msgid "Company"
+msgstr "Société"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_releve_1.py:266
+#, python-format
+msgid "Zip Code"
+msgstr "Code postal"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "A- Revenus d'emploi"
+msgstr "A- Revenus d'emploi"
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,qpip_amount_ee:0
+msgid "Relevés 1 (box H)"
+msgstr "Relevés 1 (case H)"
+
+#. module: payroll_quebec
+#: view:hr.releve_1:0 view:hr.releve_1.summary:0
+#: field:hr.releve_1.summary,releve_1_ids:0
+#: model:ir.actions.act_window,name:payroll_quebec.action_view_hr_releve_1_tree
+#: model:ir.ui.menu,name:payroll_quebec.releve_1_menu_item
+msgid "Relevés 1"
+msgstr "Relevés 1"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary.total,box_id:0
+msgid "Contribution / Source Deduction"
+msgstr "Contribution / Déduction à la source"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,qit_amount_2:0
+msgid "Relevés 2"
+msgstr "Relevés 2"
+
+#. module: payroll_quebec
+#: model:ir.model,name:payroll_quebec.model_hr_payslip
+msgid "Pay Slip"
+msgstr "Bulletin de paie"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,wsdrf_expenses:0
+msgid "Expenses Deduced"
+msgstr "Dépenses déduites"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,hsf_exemption_code:0
+msgid "Exemption Code"
+msgstr "Code d'exemption"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "Code du relevé"
+msgstr "Code du relevé"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,wsdrf_expenses_available:0
+msgid "Expenses Available"
+msgstr "Dépenses disponibles"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid ""
+"1 – Copie à retourner avec le formulaire RLZ-1.S (Vous devez transmettre à "
+"Revenu Québec les données inscrites ci-dessus et le code à barres "
+"bidimensionnel de données sur la même page.)"
+msgstr ""
+"1 – Copie à retourner avec le formulaire RLZ-1.S (Vous devez transmettre à "
+"Revenu Québec les données inscrites ci-dessus et le code à barres "
+"bidimensionnel de données sur la même page.)"
+
+#. module: payroll_quebec
+#: model:hr.holidays.public.line,name:payroll_quebec.holidays_chrismas_2015
+msgid "Thanksgiving"
+msgstr "Action de grâce"
+
+#. module: payroll_quebec
+#: model:ir.actions.report.xml,name:payroll_quebec.releve_1_report_copy_1
+msgid "Relevé 1 - Copy 1 (Revenu Québec)"
+msgstr "Relevé 1 - Copie 1 (Revenu Québec)"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.amount,amount:0 field:hr.releve_1.summary.total,amount:0
+msgid "Amount"
+msgstr "Montant"
+
+#. module: payroll_quebec
+#: constraint:hr.releve_1.summary:0
+msgid ""
+"Error! You can not deduce more training expenses than the amount of "
+"contribution. The balance must be reported to the next year"
+msgstr ""
+"Erreur! vous ne pouvez pas déduire plus de dépenses de formation que le "
+"montant de la contribution. La balance doit être reportée à l'année suivante."
+
+#. module: payroll_quebec
+#: selection:res.company,slip_transmission_type:0
+msgid "Send By Post"
+msgstr "Envoyer par la poste"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,total_balance:0
+msgid "Total Balance"
+msgstr "Solde"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_qc_summary.py:31
+#: selection:hr.qc.summary,state:0 selection:hr.releve_1.summary,state:0
+#, python-format
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,hsf_exemption_code:0
+msgid "Let blank if no exemption. Otherwise, refer to guide RL-1.G."
+msgstr ""
+"Laisser vide s'il n'y  a pas d'exemption. Autrement, vous référer au guide "
+"RL-1.G."
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,total_ids:0
+msgid "Totals"
+msgstr "Totaux"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,parent_id:0
+msgid "Parent Releve 1"
+msgstr "Relevé 1 parent"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,wsdrf_amount_before_expenses:0
+msgid "Amount Before Expenses"
+msgstr "Montant avant dépenses"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,reference:0
+msgid "Reference"
+msgstr "Référence"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_qc_summary.py:29
+#, python-format
+msgid "Original"
+msgstr "Original"
+
+#. module: payroll_quebec
+#: view:hr.employee:0
+msgid "Quebec Details"
+msgstr "Détails relatifs au Québec"
+
+#. module: payroll_quebec
+#: constraint:hr.releve_1:0
+#, fuzzy
+msgid "Error. You can enter a maximum of 4 other amounts."
+msgstr ""
+"Erreur! Vous ne pouvez pas entrer plus de 4 lignes d'information "
+"additionnelle. Ils doivent tous être différents."
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "K- Voyages (région éloignée)"
+msgstr "K- Voyages (région éloignée)"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_payslip_line.py:26
+#, python-format
+msgid "QIT - Quebec Income Tax"
+msgstr "QIT - Impôt du Québec"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.amount,slip_id:0
+msgid "Releve 1"
+msgstr "Relevé 1"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "Numéro de référence (facultatif)"
+msgstr "Numéro de référence (facultatif)"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "B- Cotisation au RRQ"
+msgstr "B- Cotisation au RRQ"
+
+#. module: payroll_quebec
+#: view:hr.releve_1:0 field:hr.releve_1,child_ids:0
+msgid "Related Releves 1"
+msgstr "Relevés 1 associés"
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,wsdrf_expenses_current:0
+msgid ""
+"The amount of eligible training expenses that were engaged in the year of "
+"reference."
+msgstr ""
+"Le montant éligible de dépenses de formation engagées durant l'année de "
+"référence."
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "QPP, QPIP and Income Tax"
+msgstr "RRQ, RQAP, Impôt sur le revenu"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,sub_total_contribution:0
+msgid "Sub Total"
+msgstr "Sous total"
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,hsf_contribution_rate:0
+msgid "Refer to guide RL-1.G."
+msgstr "Veuillez vous référer au guide RL-1.G."
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,hsf_amount_remitted:0
+#: field:hr.releve_1.summary,sub_total_remitted:0
+msgid "Contributions Remitted"
+msgstr "Contributions remises"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.box:0
+#: model:ir.actions.act_window,name:payroll_quebec.action_view_releve_1_box_tree
+#: model:ir.ui.menu,name:payroll_quebec.releve_1_box_menu_item
+msgid "Releve 1 Boxes"
+msgstr "Cases du Relevé 1"
+
+#. module: payroll_quebec
+#: view:hr.releve_1:0 view:hr.releve_1.summary:0
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,total_receivable:0
+msgid "Total Receivable"
+msgstr "Total à reçevoir"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "S- Pourboires reçus"
+msgstr "S- Pourboires reçus"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Relevé 1 Summaries"
+msgstr "Sommaires du Relevé 1"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,amended_slip:0
+msgid "Amended Slip"
+msgstr "Feuillet amendé"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,employee_id:0
+#: model:ir.model,name:payroll_quebec.model_hr_employee
+msgid "Employee"
+msgstr "Employé"
+
+#. module: payroll_quebec
+#: constraint:res.company:0
+msgid "Error! You cannot have overlapping CSST or HSF rates"
+msgstr ""
+"Erreur! Vous ne pouvez pas avoir de cotisation à la CSST ou au FSS qui "
+"s'entrecroisent dans le temps."
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,hsf_amount_payable:0
+msgid "Contribution to Pay"
+msgstr "Contribution à payer"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,qpip_amount_ee:0
+#: field:hr.releve_1.summary,qpp_amount_ee:0
+msgid "Source Deduction"
+msgstr "Source de Déduction"
+
+#. module: payroll_quebec
+#: selection:hr.qc.summary,state:0 selection:hr.releve_1.summary,state:0
+msgid "Sent"
+msgstr "Transmis"
+
+#. module: payroll_quebec
+#: view:hr.releve_1:0
+#, fuzzy
+msgid "DataMatrix Barcode"
+msgstr "Code à barre Datamatrix"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.box:0
+#: model:ir.model,name:payroll_quebec.model_hr_releve_1_box
+msgid "Releve 1 Box"
+msgstr "Case du Relevé 1"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "FS1401227"
+msgstr "FS1401227"
+
+#. module: payroll_quebec
+#: constraint:hr.releve_1.summary:0
+msgid "Error! You can only have one Relevé 1 per employee in a summary"
+msgstr ""
+"Erreur! Vous ne pouvez avoir qu'un relevé 1 par employé dans un sommaire."
+
+#. module: payroll_quebec
+#: help:hr.releve_1,child_ids:0
+msgid ""
+"When an employee has more than 4 other amounts to be written in his Releve "
+"1, other Releves 1 must be created."
+msgstr ""
+"Lorsqu'un Relevé 1 nécessite plus de 4 autres montants, d'autres Relevés 1 "
+"doivent être créés."
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,hsf_exemption_amount:0
+msgid "Amount Exempted"
+msgstr "Montant exempté"
+
+#. module: payroll_quebec
+#: model:ir.model,name:payroll_quebec.model_hr_releve_1_summary_total
+msgid "Releve 1 Summary Amount"
+msgstr "Montant du Sommaire du Relevé 1"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "J- Régime privé d’ass. maladie"
+msgstr "J- Régime privé d’ass. maladie"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,amount_ids:0
+msgid "Box Amounts"
+msgstr "Montants"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,qit_amount_total:0
+#: field:hr.releve_1.summary,qpip_amount_total:0
+#: field:hr.releve_1.summary,qpp_amount_total:0
+msgid "Total Contribution"
+msgstr "Contribution totale"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,hsf_salaries:0
+msgid "Salaries Eligible"
+msgstr "Salaires assujetis"
+
+#. module: payroll_quebec
+#: view:hr.releve_1:0
+msgid "Set To Draft"
+msgstr "Mettre à 0."
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,cnt_amount_payable:0
+msgid "CNT - Contribution"
+msgstr "Contribution"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.box:0
+msgid "Employee Benefits"
+msgstr "Avantages sociaux"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/res_company.py:148
+#, python-format
+msgid ""
+"You have already used all your sequential numbers assigned by Revenu Québec"
+msgstr ""
+"Vous avez déjà utilisé tous vos numéros séquentiels assignés par Revenu "
+"Québec."
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+#: model:ir.actions.act_window,name:payroll_quebec.action_view_hr_releve_1_summary_tree
+#: model:ir.ui.menu,name:payroll_quebec.releve_1_summary_menu_item
+msgid "Relevés 1 - Summary"
+msgstr "Relevés 1 - Sommaire"
+
+#. module: payroll_quebec
+#: field:hr.qc.rate,date_to:0
+msgid "Date To"
+msgstr "Date de fin"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "Relevé officiel – Revenu Québec"
+msgstr "Relevé officiel – Revenu Québec"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,hsf_reduction_basis:0
+msgid "Amount Admissible for the Reduction"
+msgstr "Montant admissible pour la réduction"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "T- Pourboires attribués"
+msgstr "T- Pourboires attribués"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_payslip_line.py:27
+#, python-format
+msgid "QPIP - Employee Contribution"
+msgstr "RQAP - Contribution de l'employé"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.box:0
+msgid "Search Releve 1 Box"
+msgstr "Chercher des cases du Relevés 1"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.box:0
+msgid "Is Box O Amount"
+msgstr "Est un montant de la case O"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,sub_total_payable:0
+msgid "QPP, QPIP and Income Tax to Pay"
+msgstr "RRQ, RQAP and Impôt sur le revenu à payer"
+
+#. module: payroll_quebec
+#: field:res.company,hsf_rate_ids:0
+msgid "HSF Rates"
+msgstr "Taux de contribution au FSS"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,computed:0
+msgid "Computed"
+msgstr "Calculé"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_releve_1.py:337
+#, python-format
+msgid "Last Name"
+msgstr "Nom de famille"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary.box,child_ids:0
+msgid "Related Releve 1 Boxes that will be summed in theSummary Box."
+msgstr "Les cases du Relevé 1 qui seront sommées dans la case du sommaire."
+
+#. module: payroll_quebec
+#: help:res.company,rq_payroll_id:0
+msgid "Must contain 10 numeric caracters."
+msgstr "Doit contenir 10 caractères numériques"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "RL-1 (2014-10)"
+msgstr "RL-1 (2014-10)"
+
+#. module: payroll_quebec
+#: field:hr.qc.rate,type:0 field:hr.qc.summary,type:0 field:hr.releve_1,type:0
+#: view:hr.releve_1.box:0 field:hr.releve_1.summary,type:0
+msgid "Type"
+msgstr "Type"
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,wsdrf_reported:0
+msgid "The amount of expenses to be reported to further years."
+msgstr "Le montant de dépenses à reporter à une année future."
+
+#. module: payroll_quebec
+#: model:hr.deduction.jurisdiction,name:payroll_quebec.jurisdiction_quebec
+msgid "Quebec"
+msgstr "Québec"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Commission des Normes du Travail"
+msgstr "Commission des Normes du Travail"
+
+#. module: payroll_quebec
+#: field:hr.employee,qc_additional_source_deduction:0
+msgid "Quebec - Additional source deduction"
+msgstr "Québec - Déduction à la source additionelle"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "O- Autres revenus"
+msgstr "O- Autres revenus"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.amount,box_id:0
+#: field:hr.releve_1.box,fiscal_slip_box_id:0
+msgid "Fiscal Slip Box"
+msgstr "Case de document fiscal"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_releve_1.py:246
+#, python-format
+msgid "Street Line 1"
+msgstr "Rue ligne 1"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.box:0
+msgid "Income Tax Deductions"
+msgstr "Déduction d'impôt"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,wsdrf_expenses_current:0
+msgid "Expenses Current Year"
+msgstr "Dépenses de l'année courante"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "Revenus d’emploi et revenus divers"
+msgstr "Revenus d’emploi et revenus divers"
+
+#. module: payroll_quebec
+#: help:hr.qc.summary,date:0 help:hr.releve_1.summary,date:0
+msgid "The date of submission to Revenu Quebec."
+msgstr "Date de transmission à Revenu Québec"
+
+#. module: payroll_quebec
+#: view:hr.releve_1:0
+msgid "Search Relevés 1"
+msgstr "Chercher des Relevés 1"
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,sub_total_remitted:0
+msgid ""
+"Source deductions and employer contributions remitted over the year for the "
+"QPP, QPIP and Quebec income tax (with forms TPZ-1015.R.14)."
+msgstr ""
+"Déductions à la source et contributions de l'employeur remises durant "
+"l'année pour le RRQ, le RQAP, et l'impôt du Québec (avec les formulaires "
+"TPZ-1015.R.14)."
+
+#. module: payroll_quebec
+#: selection:hr.qc.summary,state:0 selection:hr.releve_1.summary,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: payroll_quebec
+#: field:hr.qc.rate,date_from:0
+msgid "Date From"
+msgstr "Date de début"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,hsf_reduction_amount:0
+msgid "Reduction of the Contribution"
+msgstr "Réduction de la contribution"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,wsdrf_reported:0
+msgid "Expenses Reported"
+msgstr "Dépenses reportées"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,cnt_salaries:0
+msgid "CNT - Salaries Eligible"
+msgstr "Salaires éligibles"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,hsf_total_wage_bill:0
+msgid "Total Wage Bill"
+msgstr "Masse salariale totale"
+
+#. module: payroll_quebec
+#: field:hr.qc.summary,state:0 field:hr.releve_1,state:0
+#: field:hr.releve_1.summary,state:0
+msgid "Status"
+msgstr "Statut"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "H- Cotisation au RQAP"
+msgstr "H- Cotisation au RQAP"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_qc_summary.py:30
+#, python-format
+msgid "Amended"
+msgstr "Amendé"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.amount,is_box_o_amount:0
+#: field:hr.releve_1.box,is_box_o_amount:0
+msgid "Is Box O Revenue"
+msgstr "Est un revenu de la case O"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "R- Revenu « situé » dans une réserve"
+msgstr "R- Revenu « situé » dans une réserve"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,qpip_amount_er:0
+#: field:hr.releve_1.summary,qpp_amount_er:0
+msgid "Employer Contributions"
+msgstr "Contributions de l'employeur"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "U- Retraite progressive"
+msgstr "U- Retraite progressive"
+
+#. module: payroll_quebec
+#: view:hr.releve_1:0
+msgid "Compute Amounts"
+msgstr "Calculer les montants"
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,hsf_amount_remitted:0
+msgid "The HSF contributions already remitted during the year."
+msgstr "Les contributions à la FSS déjà remises durant l'année."
+
+#. module: payroll_quebec
+#: field:hr.qc.summary,date:0 field:hr.releve_1.summary,date:0
+msgid "Date"
+msgstr "Date"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "Renseignements Complémentaires"
+msgstr "Renseignements Complémentaires"
+
+#. module: payroll_quebec
+#: field:res.company,rq_payroll_file_number:0
+msgid "Revenu Québec File Number"
+msgstr "Numéro de dossier de Revenu Québec"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,qit_amount_1:0
+msgid "Relevés 1 and 25"
+msgstr "Relevés 1 et 25"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,hsf_reduction_rate:0
+msgid "Reduction Rate"
+msgstr "Taux de réduction"
+
+#. module: payroll_quebec
+#: model:hr.holidays.public.line,name:payroll_quebec.holidays_canada_day_2015
+msgid "National Patriots’ Day"
+msgstr "Jour des Patriots"
+
+#. module: payroll_quebec
+#: model:ir.model,name:payroll_quebec.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "Nom et adresse de l’employeur ou du payeur"
+msgstr "Nom et adresse de l’employeur ou du payeur"
+
+#. module: payroll_quebec
+#: model:ir.model,name:payroll_quebec.model_hr_contract
+msgid "Contract"
+msgstr "Contrat"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,summary_id:0 field:hr.releve_1.summary.total,summary_id:0
+msgid "Summary"
+msgstr "Sommaire"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary.box,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Search Relevé 1 Summaries"
+msgstr "Chercher des Sommaires du Relevés 1"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_releve_1.py:201
+#: code:addons/payroll_quebec/models/hr_releve_1.py:227
+#: code:addons/payroll_quebec/models/hr_releve_1_summary.py:572
+#: code:addons/payroll_quebec/models/res_company.py:111
+#: code:addons/payroll_quebec/models/res_company.py:147
+#, python-format
+msgid "Error"
+msgstr "Erreur"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0 field:hr.releve_1.summary,wsdrf_contribution:0
+msgid "Contribution"
+msgstr "Contribution"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Balance"
+msgstr "Solde"
+
+#. module: payroll_quebec
+#: view:hr.releve_1:0
+msgid "Barcode Content"
+msgstr "Contenu du code à barre"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Training Expenses"
+msgstr "Dépenses de formation"
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,wsdrf_expenses:0
+msgid "The amount of expenses used to reduce the contribution"
+msgstr "Le montant de dépenses utilisé pour réduire la contribution"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_releve_1.py:201
+#, python-format
+msgid "The field %s is missing"
+msgstr "Le champs %s est manquant."
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,hsf_total_wage_bill:0
+msgid "Refer to guide RL-1.G"
+msgstr "Veuillez vous référer au guide RL-1.G."
+
+#. module: payroll_quebec
+#: field:hr.releve_1.amount,is_other_amount:0 view:hr.releve_1.box:0
+#, fuzzy
+msgid "Is Other Amount"
+msgstr "Est un autre revenu"
+
+#. module: payroll_quebec
+#: field:res.company,slip_transmission_type:0
+msgid "Slip Transmission Type"
+msgstr "Méthode de transmission des documents fiscaux"
+
+#. module: payroll_quebec
+#: field:res.company,rq_last_slip_number:0
+msgid "Last Sequencial Number"
+msgstr "Dernier numéro séquentiel"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "QPIP Contributions"
+msgstr "Contributions au RQAP"
+
+#. module: payroll_quebec
+#: constraint:hr.releve_1:0
+msgid "Error. For each amount, the source must be different."
+msgstr "Erreur. Toutes les cases doivent avoir une source différente."
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Reduction of the contribution"
+msgstr "Réduction de la contribution"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_releve_1_summary.py:573
+#, python-format
+msgid ""
+"Every Relevé 1 must be confirmed before sending the summary. Slip for "
+"employee %s is not confirmed."
+msgstr ""
+"Chaque Relevé 1 doit être confirmé avant l'envoie du sommaire. Le feuillet "
+"de l'employé %s n'est pas confirmé."
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "L- Autres avantages"
+msgstr "L- Autres avantages"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_releve_1.py:248
+#, python-format
+msgid "City"
+msgstr "Ville"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/res_company.py:112
+#, python-format
+msgid "Your sequence number range for Revenu Québec is incorrectly set"
+msgstr ""
+"Votre intervalle de numéro de séquence pour Revenu Québec est mal configurée."
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "C- Cotisation à l’assurance emploi"
+msgstr "C- Cotisation à l’assurance emploi"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "Q- Salaires différés"
+msgstr "Q- Salaires différés"
+
+#. module: payroll_quebec
+#: selection:hr.qc.rate,type:0
+msgid "CSST"
+msgstr "CSST"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Generate Relevés 1"
+msgstr "Générer les Relevés 1"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_releve_1.py:338
+#, python-format
+msgid "First Name"
+msgstr "Prénom"
+
+#. module: payroll_quebec
+#: view:res.company:0
+msgid "Quebec Payroll"
+msgstr "Paie québécoise"
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,wsdrf_previous_reported:0
+msgid "The amount of expenses that were reported from previous years."
+msgstr "Le montant de dépenses qui ont été reportées d'années antérieurs."
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Workforce Skills Development"
+msgstr "Développement des compétences"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "D- Cotisation à un RPA"
+msgstr "D- Cotisation à un RPA"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "P- Régime d’ass. interentreprises"
+msgstr "P- Régime d’ass. interentreprises"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,address_home_id:0
+msgid "Home Address"
+msgstr "Adresse personnelle"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "Année"
+msgstr "Année"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,previous_number:0
+msgid "Previous Sequential Number"
+msgstr "Numéro séquentiel précédent"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,number:0
+msgid "Sequential Number"
+msgstr "Numéro séquentiel"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "Nom de famille, prénom et adresse du particulier"
+msgstr "Nom de famille, prénom et adresse du particulier"
+
+#. module: payroll_quebec
+#: model:ir.model,name:payroll_quebec.model_hr_releve_1
+msgid "Relevé 1"
+msgstr "Relevé 1"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_releve_1.py:285
+#, python-format
+msgid "Preparator Number"
+msgstr "Numéro de préparateur"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "No du dernier relevé transmis"
+msgstr "No du dernier relevé transmis"
+
+#. module: payroll_quebec
+#: model:ir.model,name:payroll_quebec.model_hr_releve_1_amount
+msgid "Releve 1 Amount"
+msgstr "Montant du relevé 1"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,hsf_amount_before_reduction:0
+msgid "Contribution Before Reduction"
+msgstr "Contribution avant réduction"
+
+#. module: payroll_quebec
+#: model:ir.model,name:payroll_quebec.model_hr_releve_1_summary_box
+msgid "Releve 1 Summary Box"
+msgstr "Case du Sommaire du Relevé 1"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "Formulaire prescrit – Président-directeur général"
+msgstr "Formulaire prescrit – Président-directeur général"
+
+#. module: payroll_quebec
+#: field:res.company,rq_first_slip_number:0
+msgid "First Sequencial Number"
+msgstr "Premier numéro séquentiel"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Confirm Relevés 1"
+msgstr "Confirmer les Relevés 1"
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,wsdrf_salaries:0
+msgid ""
+"The eligible salaries under the wsdrf if greater than 1,000,000 $Otherwise, "
+"0."
+msgstr ""
+"Salaires éligibles sous le FDRCMO si supérieur à 1,000,000 $. Autrement, 0."
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,qpp_amount_ee:0
+msgid "Relevés 1 (box B)"
+msgstr "Relevés 1 (case B)"
+
+#. module: payroll_quebec
+#: model:ir.model,name:payroll_quebec.model_hr_qc_summary
+msgid "Revenu Quebec Fiscal Slip Summary"
+msgstr "Sommaire de feuillet fiscal de Revenu Québec"
+
+#. module: payroll_quebec
+#: view:hr.releve_1.summary:0
+msgid "Exemption"
+msgstr "Exemption"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary.box,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_payslip_line.py:28
+#, python-format
+msgid "QPP - Employee Contribution"
+msgstr "RRQ - Contribution de l'employé"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "G- Salaire admissible au RRQ"
+msgstr "G- Salaire admissible au RRQ"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "Code (case O)"
+msgstr "Code (case O)"
+
+#. module: payroll_quebec
+#: field:hr.qc.summary,year:0 field:hr.releve_1,year:0
+#: field:hr.releve_1.summary,year:0
+msgid "Fiscal Year"
+msgstr "Année fiscale"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "W-Véhicule à moteur"
+msgstr "W-Véhicule à moteur"
+
+#. module: payroll_quebec
+#: field:res.company,rq_preparator_number:0
+msgid "Revenu Québec Preparator Number"
+msgstr "Numéro de préparateur de Revenu Québec"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "M- Commissions"
+msgstr "M- Commissions"
+
+#. module: payroll_quebec
+#: selection:hr.qc.rate,type:0
+#, fuzzy
+msgid "Health Services Fund"
+msgstr "Fonds des Services de Santé"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "I- Salaire admissible au RQAP"
+msgstr "I- Salaire admissible au RQAP"
+
+#. module: payroll_quebec
+#: help:res.company,rq_payroll_file_number:0
+msgid "Must contain 4 numeric caracters."
+msgstr "Doit contenir 4 caractères numériques"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid ""
+"2 – Copie du particulier (Vous devez inclure ces données à votre déclaration "
+"de revenus et conserver cette copie.)"
+msgstr ""
+"2 – Copie du particulier (Vous devez inclure ces données à votre déclaration "
+"de revenus et conserver cette copie.)"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "N- Dons de bienfaisance"
+msgstr "N- Dons de bienfaisance"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,wsdrf_salaries:0
+msgid "Salares Eligible"
+msgstr "Salaires assujetis"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "E- Impôt du Québec retenu"
+msgstr "E- Impôt du Québec retenu"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,wsdrf_previous_reported:0
+msgid "Previous Year Balance"
+msgstr "Solde de l'année précédente"
+
+#. module: payroll_quebec
+#: report:releve_1_copy_1:0 report:releve_1_copy_2:0
+msgid "F- Cotisation syndicale"
+msgstr "F- Cotisation syndicale"
+
+#. module: payroll_quebec
+#: selection:hr.releve_1.summary,hsf_exemption_code:0
+msgid "06 - Investment Project in Quebec"
+msgstr "06 - Projet d'investissement au Québec"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_releve_1.py:247
+#, python-format
+msgid "Street Line 2"
+msgstr "Rue ligne 2"
+
+#. module: payroll_quebec
+#: view:res.company:0
+msgid "Fiscal Slips"
+msgstr "Documents fiscaux"
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,qit_amount_1:0
+msgid "Relevés 1 (box E) et relevés 25 (box I)"
+msgstr "Relevé 1 (case E) et relevés 25 (case I)"
+
+#. module: payroll_quebec
+#: model:hr.holidays.public.line,name:payroll_quebec.holidays_good_friday_2015
+msgid "New Year’s Day"
+msgstr "Jour de l'an"
+
+#. module: payroll_quebec
+#: field:hr.qc.rate,rate:0 field:hr.releve_1.summary,cnt_rate:0
+#: field:hr.releve_1.summary,wsdrf_rate:0
+msgid "Rate"
+msgstr "Taux"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,dtmx_barcode_string:0
+msgid "Datamatrix String"
+msgstr "Chaîne de caractères Datamatrix"
+
+#. module: payroll_quebec
+#: model:ir.model,name:payroll_quebec.model_hr_releve_1_summary
+msgid "Relevé 1 Summary"
+msgstr "Sommaire du Relevé 1"
+
+#. module: payroll_quebec
+#: help:hr.releve_1.summary,qit_amount_2:0
+msgid "Relevés 2 (box J)"
+msgstr "Relevés 2 (case J)"
+
+#. module: payroll_quebec
+#: field:hr.releve_1,dtmx_barcode_image:0
+msgid "DataMatrix Bar Code"
+msgstr "Code à barre Datamatrix"
+
+#. module: payroll_quebec
+#: field:hr.releve_1.summary,hsf_contribution_rate:0
+msgid "Contribution Rate"
+msgstr "Taux de ontributionc"
+
+#. module: payroll_quebec
+#: code:addons/payroll_quebec/models/hr_releve_1.py:227
+#, python-format
+msgid "The value %s is too long"
+msgstr "La valeur %s est trop longue"

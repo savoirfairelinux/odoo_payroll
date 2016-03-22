@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Quebec Parental Insurance Plan - 120 -->
+        <record id="rule_qc_ppip_ee_maxie" model="hr.salary.rule">
+            <field name="name">QPIP - Employee's insurable earnings</field>
+            <field name="sequence" eval="120"/>
+            <field name="code">PPIP_EE_MAXIE</field>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pip_exempt"/>
+            <field name="amount_python_compute">
+max_annual = rule.variable(payslip.date_payment)['max_annual']
+
+benefits = rule.sum_benefits(payslip, employer=True)
+
+previous_ie_ytd = payslip.ytd_amount('PPIP_EE_MAXIE')
+
+result = benefits + GROSSP + OTHER_WAGE
+result = min(max_annual - previous_ie_ytd, result)
+
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_qc_ppip_ee_c" model="hr.salary.rule">
+            <field name="name">QPIP - Employee Contribution</field>
+            <field name="sequence" eval="122"/>
+            <field name="code">PPIP_EE_C</field>
+            <field name="category_id" ref="payroll_canada.SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pip_exempt"/>
+            <field name="register_id" ref="register_revenu_quebec"/>
+            <field name="amount_python_compute">
+variable = rule.variable(payslip.date_payment)
+rate = variable['rate']
+max_annual = variable['max_annual']
+
+previous_ytd = payslip.ytd_amount('PPIP_EE_C')
+
+result = rate * PPIP_EE_MAXIE
+result = min(result, max_annual - previous_ytd)
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_qc_ppip_er_c" model="hr.salary.rule">
+            <field name="name">QPIP - Employer Contribution</field>
+            <field name="sequence" eval="127"/>
+            <field name="code">PPIP_ER_C</field>
+            <field name="category_id" ref="payroll_canada.EMP"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pip_exempt"/>
+            <field name="register_id" ref="register_revenu_quebec"/>
+            <field name="amount_python_compute">
+variable = rule.variable(payslip.date_payment)
+rate = variable['rate']
+max_annual = variable['max_annual']
+
+previous_ytd = payslip.ytd_amount('PPIP_ER_C')
+
+result = rate * PPIP_EE_MAXIE
+result = min(result, max_annual - previous_ytd)
+result = max(result, 0)
+            </field>
+        </record>
+
+    </data>
+</openerp>

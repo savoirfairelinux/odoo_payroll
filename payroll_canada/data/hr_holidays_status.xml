@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Unpaid Vacations -->
+        <record id="holiday_status_vac_unpaid" model="hr.holidays.status">
+            <field name="name">Unpaid Vacations</field>
+            <field name="limit">True</field>
+            <field name="color_name">brown</field>
+            <field name="paid_leave" eval="False"/>
+            <field name="activity_ids" eval="[(6, 0, [])]"/>
+        </record>
+        <record id="activity_holiday_status_vac_unpaid" model="hr.activity">
+            <field name="activity_type">leave</field>
+            <field name="leave_id" ref="holiday_status_vac_unpaid"/>
+        </record>
+
+        <!-- Vacations -->
+        <record id="payroll_activity.holiday_status_vacation" model="hr.holidays.status">
+            <field name="uses_entitlement" eval="True"/>
+        </record>
+        <record id="payroll_activity.activity_holiday_status_vacation" model="hr.activity">
+            <field name="unpaid_activity_id" ref="activity_holiday_status_vac_unpaid"/>
+        </record>
+
+        <!-- Unpaid Compensatory -->
+        <record id="holiday_status_comp_unpaid" model="hr.holidays.status">
+            <field name="name">Unpaid Compensatory</field>
+            <field name="limit">True</field>
+            <field name="color_name">brown</field>
+            <field name="paid_leave" eval="False"/>
+            <field name="activity_ids" eval="[(6, 0, [])]"/>
+        </record>
+        <record id="activity_holiday_status_comp_unpaid" model="hr.activity">
+            <field name="activity_type">leave</field>
+            <field name="leave_id" ref="holiday_status_comp_unpaid"/>
+        </record>
+
+        <!-- Compensatory (Public Holiday not taken) -->
+        <record id="payroll_activity.activity_holiday_status_comp" model="hr.activity">
+            <field name="unpaid_activity_id" ref="activity_holiday_status_comp_unpaid"/>
+        </record>
+
+        <!-- Unpaid Sick Leaves -->
+        <record id="holiday_status_sl_unpaid" model="hr.holidays.status">
+            <field name="name">Unpaid Sick Leaves</field>
+            <field name="limit">True</field>
+            <field name="color_name">brown</field>
+            <field name="paid_leave" eval="False"/>
+            <field name="activity_ids" eval="[(6, 0, [])]"/>
+        </record>
+        <record id="activity_holiday_status_sl_unpaid" model="hr.activity">
+            <field name="activity_type">leave</field>
+            <field name="leave_id" ref="holiday_status_sl_unpaid"/>
+        </record>
+
+        <!-- Sick Leaves -->
+        <record id="hr_holidays.holiday_status_sl" model="hr.holidays.status">
+            <field name="increase_accrual_on_allocation" eval="True"/>
+        </record>
+        <record id="payroll_activity.activity_holiday_status_sl" model="hr.activity">
+            <field name="unpaid_activity_id" ref="activity_holiday_status_sl_unpaid"/>
+        </record>
+
+        <!-- Unpaid Public Holidays -->
+        <record id="holiday_status_public_unpaid" model="hr.holidays.status">
+            <field name="name">Unpaid Public Holidays</field>
+            <field name="limit">True</field>
+            <field name="color_name">brown</field>
+            <field name="paid_leave" eval="False"/>
+            <field name="activity_ids" eval="[(6, 0, [])]"/>
+        </record>
+        <record id="activity_holiday_status_public_unpaid" model="hr.activity">
+            <field name="activity_type">leave</field>
+            <field name="leave_id" ref="holiday_status_public_unpaid"/>
+        </record>
+        <!-- Public Holidays -->
+        <record id="payroll_activity.activity_holiday_status_public" model="hr.activity">
+            <field name="unpaid_activity_id" ref="activity_holiday_status_public_unpaid"/>
+        </record>
+
+    </data>
+</openerp>

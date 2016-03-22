@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_hr_payslip_line_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.line.tree</field>
+            <field name="model">hr.payslip.line</field>
+            <field name="inherit_id" ref="payroll_base.view_hr_payslip_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="hr_period_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_hr_payslip_line_filter" model="ir.ui.view">
+            <field name="name">hr.payslip.line.select</field>
+            <field name="model">hr.payslip.line</field>
+            <field name="inherit_id" ref="payroll_base.view_hr_payslip_line_filter"/>
+            <field name="arch" type="xml">
+                <group name="group_by" position="inside">
+                    <filter string="Payroll Period" name="hr_period_id" context="{'group_by':'hr_period_id'}"/>
+                </group>
+            </field>
+        </record>
+
+    </data>
+</openerp>

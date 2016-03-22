@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_payslip_run_form" model="ir.ui.view">
+            <field name="name">hr.payslip.run.period.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="payroll_base.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+                <h3 name="header_multi_company" position="after">
+                    <h3>
+                        <label for="hr_period_id"/>
+                        <field name="hr_period_id"
+                        domain="[
+                            ('state', '=', 'open'),
+                            ('company_id', '=', company_id),
+                        ]"/>
+                    </h3>
+                </h3>
+                
+                <field name="date_start" position="before">
+                    <field name="schedule_pay"/>
+                    <newline/>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_payslip_run_filter" model="ir.ui.view">
+            <field name="name">hr.payslip.run.period.search</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="payroll_base.hr_payslip_run_filter"/>
+            <field name="arch" type="xml">
+
+                <field name="name" position="after">
+                    <field name="company_id"/>
+                    <field name="date_payment"/>
+                    <field name="schedule_pay"/>
+                </field>
+
+                <search position="inside">
+                    <group string="Group By...">
+                        <filter
+                            string="Company"
+                            name="company_id"
+                            groups="base.group_multi_company"
+                            context="{'group_by':'company_id'}"/>
+                        <filter
+                            string="Scheduled Pay"
+                            name="schedule_pay"
+                            context="{'group_by':'schedule_pay'}"/>
+                        <filter
+                            string="Payment Date"
+                            name="date_payment"
+                            context="{'group_by':'date_payment'}"/>
+                    </group>
+                </search>
+
+            </field>
+        </record>
+
+        <record id="hr_payslip_run_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.run.period.tree</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="payroll_base.hr_payslip_run_tree"/>
+            <field name="arch" type="xml">
+                    <field name="date_end" position="after">
+                        <field name="date_payment"/>
+                        <field name="schedule_pay"/>
+                        <field name="company_id"
+                            groups="base.group_multi_company"/>
+                    </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

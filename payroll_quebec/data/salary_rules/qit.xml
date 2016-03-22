@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="rule_qc_qit_g" model="hr.salary.rule">
+            <field name="name">QIT - Gross remuneration subject to income tax for the pay period</field>
+            <field name="sequence" eval="200"/>
+            <field name="code">QIT_G</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pit_exempt"/>
+            <field name="amount_python_compute">
+benefits = rule.sum_benefits(payslip, employer=True)
+
+result = benefits + GROSSP
+            </field>
+        </record>
+
+        <!-- This rule is only used to compute the employee's Relevé 1 
+            and the contributions to CSST and HSF-->
+        <record id="rule_qc_qit_g_other_wage" model="hr.salary.rule">
+            <field name="name">QIT - Gross remuneration the pay period including non-periodic amounts</field>
+            <field name="sequence" eval="201"/>
+            <field name="code">QIT_G_OTHER_WAGE</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pit_exempt"/>
+            <field name="amount_python_compute">
+result = QIT_G + OTHER_WAGE
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_f" model="hr.salary.rule">
+            <field name="name">QIT - Deductions under variable F</field>
+            <field name="sequence" eval="202"/>
+            <field name="code">QIT_F</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip)
+
+result += rule.sum_benefits(payslip, codes=['RPP', 'PRPP', 'VRSP'])
+result += rule.sum_benefits(payslip, codes=['PRPP', 'VRSP'], employer=True)
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_h" model="hr.salary.rule">
+            <field name="name">QIT - Deduction for employment income</field>
+            <field name="sequence" eval="202"/>
+            <field name="code">QIT_H</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+variables = rule.variable(payslip.date_payment)
+
+result = min(variables['rate'] * QIT_G, variables['max_annual'] / P)
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_j" model="hr.salary.rule">
+            <field name="name">QIT - Source Deduction Return</field>
+            <field name="sequence" eval="202"/>
+            <field name="code">QIT_J</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip) * P
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_j1" model="hr.salary.rule">
+            <field name="name">QIT - Reduction in Source Deductions</field>
+            <field name="sequence" eval="202"/>
+            <field name="code">QIT_J1</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip) * P
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_i" model="hr.salary.rule">
+            <field name="name">QIT - Annual Taxable Income</field>
+            <field name="sequence" eval="204"/>
+            <field name="code">QIT_I</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pit_exempt"/>
+            <field name="amount_python_compute">
+result = P * (QIT_G - QIT_F - QIT_H) - QIT_J - QIT_J1
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_i_other_wage" model="hr.salary.rule">
+            <field name="name">QIT - Annual Taxable Income (including non-periodic payments)</field>
+            <field name="sequence" eval="205"/>
+            <field name="code">QIT_I_OTHER_WAGE</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pit_exempt"/>
+            <field name="amount_python_compute">
+result = QIT_I + OTHER_WAGE_PYTD + OTHER_WAGE
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_f2" model="hr.salary.rule">
+            <field name="name">QIT - Deductions under variable F (Estimated Income)</field>
+            <field name="sequence" eval="206"/>
+            <field name="code">QIT_F2</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip)
+
+result += rule.sum_benefits(payslip, codes=['RPP', 'PRPP', 'VRSP'])
+result += rule.sum_benefits(payslip, codes=['PRPP', 'VRSP'], employer=True)
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_r" model="hr.salary.rule">
+            <field name="name">QIT - Annual Estimated Taxable Income</field>
+            <field name="sequence" eval="208"/>
+            <field name="code">QIT_R</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pit_exempt"/>
+            <field name="amount_python_compute">
+result = P * (QIT_G - QIT_F2 - QIT_H) - QIT_J - QIT_J1
+        </field>
+        </record>
+
+        <record id="rule_qc_qit_r_other_wage" model="hr.salary.rule">
+            <field name="name">QIT - Annual Taxable Income (including non-periodic payments)</field>
+            <field name="sequence" eval="209"/>
+            <field name="code">QIT_R_OTHER_WAGE</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pit_exempt"/>
+            <field name="amount_python_compute">
+result = QIT_R + OTHER_WAGE_PYTD + OTHER_WAGE
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_z_pytd" model="hr.salary.rule">
+            <field name="name">QIT - Health contribution PYTD</field>
+            <field name="sequence" eval="210"/>
+            <field name="code">QIT_Z_PYTD</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pit_exempt"/>
+            <field name="amount_python_compute">
+result = payslip.ytd_amount('QIT_Z')
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_z" model="hr.salary.rule">
+            <field name="name">QIT - Health contribution for the pay period</field>
+            <field name="sequence" eval="210"/>
+            <field name="code">QIT_Z</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pit_exempt"/>
+            <field name="amount_python_compute">
+variables = rule.variable(payslip.date_payment, {'QIT_R': QIT_R})
+
+brackets = variables['brackets']
+result = 0
+
+for b in brackets:
+    if b['min'] &lt; QIT_R &lt;= b['max']:
+        result = b['Z'] / P
+
+        # The amount contributed must not exceed the maximum annual contribution
+        if result + QIT_Z_PYTD >= b['Z']:
+            result = max(b['Z'] - QIT_Z_PYTD, 0)
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_z_other_wage" model="hr.salary.rule">
+            <field name="name">QIT - Health contribution for non-periodic payments</field>
+            <field name="sequence" eval="210"/>
+            <field name="code">QIT_Z_OTHER_WAGE</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pit_exempt"/>
+            <field name="amount_python_compute">
+if OTHER_WAGE:
+    variables = rule.variable(payslip.date_payment, {'QIT_R': QIT_R + OTHER_WAGE})
+    brackets = variables['brackets']
+
+    result = 0
+    for b in brackets:
+        if b['min'] &lt; QIT_R + OTHER_WAGE &lt;= b['max']:
+            result = b['Z']
+
+            # The amount contributed must not exceed the maximum annual contribution
+            if result + QIT_Z_PYTD + QIT_Z >= b['Z']:
+                result = max(b['Z'] - QIT_Z_PYTD - QIT_Z, 0)
+else:
+    result = 0
+            </field>
+        </record>
+
+
+        <record id="rule_qc_qit_k1" model="hr.salary.rule">
+            <field name="name">QIT - Non-refundable tax credit related to TP-1016-V</field>
+            <field name="sequence" eval="212"/>
+            <field name="code">QIT_K1</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip) * P
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_e" model="hr.salary.rule">
+            <field name="name">QIT - Personal Tax Credit</field>
+            <field name="sequence" eval="212"/>
+            <field name="code">QIT_E</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip) * P
+
+if result == 0:
+    result = rule.variable(payslip.date_payment)['default_amount']
+            </field>
+        </record>
+
+
+        <record id="rule_qc_qit_q" model="hr.salary.rule">
+            <field name="name">QIT - Tax credit for purchase of class A FTQ shares</field>
+            <field name="sequence" eval="212"/>
+            <field name="code">QIT_Q</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip) * P
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_q1" model="hr.salary.rule">
+            <field name="name">QIT - Tax credit for purchase of class A or class B Fondaction shares</field>
+            <field name="sequence" eval="212"/>
+            <field name="code">QIT_Q1</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_deductions(payslip) * P
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_y" model="hr.salary.rule">
+            <field name="name">QIT - Quebec Income tax for the year</field>
+            <field name="sequence" eval="214"/>
+            <field name="code">QIT_Y</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pit_exempt"/>
+            <field name="amount_python_compute">
+variables = rule.variable(payslip.date_payment)
+
+rates = variables['rates']
+brackets = variables['brackets']
+
+tax_credits = rates['K1'] * QIT_K1 \
+    + rates['E'] * QIT_E \
+    + rates['Q'] * QIT_Q \
+    + rates['Q1'] * QIT_Q1 
+
+result = 0
+for b in brackets:
+    if b['min'] &lt; QIT_I &lt;= b['max']:
+        result = QIT_I * b['T'] - b['K'] - tax_credits
+
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_l" model="hr.salary.rule">
+            <field name="name">QIT - Additional source deduction</field>
+            <field name="sequence" eval="216"/>
+            <field name="code">QIT_L</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pit_exempt"/>
+            <field name="amount_python_compute">
+result = employee.qc_additional_source_deduction or 0
+            </field>
+        </record>
+
+        <record id="rule_qc_qit_a" model="hr.salary.rule">
+            <field name="name">QIT - Quebec Income Tax</field>
+            <field name="sequence" eval="218"/>
+            <field name="code">QIT_A</field>
+            <field name="category_id" ref="payroll_canada.SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.pit_exempt"/>
+            <field name="register_id" ref="register_revenu_quebec"/>
+            <field name="amount_python_compute">
+result = QIT_Y / P + QIT_L + QIT_Z + QIT_Z_OTHER_WAGE
+
+# Non-periodic payments tax
+if OTHER_WAGE:
+    variables = rule.variable(payslip.date_payment)
+    brackets = variables['brackets']
+    for b in brackets:
+        if b['min'] &lt; QIT_I_OTHER_WAGE &lt;= b['max']:
+            result += OTHER_WAGE * b['T']
+            </field>
+        </record>
+
+    </data>
+</openerp>

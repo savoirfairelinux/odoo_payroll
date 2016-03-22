@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="payroll_quebec.rule_qc_ppip_ee_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '214231')]"/>    
+        </record>
+        <record id="payroll_quebec.rule_qc_ppip_er_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512311')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '214232')]"/>    
+        </record>
+
+        <record id="payroll_quebec.rule_qc_qpp_ee_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '214221')]"/>    
+        </record>
+        <record id="payroll_quebec.rule_qc_qpp_er_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512310')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '214222')]"/>    
+        </record>
+
+        <record id="payroll_quebec.rule_qc_ei_ee_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '214111')]"/>    
+        </record>
+        <record id="payroll_quebec.rule_qc_ei_er_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512302')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '214112')]"/>    
+        </record>
+
+        <record id="payroll_quebec.rule_qc_qit_a" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '21426')]"/>    
+        </record>
+
+        <record id="payroll_quebec.rule_qc_hsf_er_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512314')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '21421')]"/>    
+        </record>
+
+        <record id="payroll_quebec.rule_qc_csst_er_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512312')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '21424')]"/>    
+        </record>
+
+    </data>
+</openerp>

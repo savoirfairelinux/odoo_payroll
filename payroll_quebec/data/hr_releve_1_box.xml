@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="releve_1_box_a_revenu_emploi" model="hr.releve_1.box">
+            <field name="name">A - RevenuEmploi</field>
+            <field name="code">A</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">a_revenu_emploi</field>
+            <field name="required" eval="True"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_qc_qit_g_other_wage')])]"/>
+        </record>
+
+        <record id="releve_1_box_b_cotisation_rrq" model="hr.releve_1.box">
+            <field name="name">B - CotisationRRQ</field>
+            <field name="code">B</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">b_cotisation_rrq</field>
+            <field name="required" eval="True"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_qc_qpp_ee_c')])]"/>
+        </record>
+
+        <record id="releve_1_box_c_cotisation_ass_emploi" model="hr.releve_1.box">
+            <field name="name">C - CotisationAssEmploi</field>
+            <field name="code">C</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">c_cotisation_ass_emploi</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [
+                ref('payroll_canada.rule_ca_ei_ee_c'),
+                ref('rule_qc_ei_ee_c'),
+            ])]"/>
+            <field name="required" eval="True"/>
+        </record>
+
+        <record id="releve_1_box_d_cotisation_rpa" model="hr.releve_1.box">
+            <field name="name">D - CotisationRPA</field>
+            <field name="code">D</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">d_cotisation_rpa</field>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('payroll_canada.rule_ca_rpp_ee_c')])]"/>
+        </record>
+
+        <record id="releve_1_box_e_impot_que" model="hr.releve_1.box">
+            <field name="name">E - ImpotQue</field>
+            <field name="code">E</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">e_impot_que</field>
+            <field name="required" eval="True"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_qc_qit_a')])]"/>
+        </record>
+
+        <record id="releve_1_box_f_cotisation_syndicale" model="hr.releve_1.box">
+            <field name="name">F - CotisationSyndicale</field>
+            <field name="code">F</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">f_cotisation_syndicale</field>
+        </record>
+
+        <record id="releve_1_box_g_salaire_admis_rrq" model="hr.releve_1.box">
+            <field name="name">G - SalaireAdmisRRQ</field>
+            <field name="code">G</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">g_salaire_admis_rrq</field>
+            <field name="required" eval="True"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_qc_qpp_ee_maxie')])]"/>
+        </record>
+
+        <record id="releve_1_box_h_cotisation_rqap" model="hr.releve_1.box">
+            <field name="name">H - CotisationRQAP</field>
+            <field name="code">H</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">h_cotisation_rqap</field>
+            <field name="required" eval="True"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_qc_ppip_ee_c')])]"/>
+        </record>
+
+        <record id="releve_1_box_i_salaire_admis_rqap" model="hr.releve_1.box">
+            <field name="name">I - SalaireAdmisRQAP</field>
+            <field name="code">I</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">i_salaire_admis_rqap</field>
+            <field name="required" eval="True"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_qc_ppip_ee_maxie')])]"/>
+        </record>
+
+        <record id="releve_1_box_j_regime_ass_maladie" model="hr.releve_1.box">
+            <field name="name">J - RegimeAssMaladie</field>
+            <field name="code">J</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">j_regime_ass_maladie</field>
+        </record>
+
+        <record id="releve_1_box_k_voyage" model="hr.releve_1.box">
+            <field name="name">K - Voyage</field>
+            <field name="code">K</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">k_voyage</field>
+        </record>
+
+        <record id="releve_1_box_l_autre_avantage" model="hr.releve_1.box">
+            <field name="name">L - AutreAvantage</field>
+            <field name="code">L</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">l_autre_avantage</field>
+        </record>
+
+        <record id="releve_1_box_m_commission" model="hr.releve_1.box">
+            <field name="name">M - Commission</field>
+            <field name="code">M</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">m_commission</field>
+        </record>
+
+        <record id="releve_1_box_n_don_bienfaisance" model="hr.releve_1.box">
+            <field name="name">N - DonBienfaisance</field>
+            <field name="code">N</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">n_don_bienfaisance</field>
+        </record>
+
+        <record id="releve_1_box_p_regime_ass_inter_entr" model="hr.releve_1.box">
+            <field name="name">P - RegimeAssInterEntr</field>
+            <field name="code">P</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">p_regime_ass_inter_entr</field>
+        </record>
+
+        <record id="releve_1_box_q_salaire_differe" model="hr.releve_1.box">
+            <field name="name">Q - SalaireDiffere</field>
+            <field name="code">Q</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">q_salaire_differe</field>
+        </record>
+
+        <record id="releve_1_box_r_revenu_indien" model="hr.releve_1.box">
+            <field name="name">R - RevenuIndien</field>
+            <field name="code">R</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">r_revenu_indien</field>
+        </record>
+
+        <record id="releve_1_box_s_pourboire_recu" model="hr.releve_1.box">
+            <field name="name">S - PourboireRecu</field>
+            <field name="code">S</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">s_pourboire_recu</field>
+        </record>
+
+        <record id="releve_1_box_t_pourboire_attribue" model="hr.releve_1.box">
+            <field name="name">T - PourboireAttribue</field>
+            <field name="code">T</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">t_pourboire_attribue</field>
+        </record>
+
+        <record id="releve_1_box_u_retraite_progressive" model="hr.releve_1.box">
+            <field name="name">U - RetraiteProgressive</field>
+            <field name="code">U</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">u_retraite_progressive</field>
+        </record>
+
+        <record id="releve_1_box_v_nourriture_logement" model="hr.releve_1.box">
+            <field name="name">V - NourritureLogement</field>
+            <field name="code">V</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">v_nourriture_logement</field>
+        </record>
+
+        <record id="releve_1_box_w_vehicule" model="hr.releve_1.box">
+            <field name="name">W - Vehicule</field>
+            <field name="code">W</field>
+            <field name="type">benefit</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="xml_tag">w_vehicule</field>
+        </record>
+
+        <!-- The following boxes are only used to compute the totals on the summary -->
+        <!-- This allows to compute every summary total boxes the same way -->
+
+        <record id="releve_1_box_total_pay" model="hr.releve_1.box">
+            <field name="name">Employee's Total Remunaration</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="appears_on_summary" eval="False"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('payroll_canada.rule_ca_total_pay')])]"/>
+        </record>
+
+        <record id="releve_1_box_qpp_amount_er" model="hr.releve_1.box">
+            <field name="name">Employer's QPP contributions</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="appears_on_summary" eval="False"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_qc_qpp_er_c')])]"/>
+        </record>
+
+        <record id="releve_1_box_qpip_amount_er" model="hr.releve_1.box">
+            <field name="name">Employer's QPIP contributions</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="appears_on_summary" eval="False"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_qc_ppip_er_c')])]"/>
+        </record>
+
+        <record id="releve_1_box_hsf_amount_er" model="hr.releve_1.box">
+            <field name="name">Employer's HSF contributions</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="appears_on_summary" eval="False"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_qc_hsf_er_c')])]"/>
+        </record>
+
+        <record id="releve_1_box_hsf_salaries" model="hr.releve_1.box">
+            <field name="name">Employee's HSF eligible salaries</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="appears_on_summary" eval="False"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_qc_hsf_ee_s')])]"/>
+        </record>
+
+        <record id="releve_1_box_cnt_salaries" model="hr.releve_1.box">
+            <field name="name">Employee's CNT eligible salaries</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="appears_on_summary" eval="False"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_qc_cnt_ee_s')])]"/>
+        </record>
+
+        <record id="releve_1_box_wsdrf_salaries" model="hr.releve_1.box">
+            <field name="name">Employee's WSDRF eligible salaries</field>
+            <field name="type">salary_rule</field>
+            <field name="date_from">2014-01-01</field>
+            <field name="appears_on_summary" eval="False"/>
+            <field name="salary_rule_ids" eval="[(6, 0, [ref('rule_qc_wsdrf_ee_s')])]"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <report
+            auto="False"
+            id="releve_1_report_copy_1"
+            model="hr.releve_1"
+            name="releve_1_copy_1"
+            rml="payroll_quebec/report/report_releve_1.rml"
+            string="Relevé 1 - Copy 1 (Revenu Québec)"
+        />
+
+        <report
+            auto="False"
+            id="releve_1_report_copy_2"
+            model="hr.releve_1"
+            name="releve_1_copy_2"
+            rml="payroll_quebec/report/report_releve_1.rml"
+            string="Relevé 1 - Copy 2 (Employee)"
+        />
+
+    </data>
+</openerp>

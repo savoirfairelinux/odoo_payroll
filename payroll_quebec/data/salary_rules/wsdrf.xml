@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- This rule is only used to compute the employer's WSDRF contribution in the Releve 1 Summary -->
+        <record id="rule_qc_wsdrf_ee_s" model="hr.salary.rule">
+            <field name="name">WSDRF - Employee - Eligible Salaries</field>
+            <field name="sequence" eval="320"/>
+            <field name="code">WSDRF_EE_S</field>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="wsdrf_exempt"/>
+            <field name="amount_python_compute">
+benefits = rule.sum_benefits(payslip, employer=True)
+
+result = benefits + GROSSP + OTHER_WAGE
+            </field>
+        </record>
+
+    </data>
+</openerp>

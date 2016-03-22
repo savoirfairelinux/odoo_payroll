@@ -1,0 +1,537 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * payroll_canada
+# 
+# Translators:
+# Adriana Ierfino <adriana.ierfino@savoirfairelinux.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: l10n-canada (7.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-27 15:12+0000\n"
+"PO-Revision-Date: 2015-06-22 18:37+0000\n"
+"Last-Translator: Adriana Ierfino <adriana.ierfino@savoirfairelinux.com>\n"
+"Language-Team: French (Canada) (http://www.transifex.com/oca/OCA-l10n-canada-7-0/language/fr_CA/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: fr_CA\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: payroll_canada
+#: view:hr.employee:0
+msgid "Canadian Payroll"
+msgstr "Paie canadienne"
+
+#. module: payroll_canada
+#: field:hr.employee,u1:0
+msgid "Union Dues (U1)"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.rqap.line,employee_contrib:0
+msgid "Employee contribution"
+msgstr "Contribution d'employé"
+
+#. module: payroll_canada
+#: field:hr.employee,cpp_ytd_adj:0
+msgid "CPP/QPP YTD Adjustment"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,hd:0
+msgid "Prescribed Zone (HD)"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,y:0
+msgid "MB/ON Extra Tax Reduction(Y)"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.payroll.tax.table:0
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_payroll_tax_table_qc_line
+msgid "Quebec Lines"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.ei.line,inc_from:0
+#: field:hr.payroll.tax.table.federal.line,inc_from:0
+#: field:hr.payroll.tax.table.qc.line,inc_from:0
+#: field:hr.payroll.tax.table.rqap.line,inc_from:0
+msgid "Income From"
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.employee,l:0
+msgid "Extra tax deductions requested for the pay period."
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.employee,cpp_ytd_adj:0
+msgid ""
+"Amount to adjust CPP/QPP for calculations.\n"
+"Used if employee has contributed elsewhere and will be factored in when\n"
+"calculating maximum CPP payment"
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.employee,u1:0
+msgid "Union dues"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:hr.employee,td1f:0
+msgid "10"
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.employee,y:0
+msgid ""
+"Extra provincial or territorial tax reduction based on applicable amounts\n"
+"reported on the provincial or territorial Form TD1"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.payroll.tax.table:0
+#: model:ir.actions.act_window,name:l10n_ca_payroll_canada.action_hr_payroll_tax_table_tree
+#: model:ir.ui.menu,name:l10n_ca_payroll_canada.menu_hr_payroll_tax_table_tree
+msgid "Canadian Tax Table"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.salary.rule:0
+msgid "False"
+msgstr "Faux"
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.federal.line,code9:0
+msgid "Code 9"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.federal.line,code8:0
+msgid "Code 8"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.federal.line,code1:0
+msgid "Code 1"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.federal.line,code0:0
+#: field:hr.payroll.tax.table.qc.line,code0:0
+msgid "Code 0"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.federal.line,code3:0
+msgid "Code 3"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.federal.line,code2:0
+msgid "Code 2"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.federal.line,code5:0
+msgid "Code 5"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.federal.line,code4:0
+msgid "Code 4"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.federal.line,code7:0
+msgid "Code 7"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.federal.line,code6:0
+msgid "Code 6"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,lcp:0
+msgid "Prov Labour sponsored funds (LCP)"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.rqap.line,max_annual_insurable_earnings:0
+msgid ""
+"Maximum Annual                                                      "
+"Insurable Earnings"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_employee
+msgid "Employee"
+msgstr "Employé"
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table,type:0
+msgid "Type"
+msgstr "Type"
+
+#. module: payroll_canada
+#: field:hr.employee,ei_ytd_adj:0
+msgid "EI YTD Adjustment"
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.employee,hd:0
+msgid ""
+"Annual deduction for living in a prescribed zone as indicated on Form TD1"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,lcf:0
+msgid "Fed Labour sponsored funds (LCF)"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,qpip_exempt:0
+msgid "QPIP Exempt"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.employee:0
+msgid "Deductions"
+msgstr "Déductions"
+
+#. module: payroll_canada
+#: help:hr.employee,ei_ytd_adj:0
+msgid ""
+"Amount to adjust EI for calculations.\n"
+"Used if employee has contributed elsewhere and will be factored in when\n"
+"calculating maximum EI payment"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,td1:0
+msgid "Personal Tax Credits Return (TD1)"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table,state_id:0
+msgid "Province"
+msgstr "Province"
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table,date_to:0
+msgid "Date To"
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.employee,f2:0
+msgid ""
+"Alimony or maintenance payments required by a legal document to be\n"
+"payroll-deducted authorized by a tax services office or tax centre"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.employee:0
+msgid "Exemptions"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeY:0
+msgid "Code Y"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,f2:0
+msgid "Alimony/Maint Garnish (F2)"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeZ:0
+msgid "Code Z"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.employee:0
+msgid "Claim Codes"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeI:0
+msgid "Code I"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,k3:0
+msgid "Federal Medical (K3)"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeK:0
+msgid "Code K"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeJ:0
+msgid "Code J"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeM:0
+msgid "Code M"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeL:0
+msgid "Code L"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,erins:0
+msgid "Insurance - Employer Contribution (ErINS)"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeA:0
+msgid "Code A"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,ei_exempt:0
+msgid "EI Exempt"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeB:0
+msgid "Code B"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeE:0
+msgid "Code E"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeD:0
+msgid "Code D"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeG:0
+msgid "Code G"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeF:0
+msgid "Code F"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.payroll.tax.table:0
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_payroll_tax_table_csst_line
+msgid "CSST Lines"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.payroll.tax.table:0
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_payroll_tax_table_federal_line
+msgid "Federal Lines"
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.employee,lcf:0
+msgid "Federal labour-sponsored funds tax credit"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table,date_from:0
+msgid "Date From"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.federal.line,code10:0
+msgid "Code 10"
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.employee,k3:0
+msgid ""
+"Other federal tax credits, such as medical expenses and charitable donations\n"
+"authorized by a tax services office or tax centre"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,f1:0
+msgid "unknown"
+msgstr "inconnu"
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.rqap.line,employer_contrib:0
+msgid "Employer contribution"
+msgstr "Contribution d'employeur"
+
+#. module: payroll_canada
+#: help:hr.employee,f:0
+msgid ""
+"Payroll deductions for employee contributions to a registered pension plan\n"
+" (RPP), a registered retirement savings plan (RRSP), or a retirement\n"
+"compensation arrangement (RCA)"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_contract
+msgid "Contract"
+msgstr "Contrat"
+
+#. module: payroll_canada
+#: view:hr.payroll.tax.table:0
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_payroll_tax_table_ei_line
+msgid "Employment Insurance Lines"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.ei.line,inc_to:0
+#: field:hr.payroll.tax.table.federal.line,inc_to:0
+#: field:hr.payroll.tax.table.qc.line,inc_to:0
+#: field:hr.payroll.tax.table.rqap.line,inc_to:0
+msgid "Income To"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,td1p:0
+msgid "Provincial Claim Code"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table,jurisdiction:0
+msgid "Jurisdiction"
+msgstr "Juridiction"
+
+#. module: payroll_canada
+#: field:hr.employee,eeins:0
+msgid "Insurance - Employee Contribution (EeINS)"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,cpp_exempt:0
+msgid "CPP/QPP Exempt"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table,year:0
+msgid "Year"
+msgstr "Année"
+
+#. module: payroll_canada
+#: view:hr.payroll.tax.table:0
+msgid "RQAP / RRQ Lines"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,l:0
+msgid "Extra Tax Deductions (L)"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,f:0
+msgid "RSP/RPP/RCA (F)"
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.employee,td1:0
+msgid "Personal Tax Credits Return"
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.employee,f1:0
+msgid ""
+"Annual deductions such as child care expenses and support payments, etc.,\n"
+"authorized by a tax services office or tax centre"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.contract,pays_per_year:0
+msgid "Pays Per Year"
+msgstr "Paie par année"
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_payroll_tax_table
+msgid "Canadian Tax Payroll Table"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table,name:0
+msgid "Description"
+msgstr "Description"
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeH:0
+msgid "Code H"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,vac_pay:0
+msgid "Vacation Pay %"
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.employee,lcp:0
+msgid ""
+"Provincial or territorial labour-sponsored funds tax                    "
+"credit"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.csst.line,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.ei.line,max_annual_insurable_earnings:0
+msgid "Maximum Annual Insurable Earnings"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeN:0
+msgid "Code N"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table,line_csst_ids:0
+#: field:hr.payroll.tax.table,line_ei_ids:0
+#: field:hr.payroll.tax.table,line_federal_ids:0
+#: field:hr.payroll.tax.table,line_qc_ids:0
+#: field:hr.payroll.tax.table,line_rqap_ids:0
+msgid "Lines"
+msgstr "Lignes"
+
+#. module: payroll_canada
+#: field:hr.employee,td1f:0
+msgid "Federal Claim Code"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.qc.line,codeC:0
+msgid "Code C"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.ei.line,rate:0
+msgid "Rate"
+msgstr "Taux"
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_payroll_tax_table_rqap_line
+msgid "RQAP Lines"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payroll.tax.table.csst.line,table_id:0
+#: field:hr.payroll.tax.table.ei.line,table_id:0
+#: field:hr.payroll.tax.table.federal.line,table_id:0
+#: field:hr.payroll.tax.table.qc.line,table_id:0
+#: field:hr.payroll.tax.table.rqap.line,table_id:0
+msgid "Table"
+msgstr "Table"

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_company_form" model="ir.ui.view">
+           <field name="name">res.company.form</field>
+           <field name="model">res.company</field>
+            <field name="inherit_id" ref="payroll_quebec.view_company_form"/>
+            <field name="arch" type="xml">
+                <group name="quebec_payroll_group_1" position="after">
+                    <group name="grp_qc_payroll_account" string="Payroll Accounting" colspan="4">
+                        <field name="qc_cnt_debit_account" domain="[('company_id', '=', id)]"/>
+                        <field name="qc_cnt_credit_account" domain="[('company_id', '=', id)]"/>
+                        <field name="qc_wsdrf_debit_account" domain="[('company_id', '=', id)]"/>
+                        <field name="qc_wsdrf_credit_account" domain="[('company_id', '=', id)]"/>
+                        <field name="qc_wsdrf_reported_account" domain="[('company_id', '=', id)]"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</openerp>

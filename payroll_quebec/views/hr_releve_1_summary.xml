@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_releve_1_summary_form" model="ir.ui.view">
+            <field name="name">hr.releve_1.summary.form</field>
+            <field name="model">hr.releve_1.summary</field>
+            <field name="arch" type="xml">
+                <form string="Relevés 1 - Summary" version="7.0">
+                    <header>
+                        <button name="generate_slips" type="object" states="draft" string="Generate Relevés 1" class="oe_highlight"/>
+                        <button string="Confirm" name="button_confirm" type="object" states="draft" class="oe_highlight"/>
+                        <button string="Confirm Relevés 1" name="button_confirm_slips" type="object" states="draft" class="oe_highlight"/>
+                        <button string="Cancel" name="button_cancel" type="object" states="draft,sent"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent"/>
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <field name="company_id"/>
+                            <field name="year"/>
+                            <field name="slip_type"/>
+                            <field name="date"/>
+                        </group>
+                        <group col="4">
+                            <field name="total_balance"/>
+                            <newline/>
+                            <field name="total_receivable"/>
+                            <field name="total_payable"/>
+                        </group>
+
+                        <notebook>
+
+                            <page name="fiscal_slips" string="Relevés 1">
+                                <label for="total_ids"/>
+                                <newline/>
+                                <field name="total_ids" readonly="1" nolabel="1">
+                                    <tree editable="top">
+                                        <field name="box_id"/>
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
+
+                                <label for="releve_1_ids"/>
+                                <newline/>
+                                <field name="releve_1_ids" nolabel="1"/>
+                            </page>
+
+                            <page string="QPP, QPIP and Income Tax">
+                                <group string="QPP Contributions">
+                                    <field name="qpp_amount_ee"/>
+                                    <field name="qpp_amount_er"/>
+                                    <field name="qpp_amount_total"/>
+                                </group>
+
+                                <group string="QPIP Contributions">
+                                    <field name="qpip_amount_ee"/>
+                                    <field name="qpip_amount_er"/>
+                                    <field name="qpip_amount_total"/>
+                                </group>
+
+                                <group string="Quebec Income Tax">
+                                    <field name="qit_amount_1"/>
+                                    <field name="qit_amount_2"/>
+                                    <field name="qit_amount_total"/>
+                                </group>
+
+                                <group string="Balance">
+                                    <field name="sub_total_contribution"/>
+                                    <field name="sub_total_remitted"/>
+                                    <field name="sub_total_payable"/>
+                                </group>
+
+                            </page>
+
+                            <page string="Health Service Fund">
+
+                                    <group>
+                                        <field name="hsf_total_wage_bill"/>
+                                        <field name="hsf_salaries"/>
+                                    </group>
+
+                                    <group string="Exemption">
+                                        <field name="hsf_exemption_code" attrs="{'required': [('hsf_exemption_amount', '>', 0)]}"/>
+                                        <field name="hsf_exemption_amount"/>
+                                    </group>
+
+                                    <group string="Contribution">
+                                        <field name="hsf_contribution_rate"/>
+                                        <field name="hsf_amount_before_reduction"/>
+                                    </group>
+
+                                    <group string="Reduction of the contribution">
+                                        <field name="hsf_reduction_basis"/>
+                                        <field name="hsf_reduction_rate"/>
+                                        <field name="hsf_reduction_amount"/>
+                                    </group>
+
+                                    <group string="Balance">
+                                        <field name="hsf_amount_remitted"/>
+                                        <field name="hsf_amount_payable"/>
+                                    </group>
+
+                            </page>
+
+                            <page string="Labour Standards">
+                                <group string="Commission des Normes du Travail">
+                                    <field name="cnt_salaries"/>
+                                    <field name="cnt_rate"/>
+                                    <field name="cnt_amount_payable"/>
+                                </group>
+                            </page>
+
+                            <page string="Workforce Skills Development">
+                                <group string="Training Expenses">
+                                    <field name="wsdrf_previous_reported"/>
+                                    <field name="wsdrf_expenses_current"/>
+                                    <field name="wsdrf_expenses_available"/>
+                                    <field name="wsdrf_expenses"/>
+                                    <field name="wsdrf_reported"/>
+                                </group>
+                                <group string="Contribution">
+                                    <field name="wsdrf_salaries"/>
+                                    <field name="wsdrf_rate"/>
+                                    <field name="wsdrf_amount_before_expenses"/>
+                                    <field name="wsdrf_contribution"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_releve_1_summary_tree" model="ir.ui.view">
+            <field name="name">hr.releve_1.summary.tree</field>
+            <field name="model">hr.releve_1.summary</field>
+            <field name="arch" type="xml">
+                <tree string="Relevé 1 Summaries">
+                    <field name="company_id"/>
+                    <field name="year"/>
+                    <field name="slip_type"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_releve_1_summary_filter" model="ir.ui.view">
+            <field name="name">hr.releve_1.summary.select</field>
+            <field name="model">hr.releve_1.summary</field>
+            <field name="arch" type="xml">
+                <search string="Search Relevé 1 Summaries">
+                    <field name="year"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_hr_releve_1_summary_tree" model="ir.actions.act_window">
+            <field name="name">Relevés 1 - Summary</field>
+            <field name="res_model">hr.releve_1.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_hr_releve_1_summary_tree"/>
+            <field name="search_view_id" ref="view_hr_releve_1_summary_filter"/>
+        </record>
+
+        <menuitem
+            id="releve_1_summary_menu_item"
+            action="action_view_hr_releve_1_summary_tree"
+            parent="payroll_canada.menu_fiscal_slips"
+            groups="base.group_hr_manager" 
+            sequence="51"
+        />
+
+    </data>
+</openerp>

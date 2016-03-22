@@ -9,7 +9,7 @@ managing employee benefits, hourly rates, payroll periods, leave accruals,
 importing worked days from timesheet and many other features.
 
 This set of module is totally independant from the Odoo hr_payroll module.
-sfl_payroll_base and sfl_payroll_account are forks of hr_payroll and hr_payroll_account
+payroll_base and payroll_account are forks of hr_payroll and hr_payroll_account
 These are based on version 8.0 of Odoo and therefore remain under the AGPL v3.
 
 The rest of modules are from Savoir-faire Linux with little contributions

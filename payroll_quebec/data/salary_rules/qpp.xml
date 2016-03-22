@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Quebec Pension Plan - 130 to 140 -->
+        <record id="rule_qc_qpp_ee_maxie" model="hr.salary.rule">
+            <field name="name">QPP - Employee - Maximum Insurable Earnings</field>
+            <field name="sequence" eval="130"/>
+            <field name="code">QPP_EE_MAXIE</field>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.cpp_exempt"/>
+            <field name="amount_python_compute">
+max_annual = rule.variable(payslip.date_payment)['max_annual']
+
+benefits = rule.sum_benefits(payslip, employer=True)
+
+previous_ie_ytd = payslip.ytd_amount('QPP_EE_MAXIE')
+
+result = benefits + GROSSP + OTHER_WAGE
+result = min(max_annual - previous_ie_ytd, result)
+
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_qc_qpp_ee_c" model="hr.salary.rule">
+            <field name="name">QPP - Employee Contribution</field>
+            <field name="sequence" eval="132"/>
+            <field name="code">QPP_EE_C</field>
+            <field name="category_id" ref="payroll_canada.SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.cpp_exempt"/>
+            <field name="register_id" ref="register_revenu_quebec"/>
+            <field name="amount_python_compute">
+variable = rule.variable(payslip.date_payment)
+
+previous_ytd = payslip.ytd_amount('QPP_EE_C')
+
+result = variable['rate'] * (QPP_EE_MAXIE - variable['basic_exempt'] / P)
+result = min(result, variable['max_annual'] - previous_ytd)
+
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_qc_qpp_er_c" model="hr.salary.rule">
+            <field name="name">QPP - Employer Contribution</field>
+            <field name="sequence" eval="137"/>
+            <field name="code">QPP_ER_C</field>
+            <field name="category_id" ref="payroll_canada.EMP"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.cpp_exempt"/>
+            <field name="register_id" ref="register_revenu_quebec"/>
+            <field name="amount_python_compute">
+result = QPP_EE_C
+            </field>
+        </record>
+
+    </data>
+</openerp>

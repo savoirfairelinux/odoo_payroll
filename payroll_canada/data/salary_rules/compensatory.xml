@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="rule_ca_comp_available" model="hr.salary.rule">
+            <field name="name">Compensatory days available</field>
+            <field name="sequence" eval="40"/>
+            <field name="code">COMP_AVAIL</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="leave_type_id" ref="hr_holidays.holiday_status_comp"/>
+            <field name="amount_python_compute">
+result = rule.sum_leave_accruals(payslip, in_cash=True)
+            </field>
+        </record>
+
+        <record id="rule_ca_comp_available_hours" model="hr.salary.rule">
+            <field name="name">Compensatory hours available</field>
+            <field name="sequence" eval="41"/>
+            <field name="code">COMP_AVAIL_HOURS</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="leave_type_id" ref="hr_holidays.holiday_status_comp"/>
+            <field name="amount_python_compute">
+result = rule.sum_leave_accruals(payslip, in_cash=False)
+            </field>
+        </record>
+
+        <record id="rule_ca_comp_requested" model="hr.salary.rule">
+            <field name="name">Compensatory days requested</field>
+            <field name="sequence" eval="42"/>
+            <field name="code">COMP_REQ</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="leave_activity_ids" eval="[(6, 0, [
+                ref('payroll_activity.activity_holiday_status_comp'),
+            ])]"/>
+            <field name="amount_python_compute">
+result = rule.sum_leaves_requested(payslip, in_cash=True)
+            </field>
+        </record>
+
+        <record id="rule_ca_comp_taken" model="hr.salary.rule">
+            <field name="name">Compensatory days taken</field>
+            <field name="sequence" eval="43"/>
+            <field name="code">COMP_TAKEN</field>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="leave_activity_ids" eval="[(6, 0, [
+                ref('payroll_activity.activity_holiday_status_comp'),
+                ref('activity_holiday_status_comp_unpaid'),
+            ])]"/>
+            <field name="leave_type_id" ref="hr_holidays.holiday_status_comp"/>
+            <field name="amount_python_compute">
+if COMP_AVAIL >= COMP_REQ or rule.allow_override_limit():
+    result = COMP_REQ
+elif COMP_REQ > 0:
+    result = COMP_AVAIL
+    reduction = COMP_REQ - COMP_AVAIL
+    rule.reduce_leaves(payslip, reduction, in_cash=True)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="rule_ca_comp_taken_hours" model="hr.salary.rule">
+            <field name="name">Compensatory hours taken</field>
+            <field name="sequence" eval="44"/>
+            <field name="code">COMP_TAKEN_HOURS</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="leave_activity_ids" eval="[(6, 0, [
+                ref('payroll_activity.activity_holiday_status_comp'),
+                ref('activity_holiday_status_comp_unpaid'),
+            ])]"/>
+            <field name="amount_python_compute">
+result = rule.sum_leaves_taken(payslip, in_cash=False)
+            </field>
+        </record>
+
+        <record id="rule_ca_unused_comp_taken" model="hr.salary.rule">
+            <field name="name">Unused compensatory days payment</field>
+            <field name="sequence" eval="45"/>
+            <field name="code">COMP_UNUSED</field>
+            <field name="category_id" ref="OTHER_WAGE"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+requested_amount = rule.sum_payslip_input(payslip)
+available_amount = COMP_AVAIL - COMP_TAKEN
+
+if available_amount >= requested_amount:
+    result = requested_amount
+elif requested_amount > 0:
+    result = available_amount
+    reduction = requested_amount - available_amount
+    rule.reduce_payslip_input_amount(payslip, reduction)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="rule_ca_unused_comp_taken_hours" model="hr.salary.rule">
+            <field name="name">Unused compensatory hours taken</field>
+            <field name="sequence" eval="46"/>
+            <field name="code">COMP_UNUSED_HOURS</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+available_hours = COMP_AVAIL_HOURS - COMP_TAKEN_HOURS
+result = min(available_hours, COMP_UNUSED / HOURLY_RATE)
+result = max(0, result)
+            </field>
+        </record>
+
+        <record id="rule_ca_comp_added" model="hr.salary.rule">
+            <field name="name">Compensatory days earned</field>
+            <field name="sequence" eval="92"/>
+            <field name="code">COMP_ADDED</field>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = max(PUBLIC_AVAIL - PUBLIC_TAKEN, 0)
+            </field>
+        </record>
+
+        <record id="rule_ca_comp_added_hours" model="hr.salary.rule">
+            <field name="name">Compensatory hours earned</field>
+            <field name="sequence" eval="93"/>
+            <field name="code">COMP_ADDED_HOURS</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = COMP_ADDED / HOURLY_RATE
+            </field>
+        </record>
+
+    </data>
+</openerp>

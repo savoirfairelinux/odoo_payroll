@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="standard_vacation_entitlement" model="hr.holidays.entitlement">
+            <field name="name">Standard Vacation Entitlement</field>
+            <field name="month_start">1</field>
+            <field name="day_start">1</field>
+            <field name="leave_id" ref="payroll_activity.holiday_status_vacation"/>
+        </record>
+
+    </data>
+</openerp>

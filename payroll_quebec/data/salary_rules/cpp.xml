@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Override CPP because it is replaced by QPP in Quebec -->
+        <!-- Canada Pension Plan - 130 -->
+
+        <record id="rule_qc_cpp_ee_maxie" model="hr.salary.rule">
+            <field name="name">CPP - Employee - Maximum Insurable Earnings</field>
+            <field name="sequence" eval="131"/>
+            <field name="code">CPP_EE_MAXIE</field>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.cpp_exempt"/>
+            <field name="amount_python_compute">
+result = 0
+            </field>
+        </record>
+
+        <record id="rule_qc_cpp_ee_c" model="hr.salary.rule">
+            <field name="name">CPP - Employee Contribution</field>
+            <field name="sequence" eval="133"/>
+            <field name="code">CPP_EE_C</field>
+            <field name="category_id" ref="payroll_canada.SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.cpp_exempt"/>
+            <field name="register_id" ref="payroll_canada.register_cra"/>
+            <field name="amount_python_compute">
+result = 0
+            </field>
+        </record>
+
+    </data>
+</openerp>

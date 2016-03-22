@@ -1,0 +1,1896 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* payroll_canada
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-04 19:04+0000\n"
+"PO-Revision-Date: 2015-07-04 19:04+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:50
+#, python-format
+msgid "Compensatory days taken"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.holidays.status,name:l10n_ca_payroll_canada.holiday_status_sl_unpaid
+msgid "Unpaid Sick Leaves"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_37_hr_fiscal_slip_box
+msgid "37 - Employee home-relocation loan deduction amount"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.ui.menu,name:l10n_ca_payroll_canada.menu_fiscal_slips
+msgid "Canada Fiscal Slips"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.holidays.status,uses_entitlement:0
+msgid "Uses Entitlement"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:54
+#, python-format
+msgid "Sick leaves taken"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/report/report_summary.py:31
+#, python-format
+msgid "You must select one and only one summary"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_cpp_qpp_ern_amt_hr_fiscal_slip_box
+msgid "26 - CPP/QPP pensionable earnings"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Province d'emploi"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_itx_ddct_amt_hr_fiscal_slip_box
+msgid "22 - Income tax deducted"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.holidays.entitlement,day_start:0
+msgid "Day Start"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4.amount,amount:0
+#: field:hr.cra.t4.summary.total,amount:0
+msgid "Amount"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.fiscal_slip.box,benefit_line_ids:0
+#: selection:hr.fiscal_slip.box,type:0
+msgid "Benefit Categories"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.salary.rule:0
+msgid "False"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.fiscal_slip,reference:0
+#: field:hr.cra.t4,reference:0
+#: field:hr.fiscal_slip,reference:0
+msgid "Reference"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:43
+#, python-format
+msgid "RPP - Employer Contribution"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.summary,sbmt_ref_id:0
+#: field:hr.cra.t4.summary,sbmt_ref_id:0
+msgid "Submission Reference"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "May"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_employee.py:47
+#, python-format
+msgid "The employee %s's social insurance number is not set."
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_fiscal_slip_box_deduction_line
+msgid "hr.fiscal_slip.box.deduction.line"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.holidays.entitlement:0
+#: field:hr.holidays.entitlement,leave_id:0
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_holidays_status
+msgid "Leave Type"
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.fiscal_slip.box,required:0
+msgid "If box is required, it must have an amount even if it is null."
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Exempt – Exemption"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_payslip_input_category
+msgid "Payslip Input Category"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_66_hr_fiscal_slip_box
+msgid "66 - Eligible retiring allowances"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Employment income – line 101"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:47
+#, python-format
+msgid "VRSP - Employer Contribution"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4,cpp_qpp_xmpt_cd:0
+msgid "CPP or QPP exempt"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.salary.rule:0
+msgid "True"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.fiscal_slip.box.benefit.line,include_employer:0
+msgid "Include Employer Contribution"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4.summary.box,child_ids:0
+msgid "Related T4 Boxes"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "RPP contributions – line 207"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_34_hr_fiscal_slip_box
+msgid "34 - Personal use of employer automobile amount"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.summary,contact_id:0
+#: view:hr.cra.t4.summary:0
+#: field:hr.cra.t4.summary,contact_id:0
+msgid "Contact"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:45
+#, python-format
+msgid "PRPP - Employer Contribution"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:62
+#, python-format
+msgid "English"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_73_hr_fiscal_slip_box
+msgid "73 - Employment outside of Canada Day Count"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:res.company,week_start:0
+msgid "Tuesday"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_employee.py:41
+#, python-format
+msgid "The employee %s's first name is not set."
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4.box,fiscal_slip_box_id:0
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_fiscal_slip_box
+msgid "Fiscal Slip Box"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.payslip.input,category_id:0
+msgid "Category"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4.box:0
+msgid "Income Tax Deductions"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4,empt_cd:0
+#: report:t4_employee_copy:0
+msgid "Employment code"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Numéro d'assurance sociale"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_employee.py:92
+#, python-format
+msgid "The employee %s's working address has no country defined."
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.fiscal_slip.box,date_from:0
+#: field:hr.fiscal_slip.box.benefit.line,date_from:0
+#: field:hr.fiscal_slip.box.deduction.line,date_from:0
+msgid "Date From"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Income tax deducted – line 437"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:28
+#, python-format
+msgid "Alberta"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.fiscal_slip,state:0
+#: field:hr.cra.summary,state:0
+#: field:hr.cra.t4,state:0
+#: field:hr.cra.t4.summary,state:0
+#: field:hr.fiscal_slip,state:0
+msgid "Status"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_ei_insu_ern_amt_hr_fiscal_slip_box
+msgid "24 - EI insurable earnings"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "August"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "June"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_empe_eip_amt_hr_fiscal_slip_box
+msgid "18 - Employee's EI premiums"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "October"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Cotisations de l'employé au RPC – ligne 308"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.fiscal_slip.box,required:0
+msgid "Required"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:res.company,week_start:0
+msgid "Wednesday"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:39
+#, python-format
+msgid "Employee Benefits - Employer Contribution"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:87
+#: code:addons/payroll_canada/models/hr_employee.py:59
+#, python-format
+msgid "Street Line 1"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.summary,contact_extension:0
+#: field:hr.cra.t4.summary,contact_extension:0
+msgid "Contact Extension"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_unn_dues_amt_hr_fiscal_slip_box
+msgid "44 - Union dues"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.deduction.jurisdiction,name:l10n_ca_payroll_canada.jurisdiction_federal
+msgid "Federal"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_72_hr_fiscal_slip_box
+msgid "72 - Outside of Canada employment income amount- Section 122.3"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_cra_t4_summary_box
+msgid "T4 Summary Box"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.holidays.public.line,name:l10n_ca_payroll_canada.holidays_chrismas_2015
+msgid "Christmas"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:29
+#: model:hr.payslip.input.category,name:l10n_ca_payroll_canada.payslip_input_bonus
+#, python-format
+msgid "Bonus"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:52
+#, python-format
+msgid "Compensatory days earned"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.salary.rule,leave_accrual_id:0
+msgid "Leave Accrual"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,sin:0
+msgid "Social Insurance Number"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_padj_amt_hr_fiscal_slip_box
+msgid "52 - Pension adjustment"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Cotisations de l'employé au RRQ – ligne 308"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_fiscal_slip_box_benefit_line
+msgid "hr.fiscal_slip.box.benefit.line"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:30
+#, python-format
+msgid "Manitoba"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:51
+#, python-format
+msgid "Unused compensatory days payment"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.payslip.input.category,name:l10n_ca_payroll_canada.payslip_input_unused_comp
+msgid "Unused Compensatory days"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "24"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "26"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "20"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "22"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Year / Année"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "28"
+msgstr ""
+
+#. module: payroll_canada
+#: field:res.company,cra_transmitter_number:0
+msgid "Canada Revenu Agency Transmitter Number"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee.benefit.category,is_rpp_dpsp:0
+msgid "Is RPP or DPSP"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "First name"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_chrty_dons_amt_hr_fiscal_slip_box
+msgid "46 - Charitable donations"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Gains ouvrant droit à pension – RPC/RRQ"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4.summary.total,box_id:0
+msgid "Contribution / Source Deduction"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_payslip
+msgid "Pay Slip"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:29
+#, python-format
+msgid "British Columbia"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Initiale"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "RC-14-553"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.summary,proprietor_2_id:0
+#: field:hr.cra.t4.summary,proprietor_2_id:0
+msgid "Second Proprietor"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.ui.menu,name:l10n_ca_payroll_canada.menu_canada_payroll_configuration
+#: view:res.company:0
+msgid "Canada Payroll"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "CPP/QPP"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.summary,contact_phone:0
+#: field:hr.cra.t4.summary,contact_phone:0
+msgid "Contact Phone"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:53
+#, python-format
+msgid "Public holidays taken"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_33_hr_fiscal_slip_box
+msgid "33 - Medical travel amount"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4.summary:0
+msgid "Generate T4 Slips"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4.box:0
+#: model:ir.actions.act_window,name:l10n_ca_payroll_canada.action_view_t4_box_tree
+#: model:ir.ui.menu,name:l10n_ca_payroll_canada.t4_box_menu_item
+msgid "T4 Boxes"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_42_hr_fiscal_slip_box
+msgid "42 - Employment commission amount"
+msgstr ""
+
+#. module: payroll_canada
+#: field:res.company,week_start:0
+msgid "Week start"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:58
+#, python-format
+msgid "Vacation earned"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Dons de bienfaisance – ligne 349"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.fiscal_slip,type:0
+#: field:hr.cra.t4,type:0
+#: view:hr.cra.t4.box:0
+#: field:hr.fiscal_slip.box,type:0
+msgid "Type"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.fiscal_slip.box,appears_on_summary:0
+msgid "Appear On Summary XML"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.summary,contact_area_code:0
+#: field:hr.cra.t4.summary,contact_area_code:0
+msgid "Contact Area Code"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.holidays.status,name:l10n_ca_payroll_canada.holiday_status_vac_unpaid
+msgid "Unpaid Vacations"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_payslip_run
+msgid "Payslip Batches"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.summary,xml:0
+#: field:hr.cra.t4.summary,xml:0
+msgid "XML Generated"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:35
+#, python-format
+msgid "Nunavut"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Gains assurables du RPAP"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "EI"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.fiscal_slip.box.deduction.line,category_id:0
+msgid "Deduction"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4:0
+#: view:hr.cra.t4.summary:0
+#: field:hr.cra.t4.summary,t4_slip_ids:0
+#: model:ir.actions.act_window,name:l10n_ca_payroll_canada.action_view_t4_tree
+#: model:ir.ui.menu,name:l10n_ca_payroll_canada.t4_slip_menu_item
+msgid "T4 Slips"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:46
+#, python-format
+msgid "VRSP - Employee Contribution"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "September"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.deduction.jurisdiction,name:l10n_ca_payroll_canada.jurisdiction_federal_provincial
+msgid "Federal and Provincial"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Last name (in capital letters)"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:36
+#, python-format
+msgid "Ontario"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:55
+#, python-format
+msgid "Send Amended Slips"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Social insurance number"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.fiscal_slip.box.benefit.line,include_employee:0
+msgid "Include Employee Contribution"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.payslip.run:0
+msgid "Confirm Payslips"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:49
+#, python-format
+msgid "Amended"
+msgstr "
+#. module: payroll_canada
+#: selection:res.company,week_start:0
+msgid "Monday"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_36_hr_fiscal_slip_box
+msgid "36 - Interest-free and low-interest loan amount"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:34
+#, python-format
+msgid "CPP - Employee Contribution"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_fiscal_slip
+msgid "Fiscal Slip"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_qpp_cntrb_amt_hr_fiscal_slip_box
+msgid "17 - Employee's QPP contributions"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_empr_eip_amt_hr_fiscal_slip_box
+msgid "Employer's EI contributions"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:42
+#, python-format
+msgid "RPP - Employee Contribution"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Union dues – line 212"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.fiscal_slip.box.benefit.line,category_id:0
+msgid "Benefit"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "10"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4.amount,code:0
+#: field:hr.fiscal_slip.box,code:0
+msgid "Code"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "14"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "17"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "16"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "18"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_empr_cpp_amt_hr_fiscal_slip_box
+msgid "Employer's CPP contributions"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_payroll_structure
+msgid "Salary Structure"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4.summary:0
+msgid "Cancel"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Employee's EI premiums – line 312"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Cotisations de l'employé au RPAP – voir au verso"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4:0
+#: field:hr.cra.t4.amount,box_id:0
+#: view:hr.cra.t4.box:0
+msgid "T4 Box"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.payslip.run:0
+msgid "Generate Payslips"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.contract,pays_per_year:0
+msgid "Pays Per Year"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:42
+#, python-format
+msgid "Other"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.fiscal_slip,address_home_id:0
+#: field:hr.cra.t4,address_home_id:0
+#: field:hr.fiscal_slip,address_home_id:0
+msgid "Home Address"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:55
+#, python-format
+msgid "Unused sick leave payment"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Amount - Montant"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "RPC/RRQ"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_employee.py:141
+#, python-format
+msgid "The number provided is not a valid SIN number !"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_payslip_worked_days
+msgid "Payslip Worked Days"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4,name:0
+#: field:hr.cra.t4.summary,name:0
+#: field:hr.cra.t4.summary.box,name:0
+#: field:hr.fiscal_slip.box,name:0
+#: field:hr.holidays.entitlement,name:0
+#: field:hr.payslip.input.category,name:0
+msgid "Name"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_cra_fiscal_slip
+msgid "CRA Fiscal Slip"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:33
+#, python-format
+msgid "Nova Scotia"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4:0
+msgid "Set To Draft"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "29"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.summary,contact_email:0
+#: field:hr.cra.t4.summary,contact_email:0
+msgid "Contact Email"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "EI insurable earnings"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4.summary:0
+msgid "Search Summarys"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:54
+#, python-format
+msgid "Send Original Slips"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_38_hr_fiscal_slip_box
+msgid "38 - Security options benefits"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Province of employment"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4:0
+#: field:hr.cra.t4.amount,slip_id:0
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_cra_t4
+msgid "T4 Slip"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Gains assurables d'AE"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4.box:0
+msgid "Group By..."
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Impôt sur le revenu retenu – ligne 437"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.salary.rule,leave_activity_ids:0
+msgid "Related Leave Activities"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:89
+#: code:addons/payroll_canada/models/hr_employee.py:61
+#, python-format
+msgid "Province"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:63
+#, python-format
+msgid "French"
+msgstr ""
+
+#. module: payroll_canada
+#: field:res.company,cra_payroll_number:0
+msgid "CRA Payroll Number"
+msgstr ""
+
+#. module: payroll_canada
+#: constraint:hr.employee.benefit.category:0
+msgid "RPP and DPSP benefits must have a valid registration number.In the field Reference, please enter the 7 digit number."
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.salary.rule:0
+msgid "Leaves"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Pension adjustment – line 206"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "12"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.fiscal_slip.box,deduction_line_ids:0
+#: selection:hr.fiscal_slip.box,type:0
+msgid "Deduction Categories"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.holidays.status,name:l10n_ca_payroll_canada.holiday_status_comp_unpaid
+msgid "Unpaid Compensatory"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4.summary:0
+msgid "Standard Information"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4.box:0
+msgid "Search T4 Box"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,lastname_initial:0
+msgid "Last Name initial"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Prénom"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:71
+#: code:addons/payroll_canada/models/hr_fiscal_slip.py:33
+#, python-format
+msgid "Sent"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:39
+#, python-format
+msgid "Saskatchewan"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.summary,type:0
+#: field:hr.cra.t4.summary,type:0
+msgid "Summary Type"
+msgstr ""
+
+#. module: payroll_canada
+#: constraint:hr.payslip:0
+msgid "The leave hours taken by the employee must be lower or equal to the number of worked hours per pay period on the contract."
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4.box:0
+#: field:hr.fiscal_slip.box,salary_rule_ids:0
+#: selection:hr.fiscal_slip.box,type:0
+#: field:hr.payslip.input.category,salary_rule_ids:0
+msgid "Salary Rules"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_salary_rule.py:253
+#, python-format
+msgid "Salary rule %s is used to read leave accruals but it has no related leave accrual."
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.cra.summary,sbmt_ref_id:0
+#: help:hr.cra.t4.summary,sbmt_ref_id:0
+msgid "Number created by the company to identify the summary. It should contain 6 numeric characters"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4:0
+#: field:hr.cra.t4,amount_ids:0
+msgid "Box Amounts"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "July"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Cotisations de l'employé à l'AE – ligne 312"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4.box:0
+msgid "Employee Benefits"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Box - Case"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "N° d'agrément d'un RPA ou d'un RPDB"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.fiscal_slip,computed:0
+#: field:hr.cra.t4,computed:0
+#: field:hr.fiscal_slip,computed:0
+msgid "Computed"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_payslip_input
+msgid "Payslip Input"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_cra_t4_summary_total
+msgid "CRA T4 Summary Amount"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.employee,employee_number:0
+msgid "Employee Number"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:38
+#, python-format
+msgid "Quebec"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.holidays.public.line,name:l10n_ca_payroll_canada.holidays_canada_day_2015
+msgid "Canada Day"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:41
+#, python-format
+msgid "United States"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "PPIP insurable earnings"
+msgstr ""
+
+#. module: payroll_canada
+#: constraint:hr.cra.t4:0
+msgid "Error! You can enter a maximum of 6 other amounts and all amounts must be different from each other."
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Initial"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4.summary:0
+#: field:hr.cra.t4.summary,total_ids:0
+msgid "Totals"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_employee.py:83
+#, python-format
+msgid "The employee %s's working address has no province defined."
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_32_hr_fiscal_slip_box
+msgid "32 - Travel in a prescribed zone amount"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4.summary:0
+msgid "Confirm T4 Slips"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4.amount,xml_tag:0
+#: field:hr.cra.t4.summary.box,xml_tag:0
+#: field:hr.fiscal_slip.box,xml_tag:0
+msgid "XML Tag"
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.employee.benefit.category,is_rpp_dpsp:0
+msgid "Whether the benefit is a Registered Pension Plan or a Deferred Profit Sharing Plan"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4,ei_xmpt_cd:0
+msgid "Employment Insurance exempt"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_cra_t4_box
+msgid "CRA T4 Box"
+msgstr ""
+
+#. module: payroll_canada
+#: constraint:res.company:0
+msgid "A company can not have more than one holidays entitlement per leave type."
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4:0
+msgid "Compute Amounts"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4.summary.box,active:0
+msgid "Active"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.contract,holidays_entitlement_ids:0
+#: field:res.company,holidays_entitlement_ids:0
+msgid "Leave Entitlement Periods"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.holidays.public.line,name:l10n_ca_payroll_canada.holidays_good_friday_2015
+msgid "Good Friday"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.summary,number_of_slips:0
+#: field:hr.cra.t4.summary,number_of_slips:0
+msgid "Number of Slips"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_cpp_cntrb_amt_hr_fiscal_slip_box
+msgid "16 - Employee's CPP contributions"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.summary,lang_cd:0
+#: field:hr.cra.t4.summary,lang_cd:0
+msgid "Language of Communication"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:91
+#: code:addons/payroll_canada/models/hr_employee.py:62
+#, python-format
+msgid "Postal Code"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:31
+#, python-format
+msgid "New Brunswick"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4.amount,is_other_amount:0
+#: view:hr.cra.t4.box:0
+#: field:hr.fiscal_slip.box,is_other_amount:0
+msgid "Is Other Amount"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "PPIP"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:88
+#, python-format
+msgid "City"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:56
+#, python-format
+msgid "Cancel slips already sent"
+msgstr ""
+
+#. module: payroll_canada
+#: constraint:hr.cra.summary:0
+#: constraint:hr.cra.t4.summary:0
+msgid "Error! The contact phone number must be in the following format: 123-1234 and the area code must have 3 digits"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "RPAP"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Employee's PPIP premiums – see over"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_prov_insu_ern_amt_hr_fiscal_slip_box
+msgid "56 - PPIP insurable earnings"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.holidays.entitlement,month_start:0
+msgid "Month Start"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_prov_pip_amt_hr_fiscal_slip_box
+msgid "55 - Employee's PPIP premiums"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:96
+#, python-format
+msgid "The field %s for %s is missing"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.actions.report.xml,name:l10n_ca_payroll_canada.report_t4_employee_copy
+msgid "T4 - Employee Copy"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4,rpp_dpsp_rgst_nbr:0
+msgid "RPP/PRPP registration number"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_30_hr_fiscal_slip_box
+msgid "30 - Housing, board and lodging amount"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Employee's QPP contributions – line 308"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.holidays.entitlement:0
+#: model:ir.actions.act_window,name:l10n_ca_payroll_canada.open_tree_holidays_entitlement
+#: model:ir.ui.menu,name:l10n_ca_payroll_canada.menu_hr_holidays_entitlement_tree
+msgid "Holidays Entitlements"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_leave_accrual
+msgid "Employee Leave Accrual"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:27
+#, python-format
+msgid "Gross per pay"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.actions.report.xml,name:l10n_ca_payroll_canada.report_t4_summary
+msgid "T4 Summary XML"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_activity
+msgid "Employee Activities"
+msgstr ""
+
+#. module: payroll_canada
+#: constraint:hr.contract:0
+msgid "A contract can not have more than one holidays entitlement per leave type."
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.cra.t4,child_ids:0
+msgid "When an employee has more than 6 other amounts to be written in his T4 slip, other T4 slips must be created."
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4,other_amount_ids:0
+msgid "Other Amounts"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Employer's account number / Numéro de compte de l'employeur"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:res.company,week_start:0
+msgid "Sunday"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:35
+#, python-format
+msgid "EI - Employee Contribution"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_t4_summary.py:45
+#, python-format
+msgid "Every T4 must be confirmed before sending the summary. The slip for employee %s is not confirmed."
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.summary,trnmtr_nbr:0
+#: field:hr.cra.t4.summary,trnmtr_nbr:0
+msgid "Transmitter Number"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Nom de famille (en lettres moulées)"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_31_hr_fiscal_slip_box
+msgid "31 - Special work site amount"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4:0
+#: field:hr.cra.t4,child_ids:0
+msgid "Related T4 Slips"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.fiscal_slip,company_id:0
+#: field:hr.cra.summary,company_id:0
+#: field:hr.cra.t4,company_id:0
+#: field:hr.cra.t4.summary,company_id:0
+#: field:hr.fiscal_slip,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:res.company,week_start:0
+msgid "Friday"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_salary_rule
+msgid "hr.salary.rule"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Other information (see over)"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4.summary:0
+#: model:ir.actions.act_window,name:l10n_ca_payroll_canada.action_view_hr_t4_summary_tree
+#: model:ir.ui.menu,name:l10n_ca_payroll_canada.t4_summary_menu_item
+msgid "T4 Slips - Summary"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Cotisations syndicales – ligne 212"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_employee.py:40
+#: code:addons/payroll_canada/models/hr_employee.py:46
+#: code:addons/payroll_canada/models/hr_employee.py:54
+#: code:addons/payroll_canada/models/hr_employee.py:66
+#: code:addons/payroll_canada/models/hr_employee.py:75
+#: code:addons/payroll_canada/models/hr_employee.py:82
+#: code:addons/payroll_canada/models/hr_employee.py:91
+#, python-format
+msgid "Error!"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_employee_benefit_category
+msgid "Category of employee benefits"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:50
+#: code:addons/payroll_canada/models/hr_cra_summary.py:69
+#: code:addons/payroll_canada/models/hr_fiscal_slip.py:30
+#, python-format
+msgid "Cancelled"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "CPP/QPP pensionable earnings"
+msgstr ""
+
+#. module: payroll_canada
+#: help:hr.cra.summary,proprietor_1_id:0
+#: help:hr.cra.t4.summary,proprietor_1_id:0
+msgid "The company's proprietor"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "55"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "54"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "56"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "50"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:38
+#, python-format
+msgid "Employee Benefits - Employee Contribution"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "52"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:57
+#, python-format
+msgid "Unused vacations payment"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.fiscal_slip,empt_prov_cd:0
+#: field:hr.cra.t4,empt_prov_cd:0
+msgid "Province of employment"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4,parent_id:0
+msgid "Parent T4"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_fiscal_slip.py:32
+#, python-format
+msgid "Confirmed"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4:0
+#: view:hr.cra.t4.summary:0
+msgid "Confirm"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.cra.t4:0
+msgid "Search T4"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Code d'emploi"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Employer's name – Nom de l'employeur"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.fiscal_slip,employee_id:0
+#: field:hr.cra.t4,employee_id:0
+#: field:hr.fiscal_slip,employee_id:0
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_employee
+msgid "Employee"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:30
+#, python-format
+msgid "Net"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.activity,unpaid_activity_id:0
+msgid "Related Unpaid Activity"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:32
+#, python-format
+msgid "Newfoundland and Labrador"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Charitable donations – line 349"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:28
+#: model:hr.payslip.input.category,name:l10n_ca_payroll_canada.payslip_input_retro_pay
+#, python-format
+msgid "Retroactive Pay Increases"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Cotisations à un RPA – ligne 207"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4,prov_pip_xmpt_cd:0
+msgid "Provincial parental insurance plan exempt"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/report/report_summary.py:38
+#, python-format
+msgid "The summary must be confirmed before generating the XML for transmission."
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.fiscal_slip.box.benefit.line,box_id:0
+#: field:hr.fiscal_slip.box.deduction.line,box_id:0
+msgid "Box"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:40
+#, python-format
+msgid "Yukon Territories"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_cra_t4_summary
+msgid "T4 Summary"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.holidays.status,name:l10n_ca_payroll_canada.holiday_status_public_unpaid
+msgid "Unpaid Public Holidays"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:56
+#, python-format
+msgid "Vacation taken"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.fiscal_slip.box,date_to:0
+#: field:hr.fiscal_slip.box.benefit.line,date_to:0
+#: field:hr.fiscal_slip.box.deduction.line,date_to:0
+msgid "Date To"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_39_hr_fiscal_slip_box
+msgid "39 - Security options deductions 110(1)(d)"
+msgstr ""
+
+#. module: payroll_canada
+#: help:res.company,cra_payroll_number:0
+msgid "This number contains the buisness number followed by RP and the payroll account number 4 digits"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_empt_incamt_hr_fiscal_slip_box
+msgid "14 - Employment income"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "April"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "December"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:44
+#, python-format
+msgid "PRPP - Employee Contribution"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "RPP or DPSP registration number"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:70
+#: code:addons/payroll_canada/models/hr_fiscal_slip.py:31
+#, python-format
+msgid "Draft"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Revenus d'emploi – ligne 101"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_employee.py:76
+#, python-format
+msgid "The employee %s's working address is not set."
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.t4_box_rpp_cntrb_amt_hr_fiscal_slip_box
+msgid "20 - RPP contributions"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:37
+#, python-format
+msgid "Prince Edward Island"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_67_hr_fiscal_slip_box
+msgid "67 - Non-eligible retiring allowances"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_payslip_line.py:33
+#, python-format
+msgid "FIT - Federal Income Tax"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "November"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_cra_t4_amount
+msgid "CRA T4 Amount"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Employee's CPP contributions – line 308"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "January"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_contract
+msgid "Contract"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:95
+#: code:addons/payroll_canada/models/hr_cra_t4_summary.py:44
+#: code:addons/payroll_canada/models/hr_salary_rule.py:252
+#: code:addons/payroll_canada/report/report_summary.py:30
+#: code:addons/payroll_canada/report/report_summary.py:37
+#, python-format
+msgid "Error"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:48
+#, python-format
+msgid "Original"
+msgstr ""
+
+#. module: payroll_canada
+#: help:res.company,cra_transmitter_number:0
+msgid "The first time you send a T4 summary, you must use the number MM000000. When the CRA receives your first summary, they will create and send you a number to replace MM000000."
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_employee.py:67
+#, python-format
+msgid "The employee %s's home address is incomplete. The field %s is missing."
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Facteur d'équivalence – ligne 206"
+msgstr ""
+
+#. module: payroll_canada
+#: model:ir.model,name:l10n_ca_payroll_canada.model_hr_cra_summary
+msgid "CRA Summary"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:res.company,week_start:0
+msgid "Thursday"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.summary,proprietor_1_id:0
+#: view:hr.cra.t4.summary:0
+#: field:hr.cra.t4.summary,proprietor_1_id:0
+msgid "Proprietor"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Employee's name and address – Nom et adresse de l'employé"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "46"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "44"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.fiscal_slip.box,name:l10n_ca_payroll_canada.other_amount_source_40_hr_fiscal_slip_box
+msgid "40 - Other taxable allowance and benefit amount"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_employee.py:55
+#, python-format
+msgid "The employee %s's home address is not set."
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_fiscal_slip.py:34
+#, python-format
+msgid "Northwest Territories"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "February"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "AE"
+msgstr ""
+
+#. module: payroll_canada
+#: code:addons/payroll_canada/models/hr_cra_summary.py:90
+#: code:addons/payroll_canada/models/hr_employee.py:60
+#, python-format
+msgid "Country"
+msgstr ""
+
+#. module: payroll_canada
+#: report:t4_employee_copy:0
+msgid "Autres renseignements (voir au verso)"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:hr.holidays.entitlement,month_start:0
+msgid "March"
+msgstr ""
+
+#. module: payroll_canada
+#: view:hr.salary.rule:0
+#: field:hr.salary.rule,payslip_input_ids:0
+msgid "Payslip Inputs"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.fiscal_slip,year:0
+#: field:hr.cra.summary,year:0
+#: field:hr.cra.t4,year:0
+#: field:hr.cra.t4.summary,year:0
+#: field:hr.fiscal_slip,year:0
+msgid "Fiscal Year"
+msgstr ""
+
+#. module: payroll_canada
+#: field:hr.cra.t4,summary_id:0
+#: field:hr.cra.t4.summary.total,summary_id:0
+msgid "Summary"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.payslip.input.category,name:l10n_ca_payroll_canada.payslip_input_unused_vac
+msgid "Unused Vacations"
+msgstr ""
+
+#. module: payroll_canada
+#: model:hr.payslip.input.category,name:l10n_ca_payroll_canada.payslip_input_unused_sl
+msgid "Unused Sick Leaves"
+msgstr ""
+
+#. module: payroll_canada
+#: selection:res.company,week_start:0
+msgid "Saturday"
+msgstr ""
+

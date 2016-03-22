@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Vacations -->
+        <record id="accrual_vacation_line_1" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="payroll_activity.holiday_status_vacation"/>
+            <field name="salary_rule_id" ref="rule_ca_vac_added"/>
+            <field name="substract" eval="False"/>
+            <field name="amount_type">cash</field>
+        </record>
+        <record id="accrual_vacation_line_2" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="payroll_activity.holiday_status_vacation"/>
+            <field name="salary_rule_id" ref="rule_ca_vac_taken"/>
+            <field name="substract" eval="True"/>
+            <field name="amount_type">cash</field>
+        </record>
+        <record id="accrual_vacation_line_3" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="payroll_activity.holiday_status_vacation"/>
+            <field name="salary_rule_id" ref="rule_ca_unused_vac_taken"/>
+            <field name="substract" eval="True"/>
+            <field name="amount_type">cash</field>
+        </record>
+        <record id="accrual_vacation_line_4" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="payroll_activity.holiday_status_vacation"/>
+            <field name="salary_rule_id" ref="rule_ca_vac_taken_hours"/>
+            <field name="substract" eval="True"/>
+            <field name="amount_type">hours</field>
+        </record>
+        <record id="accrual_vacation_line_5" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="payroll_activity.holiday_status_vacation"/>
+            <field name="salary_rule_id" ref="rule_ca_vac_added_hours"/>
+            <field name="substract" eval="False"/>
+            <field name="amount_type">hours</field>
+        </record>
+        <record id="accrual_vacation_line_6" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="payroll_activity.holiday_status_vacation"/>
+            <field name="salary_rule_id" ref="rule_ca_unused_vac_taken_hours"/>
+            <field name="substract" eval="True"/>
+            <field name="amount_type">hours</field>
+        </record>
+
+        <!-- Sick Leaves -->
+        <record id="accrual_sick_leaves_line_1" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="hr_holidays.holiday_status_sl"/>
+            <field name="salary_rule_id" ref="rule_ca_sl_taken"/>
+            <field name="substract" eval="True"/>
+            <field name="amount_type">hours</field>
+        </record>
+        <record id="accrual_sick_leaves_line_2" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="hr_holidays.holiday_status_sl"/>
+            <field name="salary_rule_id" ref="rule_ca_unused_sl_taken"/>
+            <field name="substract" eval="True"/>
+            <field name="amount_type">hours</field>
+        </record>
+
+        <!-- Compensatory (Public Holiday not taken) -->
+        <record id="accrual_compensatory_line_1" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="hr_holidays.holiday_status_comp"/>
+            <field name="salary_rule_id" ref="rule_ca_comp_added"/>
+            <field name="substract" eval="False"/>
+            <field name="amount_type">cash</field>
+        </record>
+        <record id="accrual_compensatory_line_2" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="hr_holidays.holiday_status_comp"/>
+            <field name="salary_rule_id" ref="rule_ca_comp_taken"/>
+            <field name="substract" eval="True"/>
+            <field name="amount_type">cash</field>
+        </record>
+        <record id="accrual_compensatory_line_3" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="hr_holidays.holiday_status_comp"/>
+            <field name="salary_rule_id" ref="rule_ca_unused_comp_taken"/>
+            <field name="substract" eval="True"/>
+            <field name="amount_type">cash</field>
+        </record>
+        <record id="accrual_compensatory_line_4" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="hr_holidays.holiday_status_comp"/>
+            <field name="salary_rule_id" ref="rule_ca_comp_taken_hours"/>
+            <field name="substract" eval="True"/>
+            <field name="amount_type">hours</field>
+        </record>
+        <record id="accrual_compensatory_line_5" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="hr_holidays.holiday_status_comp"/>
+            <field name="salary_rule_id" ref="rule_ca_comp_added_hours"/>
+            <field name="substract" eval="False"/>
+            <field name="amount_type">hours</field>
+        </record>
+        <record id="accrual_compensatory_line_6" model="hr.holidays.status.accrual.line">
+            <field name="leave_type_id" ref="hr_holidays.holiday_status_comp"/>
+            <field name="salary_rule_id" ref="rule_ca_unused_comp_taken_hours"/>
+            <field name="substract" eval="True"/>
+            <field name="amount_type">hours</field>
+        </record>
+    </data>
+</openerp>

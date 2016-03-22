@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="rule_qc_ei_ee_maxie" model="hr.salary.rule">
+            <field name="name">EI - Employee - Maximum Insurable Earnings</field>
+            <field name="sequence" eval="141"/>
+            <field name="code">EI_EE_MAXIE</field>
+            <field name="category_id" ref="payroll_canada.FCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.ei_exempt"/>
+            <field name="amount_python_compute">result = 0</field>
+        </record>
+
+        <record id="rule_qc_ei_ee_maxie_q" model="hr.salary.rule">
+            <field name="name">EI - Employee - Quebec Maximum Insurable Earnings</field>
+            <field name="sequence" eval="142"/>
+            <field name="code">EI_EE_MAXIE_Q</field>
+            <field name="category_id" ref="payroll_canada.FCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.ei_exempt"/>
+            <field name="amount_python_compute">
+max_annual = rule.variable(payslip.date_payment)['max_annual']
+
+benefits = rule.sum_benefits(payslip, employer=True)
+
+previous_ie_ytd = payslip.ytd_amount('EI_EE_MAXIE')
+
+result = benefits + GROSSP + OTHER_WAGE
+result = min(max_annual - previous_ie_ytd, result)
+
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_qc_ei_ee_c" model="hr.salary.rule">
+            <field name="name">EI - Employee Contribution</field>
+            <field name="sequence" eval="143"/>
+            <field name="code">EI_EE_C</field>
+            <field name="category_id" ref="payroll_canada.SDED"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field> 
+            <field name="exemption_id" ref="payroll_canada.ei_exempt"/>
+            <field name="register_id" ref="payroll_canada.register_cra"/>
+            <field name="amount_python_compute">
+variable = rule.variable(payslip.date_payment)
+
+previous_ie_ytd = payslip.ytd_amount('EI_EE_C')
+
+result = variable['rate'] * EI_EE_MAXIE_Q
+result = min(result, variable['max_annual'] - previous_ie_ytd)
+result = max(result, 0)
+            </field>
+        </record>
+
+        <record id="rule_qc_ei_er_c" model="hr.salary.rule">
+            <field name="name">EI - Employer Contribution</field>
+            <field name="sequence" eval="148"/>
+            <field name="code">EI_ER_C</field>
+            <field name="category_id" ref="payroll_canada.EMP"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.ei_exempt"/>
+            <field name="register_id" ref="payroll_canada.register_cra"/>
+            <field name="amount_python_compute">
+variable = rule.variable(payslip.date_payment)
+
+previous_ie_ytd = payslip.ytd_amount('EI_ER_C')
+
+result = EI_EE_C * variable['contribution_ratio']
+result = min(result, variable['max_annual'] - previous_ie_ytd)
+result = max(result, 0)
+            </field>
+        </record>
+    </data>
+</openerp>
