@@ -15,6 +15,6 @@ These are based on version 8.0 of Odoo and therefore remain under the AGPL v3.
 The rest of modules are from Savoir-faire Linux with little contributions
 from other people on OCA.
 
-The reason for keeping SFL Payroll independant from external modules, such as
+The reason for keeping Advanced Payroll independant from external modules, such as
 from OCA or the Odoo source code is to preserve the coherence of the modules. Each module
-within SFL Payroll is compatible with each other. The python code will not change significantly from an Odoo release to another. For instance, the relational model should not change. This allows easier migrations from a release of Odoo to another, and reduces the cost of maintenance.
+within Advanced Payroll is compatible with each other. The python code will not change significantly from an Odoo release to another. For instance, the relational model should not change. This allows easier migrations from a release of Odoo to another, and reduces the cost of maintenance.
