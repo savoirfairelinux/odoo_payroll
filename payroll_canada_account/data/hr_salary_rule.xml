@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="payroll_canada.rule_ca_net" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '2181')]"/>
+        </record>
+        <!-- Note that an expense account is not used as debit account for bonus -->
+        <!-- The reason is that the expense is usually accounted prior to the payment to employees -->
+        <record id="payroll_canada.rule_ca_bonus" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '2542')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '2183')]"/>
+        </record>
+        <record id="payroll_canada.rule_ca_retro_pay" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512103')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '2184')]"/>
+        </record>
+
+        <!-- LEAVES -->
+        <!-- Note that for leaves taken, we credit the salary expense account -->
+        <!-- This is because the amount of leaves paid to the employee is included in the employee's gross pay -->
+        <record id="payroll_canada.rule_ca_vac_taken" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '254101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '512201')]"/>
+        </record>
+        <record id="payroll_canada.rule_ca_unused_vac_taken" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '254101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '512201')]"/>
+        </record>
+        <record id="payroll_canada.rule_ca_vac_added" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512201')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '254101')]"/>
+        </record>
+
+        <record id="payroll_canada.rule_ca_sl_taken_cash" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '254103')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '512203')]"/>
+        </record>
+        <record id="payroll_canada.rule_ca_unused_sl_taken_cash" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512203')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '254103')]"/>
+        </record>
+
+        <record id="payroll_canada.rule_ca_comp_taken" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '254102')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '512202')]"/>
+        </record>
+        <record id="payroll_canada.rule_ca_unused_comp_taken" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '254102')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '512202')]"/>
+        </record>
+        <record id="payroll_canada.rule_ca_comp_added" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512202')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '254102')]"/>
+        </record>
+
+
+        <!-- SOURCE DEDUCTIONS AND EMPLOYER CONTRIBUTIONS -->
+        <!-- Note that there is no expense account for source deductions -->
+        <!-- The account payable for salaries (2181) is debited -->
+        <record id="payroll_canada.rule_ca_ei_ee_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '214111')]"/>
+        </record>
+        <record id="payroll_canada.rule_ca_ei_er_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512302')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '214112')]"/>
+        </record>
+
+
+        <record id="payroll_canada.rule_ca_cpp_ee_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '214131')]"/>
+        </record>
+        <record id="payroll_canada.rule_ca_cpp_er_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512301')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '214132')]"/>
+        </record>
+
+
+        <record id="payroll_canada.rule_ca_rpp_ee_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '218501')]"/>
+        </record>
+        <record id="payroll_canada.rule_ca_rpp_er_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512303')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '218502')]"/>
+        </record>
+
+
+        <record id="payroll_canada.rule_ca_prpp_ee_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '218501')]"/>
+        </record>
+        <record id="payroll_canada.rule_ca_prpp_er_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512303')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '218502')]"/>
+        </record>
+
+
+        <record id="payroll_canada.rule_ca_vrsp_ee_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '218501')]"/>
+        </record>
+        <record id="payroll_canada.rule_ca_vrsp_er_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512303')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '218502')]"/>
+        </record>
+
+
+        <record id="payroll_canada.rule_ca_fit_t" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '21412')]"/>
+        </record>
+
+
+        <record id="payroll_canada.rule_ca_ben_ee_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512101')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '218601')]"/>
+        </record>
+        <record id="payroll_canada.rule_ca_ben_er_c" model="hr.salary.rule">
+            <field name="account_debit" model="account.account" search="[('code', 'like', '512304')]"/>
+            <field name="account_credit" model="account.account" search="[('code', 'like', '218602')]"/>
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_releve_1_form" model="ir.ui.view">
+            <field name="name">hr.releve_1.form</field>
+            <field name="model">hr.releve_1</field>
+            <field name="arch" type="xml">
+                <form string="Relevés 1" version="7.0">
+                    <header>
+                        <button string="Compute Amounts" name="compute_amounts" type="object" states="draft"/>
+                        <button string="Confirm" name="button_confirm" type="object" states="draft" class="oe_highlight"/>
+                        <button string="Set To Draft" name="set_to_draft" type="object" states="confirmed"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,sent"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="year"/>
+                            <field name="slip_type"/>
+                            <field name="number" readonly="1"/>
+                            <field name="amended_slip"
+                                attrs="{'invisible': [('slip_type', '!=', 'A')],'required': [('slip_type', '=', 'A')]}"
+                                domain="[('year', '=', year), ('company_id', '=', company_id), ('slip_type', 'in', ['R', 'A'])]"
+                                groups="base.group_hr_manager"
+                            />
+                            <field name="reference"/>
+                            <field name="summary_id" groups="base.group_hr_manager"/>
+                            <field name="parent_id" groups="base.group_hr_manager"/>
+                        </group>
+                        <notebook groups="base.group_hr_manager">
+                            <page name="inputs" string="Inputs">
+                                <group col="4">
+                                    <field name="box_o_amount"/>
+                                    <field name="box_o_amount_code"/>
+                                    <newline/>
+
+                                    <field name="amount_ids" nolabel="1" colspan="4">
+                                        <tree editable="bottom">
+                                            <field name="box_id"/>
+                                            <field name="amount"/>
+                                            <field name="is_other_amount" readonly="1"/>
+                                            <field name="is_box_o_amount" readonly="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page name="dtmx_barcode_string" string="DataMatrix Barcode">
+                                <group>
+                                    <field name="dtmx_barcode_image" widget="image" width="150" height="150" readonly="1" nolabel="1"/>
+                                </group>
+                                <group col="1">
+                                    <label for="dtmx_barcode_string" string="Barcode Content"/>
+                                    <field name="dtmx_barcode_string" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page name="child_ids" string="Related Releves 1">
+                                <field name="child_ids" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_releve_1_tree" model="ir.ui.view">
+            <field name="name">hr.releve_1.tree</field>
+            <field name="model">hr.releve_1</field>
+            <field name="arch" type="xml">
+                <tree string="Relevés 1">
+                    <field name="number"/>
+                    <field name="employee_id"/>
+                    <field name="year"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_releve_1_filter" model="ir.ui.view">
+            <field name="name">hr.releve_1.select</field>
+            <field name="model">hr.releve_1</field>
+            <field name="arch" type="xml">
+                <search string="Search Relevés 1">
+                    <field name="employee_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_hr_releve_1_tree" model="ir.actions.act_window">
+            <field name="name">Relevés 1</field>
+            <field name="res_model">hr.releve_1</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_hr_releve_1_tree"/>
+            <field name="search_view_id" ref="view_hr_releve_1_filter"/>
+        </record>
+
+        <menuitem action="action_view_hr_releve_1_tree" id="releve_1_menu_item" parent="payroll_canada.menu_fiscal_slips" groups="base.group_user" sequence="50"/>
+    </data>
+</openerp>
+

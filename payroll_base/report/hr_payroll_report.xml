@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report 
+            id="action_report_payslip" 
+            model="hr.payslip" 
+            string="Payslip"
+            report_type="qweb-pdf"
+            name="payroll_base.report_payslip" 
+            file="report_payslip.xml"
+        />
+        <report
+            id="payslip_details_report"
+            model="hr.payslip"
+            string="PaySlip Details"
+            report_type="qweb-pdf"
+            name="payroll_base.report_payslip_details" 
+            file="report_payslip_details.xml"
+        />
+    </data>
+</openerp>

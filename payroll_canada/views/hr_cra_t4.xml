@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_t4_form" model="ir.ui.view">
+            <field name="name">hr.cra.t4.form</field>
+            <field name="model">hr.cra.t4</field>
+            <field name="arch" type="xml">
+                <form string="T4 Slip" version="7.0">
+                    <header>
+                        <button string="Compute Amounts" name="compute_amounts" type="object" states="draft"/>
+                        <button string="Confirm" name="button_confirm" type="object" states="draft" class="oe_highlight"/>
+                        <button string="Set To Draft" name="button_set_to_draft" type="object" states="confirmed"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,sent"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <group name="slip_info">
+                            <field name="employee_id" domain="[('company_id', '=', company_id)]"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="cra_payroll_number" groups="base.group_hr_manager"/>
+                            <field name="year"/>
+                            <field name="reference"/>
+                            <field name="type"/>
+                            <field name="empt_prov_cd"  />
+                            <field name="summary_id" groups="base.group_hr_manager"/>
+                            <field name="parent_id" groups="base.group_hr_manager"/>
+                        </group>
+                        <notebook groups="base.group_hr_manager">
+                            <page name="amounts" string="Box Amounts">
+                                <field name="amount_ids" nolabel="1">
+                                    <tree editable="top">
+                                        <field name="box_id" string="T4 Box"/>
+                                        <field name="amount"/>
+                                        <field name="is_other_amount" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="child_ids" string="Related T4 Slips">
+                                <field name="child_ids" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_t4_tree" model="ir.ui.view">
+            <field name="name">hr.cra.t4.tree</field>
+            <field name="model">hr.cra.t4</field>
+            <field name="arch" type="xml">
+                <tree string="T4 Slips">
+                    <field name="employee_id"/>
+                    <field name="year"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_t4_filter" model="ir.ui.view">
+            <field name="name">hr.cra.t4.select</field>
+            <field name="model">hr.cra.t4</field>
+            <field name="arch" type="xml">
+                <search string="Search T4">
+                    <field name="employee_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_t4_tree" model="ir.actions.act_window">
+            <field name="name">T4 Slips</field>
+            <field name="res_model">hr.cra.t4</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_t4_tree"/>
+            <field name="search_view_id" ref="view_t4_filter"/>
+        </record>
+
+        <menuitem id="menu_fiscal_slips" name="Canada Fiscal Slips" parent="payroll_base.menu_payroll_usage" groups="base.group_user" sequence="45"/>
+        <menuitem action="action_view_t4_tree" id="t4_slip_menu_item" parent="menu_fiscal_slips" groups="base.group_user" sequence="10"/>
+    </data>
+</openerp>
+

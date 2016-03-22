@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem
+            id="hr_deduction_configure"
+            parent="payroll_base.menu_payroll_configure"
+            name="Income Tax Deductions"
+            groups="base.group_hr_manager"
+            sequence="50"
+        />
+
+    </data>
+</openerp>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    <!-- Deduction Category-->
+    	<record id="qitf" model="hr.deduction.category">
+            <field name="name">Quebec - Foreign Employees</field>
+            <field name="description">Quebec - Deduction for Foreign Employees</field>
+            <field name="jurisdiction_id" ref="jurisdiction_quebec"/>
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_qit_f'))]"/>
+            <field name="amount_type">each_pay</field>
+        </record>
+
+        <record id="payroll_canada.rrsp" model="hr.deduction.category">
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_qit_f')), (4, ref('rule_qc_qit_f2'))]"/>
+        </record>
+
+        <record id="qitj" model="hr.deduction.category">
+            <field name="name">Quebec - Source Deduction Return</field>
+            <field name="description">Line 19 of the form TP-1015.3 if authorized before the first period of pay. Otherwise, see the documentation from Revenu Québec. The amount is periodic.</field>
+            <field name="jurisdiction_id" ref="jurisdiction_quebec"/>
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_qit_j'))]"/>
+            <field name="amount_type">each_pay</field>
+        </record>
+
+        <record id="qitj1" model="hr.deduction.category">
+            <field name="name">Quebec - Reduction in Source Deductions</field>
+            <field name="description">Total of the form TP-1016 if authorized before the first period of pay. Otherwise, see the documentation from Revenu Québec. The amount is periodic.</field>
+            <field name="jurisdiction_id" ref="jurisdiction_quebec"/>
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_qit_j1'))]"/>
+            <field name="amount_type">each_pay</field>
+        </record>
+
+        <record id="qitk1" model="hr.deduction.category">
+            <field name="name">Quebec - Non-refundable Tax Credit</field>
+            <field name="description">Annual non-refundable tax credit. Total of the form TP-1016 if authorized before the first period of pay. Otherwise, see the documentation from Revenu Québec.</field>
+            <field name="jurisdiction_id" ref="jurisdiction_quebec"/>
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_qit_k1'))]"/>
+            <field name="amount_type">annual</field>
+        </record>
+
+        <record id="qite" model="hr.deduction.category">
+            <field name="name">Quebec - Personal Tax Credit</field>
+            <field name="description">Annual Personal Tax Credit indicated on form TP-1015.3.</field>
+            <field name="jurisdiction_id" ref="jurisdiction_quebec"/>
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_qit_e'))]"/>
+            <field name="amount_type">annual</field>
+        </record>
+
+        <record id="qitq" model="hr.deduction.category">
+            <field name="name">Quebec - Purchase of FTQ shares</field>
+            <field name="description">Amount withheld for the pay period for the purchase of class A shares in the Fonds de Solidarité des Travailleurs du Québec (FTQ).</field>
+            <field name="jurisdiction_id" ref="jurisdiction_quebec"/>
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_qit_q'))]"/>
+            <field name="amount_type">each_pay</field>
+        </record>
+
+        <record id="qitq1" model="hr.deduction.category">
+            <field name="name">Quebec - Purchase of Fondaction shares</field>
+            <field name="description">Amount withheld for the pay period for the purchase of class A or class B shares in Fondaction, le Fonds de développement de la Confédération des syndicats nationaux pour la coopération et l’emploi.</field>
+            <field name="jurisdiction_id" ref="jurisdiction_quebec"/>
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_qit_q1'))]"/>
+            <field name="amount_type">each_pay</field>
+        </record>
+        
+    </data>
+</openerp>

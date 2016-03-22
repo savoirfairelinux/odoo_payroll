@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <report
+            auto="False"
+            id="report_t4_employee_copy"
+            model="hr.cra.t4"
+            name="t4_employee_copy"
+            rml="payroll_canada/report/report_t4_employee_copy.rml"
+            string="T4 - Employee Copy"
+        />
+
+        <report
+            auto="False"
+            id="report_t4_summary"
+            model="hr.cra.t4.summary"
+            name="t4_summary_xml"
+            string="T4 Summary XML"
+        />
+
+    </data>
+</openerp>

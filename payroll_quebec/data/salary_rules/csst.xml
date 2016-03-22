@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="rule_qc_csst_ee_s" model="hr.salary.rule">
+            <field name="name">CSST - Employee - Eligible Salaries</field>
+            <field name="sequence" eval="300"/>
+            <field name="code">CSST_EE_S</field>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="csst_exempt"/>
+            <field name="amount_python_compute">
+benefits = rule.sum_benefits(payslip, employer=True)
+
+result = benefits + GROSSP + OTHER_WAGE
+            </field>
+        </record>
+
+        <record id="rule_qc_csst_er_c" model="hr.salary.rule">
+            <field name="name">CSST - Employer Contribution</field>
+            <field name="sequence" eval="302"/>
+            <field name="code">CSST_ER_C</field>
+            <field name="category_id" ref="payroll_canada.EMP"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="csst_exempt"/>
+            <field name="register_id" ref="register_revenu_quebec"/>
+            <field name="amount_python_compute">
+rate = payslip.get_qc_rate('csst')
+result = rate * CSST_EE_S
+            </field>
+        </record>
+    </data>
+</openerp>

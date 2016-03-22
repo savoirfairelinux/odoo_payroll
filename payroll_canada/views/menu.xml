@@ -1,0 +1,24 @@
+<openerp>
+    <data>
+
+        <menuitem
+            id="menu_fiscal_slips"
+            name="Canada Fiscal Slips"
+            parent="payroll_base.menu_payroll_usage"
+            groups="base.group_user"
+            sequence="45"/>
+
+        <menuitem
+            id="menu_canada_payroll_configuration"
+            name="Canada Payroll"
+            parent="payroll_base.menu_payroll_configure"
+            groups="base.group_hr_manager"
+            sequence="46"
+        />
+
+        <record id="payroll_base.menu_department_tree" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user')])]"/>
+        </record>
+
+    </data>
+</openerp>

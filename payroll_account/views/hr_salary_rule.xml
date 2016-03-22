@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="hr_salary_rule_form_inherit" model="ir.ui.view">
+            <field name="name">hr.salary.rule.form.inherit</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="payroll_base.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+              <notebook position="inside">
+                    <page string="Accounting">
+                        <group colspan="4">
+                            <field name="account_debit"/>
+                            <field name="account_credit"/>
+                            <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_list" model="ir.ui.view">
+            <field name="name">hr.salary.rule.list.inherit</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="payroll_base.hr_salary_rule_list"/>
+            <field name="arch" type="xml">
+                <field name="register_id" position="after">
+                    <field name="account_debit"/>
+                    <field name="account_credit"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

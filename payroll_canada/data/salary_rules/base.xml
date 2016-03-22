@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>      
+
+    <!-- Salary Rules Category -->
+
+        <record id="I" model="hr.salary.rule.category">
+            <field name="name">Taxable Income</field>
+            <field name="code">I</field>
+        </record>
+
+        <record id="CALC" model="hr.salary.rule.category">
+            <field name="code">CALC</field>
+            <field name="name">Standard Calculation</field>
+        </record>
+
+        <record id="FCALC" model="hr.salary.rule.category">
+            <field name="code">FCALC</field>
+            <field name="name">Federal Calculation</field>
+        </record>
+
+        <record id="PCALC" model="hr.salary.rule.category">
+            <field name="code">PCALC</field>
+            <field name="name">Provincial Calculation</field>
+        </record>
+
+        <record id="EMP" model="hr.salary.rule.category">
+            <field name="code">EMP</field>
+            <field name="name">Employer Contribution</field>
+        </record>
+
+        <record id="SDED" model="hr.salary.rule.category">
+            <field name="code">SDED</field>
+            <field name="name">Source Deduction</field>
+        </record>
+
+        <record id="OTHER_WAGE" model="hr.salary.rule.category">
+            <field name="code">OTHER_WAGE</field>
+            <field name="name">Non-Periodic Payment</field>
+        </record>
+
+    <!-- Common rules to all canadian salary structures -->
+
+        <record id="rule_ca_p" model="hr.salary.rule">
+            <field name="name">Pays Per Year</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">P</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">result = contract.pays_per_year or 0</field>
+            <field name="note">Pays per year from the contract form</field>
+        </record>
+
+        <record id="rule_ca_psb" model="hr.salary.rule">
+            <field name="name">Pays since the beginning of the year</field>
+            <field name="sequence" eval="2"/>
+            <field name="code">PSB</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">result = payslip.get_pays_since_beginning(P)</field>
+        </record>
+
+        <record id="rule_ca_pr" model="hr.salary.rule">
+            <field name="name">Number of pays remaining in the year</field>
+            <field name="sequence" eval="3"/>
+            <field name="code">PR</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">result = P - PSB</field>
+        </record>
+
+        <record id="rule_ca_hourly_rate" model="hr.salary.rule">
+            <field name="name">Employee's standard hourly rate</field>
+            <field name="sequence" eval="4"/>
+            <field name="code">HOURLY_RATE</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+if contract.salary_computation_method == 'yearly':
+    result = contract.hourly_rate_from_wage
+elif contract.salary_computation_method == 'hourly':
+    result = contract.get_job_hourly_rate(payslip.date_from, payslip.date_to, main_job=True)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="rule_ca_paid_hours" model="hr.salary.rule">
+            <field name="name">Paid Hours</field>
+            <field name="sequence" eval="80"/>
+            <field name="code">PAID_HOURS</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+if contract.salary_computation_method == 'yearly':
+    unpaid_hours = payslip.count_unpaid_leaves()
+    paid_hours = payslip.count_paid_worked_days()
+
+    paid_hours = max(
+        contract.worked_hours_per_pay_period - unpaid_hours,
+        paid_hours)
+
+    paid_hours = min(
+        contract.worked_hours_per_pay_period,
+        paid_hours)
+
+    result = max(paid_hours, 0)
+
+elif contract.salary_computation_method == 'hourly':
+    result = payslip.count_paid_worked_days()
+            </field>
+        </record>
+
+        <record id="rule_ca_grossp" model="hr.salary.rule">
+            <field name="name">Gross per pay</field>
+            <field name="sequence" eval="81"/>
+            <field name="code">GROSSP</field>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+if contract.salary_computation_method == 'yearly':
+    ratio = PAID_HOURS / contract.worked_hours_per_pay_period
+
+    result = contract.wage * ratio / P
+
+elif contract.salary_computation_method == 'hourly':
+    result = payslip.count_paid_worked_days(in_cash=True)
+
+# Set the required fields to enable computing the employee benefits
+payslip.set_gross_salary(result)
+
+# Compute employee benefits from the contract and/or job(s) of the employee
+payslip.compute_benefits()
+            </field>
+        </record>
+
+        <record id="rule_ca_gross" model="hr.salary.rule">
+            <field name="name">Gross</field>
+            <field name="sequence" eval="82"/>
+            <field name="code">GROSS</field>
+            <field name="category_id" ref="payroll_base.GROSS"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">result = GROSSP * P</field>
+        </record>
+
+        <record id="rule_ca_retro_pay" model="hr.salary.rule">
+            <field name="name">Retroactive Pay Increases</field>
+            <field name="sequence" eval="83"/>
+            <field name="code">RETRO_PAY</field>
+            <field name="category_id" ref="OTHER_WAGE"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_payslip_input(payslip)
+            </field>
+        </record>
+
+        <record id="rule_ca_bonus" model="hr.salary.rule">
+            <field name="name">Bonus</field>
+            <field name="sequence" eval="83"/>
+            <field name="code">BONUS</field>
+            <field name="category_id" ref="OTHER_WAGE"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = rule.sum_payslip_input(payslip)
+            </field>
+        </record>
+
+        <record id="rule_ca_other_wage" model="hr.salary.rule">
+            <field name="name">Total non-periodic payments</field>
+            <field name="sequence" eval="85"/>
+            <field name="code">OTHER_WAGE</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = categories.OTHER_WAGE
+            </field>
+        </record>
+        <record id="rule_ca_other_wage_pytd" model="hr.salary.rule">
+            <field name="name">Total non-periodic payments PYTD</field>
+            <field name="sequence" eval="86"/>
+            <field name="code">OTHER_WAGE_PYTD</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = payslip.ytd_amount('OTHER_WAGE')
+            </field>
+        </record>
+
+        <record id="rule_ca_total_pay" model="hr.salary.rule">
+            <field name="name">Total remuneration for the pay period</field>
+            <field name="sequence" eval="170"/>
+            <field name="code">TOTAL_PAY</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+benefits = rule.sum_benefits(payslip, employer=True)
+
+result = benefits + GROSSP + OTHER_WAGE
+            </field>
+        </record>
+
+        <record id="rule_ca_net" model="hr.salary.rule">
+            <field name="name">Net</field>
+            <field name="sequence" eval="500"/>
+            <field name="code">NET</field>
+            <field name="category_id" ref="payroll_base.NET"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">result = GROSSP + OTHER_WAGE - categories.DED - categories.SDED</field>
+        </record>
+
+    </data>
+</openerp>

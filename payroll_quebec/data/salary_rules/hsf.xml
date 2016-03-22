@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="rule_qc_hsf_ee_s" model="hr.salary.rule">
+            <field name="name">HSF - Employee - Eligible Salaries</field>
+            <field name="sequence" eval="310"/>
+            <field name="code">HSF_EE_S</field>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="hsf_exempt"/>
+            <field name="amount_python_compute">
+benefits = rule.sum_benefits(payslip, employer=True)
+
+result = benefits + GROSSP + OTHER_WAGE
+            </field>
+        </record>
+
+        <record id="rule_qc_hsf_er_c" model="hr.salary.rule">
+            <field name="name">HSF - Employer Contribution</field>
+            <field name="sequence" eval="312"/>
+            <field name="code">HSF_ER_C</field>
+            <field name="category_id" ref="payroll_canada.EMP"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="hsf_exempt"/>
+            <field name="register_id" ref="register_revenu_quebec"/>
+            <field name="amount_python_compute">
+rate = payslip.get_qc_rate('hsf')
+result = rate * HSF_EE_S
+            </field>
+        </record>
+    </data>
+</openerp>

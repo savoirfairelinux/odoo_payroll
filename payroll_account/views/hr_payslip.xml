@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_hr_payslip_inherit_form">
+            <field name="name">hr.payslip.inherit.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="payroll_base.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <field name="paid" position="after">
+                    <field name="journal_id" required="1"/>
+                    <field name="move_id" readonly="1"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="rule_ca_public_available" model="hr.salary.rule">
+            <field name="name">Public holidays available</field>
+            <field name="sequence" eval="50"/>
+            <field name="code">PUBLIC_AVAIL</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+if contract.salary_computation_method == 'yearly':
+    result = 0
+else:
+    public_holidays = payslip.get_public_holidays()
+
+    result = 0
+
+    if public_holidays:
+        for leave in public_holidays:
+            four_weeks_gross = payslip.get_4_weeks_of_gross(leave.date)
+            result += four_weeks_gross / 20
+            </field>
+        </record>
+
+        <record id="rule_ca_public_requested" model="hr.salary.rule">
+            <field name="name">Public holidays requested</field>
+            <field name="sequence" eval="51"/>
+            <field name="code">PUBLIC_REQ</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="leave_activity_ids" eval="[(6, 0, [
+                ref('payroll_activity.activity_holiday_status_public'),
+            ])]"/>
+            <field name="amount_python_compute">
+if contract.salary_computation_method == 'yearly':
+    result = 0
+else:
+    result = rule.sum_leaves_requested(payslip, in_cash=True)
+            </field>
+        </record>
+
+        <record id="rule_ca_public_taken" model="hr.salary.rule">
+            <field name="name">Public holidays taken</field>
+            <field name="sequence" eval="52"/>
+            <field name="code">PUBLIC_TAKEN</field>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="leave_type_id" ref="payroll_activity.holiday_status_public"/>
+            <field name="leave_activity_ids" eval="[(6, 0, [
+                ref('payroll_activity.activity_holiday_status_public'),
+            ])]"/>
+            <field name="amount_python_compute">
+if PUBLIC_AVAIL >= PUBLIC_REQ or rule.allow_override_limit():
+    result = PUBLIC_REQ
+elif PUBLIC_REQ > 0:
+    result = PUBLIC_AVAIL
+    if contract.salary_computation_method == 'hourly':
+        reduction = PUBLIC_REQ - PUBLIC_AVAIL
+        rule.reduce_leaves(payslip, reduction, in_cash=True)
+else:
+    result = 0
+            </field>
+        </record>
+
+    </data>
+</openerp>

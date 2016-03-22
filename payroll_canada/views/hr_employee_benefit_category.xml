@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_employee_benefit_category_form" model="ir.ui.view">
+            <field name="name">hr.employee.benefit.category.form</field>
+            <field name="model">hr.employee.benefit.category</field>
+            <field name="inherit_id" ref="payroll_employee_benefit.hr_employee_benefit_category_form"/>
+            <field name="arch" type="xml">
+                <field name="reference" position="before">
+                    <field name="is_rpp_dpsp"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

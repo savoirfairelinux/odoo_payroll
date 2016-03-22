@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_structure_qc" model="hr.payroll.structure">
+            <field name="code">QC</field>
+            <field name="name">Quebec Base</field>
+            <field name="rule_ids"
+        eval="[(6, 0, [
+            ref('rule_qc_ppip_ee_maxie'),
+            ref('rule_qc_ppip_ee_c'),
+            ref('rule_qc_ppip_er_c'),
+
+            ref('rule_qc_cpp_ee_c'),
+            ref('rule_qc_cpp_ee_maxie'),
+
+            ref('rule_qc_qpp_ee_maxie'),
+            ref('rule_qc_qpp_ee_c'),
+            ref('rule_qc_qpp_er_c'),
+
+            ref('rule_qc_ei_ee_maxie'),
+            ref('rule_qc_ei_ee_maxie_q'),
+            ref('rule_qc_ei_ee_c'),
+            ref('rule_qc_ei_er_c'),
+
+            ref('rule_qc_qit_g'),
+            ref('rule_qc_qit_g_other_wage'),
+            ref('rule_qc_qit_f'),
+            ref('rule_qc_qit_f2'),
+            ref('rule_qc_qit_h'),
+            ref('rule_qc_qit_j'),
+            ref('rule_qc_qit_j1'),
+            ref('rule_qc_qit_k1'),
+            ref('rule_qc_qit_e'),
+            ref('rule_qc_qit_q'),
+            ref('rule_qc_qit_q1'),
+            ref('rule_qc_qit_i'),
+            ref('rule_qc_qit_i_other_wage'),
+            ref('rule_qc_qit_r'),
+            ref('rule_qc_qit_r_other_wage'),
+            ref('rule_qc_qit_z'),
+            ref('rule_qc_qit_z_pytd'),
+            ref('rule_qc_qit_z_other_wage'),
+            ref('rule_qc_qit_y'),
+            ref('rule_qc_qit_l'),
+            ref('rule_qc_qit_a'),
+            ref('rule_qc_fit_k2q'),
+            ref('rule_qc_fit_t1'),
+
+            ref('rule_qc_csst_ee_s'),
+            ref('rule_qc_csst_er_c'),
+            ref('rule_qc_hsf_ee_s'),
+            ref('rule_qc_hsf_er_c'),
+            ref('rule_qc_cnt_ee_s'),
+            ref('rule_qc_wsdrf_ee_s'),
+        ])]"/>
+            <field name="parent_id" ref="payroll_canada.hr_structure_ca_base"/>
+        </record>
+
+    </data>
+</openerp>

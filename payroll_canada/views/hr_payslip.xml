@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- activity field inherited from payroll_activity -->
+        <record id="view_hr_payslip_activity_form" model="ir.ui.view">
+            <field name="name">hr.payslip.activity.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="payroll_activity.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <!-- Hide the details from the employee -->
+                <page string="Details By Salary Rule Category" position="attributes">
+                    <attribute name="groups">base.group_hr_manager</attribute>
+                </page>
+                <page string="Worked Days &amp; Inputs" position="attributes">
+                    <attribute name="groups">base.group_hr_manager</attribute>
+                </page>
+                <page string="Other Information" position="attributes">
+                    <attribute name="groups">base.group_hr_manager</attribute>
+                </page>
+
+                <!-- Hide the buttons from the employee -->
+                <button name="hr_verify_sheet" position="attributes">
+                    <attribute name="groups">base.group_hr_manager</attribute>
+                </button>
+                <button name="refund_sheet"  position="attributes">
+                    <attribute name="groups">base.group_hr_manager</attribute>
+                </button>
+                <button name="draft"  position="attributes">
+                    <attribute name="groups">base.group_hr_manager</attribute>
+                </button>
+                <button name="compute_sheet"  position="attributes">
+                    <attribute name="groups">base.group_hr_manager</attribute>
+                </button>
+                <button name="cancel_sheet"  position="attributes">
+                    <attribute name="groups">base.group_hr_manager</attribute>
+                </button>
+
+            </field>
+        </record>
+
+        <record id="view_hr_payslip_benefit_form" model="ir.ui.view">
+            <field name="name">hr.payslip.benefit.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_employee_benefit.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <!-- Hide employee benefits from the employee -->
+                <page string="Employee Benefits" position="attributes">
+                    <attribute name="groups">base.group_hr_manager</attribute>
+                </page>
+            </field>
+        </record>
+
+        <record id="view_hr_payslip_deduction_form" model="ir.ui.view">
+            <field name="name">hr.payslip.deduction.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="l10n_ca_hr_income_tax_deductions.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <!-- Hide income tax deductions from the employee -->
+                <page string="Income Tax Deductions" position="attributes">
+                    <attribute name="groups">base.group_hr_manager</attribute>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Quebec Commission des Normes du Travail -->
+        <record id="rule_qc_cnt_ee_s" model="hr.salary.rule">
+            <field name="name">CNT - Employee - Eligible Salaries</field>
+            <field name="sequence" eval="321"/>
+            <field name="code">CNT_EE_S</field>
+            <field name="category_id" ref="payroll_canada.PCALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="cnt_exempt"/>
+            <field name="amount_python_compute">
+max_annual = rule.variable(payslip.date_payment)['max_annual']
+
+benefits = rule.sum_benefits(payslip, employer=True)
+
+previous_ie_ytd = payslip.ytd_amount('CNT_EE_S')
+
+result = benefits + GROSSP + OTHER_WAGE
+result = min(max_annual - previous_ie_ytd, result)
+
+result = max(result, 0)
+            </field>
+        </record>
+
+    </data>
+</openerp>

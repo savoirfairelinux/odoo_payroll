@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="payroll_canada.t4_box_qpp_cntrb_amt" model="hr.cra.t4.box">
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_qpp_ee_c'))]"/>
+        </record>
+
+        <record id="payroll_canada.t4_box_empe_eip_amt" model="hr.cra.t4.box">
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_ei_ee_c'))]"/>
+        </record>
+
+        <record id="payroll_canada.t4_box_ei_insu_ern_amt" model="hr.cra.t4.box">
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_ei_ee_maxie_q'))]"/>
+        </record>
+
+        <record id="payroll_canada.t4_box_cpp_qpp_ern_amt" model="hr.cra.t4.box">
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_qpp_ee_maxie'))]"/>
+        </record>
+
+        <record id="payroll_canada.t4_box_prov_pip_amt" model="hr.cra.t4.box">
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_ppip_ee_c'))]"/>
+        </record>
+
+        <record id="payroll_canada.t4_box_prov_insu_ern_amt" model="hr.cra.t4.box">
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_ppip_ee_maxie'))]"/>
+        </record>
+
+        <record id="payroll_canada.t4_box_empr_eip_amt" model="hr.cra.t4.box">
+            <field name="salary_rule_ids" eval="[(4, ref('rule_qc_ei_er_c'))]"/>
+        </record>
+
+    </data>
+</openerp>

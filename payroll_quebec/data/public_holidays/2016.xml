@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="holidays_new_year_2016" model="hr.holidays.public.line">
+            <field name="holidays_id" ref="payroll_canada.holidays_public_canada_2016"/>
+            <field name="date">2016-01-01</field>
+            <field name="name">New Year’s Day</field>
+            <field name="state_ids" eval="[(6, 0, [ref('l10n_ca_toponyms.QC')])]"/>
+        </record>
+
+        <record id="holidays_patriots_day_2016" model="hr.holidays.public.line">
+            <field name="holidays_id" ref="payroll_canada.holidays_public_canada_2016"/>
+            <field name="date">2016-05-23</field>
+            <field name="name">National Patriots’ Day</field>
+            <field name="state_ids" eval="[(6, 0, [ref('l10n_ca_toponyms.QC')])]"/>
+        </record>
+
+        <record id="holidays_quebec_national_2016" model="hr.holidays.public.line">
+            <field name="holidays_id" ref="payroll_canada.holidays_public_canada_2016"/>
+            <field name="date">2016-06-24</field>
+            <field name="name">Quebec National Holiday</field>
+            <field name="state_ids" eval="[(6, 0, [ref('l10n_ca_toponyms.QC')])]"/>
+        </record>
+
+        <record id="holidays_labour_day_2016" model="hr.holidays.public.line">
+            <field name="holidays_id" ref="payroll_canada.holidays_public_canada_2016"/>
+            <field name="date">2016-09-05</field>
+            <field name="name">Labour Day</field>
+            <field name="state_ids" eval="[(6, 0, [ref('l10n_ca_toponyms.QC')])]"/>
+        </record>
+
+        <record id="holidays_thanksgiving_2016" model="hr.holidays.public.line">
+            <field name="holidays_id" ref="payroll_canada.holidays_public_canada_2016"/>
+            <field name="date">2016-10-10</field>
+            <field name="name">Thanksgiving</field>
+            <field name="state_ids" eval="[(6, 0, [ref('l10n_ca_toponyms.QC')])]"/>
+        </record>
+
+    </data>
+</openerp>

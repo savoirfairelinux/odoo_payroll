@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="hr_salary_rule_form" model="ir.ui.view">
+            <field name="name">hr.salary.rule.view.form</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="payroll_base.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Employee Benefits">
+                        <field name="sum_all_benefits"/>
+                        <field name="employee_benefit_ids" attrs="{'invisible': [('sum_all_benefits', '=', False)]}"/>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>

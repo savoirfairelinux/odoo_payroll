@@ -1,0 +1,505 @@
+<?xml version="1.0"?>
+<document filename="releve_1.pdf">
+  <template title="releve_1" author="David Dufresne" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="28.0" y1="28.0" width="539" height="786"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <paraStyle name="input" fontName="Helvetica" fontSize="8" alignment="RIGHT" rightIndent="5"/>
+    <paraStyle name="input_decimals" fontName="Helvetica" fontSize="8" alignment="RIGHT" rightIndent="5"/>
+    <paraStyle name="input_units" fontName="Helvetica" fontSize="8" alignment="RIGHT" rightIndent="3"/>
+    <paraStyle name="label" vAlign="TOP" fontName="Helvetica" fontSize="6" alignment="LEFT"/>
+    <paraStyle name="title" fontName="Helvetica-Bold" fontSize="12" alignment="LEFT"/>
+    <paraStyle name="type_releve" fontName="Helvetica-Bold" fontSize="20" alignment="LEFT"/>
+    <paraStyle name="input" fontName="Helvetica" fontSize="8" alignment="LEFT" leftIndent="5"/>
+    <paraStyle name="identification" fontName="Helvetica" fontSize="8" alignment="LEFT" leftIndent="5"/>
+    <trStyle name="label_row" colorName="#cccccc" height="40"/>
+    <blockTableStyle id="input_block" colWidths="70" leftIndent="15">
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" thickness="0.5" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" thickness="0.5" start="0,0" stop="0,0"/>
+      <blockBottomPadding length="-2" start="0,0" stop="0,0"/>
+    </blockTableStyle>
+    <blockTableStyle id="input_block_identification" colWidths="70" leftIndent="15">
+      <blockBottomPadding length="-10" start="0,0" stop="1,0"/>
+    </blockTableStyle>
+    <blockTableStyle id="top_right_input">
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" thickness="0.5" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" thickness="0.5" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" thickness="0.5" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEABOVE" colorName="#cccccc" thickness="0.5" start="0,0" stop="0,0"/>
+      <blockBottomPadding length="-2" start="0,0" stop="0,0"/>
+    </blockTableStyle>
+    <blockTableStyle id="other_info">
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" thickness="0.5" start="0,0" stop="1,0"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" thickness="0.5" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" thickness="0.5" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEABOVE" colorName="#cccccc" thickness="0.5" start="0,0" stop="0,0"/>
+      <blockBottomPadding length="-2" start="0,0" stop="1,0"/>
+      <blockLeftPadding length="-1" start="0,0" stop="1,0"/>
+    </blockTableStyle>
+    <blockTableStyle id="sin_block">
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" thickness="0.5" start="0,0" stop="2,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" thickness="0.5" start="0,0" stop="2,0"/>
+    </blockTableStyle>
+    <blockTableStyle id="input_block_float">
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" thickness="0.5" start="0,0" stop="1,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" thickness="0.5" start="0,0" stop="1,0"/>
+      <blockBottomPadding length="-2" start="0,0" stop="1,0"/>
+      <blockRightPadding length="-1" start="0,0" stop="0,0"/>
+      <blockRightPadding length="2" start="1,0" stop="1,0"/>
+    </blockTableStyle>
+    <blockTableStyle id="instructions">
+      <blockSpan start="0,1" stop="1,1"/>
+    </blockTableStyle>
+  </stylesheet>
+
+  <story>
+    <para>[[repeatIn(objects,'o')]]</para>
+    <blockTable colWidths="10,600,10">
+      <tr>
+        <td></td>
+        <td>
+          <blockTable colWidths="40,440,100" rowHeights="45">
+            <tr>
+              <td>
+                <image file="payroll_quebec/static/src/img/releve_1_logo.png" height="45" width="40"/>
+              </td>
+              <td>
+                <blockTable colWidths="210,60,60,110" rowHeights="15,15,15">
+                  <tr>
+                    <td>
+                      <image file="payroll_quebec/static/src/img/barre_orange.png" height="15" width="430"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><para style="title">Revenus d’emploi et revenus divers</para></td>
+                    <td><para style="label">Année</para></td>
+                    <td><para style="label">Code du relevé</para></td>
+                    <td><para style="label">No du dernier relevé transmis</para></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>
+                      <blockTable style="input_block" rowHeights="15">
+                        <tr><td><para style="input">[[o.year]]</para></td></tr>
+                      </blockTable>
+                    </td>
+                    <td>
+                      <blockTable style="input_block" rowHeights="15">
+                        <tr><td><para style="input">[[o.slip_type]]</para></td></tr>
+                      </blockTable>
+                    </td>
+                    <td>
+                      <blockTable style="input_block" rowHeights="15">
+                        <tr><td><para style="input">[[o.previous_number or '']]</para></td></tr>
+                      </blockTable>
+                    </td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable colWidths="100" rowHeights="15,15,15">
+                  <tr>
+                    <td><para style="label" alignment="RIGHT" fontSize="8">RL-1 (2014-10)</para></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <blockTable style="top_right_input" rowHeights="15">
+                        <tr><td><para style="input"></para></td></tr>
+                      </blockTable>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <blockTable style="top_right_input" rowHeights="15">
+                        <tr><td><para style="input">[[o.number]]</para></td></tr>
+                      </blockTable>
+                    </td>
+                  </tr>
+                </blockTable>
+              </td>
+            </tr>
+          </blockTable>
+          <blockTable colWidths="95,95,95,95,95,95" rowHeights="50,20,30,20,30,20,30,20" vAlign="TOP">
+            <tr>
+              <td><para style="label">A- Revenus d'emploi</para></td>
+              <td><para style="label">B- Cotisation au RRQ</para></td>
+              <td><para style="label">C- Cotisation à l’assurance emploi</para></td>
+              <td><para style="label">D- Cotisation à un RPA</para></td>
+              <td><para style="label">E- Impôt du Québec retenu</para></td>
+              <td><para style="label">F- Cotisation syndicale</para></td>
+            </tr>
+            <tr>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('A')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('A')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('B')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('B')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('C')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('C')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('D')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('D')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('E')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('E')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('F')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('F')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+            </tr>
+            <tr>
+              <td><para style="label">G- Salaire admissible au RRQ</para></td>
+              <td><para style="label">H- Cotisation au RQAP</para></td>
+              <td><para style="label">I- Salaire admissible au RQAP</para></td>
+              <td><para style="label">J- Régime privé d’ass. maladie</para></td>
+              <td><para style="label">K- Voyages (région éloignée)</para></td>
+              <td><para style="label">L- Autres avantages</para></td>
+            </tr>
+            <tr>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('G')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('G')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('H')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('H')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('I')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('I')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('J')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('J')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                 <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('K')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('K')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                 <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('L')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('L')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+            </tr>
+            <tr>
+              <td><para style="label">M- Commissions</para></td>
+              <td><para style="label">N- Dons de bienfaisance</para></td>
+              <td><para style="label">O- Autres revenus</para></td>
+              <td><para style="label">P- Régime d’ass. interentreprises</para></td>
+              <td><para style="label">Q- Salaires différés</para></td>
+              <td><para style="label">R- Revenu « situé » dans une réserve</para></td>
+            </tr>
+            <tr>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('M')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('M')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('N')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('N')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.box_o_amount) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.box_o_amount) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('P')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('P')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('Q')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('Q')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('R')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('R')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+            </tr>
+            <tr>
+              <td><para style="label">S- Pourboires reçus</para></td>
+              <td><para style="label">T- Pourboires attribués</para></td>
+              <td><para style="label">U- Retraite progressive</para></td>
+              <td><para style="label">V- Nourriture et logement</para></td>
+              <td><para style="label">W-Véhicule à moteur</para></td>
+              <td><para style="label">Code (case O)</para></td>
+            </tr>
+            <tr>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('S')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('S')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('T')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('T')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('U')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('U')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('V')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('V')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block_float" colWidths="65,20" rowHeights="15">
+                  <tr>
+                    <td><para style="input_units">[[ get_amount_units(o.get_amount('W')) ]]</para></td>
+                    <td><para style="input_decimals">[[ get_amount_decimals(o.get_amount('W')) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block" colWidths="85" rowHeights="15">
+                  <tr>
+                    <td><para style="input">[[ o.box_o_amount_code or '' ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+            </tr>
+          </blockTable>
+          <blockTable colWidths="90,115,115,115,115" rowHeights="35">
+            <tr>
+              <td><para style="label">Renseignements Complémentaires</para></td>
+              <td>
+                <blockTable colWidths="35,70" rowHeights="15" style="other_info">
+                  <tr>
+                    <td><para style="input">[[ o.get_other_amount_code(0) or '' ]]</para></td>
+                    <td><para style="input">[[ o.get_other_amount_value(0) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable colWidths="35,70" rowHeights="15" style="other_info">
+                  <tr>
+                    <td><para style="input">[[ o.get_other_amount_code(1) or '' ]]</para></td>
+                    <td><para style="input">[[ o.get_other_amount_value(1) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable colWidths="35,70" rowHeights="15" style="other_info">
+                  <tr>
+                    <td><para style="input">[[ o.get_other_amount_code(2) or '' ]]</para></td>
+                    <td><para style="input">[[ o.get_other_amount_value(2) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable colWidths="35,70" rowHeights="15" style="other_info">
+                  <tr>
+                    <td><para style="input">[[ o.get_other_amount_code(3) or '' ]]</para></td>
+                    <td><para style="input">[[ o.get_other_amount_value(3) ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+            </tr>
+          </blockTable>
+          <blockTable colWidths="330,220" rowHeights="30">
+            <tr>
+              <td></td>
+              <td><para style="input">[[ instructions and "Voyez l'explication des cases au verso." or "" ]]</para></td>
+            </tr>
+          </blockTable>
+          <blockTable colWidths="300,140,140" rowHeights="50,15">
+            <tr>
+              <td></td>
+              <td><para style="label">Numéro d'assurance sociale du particulier</para></td>
+              <td><para style="label">Numéro de référence (facultatif)</para></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <blockTable colWidths="40,40,40" rowHeights="15" style="sin_block">
+                  <tr>
+                    <td><para style="sin">[[ str(o.employee_id.sin)[0:3] ]]</para></td>
+                    <td><para style="sin">[[ str(o.employee_id.sin)[3:6] ]]</para></td>
+                    <td><para style="sin">[[ str(o.employee_id.sin)[6:9] ]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable colWidths="110" rowHeights="15" style="input_block">
+                  <tr>
+                    <td><para style="input">[[o.reference]]</para></td>
+                  </tr>
+                </blockTable>
+              </td>
+            </tr>
+          </blockTable>
+          <blockTable colWidths="300,280" rowHeights="20,80" style="input_block_identification">
+            <tr>
+              <td><para style="label">Nom de famille, prénom et adresse du particulier</para></td>
+              <td><para style="label">Nom et adresse de l’employeur ou du payeur</para></td>
+            </tr>
+            <tr>
+              <td>
+                <blockTable style="input_block">
+                  <tr>
+                    <td><para style="identification">
+                      [[ display_address_no_blank_line(o.employee_id.address_home_id, o.employee_id.name) ]]
+                    </para></td>
+                  </tr>
+                </blockTable>
+              </td>
+              <td>
+                <blockTable style="input_block">
+                  <tr>
+                    <td><para style="identification">
+                      [[ display_address_no_blank_line(o.company_id, o.company_id.name) ]]
+                    </para></td>
+                  </tr>
+                </blockTable>
+              </td>
+            </tr>
+          </blockTable>
+          <blockTable colWidths="150,100,200">
+            <tr>
+              <td></td>
+              <td><para style="type_releve">[[(o.slip_type == "A" and "MODIFIÉ") or (o.slip_type == "D" and "ANNULÉ") or ""]]</para></td>
+              <td></td>
+            </tr>
+          </blockTable>
+          <blockTable colWidths="300,300" rowHeights="150">
+            <tr>
+              <td></td>
+              <td><image width="150" height="150">[[ content_qr_bar_code and o.dtmx_barcode_image or removeParentNode('image') ]]</image></td>
+            </tr>
+          </blockTable>
+          <blockTable colWidths="50,50,220,40,40,200" rowHeights="80">
+            <tr>
+              <td>
+                <image file="payroll_quebec/static/src/img/revenu_quebec_logo.png" height="40" width="45"/>
+              </td>
+              <td><para style="label">FS1401227</para></td>
+              <td>
+                [[releve_type != "12EE" and removeParentNode('td')]]
+                <para style="title">1 – Copie à retourner avec le formulaire RLZ-1.S (Vous devez transmettre à Revenu Québec les données inscrites ci-dessus et le code à barres bidimensionnel de données sur la même page.)</para>
+              </td>
+              <td>
+                [[releve_type != "12EF" and removeParentNode('td')]]
+                <para style="title">2 – Copie du particulier (Vous devez inclure ces données à votre déclaration de revenus et conserver cette copie.)</para>
+              </td>
+              <td><image file="payroll_quebec/static/src/img/RL_1_Copie_1_12EE.bmp" height="30" width="30">[[releve_type != "12EE" and removeParentNode('td')]]</image></td>
+              <td><image file="payroll_quebec/static/src/img/RL_1_Copie_2_12EF.bmp" height="30" width="30">[[releve_type != "12EF" and removeParentNode('td')]]</image></td>
+              <td><para style="title">[[releve_type]]</para></td>
+              <td>
+                <blockTable rowHeights="10,10" colWidths="250">
+                  <tr><td><para style="label">Relevé officiel – Revenu Québec</para></td></tr>
+                  <tr><td><para style="label">Formulaire prescrit – Président-directeur général</para></td></tr>
+                </blockTable>
+              </td>
+            </tr>
+          </blockTable>
+        </td>
+        <td></td>
+      </tr>
+    </blockTable>
+    <blockTable style="instructions" colWidths="500,100" rowHeights="20,360">
+      <tr>
+        <td></td>
+        <td><para style="label" alignment="LEFT" fontSize="8">RL-1 (2014-10)</para></td>
+      </tr>
+      <tr>
+        <td><image file="payroll_quebec/static/src/img/releve_1_instructions.jpg" height="360" width="600">[[not instructions and removeParentNode('blockTable')]]</image></td>
+        <td></td>
+      </tr>
+    </blockTable>
+  </story>
+</document>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="rule_ca_sl_available" model="hr.salary.rule">
+            <field name="name">Sick leaves hours available</field>
+            <field name="sequence" eval="30"/>
+            <field name="code">SL_AVAIL</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="leave_type_id" ref="hr_holidays.holiday_status_sl"/>
+            <field name="amount_python_compute">
+result = rule.sum_leave_accruals(payslip, in_cash=False)
+            </field>
+        </record>
+
+        <record id="rule_ca_sl_requested" model="hr.salary.rule">
+            <field name="name">Sick leaves hours requested</field>
+            <field name="sequence" eval="31"/>
+            <field name="code">SL_REQ</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="leave_activity_ids" eval="[(6, 0, [
+                ref('payroll_activity.activity_holiday_status_sl'),
+            ])]"/>
+            <field name="amount_python_compute">
+result = rule.sum_leaves_requested(payslip, in_cash=False)
+            </field>
+        </record>
+
+        <record id="rule_ca_sl_taken_cash" model="hr.salary.rule">
+            <field name="name">Sick leaves taken</field>
+            <field name="sequence" eval="32"/>
+            <field name="code">SL_TAKEN_CASH</field>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="leave_activity_ids" eval="[(6, 0, [
+                ref('payroll_activity.activity_holiday_status_sl'),
+            ])]"/>
+            <field name="leave_type_id" ref="hr_holidays.holiday_status_sl"/>
+            <field name="amount_python_compute">
+requested_alw = rule.sum_leaves_taken(payslip, in_cash=True)
+
+if SL_AVAIL >= SL_REQ or rule.allow_override_limit():
+    result = requested_alw
+elif SL_REQ > 0:
+    reduction = SL_REQ - SL_AVAIL
+    rule.reduce_leaves(payslip, reduction, in_cash=False)
+
+    result = rule.sum_leaves_taken(payslip, in_cash=True)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="rule_ca_sl_taken" model="hr.salary.rule">
+            <field name="name">Sick leave hours taken</field>
+            <field name="sequence" eval="33"/>
+            <field name="code">SL_TAKEN</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="category_id" ref="CALC"/>
+            <field name="condition_select">none</field>
+            <field name="leave_activity_ids" eval="[(6, 0, [
+                ref('payroll_activity.activity_holiday_status_sl'),
+                ref('activity_holiday_status_sl_unpaid'),
+            ])]"/>
+            <field name="amount_python_compute">
+result = rule.sum_leaves_taken(payslip, in_cash=False)
+            </field>
+        </record>
+
+        <record id="rule_ca_unused_sl_taken_cash" model="hr.salary.rule">
+            <field name="name">Unused sick leave payment</field>
+            <field name="sequence" eval="34"/>
+            <field name="code">SL_UNUSED_CASH</field>
+            <field name="category_id" ref="OTHER_WAGE"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+requested_amount = rule.sum_payslip_input(payslip)
+
+available_hours = max(0, SL_AVAIL - SL_TAKEN)
+available_amount = available_hours * HOURLY_RATE
+
+if available_amount >= requested_amount:
+    result = requested_amount
+elif requested_amount > 0:
+    result = available_amount
+    reduction = requested_amount - available_amount
+    rule.reduce_payslip_input_amount(payslip, reduction)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="rule_ca_unused_sl_taken" model="hr.salary.rule">
+            <field name="name">Unused sick leave hours taken</field>
+            <field name="sequence" eval="35"/>
+            <field name="code">SL_UNUSED</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = SL_UNUSED_CASH / HOURLY_RATE
+            </field>
+        </record>
+
+    </data>
+</openerp>

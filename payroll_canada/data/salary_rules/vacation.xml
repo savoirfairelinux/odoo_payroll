@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="rule_ca_vac_available" model="hr.salary.rule">
+            <field name="name">Vacation available</field>
+            <field name="sequence" eval="20"/>
+            <field name="code">VAC_AVAIL</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="leave_type_id" ref="payroll_activity.holiday_status_vacation"/>
+            <field name="amount_python_compute">
+result = rule.sum_leave_accruals(payslip, in_cash=True)
+            </field>
+        </record>
+
+        <record id="rule_ca_vac_available_hours" model="hr.salary.rule">
+            <field name="name">Vacation hours available</field>
+            <field name="sequence" eval="21"/>
+            <field name="code">VAC_AVAIL_HOURS</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="leave_type_id" ref="payroll_activity.holiday_status_vacation"/>
+            <field name="amount_python_compute">
+result = rule.sum_leave_accruals(payslip, in_cash=False)
+            </field>
+        </record>
+
+        <record id="rule_ca_vac_requested" model="hr.salary.rule">
+            <field name="name">Vacation requested</field>
+            <field name="sequence" eval="22"/>
+            <field name="code">VAC_REQ</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="leave_activity_ids" eval="[(6, 0, [
+                ref('payroll_activity.activity_holiday_status_vacation'),
+            ])]"/>
+            <field name="amount_python_compute">
+result = rule.sum_leaves_requested(payslip, in_cash=True)
+            </field>
+        </record>
+
+        <record id="rule_ca_vac_taken" model="hr.salary.rule">
+            <field name="name">Vacation taken</field>
+            <field name="sequence" eval="23"/>
+            <field name="code">VAC_TAKEN</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="leave_activity_ids" eval="[(6, 0, [
+                ref('payroll_activity.activity_holiday_status_vacation'),
+            ])]"/>
+            <field name="leave_type_id" ref="payroll_activity.holiday_status_vacation"/>
+            <field name="amount_python_compute">
+if VAC_AVAIL >= VAC_REQ or rule.allow_override_limit():
+    result = VAC_REQ
+elif VAC_REQ > 0:
+    result = VAC_AVAIL
+    reduction = VAC_REQ - VAC_AVAIL
+    rule.reduce_leaves(payslip, reduction, in_cash=True)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="rule_ca_vac_taken_hours" model="hr.salary.rule">
+            <field name="name">Vacation hours taken</field>
+            <field name="sequence" eval="24"/>
+            <field name="code">VAC_TAKEN_HOURS</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="leave_activity_ids" eval="[(6, 0, [
+                ref('payroll_activity.activity_holiday_status_vacation'),
+                ref('activity_holiday_status_vac_unpaid'),
+            ])]"/>
+            <field name="amount_python_compute">
+result = rule.sum_leaves_taken(payslip, in_cash=False)
+            </field>
+        </record>
+
+        <record id="rule_ca_unused_vac_taken" model="hr.salary.rule">
+            <field name="name">Unused vacations payment</field>
+            <field name="sequence" eval="25"/>
+            <field name="code">VAC_UNUSED</field>
+            <field name="category_id" ref="OTHER_WAGE"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+requested_amount = rule.sum_payslip_input(payslip)
+available_amount = VAC_AVAIL - VAC_TAKEN
+
+if available_amount >= requested_amount:
+    result = requested_amount
+elif requested_amount > 0:
+    result = available_amount
+    reduction = requested_amount - available_amount
+    rule.reduce_payslip_input_amount(payslip, reduction)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="rule_ca_unused_vac_taken_hours" model="hr.salary.rule">
+            <field name="name">Unused vacations hours taken</field>
+            <field name="sequence" eval="26"/>
+            <field name="code">VAC_UNUSED_HOURS</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+available_hours = VAC_AVAIL_HOURS - VAC_TAKEN_HOURS
+result = min(available_hours, VAC_UNUSED / HOURLY_RATE)
+result = max(0, result)
+            </field>
+        </record>
+
+        <record id="rule_ca_vac_added" model="hr.salary.rule">
+            <field name="name">Vacation earned</field>
+            <field name="sequence" eval="90"/>
+            <field name="code">VAC_ADDED</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="1"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = (GROSS * contract.weeks_of_vacation * 0.02) / P
+            </field>
+        </record>
+
+        <record id="rule_ca_vac_added_hours" model="hr.salary.rule">
+            <field name="name">Vacation hours earned</field>
+            <field name="sequence" eval="91"/>
+            <field name="code">VAC_ADDED_HOURS</field>
+            <field name="category_id" ref="CALC"/>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="condition_select">none</field>
+            <field name="amount_python_compute">
+result = PAID_HOURS * contract.weeks_of_vacation * 0.02
+            </field>
+        </record>
+
+    </data>
+</openerp>

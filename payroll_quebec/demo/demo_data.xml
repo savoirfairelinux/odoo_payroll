@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="base.main_company" model="res.company">
+            <field name="rq_preparator_number">NP000001</field>
+            <field name="rq_payroll_id">1234567890</field>
+            <field name="rq_payroll_file_number">1234</field>
+            <field name="rq_first_slip_number">10000001</field>
+            <field name="rq_last_slip_number">10000101</field>
+            <field name="csst_rate_ids" eval="[(0, 0, {
+                'rate': 2.5,
+                'contribution_type': 'csst',
+                'date_from': '2014-01-01',
+                'date_to': '2015-12-31',
+            })]"/>
+            <field name="hsf_rate_ids" eval="[(0, 0, {
+                'rate': 3.7,
+                'contribution_type': 'hsf',
+                'date_from': '2014-01-01',
+                'date_to': '2015-12-31',
+            })]"/>
+        </record>
+
+        <record id="payroll_canada.contract_john" model="hr.contract">
+            <field name="struct_id" ref="hr_structure_qc"/>
+        </record>
+        <record id="payroll_canada.contract_stanley" model="hr.contract">
+            <field name="struct_id" ref="hr_structure_qc"/>
+        </record>
+        <record id="payroll_canada.contract_linda" model="hr.contract">
+            <field name="struct_id" ref="hr_structure_qc"/>
+        </record>
+
+
+        <!-- Income tax deductions -->
+        <record id="stanley_qitf" model="hr.employee.deduction">
+            <field name="employee_id" ref="payroll_canada.employee_stanley"/>
+            <field name="category_id" ref="qitf"/>
+            <field name="date_start">2014-01-01</field>
+            <field name="amount">1300</field>
+        </record>
+        <record id="john_qitf" model="hr.employee.deduction">
+            <field name="employee_id" ref="payroll_canada.employee_john"/>
+            <field name="category_id" ref="qitf"/>
+            <field name="date_start">2014-01-01</field>
+            <field name="amount">1000</field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Rule for the calculation of the federal QPP, QPIP and EI tax credit -->
+        <record id="rule_qc_fit_k2q" model="hr.salary.rule">
+            <field name="name">FIT YTD amount contributed QPP, QPIP and EI</field>
+            <field name="sequence" eval="177"/>
+            <field name="code">FIT_K2</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.fit_exempt"/>
+            <field name="amount_python_compute">
+max_deductions = rule.variable(payslip.date_payment)['max_deductions']
+
+qpp_ytd = payslip.ytd_amount('QPP_EE_C') + QPP_EE_C
+ppip_ytd = payslip.ytd_amount('PPIP_EE_C') + PPIP_EE_C
+ei_ytd = payslip.ytd_amount('EI_EE_C') + EI_EE_C
+
+deductions = [
+    {'C': QPP_EE_C, 'YTD': qpp_ytd, 'max': max_deductions['QPP']},
+    {'C': PPIP_EE_C, 'YTD': ppip_ytd, 'max': max_deductions['PPIP']},
+    {'C': EI_EE_C, 'YTD': ei_ytd, 'max': max_deductions['EI']}
+]
+
+# get the higher from 2 methods allowed by the CRA
+
+result_1 = 0
+for d in deductions:
+    result_1 += min(d['YTD'] + PR * d['C'], d['max'])
+
+result_2 = 0
+for d in deductions:
+    result_2 += min(P * d['C'], d['max'])
+
+result = max(result_1, result_2)
+
+result = max(result, 0)
+            </field>
+        </record>
+
+        <!-- Rule for the calculation of the federal income tax for the period -->
+         <record id="rule_qc_fit_t1" model="hr.salary.rule">
+            <field name="name">FIT - Federal income tax</field>
+            <field name="sequence" eval="183"/>
+            <field name="code">FIT_T1</field>
+            <field name="appears_on_payslip" eval="0"/>
+            <field name="active" eval="1"/>
+            <field name="category_id" ref="payroll_canada.FCALC"/>
+            <field name="condition_select">none</field>
+            <field name="exemption_id" ref="payroll_canada.fit_exempt"/>
+            <field name="amount_python_compute">
+variables = rule.variable(payslip.date_payment)
+
+result = FIT_T3 * (1 - variables['abatement'])  
+            </field>
+        </record>
+    </data>
+</openerp>
