@@ -1,6 +1,6 @@
-===========
-SFL Payroll
-===========
+================
+Advanced Payroll
+================
 
 Advanced version of the Odoo Payroll by Savoir-faire Linux.
 
