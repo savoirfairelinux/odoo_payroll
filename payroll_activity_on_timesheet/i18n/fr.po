@@ -110,7 +110,11 @@ msgid "Job Description"
 msgstr "Description du poste"
 
 #. module: payroll_activity_on_timesheet
+<<<<<<< HEAD:payroll_activity_on_timesheet/i18n/fr.po
 #: model:ir.model,name:payroll_activity_on_timesheet.model_account_analytic_line
+=======
+#: model:ir.model,name:payroll_activity_on_timesheet.model_hr_analytic_timesheet
+>>>>>>> d88f9ccb17c4c637fe7fc0f1c73749e442aaa535:payroll_activity_on_timesheet/i18n/fr.po
 msgid "Timesheet Line"
 msgstr "Entrée de feuille de temps"
 

@@ -6,9 +6,15 @@
             <field name="model">hr.payslip</field>
             <field name="inherit_id" ref="payroll_base.view_hr_payslip_form"/>
             <field name="arch" type="xml">
-                <div name="worked_days_buttons" position="inside">
-                    <button string="Import from Timesheets" name="import_worked_days" type="object" states="draft" />
-                </div>
+                <separator string="Worked Days" position="replace"/>
+                <field name="worked_days_line_ids" position="before">
+                    <group>
+                        <separator string="Worked Days"/>
+                        <div class="oe_right oe_button_box">
+                            <button string="Import from Timesheets" name="import_worked_days" type="object" states="draft" />
+                        </div>
+                    </group>
+                </field>
             </field>
         </record>
     </data>

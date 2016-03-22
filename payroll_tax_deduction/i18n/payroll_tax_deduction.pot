@@ -1,0 +1,195 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* payroll_tax_deduction
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-16 15:39+0000\n"
+"PO-Revision-Date: 2014-10-16 11:50-0500\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: payroll_tax_deduction
+#: view:hr.employee:0
+msgid "Canadian Payroll"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.employee.deduction,category_id:0
+msgid "Deduction"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: view:hr.employee:0 field:hr.employee,deduction_ids:0
+#: view:hr.salary.rule:0
+#: model:ir.actions.act_window,name:payroll_tax_deduction.action_hr_deduction_category_list
+#: model:ir.ui.menu,name:payroll_tax_deduction.menu_action_hr_deduction_category_list
+msgid "Income Tax Deductions"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: view:hr.employee:0
+msgid "Deduction Lines"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.deduction.category,note:0
+msgid "Note"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.employee.deduction,date_end:0
+msgid "End Date"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.deduction.category,name:0
+msgid "Deduction Name"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.employee.deduction,employee_id:0
+#: model:ir.model,name:payroll_tax_deduction.model_hr_employee
+msgid "Employee"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: help:hr.deduction.category,estimated_income:0
+msgid ""
+"True if included in the calculation of the estimated annual net income,\n"
+"False otherwise"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: model:ir.model,name:payroll_tax_deduction.model_hr_employee_deduction
+msgid "Employee deductions used for salary rules"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: help:hr.deduction.category,code:0
+msgid "The code that can be used in the salary rules to identify the deduction"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: help:hr.employee.deduction,amount:0
+msgid ""
+"It is used in computation of the payslip. May be an annual or\n"
+"periodic amount depending on the category. The deduction may be\n"
+"a tax credit."
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.deduction.category,description:0
+msgid "Description"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: model:ir.model,name:payroll_tax_deduction.model_hr_deduction_category
+msgid "Categories of employee deductions used for salary rules"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.employee,fit_exempt:0
+msgid "Federal Income Tax Exempt"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.employee.deduction,amount:0
+msgid "Amount"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: help:hr.employee,deduction_ids:0
+msgid "Income Tax deductions for the computation of the employee's payslips"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: view:hr.deduction.category:0
+msgid "Search Employee Deduction Categories"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.employee.deduction,date_start:0
+msgid "Start Date"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.employee,pit_exempt:0
+msgid "Provincial Income Tax Exempt"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.deduction.category,code:0 field:hr.employee.deduction,code:0
+msgid "Code"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.deduction.category,jurisdiction:0
+#: field:hr.employee.deduction,jurisdiction:0
+msgid "Jurisdiction"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: view:hr.deduction.category:0
+msgid "Deduction Category"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.employee,cpp_exempt:0
+msgid "CPP/QPP Exempt"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.deduction.category,default_amount:0
+msgid "Default Amount"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.deduction.category,estimated_income:0
+msgid "Estimated Income"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: help:hr.deduction.category,description:0
+msgid "Brief explanation of which benefits the category contains."
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.employee,ei_exempt:0
+msgid "EI Exempt"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: code:addons/payroll_tax_deduction/hr_deduction_category.py:28
+#, python-format
+msgid "Federal"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: code:addons/payroll_tax_deduction/hr_deduction_category.py:30
+#, python-format
+msgid "Federal and Provincial"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: code:addons/payroll_tax_deduction/hr_deduction_category.py:28
+#, python-format
+msgid "Provincial"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.employee.deduction,amount_type:0
+msgid "Amount Type"
+msgstr ""
+
+#. module: payroll_tax_deduction
+#: field:hr.deduction.category,default_amount_type:0
+msgid "Default Amount Type"
+msgstr ""
