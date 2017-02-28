@@ -6,7 +6,7 @@
             id="hr_deduction_configure"
             parent="payroll_base.menu_payroll_configure"
             name="Income Tax Deductions"
-            groups="base.group_hr_manager"
+            groups="payroll_base.group_hr_payroll_manager"
             sequence="50"
         />
 

@@ -1,0 +1,82 @@
+<openerp>
+	<data noupdate="1">
+
+		<record model='res.country.state' id='ON'>
+			<field name='name'>Ontario</field>
+			<field name='code'>ON</field>
+			<field name='country_id' ref="base.ca"/>
+		</record>
+		
+		<record model='res.country.state' id='QC'>
+			<field name='name'>Quebec</field>
+			<field name='code'>QC</field>
+			<field name='country_id' ref="base.ca"/>
+		</record>
+
+		<record model='res.country.state' id='AB'>
+			<field name='name'>Alberta</field>
+			<field name='code'>AB</field>
+			<field name='country_id' ref="base.ca"/>
+		</record>
+
+		<record model='res.country.state' id='NS'>
+			<field name='name'>Nova Scotia</field>
+			<field name='code'>NS</field>
+			<field name='country_id' ref="base.ca"/>
+		</record>
+
+		<record model='res.country.state' id='NB'>
+			<field name='name'>New Brunswick</field>
+			<field name='code'>NB</field>
+			<field name='country_id' ref="base.ca"/>
+		</record>
+		
+		<record model='res.country.state' id='MB'>
+			<field name='name'>Manitoba</field>
+			<field name='code'>MB</field>
+			<field name='country_id' ref="base.ca"/>
+		</record>
+
+		<record model='res.country.state' id='BC'>
+			<field name='name'>British Columbia</field>
+			<field name='code'>BC</field>
+			<field name='country_id' ref="base.ca"/>
+		</record>
+
+		<record model='res.country.state' id='PE'>
+			<field name='name'>Prince Edward Island</field>
+			<field name='code'>PE</field>
+			<field name='country_id' ref="base.ca"/>
+		</record>
+
+		<record model='res.country.state' id='SK'>
+			<field name='name'>Saskatchewan</field>
+			<field name='code'>SK</field>
+			<field name='country_id' ref="base.ca"/>
+		</record>
+
+		<record model='res.country.state' id='NL'>
+			<field name='name'>Newfoundland and Labrador</field>
+			<field name='code'>NL</field>
+			<field name='country_id' ref="base.ca"/>
+		</record>
+
+		<record model='res.country.state' id='NT'>
+			<field name='name'>Northwest Territories</field>
+			<field name='code'>NT</field>
+			<field name='country_id' ref="base.ca"/>
+		</record>
+
+		<record model='res.country.state' id='YT'>
+			<field name='name'>Yukon</field>
+			<field name='code'>YT</field>
+			<field name='country_id' ref="base.ca"/>
+		</record>
+
+		<record model='res.country.state' id='NU'>
+			<field name='name'>Nunavut</field>
+			<field name='code'>NU</field>
+			<field name='country_id' ref="base.ca"/>
+		</record>
+	</data>
+</openerp>

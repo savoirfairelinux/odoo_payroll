@@ -12,7 +12,7 @@
             id="menu_canada_payroll_configuration"
             name="Canada Payroll"
             parent="payroll_base.menu_payroll_configure"
-            groups="base.group_hr_manager"
+            groups="payroll_base.group_hr_payroll_manager"
             sequence="46"
         />
 

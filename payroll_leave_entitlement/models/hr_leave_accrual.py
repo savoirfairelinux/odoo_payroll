@@ -61,10 +61,8 @@ class HrLeaveAccrual(models.Model):
         entitlement = contract.get_entitlement(leave_type)
 
         if not entitlement:
-            raise ValidationError(
-                "The %s entitlement for employee %s "
-                "is not defined."
-            )
+            raise ValidationError("The %s entitlement for employee %s is not defined."
+             % (leave_type.name,self.employee_id.name))
 
         entitlement_date = datetime.date(
             date_slip.year,

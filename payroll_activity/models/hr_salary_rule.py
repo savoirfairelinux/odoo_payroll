@@ -18,7 +18,7 @@
 #
 ##############################################################################
 
-from openerp import fields, models
+from openerp import fields, models, api
 
 
 class HrSalaryRule(models.Model):
@@ -30,21 +30,17 @@ class HrSalaryRule(models.Model):
         string='Related Leave Activities',
     )
 
-    def _get_leave_activities(
-        self, cr, uid, ids, context=None
-    ):
-        if isinstance(ids, (int, long)):
+    @api.multi
+    def _get_leave_activities(self):
+        if isinstance(self.ids, (int, long)):
             ids = [ids]
 
-        assert len(ids) == 1, "Expected single record"
+        assert len(self.ids) == 1, "Expected single record"
 
-        rule = self.browse(cr, uid, ids[0], context=context)
-        return rule.leave_activity_ids
+        return self.leave_activity_ids
 
-    def reduce_leaves(
-        self, cr, uid, ids, payslip, reduction,
-        in_cash=False, context=None
-    ):
+    @api.multi
+    def reduce_leaves(self, payslip, reduction, in_cash=False):
         """
         When the leave hours computed in worked days are greater than the
         available hours from the employee's leave accrual, this method
@@ -55,7 +51,7 @@ class HrSalaryRule(models.Model):
         # To avoid integers as parameter to mess up with divisions
         reduction = float(reduction)
 
-        activities = self._get_leave_activities(cr, uid, ids, context=context)
+        activities = self._get_leave_activities()
 
         worked_days = [
             wd for wd in payslip.leave_days_line_ids
@@ -89,9 +85,8 @@ class HrSalaryRule(models.Model):
                 if in_cash else current_reduction
             )
 
-    def sum_leaves_requested(
-        self, cr, uid, ids, payslip, in_cash=False, context=None
-    ):
+    @api.multi
+    def sum_leaves_requested(self, payslip, in_cash=False):
         """
         Used in salary rules to sum leave hours from worked_days
         e.g. sum over the hours of vacation (leave_code == 'VAC')
@@ -101,7 +96,7 @@ class HrSalaryRule(models.Model):
 
         :return: the amount of allowance requested by the employee
         """
-        activities = self._get_leave_activities(cr, uid, ids, context=context)
+        activities = self._get_leave_activities()
 
         worked_days = [
             wd for wd in payslip.leave_days_line_ids
@@ -113,9 +108,8 @@ class HrSalaryRule(models.Model):
 
         return sum(wd.number_of_hours for wd in worked_days)
 
-    def sum_leaves_taken(
-        self, cr, uid, ids, payslip, in_cash=False, context=None
-    ):
+    @api.multi
+    def sum_leaves_taken(self, payslip, in_cash=False):
         """
         Used in salary rules to sum leave hours from worked_days
         e.g. sum over the hours of vacation (leave_code == 'VAC')
@@ -125,7 +119,7 @@ class HrSalaryRule(models.Model):
 
         :return: the amount of allowance taken by the employee
         """
-        activities = self._get_leave_activities(cr, uid, ids, context=context)
+        activities = self._get_leave_activities()
 
         worked_days = [
             wd for wd in payslip.leave_days_line_ids

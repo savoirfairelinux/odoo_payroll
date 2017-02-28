@@ -91,6 +91,6 @@
             <field name="search_view_id" ref="view_hr_t4_summary_filter"/>
         </record>
 
-        <menuitem action="action_view_hr_t4_summary_tree" id="t4_summary_menu_item" parent="menu_fiscal_slips" groups="base.group_hr_manager" sequence="30"/>
+        <menuitem action="action_view_hr_t4_summary_tree" id="t4_summary_menu_item" parent="menu_fiscal_slips" groups="payroll_base.group_hr_payroll_manager" sequence="30"/>
     </data>
 </openerp>

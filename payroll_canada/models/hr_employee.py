@@ -96,11 +96,11 @@ class HrEmployee(models.Model):
     sin = fields.Float(
         'Social Insurance Number',
         digits=(9, 0),
-        groups="base.group_hr_manager",
+        groups="payroll_base.group_hr_payroll_manager",
     )
 
-    @api.multi
-    def onchange_sin(self, sin):
+    @api.onchange("sin")
+    def onchange_sin(self):
         ret = {'value': 0}
 
         def digits_of(n):
@@ -119,12 +119,13 @@ class HrEmployee(models.Model):
         def is_luhn_valid(sin):
             return luhn_checksum(sin) == 0
 
-        if is_luhn_valid(sin):
-            ret['value'] = sin
-        else:
-            ret['value'] = 0
-            ret['warning'] = {
-                'title': 'Error',
-                'message': _('The number provided is not a valid SIN number !')
-            }
+        if self.sin:
+            if is_luhn_valid(self.sin):
+                self.sin = self.sin
+            else:
+                self.sin = 0
+                ret['warning'] = {
+                    'title': 'Error',
+                    'message': _('The number provided is not a valid SIN number !')
+                }
         return ret

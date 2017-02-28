@@ -19,21 +19,21 @@
             id="menu_payroll_configure"
             parent="menu_payroll_root"
             name="Configuration"
-            groups="base.group_hr_manager"
+            groups="payroll_base.group_hr_payroll_manager"
             sequence="30"
         />
         <menuitem
             id="menu_payroll_structure_configure"
             parent="menu_payroll_configure"
             name="Payroll Structure"
-            groups="base.group_hr_manager"
+            groups="payroll_base.group_hr_payroll_manager"
             sequence="45"
         />
         <menuitem
             id="menu_payroll_leaves_configure" 
             parent="menu_payroll_configure"
             name="Leaves"
-            groups="base.group_hr_manager"
+            groups="payroll_base.group_hr_payroll_manager"
             sequence="40"
         />
     </data>

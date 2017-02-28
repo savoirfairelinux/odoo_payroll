@@ -43,9 +43,9 @@ class AccountAnalyticLine(models.Model):
         For each timesheets that map exactly to the same worked days
         field values, only one record is created.
         """
-        if self.filtered(lambda ts: not ts.is_timesheet):
-            raise ValidationError(_(
-                'Only timesheets can be exported to worked days'))
+        # if self.filtered(lambda ts: not ts.is_timesheet):
+        #     raise ValidationError(_(
+        #         'Only timesheets can be exported to worked days'))
 
         if self.sudo().mapped('worked_days_id'):
             raise ValidationError(_(

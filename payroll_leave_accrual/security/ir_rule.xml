@@ -20,7 +20,7 @@
                 ('employee_id', 'in', user.employee_ids.mapped('child_ids').ids),
             ]
             </field>
-            <field name="groups" eval="[(4,ref('base.group_hr_user'))]"/>
+            <field name="groups" eval="[(4,ref('payroll_base.group_hr_payroll_user'))]"/>
             <field name="perm_read" eval="True"/>
         </record>
 
@@ -28,7 +28,7 @@
             <field name="name">Access Manager Leave Accruals</field>
             <field name="model_id" ref="model_hr_leave_accrual"/>
             <field name="domain_force">[]</field>
-            <field name="groups" eval="[(4,ref('base.group_hr_manager'))]"/>
+            <field name="groups" eval="[(4,ref('payroll_base.group_hr_payroll_manager'))]"/>
             <field name="perm_read" eval="True"/>
         </record>
 
@@ -58,7 +58,7 @@
             <field name="name">Access Manager Leave Accrual Lines</field>
             <field name="model_id" ref="model_hr_leave_accrual_line"/>
             <field name="domain_force">[]</field>
-            <field name="groups" eval="[(4,ref('base.group_hr_manager'))]"/>
+            <field name="groups" eval="[(4,ref('payroll_base.group_hr_payroll_manager'))]"/>
             <field name="perm_read" eval="True"/>
         </record>
 

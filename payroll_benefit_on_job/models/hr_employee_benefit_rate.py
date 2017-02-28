@@ -24,12 +24,10 @@ from openerp import api, models, _
 class HrEmployeeBenefitRate(models.Model):
     _inherit = 'hr.employee.benefit.rate'
 
-    def get_all_amount_types(self, cr, uid, context=None):
-        res = super(HrEmployeeBenefitRate, self).get_all_amount_types(
-            cr, uid, context=context)
-
+    @api.multi
+    def get_all_amount_types(self):
+        res = super(HrEmployeeBenefitRate, self).get_all_amount_types()
         res.append(('per_hour', _('Per Worked Hour')))
-
         return res
 
     @api.multi

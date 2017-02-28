@@ -1,13 +1,13 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
 access_hr_leave_accrual_base,hr.leave.accrual,model_hr_leave_accrual,base.group_user,1,0,0,0
-access_hr_leave_accrual_manager,hr.leave.accrual,model_hr_leave_accrual,base.group_hr_manager,1,1,1,1
+access_hr_leave_accrual_manager,hr.leave.accrual,model_hr_leave_accrual,payroll_base.group_hr_payroll_manager,1,1,1,1
 
 access_hr_holidays_status_accrual_line_base,hr.holidays.status.accrual.line,model_hr_holidays_status_accrual_line,base.group_user,1,0,0,0
-access_hr_holidays_status_accrual_line_manager,hr.holidays.status.accrual.line,model_hr_holidays_status_accrual_line,base.group_hr_manager,1,0,0,0
+access_hr_holidays_status_accrual_line_manager,hr.holidays.status.accrual.line,model_hr_holidays_status_accrual_line,payroll_base.group_hr_payroll_manager,1,0,0,0
 
 access_hr_leave_accrual_line_cash_base,hr.leave.accrual.line_cash,model_hr_leave_accrual_line_cash,base.group_user,1,0,0,0
-access_hr_leave_accrual_line_cash_manager,hr.leave.accrual.line_cash,model_hr_leave_accrual_line_cash,base.group_hr_manager,1,1,1,0
+access_hr_leave_accrual_line_cash_manager,hr.leave.accrual.line_cash,model_hr_leave_accrual_line_cash,payroll_base.group_hr_payroll_manager,1,1,1,0
 
 access_hr_leave_accrual_line_hours_base,hr.leave.accrual.line_hours,model_hr_leave_accrual_line_hours,base.group_user,1,0,0,0
-access_hr_leave_accrual_line_hours_manager,hr.leave.accrual.line_hours,model_hr_leave_accrual_line_hours,base.group_hr_manager,1,1,1,0
+access_hr_leave_accrual_line_hours_manager,hr.leave.accrual.line_hours,model_hr_leave_accrual_line_hours,payroll_base.group_hr_payroll_manager,1,1,1,0

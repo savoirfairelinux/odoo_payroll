@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
                 <notebook position="inside">
-                    <page name="deductions" string="Income Tax Deductions" groups="base.group_hr_manager">
+                    <page name="deductions" string="Income Tax Deductions" groups="payroll_base.group_hr_payroll_manager">
                         <group>
                             <field name="deduction_ids" nolabel="1">
                                 <tree string="Deduction Lines" editable="bottom">

@@ -27,7 +27,7 @@
     'depends': [
         'document',
         'payroll_hourly_rate',
-        'l10n_ca_toponyms',
+        #'l10n_ca_toponyms',
         'payroll_period',
         'payroll_employee_exemption',
         'payroll_employee_benefit',
@@ -76,7 +76,7 @@
         'data/hr_structure.xml',
         'data/hr_leave_accrual.xml',
         'data/public_holidays/2016.xml',
-        'data/salary_rule_variables/2014.xml',
+        'data/salary_rule_variables/2017.xml',
         'data/salary_rule_variables/2015.xml',
         'data/salary_rule_variables/2016.xml',
         'data/ir_sequence_data.xml',

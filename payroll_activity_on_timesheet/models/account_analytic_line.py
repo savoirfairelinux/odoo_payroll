@@ -28,32 +28,27 @@ class AccountAnalyticLine(models.Model):
         'Activity',
     )
 
-    @api.multi
-    def onchange_account_id(
-        self, account_id, user_id=False, activity_id=False
-    ):
-        res = {'value': {}}
+    @api.onchange('project_id')
+    def onchange_project_id(self):
 
         # If an activity and an account are given, check if the activity
         # is authorized for the account. If the activity is authorized,
         # return the same activity_id.
-        if not activity_id:
-            res['value']['activity_id'] = False
+        if not self.activity_id:
+            self.activity_id = False
 
-        elif account_id:
-            account = self.env['account.analytic.account'].browse(account_id)
+        elif self.account_id:
+            account = self.account_id
 
             auth_activities = account.authorized_activity_ids
-            activity = self.env['hr.activity'].browse(activity_id)
+            activity = self.activity_id
 
             if activity in auth_activities or (
                 not auth_activities and
                 account.activity_type == activity.activity_type
             ):
-                res['value']['activity_id'] = activity_id
+                self.activity_id = activity_id
             elif auth_activities:
-                res['value']['activity_id'] = auth_activities[0].id
+                self.activity_id = auth_activities[0].id
             else:
-                res['value']['activity_id'] = False
-
-        return res
+                self.activity_id = False

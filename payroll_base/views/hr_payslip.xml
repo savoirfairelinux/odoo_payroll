@@ -35,7 +35,7 @@
                 <form string="Payslip">
                 <header>
                     <button string="Confirm" name="hr_verify_sheet" states="draft" class="oe_highlight"/>
-                    <button string="Refund" name="refund_sheet" states="confirm,done" type='object' groups="base.group_hr_manager"/>
+                    <button string="Refund" name="refund_sheet" states="confirm,done" type='object' groups="payroll_base.group_hr_payroll_manager"/>
                     <button string="Set to Draft" name="draft" states="cancel"/>
                     <button string="Compute Sheet" name="compute_sheet" type="object" states="draft" class="oe_highlight"/>
                     <button string="Cancel Payslip" name="cancel_sheet" states="draft,hr_check,confirm,verify"/>
@@ -115,7 +115,7 @@
                                 </form>
                             </field>
                         </page>
-                        <page string="Details By Salary Rule Category" groups="base.group_hr_manager">
+                        <page string="Details By Salary Rule Category" groups="payroll_base.group_hr_payroll_manager">
                             <field name="details_by_salary_rule_category" context="{'group_by':'category_id'}" domain="[('appears_on_payslip', '=', True)]">
                                 <tree string="Payslip Lines" colors="blue:amount == 0">
                                     <field name="category_id"/>
@@ -125,7 +125,7 @@
                                 </tree>
                             </field>
                        </page>
-                       <page string="Accounting Information" groups="base.group_hr_manager">
+                       <page string="Accounting Information" groups="payroll_base.group_hr_payroll_manager">
                             <group>
                                 <group string="Miscellaneous">
                                     <field name="company_id" groups="base.group_multi_company"/>
@@ -176,7 +176,7 @@
             <field name="search_view_id" ref="view_hr_payslip_filter"/>
         </record>
 
-        <menuitem action="action_view_hr_payslip_form" id="menu_department_tree" parent="menu_payroll_usage" groups="base.group_hr_user"/>
+        <menuitem action="action_view_hr_payslip_form" id="menu_department_tree" parent="menu_payroll_usage" groups="payroll_base.group_hr_payroll_user"/>
 
         <record id="act_hr_employee_payslip_list" model="ir.actions.act_window">
             <field name="res_model">hr.payslip</field>

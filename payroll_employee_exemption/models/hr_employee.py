@@ -29,7 +29,7 @@ class HrEmployee(models.Model):
         'hr.employee.exemption',
         'employee_id',
         'Income Tax Exemptions',
-        groups='base.group_hr_manager',
+        groups='payroll_base.group_hr_payroll_manager',
     )
 
     @api.multi

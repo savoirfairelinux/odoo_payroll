@@ -6,14 +6,14 @@
             <field name="model">account.analytic.line</field>
             <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_form"/>
             <field name="arch" type="xml">
-                <field name="account_id" position="attributes">
+                <!-- <field name="account_id" position="attributes">
                     <attribute name="on_change">onchange_account_id(account_id, user_id, activity_id)</attribute>
-                </field>
+                </field> -->
 
-                <field name="account_id" position="after">
+                <field name="project_id" position="after">
                     <field name="activity_id"
                         domain="[('authorized_user_ids', '=', user_id), ('authorized_user_ids', '!=', False)]"
-                        context="{'user_id': user_id, 'account_id': account_id}"
+                        context="{'user_id': user_id}"
                         required="1"
                     />
                 </field>
@@ -25,14 +25,14 @@
             <field name="model">account.analytic.line</field>
             <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
             <field name="arch" type="xml">
-                <field name="account_id" position="attributes">
+                <!-- <field name="account_id" position="attributes">
                     <attribute name="on_change">onchange_account_id(account_id, user_id, activity_id)</attribute>
-                </field>
+                </field> -->
 
-                <field name="account_id" position="after">
+                <field name="project_id" position="after">
                     <field name="activity_id"
                         domain="[('authorized_user_ids', '=', user_id), ('authorized_user_ids', '!=', False)]"
-                        context="{'user_id': user_id, 'account_id': account_id}"
+                        context="{'user_id': user_id}"
                         required="1"
                     />
                 </field>

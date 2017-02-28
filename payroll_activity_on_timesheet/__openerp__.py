@@ -44,5 +44,5 @@
     'auto_install': False,
     'application': True,
     'images': [],
-    'qweb': ['static/src/xml/timesheet.xml'],
+    #'qweb': ['static/src/xml/timesheet.xml'],
 }

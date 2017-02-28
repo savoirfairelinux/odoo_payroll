@@ -45,7 +45,7 @@ class TestHrHolidaysStatus(common.TransactionCase):
             'email': 'test@localhost',
             'company_id': self.company.id,
             'company_ids': [(4, self.company.id)],
-            'groups_id': [(4, self.ref('base.group_hr_user'))],
+            'groups_id': [(4, self.ref('payroll_base.group_hr_payroll_user'))],
         })
 
         self.user_2 = self.user_model.create({
@@ -142,7 +142,7 @@ class TestHrHolidaysStatus(common.TransactionCase):
             accrual_2.sudo(self.user_1.id).check_access_rule, 'read')
 
         self.user_1.write({
-            'groups_id': [(4, self.ref('base.group_hr_manager'))]})
+            'groups_id': [(4, self.ref('payroll_base.group_hr_payroll_manager'))]})
 
         for operation in ['read', 'write', 'create', 'unlink']:
             accrual_2.sudo(self.user_1.id).check_access_rule(operation)

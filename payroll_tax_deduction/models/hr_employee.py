@@ -29,7 +29,7 @@ class HrEmployee(models.Model):
         'hr.employee.deduction',
         'employee_id',
         'Income Tax Deductions',
-        groups="base.group_hr_manager",
+        groups="payroll_base.group_hr_payroll_manager",
         help="Income Tax deductions for the computation of the "
         "employee's payslips"
     )

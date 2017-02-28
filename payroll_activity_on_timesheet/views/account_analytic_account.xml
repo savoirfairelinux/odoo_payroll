@@ -6,15 +6,15 @@
             <field name="model">account.analytic.account</field>
             <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
             <field name="arch" type="xml">
-                <notebook position="inside">
-                    <page name="activities" string="Activities">
+                <xpath expr="//sheet" position="inside">
+                    <group name="activities" string="Activities">
                         <group>
                             <field name="activity_type"/>
                         </group>
                         <separator string="Authorized Activities"/>
                         <field name="authorized_activity_ids" domain="[('activity_type', '=', activity_type)]"/>
-                    </page>
-                </notebook>
+                    </group>
+                </xpath>
             </field>
         </record>
     </data>

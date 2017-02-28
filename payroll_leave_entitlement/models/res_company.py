@@ -19,56 +19,39 @@
 ##############################################################################
 
 from itertools import permutations
+from openerp import api, fields, models
+from openerp.exceptions import ValidationError
 
-from openerp.osv import fields, orm
-
-
-class ResCompany(orm.Model):
+class ResCompany(models.Model):
     _inherit = 'res.company'
-    _columns = {
-        'week_start': fields.selection(
-            [
-                ('0', 'Sunday'),
-                ('1', 'Monday'),
-                ('2', 'Tuesday'),
-                ('3', 'Wednesday'),
-                ('4', 'Thursday'),
-                ('5', 'Friday'),
-                ('6', 'Saturday'),
-            ],
-            string="Week start",
-            type="char",
-        ),
-        'holidays_entitlement_ids': fields.many2many(
-            'hr.holidays.entitlement',
-            'res_company_holidays_entitlement_rel',
-            string='Leave Entitlement Periods',
-        ),
-    }
+    week_start = fields.Selection(
+        [
+            ('0', 'Sunday'),
+            ('1', 'Monday'),
+            ('2', 'Tuesday'),
+            ('3', 'Wednesday'),
+            ('4', 'Thursday'),
+            ('5', 'Friday'),
+            ('6', 'Saturday'),
+        ],
+        string="Week start",
+        type="char", default='0'
+    )
+    holidays_entitlement_ids = fields.Many2many(
+        'hr.holidays.entitlement',
+        'res_company_holidays_entitlement_rel',
+        string='Leave Entitlement Periods',
+    )
 
-    _defaults = {
-        'week_start': '0',
-    }
 
-    def _check_leave_entitlement(
-        self, cr, uid, ids, context=None
-    ):
+    @api.constrains('holidays_entitlement_ids')
+    def _check_leave_entitlement(self):
         """
         Check that the employee has maximum one leave entitlement
         per leave type
         """
-        for contract in self.browse(cr, uid, ids, context=context):
+        for contract in self:
             for e1, e2 in permutations(contract.holidays_entitlement_ids, 2):
                 if e1.leave_id == e2.leave_id:
-                    return False
+                    raise ValidationError(_('A company can not have more than one holidays entitlement per leave type.'))
 
-        return True
-
-    _constraints = [
-        (
-            _check_leave_entitlement,
-            "A company can not have more than one holidays entitlement "
-            "per leave type.",
-            ['holidays_entitlement_ids']
-        ),
-    ]

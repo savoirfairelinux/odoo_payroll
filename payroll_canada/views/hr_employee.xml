@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
                 <field name="identification_id" position="after">
-                    <field name="sin" on_change="onchange_sin(sin)"/>
+                    <field name="sin"/>
                 </field>
             </field>
         </record>

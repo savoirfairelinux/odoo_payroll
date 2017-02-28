@@ -9,30 +9,30 @@
             <field name="arch" type="xml">
                 <!-- Hide the details from the employee -->
                 <page string="Details By Salary Rule Category" position="attributes">
-                    <attribute name="groups">base.group_hr_manager</attribute>
+                    <attribute name="groups">payroll_base.group_hr_payroll_manager</attribute>
                 </page>
                 <page string="Worked Days &amp; Inputs" position="attributes">
-                    <attribute name="groups">base.group_hr_manager</attribute>
+                    <attribute name="groups">payroll_base.group_hr_payroll_manager</attribute>
                 </page>
                 <page string="Other Information" position="attributes">
-                    <attribute name="groups">base.group_hr_manager</attribute>
+                    <attribute name="groups">payroll_base.group_hr_payroll_manager</attribute>
                 </page>
 
                 <!-- Hide the buttons from the employee -->
                 <button name="hr_verify_sheet" position="attributes">
-                    <attribute name="groups">base.group_hr_manager</attribute>
+                    <attribute name="groups">payroll_base.group_hr_payroll_manager</attribute>
                 </button>
                 <button name="refund_sheet"  position="attributes">
-                    <attribute name="groups">base.group_hr_manager</attribute>
+                    <attribute name="groups">payroll_base.group_hr_payroll_manager</attribute>
                 </button>
                 <button name="draft"  position="attributes">
-                    <attribute name="groups">base.group_hr_manager</attribute>
+                    <attribute name="groups">payroll_base.group_hr_payroll_manager</attribute>
                 </button>
                 <button name="compute_sheet"  position="attributes">
-                    <attribute name="groups">base.group_hr_manager</attribute>
+                    <attribute name="groups">payroll_base.group_hr_payroll_manager</attribute>
                 </button>
                 <button name="cancel_sheet"  position="attributes">
-                    <attribute name="groups">base.group_hr_manager</attribute>
+                    <attribute name="groups">payroll_base.group_hr_payroll_manager</attribute>
                 </button>
 
             </field>
@@ -45,7 +45,7 @@
             <field name="arch" type="xml">
                 <!-- Hide employee benefits from the employee -->
                 <page string="Employee Benefits" position="attributes">
-                    <attribute name="groups">base.group_hr_manager</attribute>
+                    <attribute name="groups">payroll_base.group_hr_payroll_manager</attribute>
                 </page>
             </field>
         </record>
@@ -57,7 +57,7 @@
             <field name="arch" type="xml">
                 <!-- Hide income tax deductions from the employee -->
                 <page string="Income Tax Deductions" position="attributes">
-                    <attribute name="groups">base.group_hr_manager</attribute>
+                    <attribute name="groups">payroll_base.group_hr_payroll_manager</attribute>
                 </page>
             </field>
         </record>

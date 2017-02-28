@@ -29,7 +29,7 @@ class HrPayslipWorkedDays(models.Model):
     activity_id = fields.Many2one(
         'hr.activity',
         'Activity',
-        required=True,
+    #    required=True,
     )
 
     activity_type = fields.Selection(

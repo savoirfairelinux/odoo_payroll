@@ -19,15 +19,15 @@
                         <group name="slip_info">
                             <field name="employee_id" domain="[('company_id', '=', company_id)]"/>
                             <field name="company_id" groups="base.group_multi_company"/>
-                            <field name="cra_payroll_number" groups="base.group_hr_manager"/>
+                            <field name="cra_payroll_number" groups="payroll_base.group_hr_payroll_manager"/>
                             <field name="year"/>
                             <field name="reference"/>
                             <field name="type"/>
                             <field name="empt_prov_cd"  />
-                            <field name="summary_id" groups="base.group_hr_manager"/>
-                            <field name="parent_id" groups="base.group_hr_manager"/>
+                            <field name="summary_id" groups="payroll_base.group_hr_payroll_manager"/>
+                            <field name="parent_id" groups="payroll_base.group_hr_payroll_manager"/>
                         </group>
-                        <notebook groups="base.group_hr_manager">
+                        <notebook groups="payroll_base.group_hr_payroll_manager">
                             <page name="amounts" string="Box Amounts">
                                 <field name="amount_ids" nolabel="1">
                                     <tree editable="top">
